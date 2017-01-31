@@ -446,6 +446,12 @@ for job in info:
     eTrackerSFWeight = array('f',[0]*1)
     newtree.Branch('eTrackerSFWeight', eTrackerSFWeight, 'eTrackerSFWeight/F')
 
+    eTrackerSFWeightUp = array('f',[0]*1)
+    newtree.Branch('eTrackerSFWeightUp', eTrackerSFWeightUp, 'eTrackerSFWeightUp/F')
+
+    eTrackerSFWeightDown = array('f',[0]*1)
+    newtree.Branch('eTrackerSFWeightDown', eTrackerSFWeightDown, 'eTrackerSFWeightDown/F')
+
     eId80SFWeight = array('f',[0]*1)
     newtree.Branch('eId80SFWeight', eId80SFWeight, 'eId80SFWeight/F')
 
@@ -464,6 +470,12 @@ for job in info:
 
     mTrackerSFWeight = array('f',[0]*1)
     newtree.Branch('mTrackerSFWeight', mTrackerSFWeight, 'mTrackerSFWeight/F')
+
+    mTrackerSFWeightUp = array('f',[0]*1)
+    newtree.Branch('mTrackerSFWeightUp', mTrackerSFWeightUp, 'mTrackerSFWeightUp/F')
+
+    mTrackerSFWeightDown = array('f',[0]*1)
+    newtree.Branch('mTrackerSFWeightDown', mTrackerSFWeightDown, 'mTrackerSFWeightDown/F')
 
     mIdSFWeight = array('f',[0]*1)
     newtree.Branch('mIdSFWeight', mIdSFWeight, 'mIdSFWeight/F')
@@ -1308,8 +1320,10 @@ for job in info:
 		    eId90SFWeightDown[0]    = 1
 
 		    eId90SFWeight_BCDEF[0] = 1
+
 		    eTrackerSFWeight[0] = 1
-		    eTrigSFWeight_ele23[0] = 1
+		    eTrackerSFWeightUp[0] = 1
+		    eTrackerSFWeightDown[0] = 1
 
 		    eTrigSFWeight_ele27[0] = 1
 		    #eTrigSFWeight_ele27Up[0] = 1
@@ -1326,7 +1340,9 @@ for job in info:
 		    mIdSFWeightDown[0]      = 1
 
 		    mTrackerSFWeight[0] = 1
-
+		    mTrackerSFWeightUp[0] = 1
+		    mTrackerSFWeightDown[0] = 1
+		    
 		    mTrigSFWeight[0]    = 1
 		    mTrigSFWeightUp[0]    = 1
 		    mTrigSFWeightDown[0]    = 1
@@ -1351,12 +1367,15 @@ for job in info:
 			    'myutils/jsons/SingleMuonTrigger_LooseMuons_afterL2fix_Z_RunBCD_prompt80X_7p65.json' : ['MuonTrigger_data_all_IsoMu22_OR_IsoTkMu22_pteta_Run2016B_afterL2Fix', 'abseta_pt_MC'],
 			    'myutils/jsons/SingleMuonTrigger_LooseMuons_beforeL2fix_Z_RunBCD_prompt80X_7p65.json' : ['MuonTrigger_data_all_IsoMu22_OR_IsoTkMu22_pteta_Run2016B_beforeL2Fix', 'abseta_pt_MC'],
 			    'myutils/jsons/EfficienciesAndSF_ISO.json' : ['MC_NUM_LooseRelIso_DEN_LooseID_PAR_pt_spliteta_bin1', 'abseta_pt_ratio'],
-			    'myutils/jsons/WP90PlusIso_BCD.json' : ['WP90PlusIso_BCD', 'eta_pt_ratio'],
-			    'myutils/jsons/WP90PlusIso_BCDEF.json' : ['WP90PlusIso_BCDEF', 'eta_pt_ratio'],
-			    'myutils/jsons/WP90_BCD_withRelIso.json': ['electronTriggerEfficiencyHLT_Ele27_WPLoose_eta2p1_WP90_BCD', 'eta_pt_ratio'],
-			    'myutils/jsons/WP90_BCDEF_withRelIso.json' : ['electronTriggerEfficiencyHLT_Ele27_WPLoose_eta2p1_WP90_BCDEF', 'eta_pt_ratio'],
-			    'myutils/jsons/HLT_Ele23_WPLoose.json' : ['HLT_Ele23_WPLoose', 'eta_pt_ratio'],
-			    '../myMacros/scale_factors/egammaEffi_tracker.json' : ['egammaEffi_tracker', 'eta_pt_ratio'],
+			    #'myutils/jsons/WP90PlusIso_BCD.json' : ['WP90PlusIso_BCD', 'eta_pt_ratio'],
+			    #'myutils/jsons/WP90PlusIso_BCDEF.json' : ['WP90PlusIso_BCDEF', 'eta_pt_ratio'],
+			    #'myutils/jsons/WP90_BCD_withRelIso.json': ['electronTriggerEfficiencyHLT_Ele27_WPLoose_eta2p1_WP90_BCD', 'eta_pt_ratio'],
+			    #'myutils/jsons/WP90_BCDEF_withRelIso.json' : ['electronTriggerEfficiencyHLT_Ele27_WPLoose_eta2p1_WP90_BCDEF', 'eta_pt_ratio'],
+			    #'myutils/jsons/HLT_Ele23_WPLoose.json' : ['HLT_Ele23_WPLoose', 'eta_pt_ratio'],
+			    
+			    # 80x in v25
+			    '../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_etracker_80x', 'eta_pt_ratio'],
+			    '../myMacros/scale_factors/80x/ScaleFactor_eMVAID_80x.json' : ['ScaleFactor_eMVAID_80x', 'eta_pt_ratio'],
 			    '../myMacros/scale_factors/ScaleFactor_doubleElectron76x.json' : ['ScaleFactor_doubleElectron76x', 'eta_pt_ratio'],
 			    '../myMacros/scale_factors/ScaleFactor_doubleMuon76x.json' : ['ScaleFactor_doubleMuon76x', 'eta_pt_ratio']
 			    }
@@ -1415,7 +1434,7 @@ for job in info:
 			    elif tree.Vtype == 1:
 				    				    
 				    	    
-				    if j.find('WP90PlusIso_BCD.json') != -1:
+				    if j.find('ScaleFactor_eMVAID_80x') != -1:
 					    eId90SFWeight[0] = weight[0][0]*weight[1][0]
 					    eId90SFWeightUp[0] = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
 					    eId90SFWeightDown[0] = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
@@ -1425,33 +1444,11 @@ for job in info:
                                             eTrigSFWeight_doubleEle76xUp[0] = weight[0][0] + weight[0][1]
                                             eTrigSFWeight_doubleEle76xDown[0] = weight[0][0] - weight[0][1]
 
-				    elif j.find('WP90PlusIso_BCDEF.json') != -1:
-					    eId90SFWeight_BCDEF[0] = weight[0][0]*weight[1][0]
-
-				    elif j.find('WP90_BCD_withRelIso.json') != -1:
-					    eff1 = weight[0][0]
-					    eff2 = weight[1][0]
-					    eff1Up = (weight[0][0]+weight[0][1])
-					    eff2Up = (weight[1][0]+weight[1][1])
-					    eff1Down = (weight[0][0]-weight[0][1])
-                                            eff2Down = (weight[1][0]-weight[1][1])
-					    eTrigSFWeight_ele27[0]     = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
-					    #eTrigSFWeight_ele27Up[0]   = eff1Up*(1-eff2Up)*eff1Up + eff2Up*(1-eff1Up)*eff2Up + eff1Up*eff1Up*eff2Up*eff2Up 
-					    #eTrigSFWeight_ele27Down[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
-
-				    elif j.find('WP90_BCDEF_withRelIso.json') != -1:
-                                            eff1 = weight[0][0]
-                                            eff2 = weight[1][0]
-                                            eTrigSFWeight_ele27_BCDEF[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
-					    
-				    elif j.find('Ele23_WPLoose') != -1:
-					    eff1 = weight[0][0]
-					    eff2 = weight[1][0]
-					    eTrigSFWeight_ele23[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
-					    
-				    elif j.find('tracker') != -1:
+				    elif j.find('ScaleFactor_etracker_80x') != -1:
 					    eTrackerSFWeight[0] = weight[0][0]*weight[1][0]
-					    
+					    eTrackerSFWeightUp[0]   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
+                                            eTrackerSFWeightDown[0] = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
+
                     # End JSON loop ====================================
 
 		    if tree.Vtype == 0:
