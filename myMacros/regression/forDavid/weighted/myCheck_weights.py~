@@ -1,0 +1,53 @@
+from ROOT import *
+from ROOT import gROOT
+from matplotlib import interactive
+import os
+
+
+file = TFile('/exports/uftrig01a/dcurry/data/bbar/13TeV/heppy/files/jetPt_weighted/v14_11_2015_ZH125.root')
+tree = file.Get('tree')
+
+
+
+hJet_pt_weight = TH1F('hJet_pt_weight', '' , 100, 0, 150)
+hJet_pt = TH1F('hJet_pt', '' , 100, 0, 150)
+
+for ievt in range(tree.GetEntries()):
+
+    tree.GetEntry(ievt)
+
+    if ievt > 30000: break
+
+    if ievt % 10000 == 0: print '-----> Event # ', ievt
+    
+    for ijet in range(tree.nJet):
+        if ijet > 14: continue
+        hJet_pt_weight.Fill(tree.Jet_pt[ijet], tree.weight_etaPt[ijet])
+        hJet_pt.Fill(tree.Jet_pt[ijet])
+
+# end event loop
+
+# Draw the Hist
+canvas = TCanvas('canvas')
+canvas.cd()
+
+hJet_pt_weight.Scale(1./(hJet_pt_weight.Integral()))
+hJet_pt_weight.SetStats(0)
+hJet_pt_weight.SetFillColor(kYellow)
+hJet_pt_weight.GetXaxis().SetTitle('p_{T} [GeV}')
+hJet_pt_weight.Draw()
+
+canvas.SaveAs('pt_weighted.pdf')
+
+canvas2 = TCanvas('canvas2')
+canvas2.cd()
+
+hJet_pt.Scale(1./(hJet_pt.Integral()))
+hJet_pt.SetStats(0)
+hJet_pt.SetFillColor(kYellow)
+hJet_pt.GetXaxis().SetTitle('p_{T} [GeV}')
+hJet_pt.Draw()
+
+canvas2.SaveAs('pt_noWeights.pdf')
+
+raw_input('press return to continue')

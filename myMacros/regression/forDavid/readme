@@ -1,0 +1,23 @@
+check inputs and outputs in each macro to match yours.
+
+Line 47 in treeForRegression.C set the outfile name
+
+Line 1817 in treeForRegression.h set the infile name
+
+1) .L treeForRegression_Wln.C
+	treeForRegression_Wln e
+	e.Loop()
+
+It will create a tree per jet containing all the relevant info for the training. Here matching is done to quark.
+
+Line 257 in TMVARegressionWln_softlept_19.C set the input file of trees for training
+
+2) .x  TMVARegressionWln_softlept_19.C
+
+It will perform the training and it will create the output directory for weights 
+
+
+3) python writeRegZll.py
+
+It will apply weights created in step 2) and it will compute the H mass with these correction ( w and w/o FSR additional correction)
+

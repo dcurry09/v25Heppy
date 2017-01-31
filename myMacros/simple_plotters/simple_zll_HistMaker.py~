@@ -1,0 +1,46 @@
+
+
+###########################################
+# Plot Maker for quick plots in Zll channel
+#
+# by David Curry
+#
+# 2.25.2015
+###########################################
+
+import sys
+import os
+import re
+import fileinput
+import subprocess
+import numpy as np
+from decimal import *
+from ROOT import *
+from ROOT import gROOT
+from matplotlib import interactive
+
+#file = TFile('/exports/uftrig01a/dcurry/data/bbar/13TeV/heppy/v14/ttbar.root')
+file = TFile('/exports/uftrig01a/dcurry/data/bbar/13TeV/heppy/v14/trees_for_regression/ZH125_genJet.root')
+
+tree = file.Get('tree')
+
+#  Quick Test Plots
+
+#tree.Draw('GenJet_pt >> h(150,0,150)')
+#, 'GenJet_pt < 50')
+#          #, 'GenJet_numBHadrons > 0')
+
+tree.Draw('Jet_pt >> h(150,0,150)')
+          #, 'Jet_hadronFlavour[3] == 5')
+
+#tree.Draw('GenBQuarkFromTop_pt >> h(150,0,150)')
+
+#cut = 'Vtype == 0 & abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & Jet_pt[hJCidx[0]] > 20 & Jet_pt[hJCidx[1]] > 20 & V_mass > 75. & V_mass < 105. & Jet_btagCSV[hJCidx[0]] > 0.7  & Jet_btagCSV[hJCidx[1]] > 0.5 & V_pt > 50. & V_pt < 100. & met_pt < 60 & Sum$(Jet_pt > 20 & abs(Jet_eta) < 2.4) < 10'
+
+
+
+
+
+raw_input('press return to continue')
+     
+     

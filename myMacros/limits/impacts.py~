@@ -1,0 +1,52 @@
+# ===================================================
+# Python script to perform datacard loop over bins/regions
+#
+#  !!!! Needs to be ran from python directory
+#
+# 2/15/2015 David Curry
+# ===================================================
+
+import sys
+import os
+import re
+import fileinput
+import subprocess
+import numpy as np
+import multiprocessing
+import logging
+from matplotlib import interactive
+from ROOT import *
+
+
+control_list = ['vhbb_DC_TH_Zlf_Zuu.txt', 'vhbb_DC_TH_Zhf_Zuu.txt', 'vhbb_DC_TH_ttbar_Zuu.txt',
+                'vhbb_DC_TH_Zlf_Zee.txt', 'vhbb_DC_TH_Zhf_Zee.txt', 'vhbb_DC_TH_ttbar_Zee.txt']
+
+
+signal_list =  ['vhbb_WS_BDT_M125_Zee_highPt.txt', 'vhbb_WS_BDT_M125_Zuu_highPt.txt']
+
+
+# move into the correct dir
+dir = '/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/limits/2015_finalDC_v3'
+
+os.chdir(dir)
+
+
+# Combine the CRs together for a single CR DC
+temp_string = 'combineCards.py'
+
+for dc in control_list:
+    
+    temp_string = temp_string + ' '+dc
+
+temp_string = temp_string + ' ' + ' > CR_combine.txt'
+
+os.system(temp_string)
+
+
+os.system("text2workspace.py CR_combine.txt -m 125")
+os.system("combineTool.py -M Impacts -d CR_combine.root -m 125 --doInitialFit --robustFit 1  --rMax 100 --rMin -100")
+os.system("combineTool.py -M Impacts -d CR_combine.root -m 125 --robustFit 1 --doFits --rMax 100 --rMin -100") 
+os.system("combineTool.py -M Impacts -d CR_combine.root -m 125 -o impacts.json")
+
+#now blind it! please do!
+os.system("more zeroR.txt >> impact_blind.json ; tail -n+12 impacts.json >> impact_blind.json")

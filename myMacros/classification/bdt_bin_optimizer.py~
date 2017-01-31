@@ -1,0 +1,68 @@
+# ===================================================
+# Python script to perform BDT parameter optimization
+#
+#  !!!! Needs to be ran from python directory
+#
+# 2/15/2015 David Curry
+# ===================================================
+
+import sys
+import os
+import re
+import fileinput
+import subprocess
+import numpy as np
+from matplotlib import interactive
+from ROOT import *
+
+
+bin_list = [10,15,20,25,30,35,40,45,50]
+
+pt_region_list = ['low','high']
+
+for region in pt_region_list:
+
+    print '\n\n\t========== Optimizing Pt Region: ',region, '============='
+
+    # clear the temp files from last datacard iteration
+    #os.system('rm -rf /exports/uftrig01a/dcurry/heppy//files/tmp/*')
+
+    for bin in bin_list:
+        
+         print '\n\n\t Looping Over Bin: ', bin
+
+         # Go into datacard.config
+         new_dir = "BDTrange: "+str(bin)+",-1,1\n"
+         for line in fileinput.input('13TeVconfig/datacard', inplace=True):
+             if 'BDTrange:' in line:
+                 print line.replace(line, new_dir),
+             else: print line,
+         # end file modification
+             
+         # Set datacard output directory to current var name
+         new_dir = "dir = 'bdt_param_optimize/10_22_BDT_bins"+str(param)+"'\n"
+         for line in fileinput.input('../myMacros/classification/dataCard_loop.py', inplace=True):
+             if 'dir =' in line:
+                 print line.replace(line, new_dir),
+             else: print line,
+         # end file modification
+
+         # list of regression metrics
+         metric_list  = []
+         
+         os.system('python ../myMacros/classification/dataCard_loop.py')
+         
+         if os.path.isfile('cls_expected.txt'):
+             os.system('rm cls_expected.txt')
+             
+         # Combine electron and muon
+         e_card = "../limits/bdt_param_optimize/6_22_BDT_trees"+str(param)+"/vhbb_DC_TH_BDT_Zee_"+region.capitalize()+"Pt.txt"
+         m_card = "../limits/bdt_param_optimize/6_22_BDT_trees"+str(param)+"/vhbb_DC_TH_BDT_Zuu_"+region.capitalize()+"Pt.txt"
+         combine_card = "../limits/bdt_param_optimize/6_22_BDT_trees"+str(param)+"/vhbb_DC_TH_BDT_Combine_"+region.capitalize()+"Pt.txt"
+
+         t8 = "combineCards.py ../limits/bdt_param_optimize/6_22_BDT_trees"+str(param)+"/vhbb_DC_TH_Zlf.txt ../limits/bdt_param_optimize/6_22_BDT_trees"+str(param)+"/vhbb_DC_TH_ttbar.txt ../limits/bdt_param_optimize/6_22_BDT_trees"+str(param)+"/vhbb_DC_TH_Zhf.txt "+e_card+" "+m_card+" > "+combine_card
+
+         print t8
+         
+         os.system(t8)
+        

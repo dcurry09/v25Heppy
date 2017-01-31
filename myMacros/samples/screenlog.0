@@ -1,0 +1,1616 @@
+exit[Kpython file_mover.py 
+python: error while loading shared libraries: libpython2.7.so.1.0: cannot open shared object file: No such file or directory
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mcmsenv
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mvoms-proxy-init --voms cms
+Enter GRID pass phrase:
+Your identity: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=dcurry/CN=738447/CN=David Alexander Curry
+Creating temporary proxy .................................................................................. Done
+Contacting  voms2.cern.ch:15002 [/DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch] "cms" Done
+Creating proxy ........................................................................................................................ Done
+
+Your proxy is valid until Wed Sep 14 08:10:58 2016
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mpython fo ile_mover.py 
+Error in <TGClient::TGClient>: can't open display "localhost:12.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+
+-----> Copying Files in Directory:  /store/user/arizzi/VHBBHeppyV24/TT_TuneCUETP8M1_13TeV-powheg-pythia8/VHBB_HEPPY_V24_TT_TuneCUETP8M1_13TeV-powheg-Py8__spr16MAv2-puspr16_HLT_80r2as_v14_ext3-v1/160909_063406/0000/
+-----> UFtrig Destination:  /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/
+
+-----> Copying Files in Directory:  /store/user/arizzi/VHBBHeppyV24/TT_TuneCUETP8M1_13TeV-powheg-pythia8/VHBB_HEPPY_V24_TT_TuneCUETP8M1_13TeV-powheg-Py8__spr16MAv2-puspr16_HLT_80r2as_v14_ext3-v1/160909_063406/0001/
+-----> UFtrig Destination:  /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext2/
+
+-----> Copying Files in Directory:  /store/user/arizzi/VHBBHeppyV24/TT_TuneCUETP8M1_13TeV-powheg-pythia8/VHBB_HEPPY_V24_TT_TuneCUETP8M1_13TeV-powheg-Py8__spr16MAv2-puspr16_HLT_80r2as_v14_ext3-v1/160909_063406/0002/
+-----> UFtrig Destination:  /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/
+sh: xrdfs: command not found
+sh: xrdfs: command not found
+sh: xrdfs: command not found
+----> Merging Files into /exports/uftrig01a/dcurry/heppy/v24/ttbar.root .  This may take a while....
+hadd Target file: /exports/uftrig01a/dcurry/heppy/v24/ttbar.root
+hadd Source file 1: /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext1.root
+Warning in <TFile::Init>: file /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext1.root probably not closed, trying to recover
+^Z
+[1]+  Stopped                 python file_mover.py
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mxrdf    python file_mover.py 
+Error in <TGClient::TGClient>: can't open display "localhost:12.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+ttbar_ext1_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/
+ttbar_ext2_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext2/
+ttbar_ext3_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/
+----> Merging Files into /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext3.root .  This may take a while....
+----> Merging Files into /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext1.root .  This may take a while....
+----> Merging Files into /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext2.root .  This may take a while....
+hadd Target file: /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext1.root
+hadd Target file: /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext2.root
+hadd Target file: /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext3.root
+hadd Source file 1: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/tree_1.root
+Error in <TFile::ReadBuffer>: error reading all requested bytes from file /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/tree_1.root, got 0 of 300
+Error in <TFile::Init>: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/tree_1.root failed to read the file type data.
+Error in <TFileMerger::AddFile>: cannot open file /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/tree_1.root
+hadd exiting due to error in /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/tree_1.root
+hadd Source file 1: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2000.root
+hadd Source file 2: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2004.root
+hadd Source file 3: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2006.root
+hadd Source file 4: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2008.root
+hadd Source file 5: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2009.root
+hadd Source file 6: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2014.root
+hadd Source file 7: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2015.root
+hadd Source file 8: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2016.root
+hadd Source file 9: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2017.root
+hadd Source file 10: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2021.root
+hadd Source file 11: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2023.root
+hadd Source file 12: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2025.root
+hadd Source file 13: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2026.root
+hadd Source file 14: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2029.root
+hadd Source file 15: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2030.root
+hadd Source file 16: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2032.root
+hadd Source file 17: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2040.root
+hadd Source file 18: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2042.root
+hadd Source file 19: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2043.root
+hadd Source file 20: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2045.root
+hadd Source file 21: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2046.root
+hadd Source file 22: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2052.root
+hadd Source file 23: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2056.root
+hadd Source file 24: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2059.root
+hadd Source file 25: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2060.root
+hadd Source file 26: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2061.root
+hadd Source file 27: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2062.root
+hadd Source file 28: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2066.root
+hadd Source file 29: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2068.root
+hadd Source file 30: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2070.root
+hadd Source file 31: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2071.root
+hadd Source file 32: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2072.root
+hadd Source file 33: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2075.root
+hadd Source file 34: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2076.root
+hadd Source file 35: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2077.root
+hadd Source file 36: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2078.root
+hadd Source file 37: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2079.root
+hadd Source file 38: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2080.root
+hadd Source file 39: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2082.root
+hadd Source file 40: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2083.root
+^Z
+[2]+  Stopped                 python file_mover.py
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mpython file_mover.py voms-proxy-init --voms cmscmsenv[Kpython file_mover.py exit[Kscreen -rbbar7_heppy [6Pscreen[2Pexitcmsenv[2Pexit file_mover.py screen -r 30611.pts-1.uftrig01[K[5Phtopscreen -r[5Pexitpython file_mover.py cmsenv[Kpython file_mover.py exit[Kbbar7[3Plsdexitscreenpython file_mover.py cmsenv[Kd myMacros/samples/msenv[Kpython file_mover.py screen[K[2Pexit[1Plsd[Kbbar7[1Pexitpython file_mover.py cmsenv[K      python file_mover.py 
+Error in <TGClient::TGClient>: can't open display "localhost:12.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+ttbar_ext1_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/
+ttbar_ext2_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext2/
+ttbar_ext3_hadd.txt
+-----> Copying file: tree_1000.root 
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/
+-----> Copying file: tree_1.root 
+-----> Copying file: tree_2000.root 
+Error accessing path/file for tree_2000.root
+-----> Copying file: tree_2004.root 
+Error accessing path/file for tree_1000.root
+-----> Copying file: tree_1001.root 
+Better to use cp in this case. (dest: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/)
+-----> Copying file: tree_10.root 
+Error accessing path/file for tree_2004.root
+-----> Copying file: tree_2006.root 
+Error accessing path/file for tree_10.root
+Error accessing path/file for tree_1001.root
+-----> Copying file: tree_100.root 
+-----> Copying file: tree_1002.root 
+Error accessing path/file for tree_2006.root
+-----> Copying file: tree_2008.root 
+Error accessing path/file for tree_100.root
+Error accessing path/file for tree_1002.root
+-----> Copying file: tree_101.root 
+-----> Copying file: tree_1003.root 
+Error accessing path/file for tree_2008.root
+-----> Copying file: tree_2009.root 
+Error accessing path/file for tree_1003.root
+-----> Copying file: tree_1004.root 
+Error accessing path/file for tree_101.root
+-----> Copying file: tree_102.root 
+Error accessing path/file for tree_2009.root
+-----> Copying file: tree_2014.root 
+Error accessing path/file for tree_102.root
+-----> Copying file: tree_103.root 
+Error accessing path/file for tree_1004.root
+-----> Copying file: tree_1005.root 
+Error accessing path/file for tree_2014.root
+-----> Copying file: tree_2015.root 
+Error accessing path/file for tree_1005.root
+-----> Copying file: tree_1006.root 
+Error accessing path/file for tree_103.root
+-----> Copying file: tree_104.root 
+Error accessing path/file for tree_2015.root
+-----> Copying file: tree_2016.root 
+Error accessing path/file for tree_1006.root
+-----> Copying file: tree_1007.root 
+Error accessing path/file for tree_104.root
+-----> Copying file: tree_105.root 
+Error accessing path/file for tree_2016.root
+-----> Copying file: tree_2017.root 
+Error accessing path/file for tree_1007.root
+-----> Copying file: tree_1008.root 
+Error accessing path/file for tree_105.root
+-----> Copying file: tree_106.root 
+Error accessing path/file for tree_2017.root
+-----> Copying file: tree_2021.root 
+Error accessing path/file for tree_1008.root
+-----> Copying file: tree_1009.root 
+Error accessing path/file for tree_106.root
+-----> Copying file: tree_107.root 
+Error accessing path/file for tree_2021.root
+-----> Copying file: tree_2023.root 
+Error accessing path/file for tree_1009.root
+-----> Copying file: tree_1010.root 
+Error accessing path/file for tree_107.root
+-----> Copying file: tree_108.root 
+Error accessing path/file for tree_2023.root
+-----> Copying file: tree_2025.root 
+Error accessing path/file for tree_1010.root
+-----> Copying file: tree_1011.root 
+Error accessing path/file for tree_108.root
+-----> Copying file: tree_109.root 
+Error accessing path/file for tree_2025.root
+-----> Copying file: tree_2026.root 
+Error accessing path/file for tree_1011.root
+-----> Copying file: tree_1012.root 
+Error accessing path/file for tree_109.root
+-----> Copying file: tree_11.root 
+Error accessing path/file for tree_2026.root
+-----> Copying file: tree_2029.root 
+Error accessing path/file for tree_1012.root
+-----> Copying file: tree_1013.root 
+Error accessing path/file for tree_11.root
+-----> Copying file: tree_110.root 
+Error accessing path/file for tree_2029.root
+-----> Copying file: tree_2030.root 
+Error accessing path/file for tree_1013.root
+-----> Copying file: tree_1014.root 
+Error accessing path/file for tree_110.root
+-----> Copying file: tree_111.root 
+Error accessing path/file for tree_2030.root
+-----> Copying file: tree_2032.root 
+Error accessing path/file for tree_1014.root
+-----> Copying file: tree_1015.root 
+Error accessing path/file for tree_111.root
+-----> Copying file: tree_112.root 
+Error accessing path/file for tree_2032.root
+-----> Copying file: tree_2040.root 
+Error accessing path/file for tree_1015.root
+-----> Copying file: tree_1016.root 
+Error accessing path/file for tree_112.root
+-----> Copying file: tree_113.root 
+Error accessing path/file for tree_2040.root
+-----> Copying file: tree_2042.root 
+Error accessing path/file for tree_1016.root
+-----> Copying file: tree_1017.root 
+Error accessing path/file for tree_113.root
+-----> Copying file: tree_114.root 
+Error accessing path/file for tree_2042.root
+-----> Copying file: tree_2043.root 
+Error accessing path/file for tree_1017.root
+-----> Copying file: tree_1018.root 
+Error accessing path/file for tree_114.root
+-----> Copying file: tree_115.root 
+Error accessing path/file for tree_2043.root
+-----> Copying file: tree_2045.root 
+Error accessing path/file for tree_1018.root
+-----> Copying file: tree_1019.root 
+Error accessing path/file for tree_115.root
+-----> Copying file: tree_116.root 
+Error accessing path/file for tree_2045.root
+-----> Copying file: tree_2046.root 
+Error accessing path/file for tree_1019.root
+-----> Copying file: tree_1020.root 
+Error accessing path/file for tree_116.root
+-----> Copying file: tree_117.root 
+Error accessing path/file for tree_2046.root
+-----> Copying file: tree_2052.root 
+Error accessing path/file for tree_1020.root
+-----> Copying file: tree_1021.root 
+Error accessing path/file for tree_117.root
+-----> Copying file: tree_118.root 
+Error accessing path/file for tree_2052.root
+-----> Copying file: tree_2056.root 
+Error accessing path/file for tree_1021.root
+-----> Copying file: tree_1022.root 
+Error accessing path/file for tree_118.root
+-----> Copying file: tree_119.root 
+Error accessing path/file for tree_2056.root
+-----> Copying file: tree_2059.root 
+Error accessing path/file for tree_1022.root
+-----> Copying file: tree_1023.root 
+Error accessing path/file for tree_119.root
+-----> Copying file: tree_12.root 
+Error accessing path/file for tree_2059.root
+-----> Copying file: tree_2060.root 
+Error accessing path/file for tree_1023.root
+-----> Copying file: tree_1024.root 
+Error accessing path/file for tree_12.root
+-----> Copying file: tree_120.root 
+Error accessing path/file for tree_2060.root
+Error accessing path/file for tree_1024.root
+-----> Copying file: tree_2061.root 
+-----> Copying file: tree_1025.root 
+Error accessing path/file for tree_120.root
+-----> Copying file: tree_121.root 
+Error accessing path/file for tree_2061.root
+-----> Copying file: tree_2062.root 
+Error accessing path/file for tree_1025.root
+-----> Copying file: tree_1026.root 
+Error accessing path/file for tree_121.root
+-----> Copying file: tree_122.root 
+Error accessing path/file for tree_1026.root
+-----> Copying file: tree_1027.root 
+Error accessing path/file for tree_2062.root
+-----> Copying file: tree_2066.root 
+Error accessing path/file for tree_122.root
+-----> Copying file: tree_123.root 
+Error accessing path/file for tree_1027.root
+-----> Copying file: tree_1028.root 
+Error accessing path/file for tree_2066.root
+-----> Copying file: tree_2068.root 
+Error accessing path/file for tree_123.root
+-----> Copying file: tree_124.root 
+Error accessing path/file for tree_1028.root
+-----> Copying file: tree_1029.root 
+Error accessing path/file for tree_2068.root
+-----> Copying file: tree_2070.root 
+Error accessing path/file for tree_124.root
+-----> Copying file: tree_125.root 
+Error accessing path/file for tree_1029.root
+-----> Copying file: tree_1030.root 
+Error accessing path/file for tree_2070.root
+-----> Copying file: tree_2071.root 
+Error accessing path/file for tree_125.root
+-----> Copying file: tree_126.root 
+Error accessing path/file for tree_1030.root
+-----> Copying file: tree_1031.root 
+Error accessing path/file for tree_2071.root
+-----> Copying file: tree_2072.root 
+Error accessing path/file for tree_126.root
+-----> Copying file: tree_127.root 
+Error accessing path/file for tree_1031.root
+-----> Copying file: tree_1032.root 
+Error accessing path/file for tree_2072.root
+-----> Copying file: tree_2075.root 
+Error accessing path/file for tree_127.root
+-----> Copying file: tree_128.root 
+Error accessing path/file for tree_1032.root
+-----> Copying file: tree_1033.root 
+Error accessing path/file for tree_2075.root
+-----> Copying file: tree_2076.root 
+Error accessing path/file for tree_128.root
+-----> Copying file: tree_129.root 
+Error accessing path/file for tree_1033.root
+-----> Copying file: tree_1034.root 
+Error accessing path/file for tree_2076.root
+-----> Copying file: tree_2077.root 
+Error accessing path/file for tree_129.root
+-----> Copying file: tree_13.root 
+Error accessing path/file for tree_1034.root
+-----> Copying file: tree_1035.root 
+Error accessing path/file for tree_2077.root
+-----> Copying file: tree_2078.root 
+Error accessing path/file for tree_13.root
+-----> Copying file: tree_130.root 
+Error accessing path/file for tree_1035.root
+-----> Copying file: tree_1036.root 
+Error accessing path/file for tree_2078.root
+-----> Copying file: tree_2079.root 
+Error accessing path/file for tree_130.root
+-----> Copying file: tree_131.root 
+Error accessing path/file for tree_1036.root
+-----> Copying file: tree_1037.root 
+Error accessing path/file for tree_2079.root
+-----> Copying file: tree_2080.root 
+Error accessing path/file for tree_131.root
+-----> Copying file: tree_132.root 
+Error accessing path/file for tree_1037.root
+-----> Copying file: tree_1038.root 
+Error accessing path/file for tree_2080.root
+-----> Copying file: tree_2082.root 
+Error accessing path/file for tree_132.root
+-----> Copying file: tree_133.root 
+Error accessing path/file for tree_1038.root
+-----> Copying file: tree_1039.root 
+Error accessing path/file for tree_2082.root
+-----> Copying file: tree_2083.root 
+Error accessing path/file for tree_133.root
+-----> Copying file: tree_134.root 
+Error accessing path/file for tree_1039.root
+-----> Copying file: tree_1040.root 
+Error accessing path/file for tree_2083.root
+-----> Copying file: tree_2085.root 
+Error accessing path/file for tree_134.root
+-----> Copying file: tree_135.root 
+Error accessing path/file for tree_1040.root
+-----> Copying file: tree_1041.root 
+Error accessing path/file for tree_2085.root
+-----> Copying file: tree_2086.root 
+Error accessing path/file for tree_135.root
+-----> Copying file: tree_136.root 
+Error accessing path/file for tree_1041.root
+-----> Copying file: tree_1042.root 
+Error accessing path/file for tree_2086.root
+-----> Copying file: tree_2088.root 
+Error accessing path/file for Error accessing path/file for tree_1042.roottree_136.root
+
+-----> Copying file: tree_1043.root 
+-----> Copying file: tree_137.root 
+Error accessing path/file for tree_2088.root
+-----> Copying file: tree_2091.root 
+Error accessing path/file for tree_137.root
+-----> Copying file: tree_138.root 
+Error accessing path/file for tree_1043.root
+-----> Copying file: tree_1044.root 
+Error accessing path/file for tree_2091.root
+-----> Copying file: tree_2092.root 
+Error accessing path/file for tree_1044.root
+-----> Copying file: tree_1045.root 
+Error accessing path/file for tree_138.root
+-----> Copying file: tree_139.root 
+Error accessing path/file for tree_2092.root
+-----> Copying file: tree_2098.root 
+Error accessing path/file for tree_139.root
+-----> Copying file: tree_14.root 
+Error accessing path/file for tree_1045.root
+-----> Copying file: tree_1046.root 
+Error accessing path/file for tree_2098.root
+-----> Copying file: tree_2099.root 
+Error accessing path/file for tree_14.root
+Error accessing path/file for tree_1046.root
+-----> Copying file: tree_140.root 
+-----> Copying file: tree_1047.root 
+Error accessing path/file for tree_2099.root
+-----> Copying file: tree_2100.root 
+Error accessing path/file for tree_1047.root
+-----> Copying file: tree_1048.root 
+Error accessing path/file for tree_140.root
+-----> Copying file: tree_141.root 
+Error accessing path/file for tree_2100.root
+-----> Copying file: tree_2101.root 
+Error accessing path/file for tree_1048.root
+-----> Copying file: tree_1049.root 
+Error accessing path/file for tree_2101.root
+Error accessing path/file for tree_141.root
+-----> Copying file: tree_142.root 
+-----> Copying file: tree_2106.root 
+Error accessing path/file for tree_1049.root
+-----> Copying file: tree_1050.root 
+Error accessing path/file for tree_142.root
+Error accessing path/file for tree_2106.root
+-----> Copying file: tree_143.root 
+-----> Copying file: tree_2108.root 
+Error accessing path/file for tree_1050.root
+-----> Copying file: tree_1051.root 
+Error accessing path/file for tree_2108.root
+-----> Copying file: tree_2110.root 
+Error accessing path/file for tree_143.root
+-----> Copying file: tree_144.root 
+Error accessing path/file for tree_1051.root
+-----> Copying file: tree_1052.root 
+Error accessing path/file for tree_2110.root
+-----> Copying file: tree_2111.root 
+Error accessing path/file for tree_144.root
+-----> Copying file: tree_145.root 
+Error accessing path/file for tree_1052.root
+-----> Copying file: tree_1053.root 
+Error accessing path/file for tree_2111.root
+-----> Copying file: tree_2113.root 
+Error accessing path/file for tree_145.root
+-----> Copying file: tree_146.root 
+Error accessing path/file for tree_1053.root
+-----> Copying file: tree_1054.root 
+Error accessing path/file for tree_2113.root
+-----> Copying file: tree_2114.root 
+Error accessing path/file for tree_146.root
+-----> Copying file: tree_147.root 
+Error accessing path/file for tree_1054.root
+-----> Copying file: tree_1055.root 
+Error accessing path/file for tree_2114.root
+-----> Copying file: tree_2116.root 
+Error accessing path/file for tree_147.root
+-----> Copying file: tree_148.root 
+Error accessing path/file for tree_1055.root
+-----> Copying file: tree_1056.root 
+Error accessing path/file for tree_2116.root
+-----> Copying file: tree_2117.root 
+Error accessing path/file for tree_148.root
+-----> Copying file: tree_149.root 
+Error accessing path/file for tree_1056.root
+-----> Copying file: tree_1057.root 
+Error accessing path/file for tree_2117.root
+-----> Copying file: tree_2121.root 
+Error accessing path/file for tree_149.root
+-----> Copying file: tree_15.root 
+Error accessing path/file for tree_1057.root
+-----> Copying file: tree_1058.root 
+Error accessing path/file for tree_2121.root
+-----> Copying file: tree_2123.root 
+Error accessing path/file for tree_15.root
+-----> Copying file: tree_150.root 
+Error accessing path/file for tree_1058.root
+-----> Copying file: tree_1059.root 
+Error accessing path/file for tree_2123.root
+-----> Copying file: tree_2124.root 
+Error accessing path/file for tree_150.root
+-----> Copying file: tree_151.root 
+Error accessing path/file for tree_2124.root
+Error accessing path/file for tree_1059.root
+-----> Copying file: tree_1060.root 
+Error accessing path/file for tree_151.root
+-----> Copying file: tree_152.root 
+Error accessing path/file for tree_1060.root
+-----> Copying file: tree_1061.root 
+Error accessing path/file for tree_152.root
+-----> Copying file: tree_153.root 
+----> Merging Files into /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext3.root .  This may take a while....
+Error accessing path/file for tree_1061.root
+-----> Copying file: tree_1062.root 
+Error accessing path/file for tree_153.root
+-----> Copying file: tree_154.root 
+Error accessing path/file for tree_1062.root
+-----> Copying file: tree_1063.root 
+Error accessing path/file for tree_154.root
+-----> Copying file: tree_155.root 
+Error accessing path/file for tree_1063.root
+-----> Copying file: tree_1064.root 
+Error accessing path/file for tree_155.root
+-----> Copying file: tree_156.root 
+Error accessing path/file for tree_1064.root
+-----> Copying file: tree_1065.root 
+Error accessing path/file for tree_156.root
+-----> Copying file: tree_157.root 
+Error accessing path/file for tree_1065.root
+-----> Copying file: tree_1066.root 
+Error accessing path/file for tree_157.root
+-----> Copying file: tree_158.root 
+Error accessing path/file for tree_1066.root
+-----> Copying file: tree_1067.root 
+Error accessing path/file for tree_158.root
+-----> Copying file: tree_159.root 
+Error accessing path/file for tree_1067.root
+-----> Copying file: tree_1068.root 
+Error accessing path/file for tree_159.root
+-----> Copying file: tree_16.root 
+Error accessing path/file for tree_1068.root
+-----> Copying file: tree_1069.root 
+Error accessing path/file for tree_16.root
+-----> Copying file: tree_160.root 
+Error accessing path/file for tree_1069.root
+-----> Copying file: tree_1070.root 
+Error accessing path/file for tree_160.root
+-----> Copying file: tree_161.root 
+Error accessing path/file for tree_1070.root
+-----> Copying file: tree_1071.root 
+Error accessing path/file for tree_161.root
+-----> Copying file: tree_162.root 
+Error accessing path/file for tree_1071.root
+-----> Copying file: tree_1072.root 
+Error accessing path/file for tree_162.root
+-----> Copying file: tree_163.root 
+Error accessing path/file for tree_1072.root
+-----> Copying file: tree_1073.root 
+Error accessing path/file for tree_163.root
+-----> Copying file: tree_164.root 
+Error accessing path/file for tree_1073.root
+-----> Copying file: tree_1074.root 
+Error accessing path/file for tree_164.root
+-----> Copying file: tree_165.root 
+Error accessing path/file for tree_1074.root
+-----> Copying file: tree_1075.root 
+Error accessing path/file for tree_165.root
+-----> Copying file: tree_166.root 
+Error accessing path/file for tree_1075.root
+-----> Copying file: tree_1076.root 
+Error accessing path/file for tree_166.root
+-----> Copying file: tree_167.root 
+Error accessing path/file for tree_1076.root
+-----> Copying file: tree_1077.root 
+Error accessing path/file for tree_167.root
+-----> Copying file: tree_168.root 
+Error accessing path/file for tree_1077.root
+-----> Copying file: tree_1078.root 
+Error accessing path/file for tree_168.root
+-----> Copying file: tree_169.root 
+hadd Target file: /exports/uftrig01a/dcurry/heppy/v24/ttbar_ext3.root
+Error accessing path/file for tree_169.root
+Error accessing path/file for tree_1078.root
+-----> Copying file: tree_17.root 
+-----> Copying file: tree_1079.root 
+Error accessing path/file for tree_1079.root
+-----> Copying file: tree_1080.root 
+Error accessing path/file for tree_17.root
+-----> Copying file: tree_170.root 
+Error accessing path/file for tree_1080.root
+-----> Copying file: tree_1081.root 
+Error accessing path/file for tree_170.root
+-----> Copying file: tree_171.root 
+Error accessing path/file for tree_1081.root
+-----> Copying file: tree_1082.root 
+Error accessing path/file for tree_171.root
+-----> Copying file: tree_172.root 
+Error accessing path/file for tree_1082.root
+-----> Copying file: tree_1083.root 
+Error accessing path/file for tree_172.root
+-----> Copying file: tree_173.root 
+Error accessing path/file for tree_1083.root
+-----> Copying file: tree_1084.root 
+Error accessing path/file for tree_173.root
+-----> Copying file: tree_174.root 
+Error accessing path/file for tree_1084.root
+-----> Copying file: tree_1085.root 
+Error accessing path/file for tree_174.root
+-----> Copying file: tree_175.root 
+Error accessing path/file for tree_1085.root
+-----> Copying file: tree_1086.root 
+Error accessing path/file for tree_175.root
+-----> Copying file: tree_176.root 
+Error accessing path/file for tree_1086.root
+-----> Copying file: tree_1087.root 
+Error accessing path/file for tree_176.root
+-----> Copying file: tree_177.root 
+Error accessing path/file for tree_1087.root
+-----> Copying file: tree_1088.root 
+Error accessing path/file for tree_177.root
+-----> Copying file: tree_178.root 
+Error accessing path/file for tree_1088.root
+-----> Copying file: tree_1089.root 
+Error accessing path/file for tree_178.root
+-----> Copying file: tree_179.root 
+Error accessing path/file for tree_1089.root
+-----> Copying file: tree_1090.root 
+Error accessing path/file for tree_179.root
+-----> Copying file: tree_18.root 
+Error accessing path/file for tree_1090.root
+-----> Copying file: tree_1091.root 
+Error accessing path/file for tree_18.root
+-----> Copying file: tree_180.root 
+Error accessing path/file for tree_1091.root
+-----> Copying file: tree_1092.root 
+Error accessing path/file for tree_180.root
+-----> Copying file: tree_181.root 
+Error accessing path/file for tree_1092.root
+-----> Copying file: tree_1093.root 
+Error accessing path/file for tree_181.root
+-----> Copying file: tree_182.root 
+Error accessing path/file for tree_1093.root
+-----> Copying file: tree_1094.root 
+Error accessing path/file for tree_182.root
+-----> Copying file: tree_183.root 
+Error accessing path/file for tree_1094.root
+-----> Copying file: tree_1095.root 
+Error accessing path/file for tree_183.root
+-----> Copying file: tree_184.root 
+Error accessing path/file for tree_1095.root
+-----> Copying file: tree_1096.root 
+Error accessing path/file for tree_184.root
+-----> Copying file: tree_185.root 
+Error accessing path/file for tree_1096.root
+-----> Copying file: tree_1097.root 
+Error accessing path/file for tree_185.root
+-----> Copying file: tree_186.root 
+Error accessing path/file for tree_1097.root
+-----> Copying file: tree_1098.root 
+Error accessing path/file for tree_186.root
+-----> Copying file: tree_187.root 
+Error accessing path/file for tree_1098.root
+-----> Copying file: tree_1099.root 
+Error accessing path/file for tree_187.root
+-----> Copying file: tree_188.root 
+Error accessing path/file for tree_1099.root
+-----> Copying file: tree_1100.root 
+Error accessing path/file for tree_188.root
+-----> Copying file: tree_189.root 
+Error accessing path/file for tree_1100.root
+-----> Copying file: tree_1101.root 
+Error accessing path/file for tree_189.root
+-----> Copying file: tree_19.root 
+Error accessing path/file for tree_1101.root
+-----> Copying file: tree_1102.root 
+Error accessing path/file for Error accessing path/file for tree_1102.roottree_19.root
+
+-----> Copying file: tree_190.root 
+-----> Copying file: tree_1103.root 
+Error accessing path/file for Error accessing path/file for tree_190.roottree_1103.root
+
+-----> Copying file: tree_191.root 
+-----> Copying file: tree_1104.root 
+hadd Source file 1: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2000.root
+Error accessing path/file for Error accessing path/file for tree_1104.roottree_191.root
+
+-----> Copying file: tree_192.root 
+-----> Copying file: tree_1105.root 
+Error accessing path/file for Error accessing path/file for tree_192.roottree_1105.root
+
+-----> Copying file: tree_193.root 
+-----> Copying file: tree_1106.root 
+Error accessing path/file for Error accessing path/file for tree_1106.roottree_193.root
+
+-----> Copying file: tree_1107.root 
+-----> Copying file: tree_194.root 
+Error accessing path/file for tree_1107.root
+-----> Copying file: tree_1108.root 
+Error accessing path/file for tree_194.root
+-----> Copying file: tree_195.root 
+Error accessing path/file for tree_1108.root
+-----> Copying file: tree_1109.root 
+Error accessing path/file for tree_195.root
+-----> Copying file: tree_196.root 
+Error accessing path/file for tree_1109.root
+-----> Copying file: tree_1110.root 
+Error accessing path/file for tree_196.root
+-----> Copying file: tree_197.root 
+hadd Source file 2: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2004.root
+hadd Source file 3: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2006.root
+hadd Source file 4: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2008.root
+hadd Source file 5: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2009.root
+Error accessing path/file for tree_1110.root
+hadd Source file 6: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2014.root
+-----> Copying file: tree_1111.root 
+hadd Source file 7: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2015.root
+hadd Source file 8: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2016.root
+Error accessing path/file for tree_197.root
+-----> Copying file: tree_198.root 
+hadd Source file 9: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2017.root
+hadd Source file 10: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2021.root
+hadd Source file 11: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2023.root
+hadd Source file 12: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2025.root
+hadd Source file 13: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2026.root
+hadd Source file 14: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2029.root
+hadd Source file 15: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2030.root
+hadd Source file 16: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2032.root
+hadd Source file 17: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2040.root
+hadd Source file 18: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2042.root
+Error accessing path/file for tree_1111.root
+-----> Copying file: tree_1112.root 
+hadd Source file 19: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2043.root
+Error accessing path/file for tree_198.root
+-----> Copying file: tree_199.root 
+hadd Source file 20: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2045.root
+hadd Source file 21: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2046.root
+hadd Source file 22: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2052.root
+hadd Source file 23: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2056.root
+hadd Source file 24: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2059.root
+hadd Source file 25: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2060.root
+hadd Source file 26: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2061.root
+hadd Source file 27: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2062.root
+hadd Source file 28: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2066.root
+hadd Source file 29: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2068.root
+hadd Source file 30: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2070.root
+hadd Source file 31: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2071.root
+Error accessing path/file for tree_199.root
+-----> Copying file: tree_2.root 
+Error accessing path/file for tree_1112.root
+hadd Source file 32: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2072.root
+-----> Copying file: tree_1113.root 
+hadd Source file 33: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2075.root
+hadd Source file 34: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2076.root
+hadd Source file 35: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2077.root
+hadd Source file 36: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2078.root
+hadd Source file 37: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2079.root
+hadd Source file 38: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2080.root
+hadd Source file 39: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2082.root
+hadd Source file 40: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2083.root
+Error accessing path/file for Error accessing path/file for tree_1113.roottree_2.root
+
+-----> Copying file: tree_1114.root 
+-----> Copying file: tree_20.root 
+hadd Source file 41: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2085.root
+Error accessing path/file for tree_1114.root
+-----> Copying file: tree_1115.root 
+Error accessing path/file for tree_20.root
+-----> Copying file: tree_200.root 
+hadd Source file 42: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2086.root
+Error accessing path/file for tree_1115.root
+-----> Copying file: tree_1116.root 
+Error accessing path/file for tree_200.root
+-----> Copying file: tree_201.root 
+hadd Source file 43: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2088.root
+Error accessing path/file for tree_1116.root
+-----> Copying file: tree_1117.root 
+Error accessing path/file for tree_201.root
+-----> Copying file: tree_202.root 
+hadd Source file 44: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2091.root
+Error accessing path/file for tree_1117.root
+-----> Copying file: tree_1118.root 
+Error accessing path/file for tree_202.root
+-----> Copying file: tree_203.root 
+hadd Source file 45: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2092.root
+Error accessing path/file for tree_1118.root
+-----> Copying file: tree_1119.root 
+Error accessing path/file for tree_203.root
+-----> Copying file: tree_204.root 
+hadd Source file 46: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2098.root
+Error accessing path/file for tree_1119.root
+-----> Copying file: tree_1120.root 
+Error accessing path/file for tree_204.root
+-----> Copying file: tree_205.root 
+Error accessing path/file for tree_1120.root
+hadd Source file 47: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2099.root
+-----> Copying file: tree_1121.root 
+Error accessing path/file for tree_205.root
+-----> Copying file: tree_206.root 
+Error accessing path/file for tree_1121.root
+-----> Copying file: tree_1122.root 
+hadd Source file 48: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2100.root
+Error accessing path/file for tree_206.root
+-----> Copying file: tree_207.root 
+Error accessing path/file for tree_1122.root
+-----> Copying file: tree_1123.root 
+hadd Source file 49: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2101.root
+Error accessing path/file for tree_207.root
+-----> Copying file: tree_208.root 
+Error accessing path/file for tree_1123.root
+-----> Copying file: tree_1124.root 
+hadd Source file 50: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2106.root
+Error accessing path/file for tree_208.root
+-----> Copying file: tree_209.root 
+Error accessing path/file for tree_1124.root
+-----> Copying file: tree_1125.root 
+Error accessing path/file for tree_209.root
+-----> Copying file: tree_21.root 
+hadd Source file 51: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2108.root
+Error accessing path/file for tree_1125.root
+-----> Copying file: tree_1126.root 
+Error accessing path/file for tree_21.root
+-----> Copying file: tree_210.root 
+hadd Source file 52: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2110.root
+Error accessing path/file for tree_1126.root
+-----> Copying file: tree_1127.root 
+hadd Source file 53: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2111.root
+Error in <TFile::ReadBuffer>: error reading all requested bytes from file /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2111.root, got 0 of 300
+Error accessing path/file for tree_210.root
+Error in <TFile::Init>: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2111.root failed to read the file type data.
+-----> Copying file: tree_211.root 
+Error in <TFileMerger::AddFile>: cannot open file /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2111.root
+hadd exiting due to error in /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/tree_2111.root
+Error accessing path/file for tree_1127.root
+-----> Copying file: tree_1128.root 
+Error accessing path/file for tree_211.root
+-----> Copying file: tree_212.root 
+Error accessing path/file for tree_1128.root
+-----> Copying file: tree_1129.root 
+Error accessing path/file for tree_212.root
+-----> Copying file: tree_213.root 
+Error accessing path/file for tree_1129.root
+-----> Copying file: tree_1130.root 
+Error accessing path/file for tree_213.root
+Error accessing path/file for tree_1130.root
+-----> Copying file: tree_214.root 
+-----> Copying file: tree_1131.root 
+Error accessing path/file for tree_214.root
+-----> Copying file: tree_215.root 
+Error accessing path/file for tree_1131.root
+-----> Copying file: tree_1132.root 
+Error accessing path/file for tree_215.rootError accessing path/file for 
+tree_1132.root
+-----> Copying file: tree_216.root 
+-----> Copying file: tree_1133.root 
+Error accessing path/file for Error accessing path/file for tree_1133.roottree_216.root
+
+-----> Copying file: tree_217.root 
+-----> Copying file: tree_1134.root 
+Error accessing path/file for tree_217.root
+Error accessing path/file for tree_1134.root
+-----> Copying file: tree_218.root 
+-----> Copying file: tree_1135.root 
+Error accessing path/file for tree_1135.root
+Error accessing path/file for tree_218.root
+-----> Copying file: tree_1136.root 
+-----> Copying file: tree_219.root 
+Error accessing path/file for tree_1136.root
+-----> Copying file: tree_1137.root 
+Error accessing path/file for tree_219.root
+-----> Copying file: tree_22.root 
+Error accessing path/file for tree_1137.root
+-----> Copying file: tree_1138.root 
+Error accessing path/file for tree_22.root
+-----> Copying file: tree_220.root 
+Error accessing path/file for tree_1138.root
+-----> Copying file: tree_1139.root 
+Error accessing path/file for tree_220.root
+-----> Copying file: tree_221.root 
+Error accessing path/file for tree_1139.root
+-----> Copying file: tree_1140.root 
+Error accessing path/file for tree_221.root
+-----> Copying file: tree_222.root 
+Error accessing path/file for tree_1140.root
+-----> Copying file: tree_1141.root 
+Error accessing path/file for tree_222.root
+-----> Copying file: tree_223.root 
+Error accessing path/file for tree_1141.root
+-----> Copying file: tree_1142.root 
+Error accessing path/file for tree_223.root
+-----> Copying file: tree_224.root 
+Error accessing path/file for tree_1142.root
+-----> Copying file: tree_1143.root 
+Error accessing path/file for tree_224.root
+-----> Copying file: tree_225.root 
+Error accessing path/file for tree_225.root
+-----> Copying file: tree_226.root 
+Error accessing path/file for tree_1143.root
+-----> Copying file: tree_1144.root 
+Error accessing path/file for tree_226.root
+-----> Copying file: tree_227.root 
+Error accessing path/file for tree_1144.root
+-----> Copying file: tree_1145.root 
+Error accessing path/file for tree_227.root
+-----> Copying file: tree_228.root 
+Error accessing path/file for tree_1145.root
+-----> Copying file: tree_1146.root 
+Error accessing path/file for tree_228.root
+-----> Copying file: tree_229.root 
+Error accessing path/file for tree_1146.root
+-----> Copying file: tree_1147.root 
+Error accessing path/file for tree_229.root
+-----> Copying file: tree_23.root 
+Error accessing path/file for tree_1147.root
+-----> Copying file: tree_1148.root 
+Error accessing path/file for tree_1148.root
+Error accessing path/file for tree_23.root
+-----> Copying file: tree_1149.root 
+-----> Copying file: tree_230.root 
+Error accessing path/file for tree_1149.root
+-----> Copying file: tree_1150.root 
+Error accessing path/file for tree_230.root
+-----> Copying file: tree_231.root 
+Error accessing path/file for tree_1150.root
+-----> Copying file: tree_1151.root 
+Error accessing path/file for tree_231.root
+-----> Copying file: tree_232.root 
+Error accessing path/file for tree_1151.root
+-----> Copying file: tree_1152.root 
+Error accessing path/file for tree_232.root
+-----> Copying file: tree_233.root 
+Error accessing path/file for tree_1152.root
+-----> Copying file: tree_1153.root 
+Error accessing path/file for tree_233.root
+-----> Copying file: tree_234.root 
+Error accessing path/file for tree_1153.root
+-----> Copying file: tree_1154.root 
+Error accessing path/file for tree_234.root
+-----> Copying file: tree_235.root 
+Error accessing path/file for tree_1154.root
+-----> Copying file: tree_1155.root 
+Error accessing path/file for tree_235.root
+-----> Copying file: tree_236.root 
+Error accessing path/file for tree_1155.root
+-----> Copying file: tree_1156.root 
+Error accessing path/file for tree_236.root
+-----> Copying file: tree_237.root 
+Error accessing path/file for tree_1156.root
+-----> Copying file: tree_1157.root 
+Error accessing path/file for tree_237.root
+-----> Copying file: tree_238.root 
+Error accessing path/file for tree_1157.root
+-----> Copying file: tree_1158.root 
+Error accessing path/file for tree_238.root
+-----> Copying file: tree_239.root 
+Error accessing path/file for tree_1158.root
+-----> Copying file: tree_1159.root 
+Error accessing path/file for tree_239.root
+-----> Copying file: tree_24.root 
+Error accessing path/file for tree_1159.root
+-----> Copying file: tree_1160.root 
+Error accessing path/file for tree_24.root
+-----> Copying file: tree_240.root 
+Error accessing path/file for tree_1160.root
+-----> Copying file: tree_1161.root 
+Error accessing path/file for tree_240.root
+-----> Copying file: tree_241.root 
+Error accessing path/file for tree_1161.root
+-----> Copying file: tree_1162.root 
+Error accessing path/file for tree_241.root
+-----> Copying file: tree_242.root 
+Error accessing path/file for tree_242.rootError accessing path/file for tree_1162.root
+
+-----> Copying file: tree_1163.root 
+-----> Copying file: tree_243.root 
+Error accessing path/file for tree_243.root
+-----> Copying file: tree_244.root 
+Error accessing path/file for tree_1163.root
+-----> Copying file: tree_1164.root 
+Error accessing path/file for tree_244.root
+-----> Copying file: tree_245.root 
+Error accessing path/file for tree_1164.root
+-----> Copying file: tree_1165.root 
+Error accessing path/file for tree_1165.root
+-----> Copying file: tree_1166.root 
+Error accessing path/file for tree_245.root
+-----> Copying file: tree_246.root 
+Error accessing path/file for tree_1166.root
+-----> Copying file: tree_1167.root 
+Error accessing path/file for tree_246.root
+-----> Copying file: tree_247.root 
+Error accessing path/file for tree_1167.root
+-----> Copying file: tree_1168.root 
+Error accessing path/file for tree_247.root
+-----> Copying file: tree_248.root 
+Error accessing path/file for tree_1168.root
+-----> Copying file: tree_1169.root 
+Error accessing path/file for tree_248.root
+-----> Copying file: tree_249.root 
+Error accessing path/file for tree_1169.root
+-----> Copying file: tree_1170.root 
+Error accessing path/file for tree_249.root
+-----> Copying file: tree_25.root 
+Error accessing path/file for tree_1170.root
+-----> Copying file: tree_1171.root 
+Error accessing path/file for tree_25.root
+-----> Copying file: tree_250.root 
+Error accessing path/file for tree_1171.root
+-----> Copying file: tree_1172.root 
+Error accessing path/file for tree_250.root
+-----> Copying file: tree_251.root 
+Error accessing path/file for tree_1172.root
+-----> Copying file: tree_1173.root 
+Error accessing path/file for tree_251.root
+-----> Copying file: tree_252.root 
+Error accessing path/file for tree_1173.root
+-----> Copying file: tree_1174.root 
+Error accessing path/file for tree_252.root
+-----> Copying file: tree_253.root 
+Error accessing path/file for tree_1174.root
+-----> Copying file: tree_1175.root 
+Error accessing path/file for tree_253.root
+-----> Copying file: tree_254.root 
+Error accessing path/file for tree_1175.root
+-----> Copying file: tree_1176.root 
+Error accessing path/file for tree_254.root
+-----> Copying file: tree_255.root 
+Error accessing path/file for tree_1176.root
+-----> Copying file: tree_1177.root 
+Error accessing path/file for tree_255.root
+-----> Copying file: tree_256.root 
+Error accessing path/file for tree_1177.root
+-----> Copying file: tree_1178.root 
+Error accessing path/file for tree_256.root
+-----> Copying file: tree_257.root 
+Error accessing path/file for tree_1178.root
+-----> Copying file: tree_1179.root 
+Error accessing path/file for tree_257.root
+-----> Copying file: tree_258.root 
+Error accessing path/file for tree_1179.root
+-----> Copying file: tree_1180.root 
+Error accessing path/file for tree_258.root
+-----> Copying file: tree_259.root 
+Error accessing path/file for tree_1180.root
+-----> Copying file: tree_1181.root 
+Error accessing path/file for tree_259.root
+-----> Copying file: tree_26.root 
+Error accessing path/file for tree_1181.root
+-----> Copying file: tree_1182.root 
+Error accessing path/file for tree_26.root
+-----> Copying file: tree_260.root 
+Error accessing path/file for tree_1182.root
+-----> Copying file: tree_1183.root 
+Error accessing path/file for tree_260.root
+-----> Copying file: tree_261.root 
+Error accessing path/file for tree_1183.root
+-----> Copying file: tree_1184.root 
+Error accessing path/file for tree_261.root
+-----> Copying file: tree_262.root 
+Error accessing path/file for tree_1184.root
+-----> Copying file: tree_1185.root 
+Error accessing path/file for tree_262.root
+-----> Copying file: tree_263.root 
+Error accessing path/file for tree_1185.root
+-----> Copying file: tree_1186.root 
+Error accessing path/file for tree_263.root
+-----> Copying file: tree_264.root 
+Error accessing path/file for tree_1186.root
+-----> Copying file: tree_1187.root 
+Error accessing path/file for tree_264.root
+-----> Copying file: tree_265.root 
+Error accessing path/file for tree_1187.root
+-----> Copying file: tree_1188.root 
+Error accessing path/file for tree_265.root
+-----> Copying file: tree_266.root 
+Error accessing path/file for tree_1188.root
+-----> Copying file: tree_1189.root 
+Error accessing path/file for tree_266.root
+-----> Copying file: tree_267.root 
+Error accessing path/file for tree_1189.root
+-----> Copying file: tree_1190.root 
+Error accessing path/file for tree_267.root
+-----> Copying file: tree_268.root 
+Error accessing path/file for tree_1190.root
+-----> Copying file: tree_1191.root 
+Error accessing path/file for tree_268.root
+-----> Copying file: tree_269.root 
+Error accessing path/file for tree_1191.root
+-----> Copying file: tree_1192.root 
+Error accessing path/file for tree_269.root
+-----> Copying file: tree_27.root 
+Error accessing path/file for tree_1192.root
+-----> Copying file: tree_1193.root 
+Error accessing path/file for tree_27.root
+-----> Copying file: tree_270.root 
+Error accessing path/file for tree_270.root
+Error accessing path/file for tree_1193.root
+-----> Copying file: tree_271.root 
+-----> Copying file: tree_1194.root 
+Error accessing path/file for tree_271.root
+-----> Copying file: tree_272.root 
+Error accessing path/file for tree_1194.root
+-----> Copying file: tree_1195.root 
+Error accessing path/file for tree_272.root
+-----> Copying file: tree_273.root 
+Error accessing path/file for tree_1195.root
+-----> Copying file: tree_1196.root 
+Error accessing path/file for tree_273.root
+-----> Copying file: tree_274.root 
+Error accessing path/file for tree_1196.root
+-----> Copying file: tree_1197.root 
+Error accessing path/file for tree_274.root
+-----> Copying file: tree_275.root 
+Error accessing path/file for tree_1197.root
+-----> Copying file: tree_1198.root 
+Error accessing path/file for tree_275.root
+-----> Copying file: tree_276.root 
+Error accessing path/file for tree_1198.root
+-----> Copying file: tree_1199.root 
+Error accessing path/file for tree_276.root
+-----> Copying file: tree_277.root 
+Error accessing path/file for tree_1199.root
+-----> Copying file: tree_1200.root 
+Error accessing path/file for tree_277.root
+-----> Copying file: tree_278.root 
+Error accessing path/file for tree_1200.root
+-----> Copying file: tree_1201.root 
+Error accessing path/file for tree_278.root
+-----> Copying file: tree_279.root 
+Error accessing path/file for tree_1201.root
+-----> Copying file: tree_1202.root 
+Error accessing path/file for tree_279.root
+-----> Copying file: tree_28.root 
+Error accessing path/file for tree_1202.root
+-----> Copying file: tree_1203.root 
+Error accessing path/file for tree_28.root
+-----> Copying file: tree_280.root 
+Error accessing path/file for tree_1203.root
+-----> Copying file: tree_1204.root 
+Error accessing path/file for tree_280.root
+-----> Copying file: tree_281.root 
+Error accessing path/file for tree_1204.root
+-----> Copying file: tree_1205.root 
+Error accessing path/file for tree_281.root
+-----> Copying file: tree_282.root 
+Error accessing path/file for tree_1205.root
+-----> Copying file: tree_1206.root 
+Error accessing path/file for tree_282.root
+-----> Copying file: tree_283.root 
+Error accessing path/file for tree_1206.root
+-----> Copying file: tree_1207.root 
+Error accessing path/file for tree_283.root
+-----> Copying file: tree_284.root 
+Error accessing path/file for tree_1207.root
+-----> Copying file: tree_1208.root 
+Error accessing path/file for tree_284.root
+-----> Copying file: tree_285.root 
+Error accessing path/file for tree_1208.root
+-----> Copying file: tree_1209.root 
+Error accessing path/file for tree_285.root
+-----> Copying file: tree_286.root 
+Error accessing path/file for tree_1209.root
+-----> Copying file: tree_1210.root 
+Error accessing path/file for tree_286.root
+-----> Copying file: tree_287.root 
+Error accessing path/file for tree_1210.root
+-----> Copying file: tree_1211.root 
+Error accessing path/file for tree_287.root
+-----> Copying file: tree_288.root 
+Error accessing path/file for tree_1211.root
+-----> Copying file: tree_1212.root 
+Error accessing path/file for tree_288.root
+-----> Copying file: tree_289.root 
+Error accessing path/file for tree_1212.root
+-----> Copying file: tree_1213.root 
+Error accessing path/file for tree_289.root
+-----> Copying file: tree_29.root 
+Error accessing path/file for tree_1213.root
+-----> Copying file: tree_1214.root 
+Error accessing path/file for tree_29.root
+-----> Copying file: tree_290.root 
+Error accessing path/file for tree_1214.root
+-----> Copying file: tree_1215.root 
+Error accessing path/file for tree_290.root
+-----> Copying file: tree_291.root 
+Error accessing path/file for tree_1215.root
+-----> Copying file: tree_1216.root 
+Error accessing path/file for tree_291.root
+-----> Copying file: tree_292.root 
+Error accessing path/file for tree_1216.root
+-----> Copying file: tree_1217.root 
+Error accessing path/file for tree_292.root
+-----> Copying file: tree_293.root 
+Error accessing path/file for tree_1217.root
+-----> Copying file: tree_1218.root 
+Error accessing path/file for tree_293.root
+-----> Copying file: tree_294.root 
+Error accessing path/file for tree_1218.root
+-----> Copying file: tree_1219.root 
+Error accessing path/file for tree_294.root
+-----> Copying file: tree_295.root 
+Error accessing path/file for tree_1219.root
+-----> Copying file: tree_1220.root 
+Error accessing path/file for tree_295.root
+-----> Copying file: tree_296.root 
+Error accessing path/file for tree_1220.root
+-----> Copying file: tree_1221.root 
+Error accessing path/file for tree_296.root
+-----> Copying file: tree_297.root 
+Error accessing path/file for tree_1221.root
+-----> Copying file: tree_1222.root 
+Error accessing path/file for tree_297.root
+-----> Copying file: tree_298.root 
+Error accessing path/file for tree_1222.root
+-----> Copying file: tree_1223.root 
+Error accessing path/file for tree_298.root
+-----> Copying file: tree_299.root 
+Error accessing path/file for tree_1223.root
+-----> Copying file: tree_1224.root 
+Error accessing path/file for tree_299.root
+-----> Copying file: tree_3.root 
+Error accessing path/file for tree_1224.root
+Error accessing path/file for tree_3.root
+-----> Copying file: tree_1225.root 
+-----> Copying file: tree_30.root 
+Error accessing path/file for tree_1225.root
+-----> Copying file: tree_1226.root 
+Error accessing path/file for tree_30.root
+-----> Copying file: tree_300.root 
+Error accessing path/file for tree_300.root
+-----> Copying file: tree_301.root 
+Error accessing path/file for tree_1226.root
+-----> Copying file: tree_1227.root 
+Error accessing path/file for tree_301.root
+-----> Copying file: tree_302.root 
+Error accessing path/file for tree_1227.root
+-----> Copying file: tree_1228.root 
+Error accessing path/file for Error accessing path/file for tree_302.roottree_1228.root
+
+-----> Copying file: tree_1229.root 
+-----> Copying file: tree_303.root 
+Error accessing path/file for tree_303.root
+-----> Copying file: tree_304.root 
+Error accessing path/file for tree_1229.root
+-----> Copying file: tree_1230.root 
+Error accessing path/file for tree_304.root
+-----> Copying file: tree_305.root 
+Error accessing path/file for tree_1230.root
+-----> Copying file: tree_1231.root 
+Error accessing path/file for tree_305.root
+Error accessing path/file for tree_1231.root
+-----> Copying file: tree_306.root 
+-----> Copying file: tree_1232.root 
+Error accessing path/file for tree_1232.root
+Error accessing path/file for tree_306.root
+-----> Copying file: tree_1233.root 
+-----> Copying file: tree_307.root 
+Error accessing path/file for tree_307.root
+-----> Copying file: tree_308.root 
+Error accessing path/file for tree_1233.root
+-----> Copying file: tree_1234.root 
+Error accessing path/file for tree_308.root
+-----> Copying file: tree_309.root 
+Error accessing path/file for tree_1234.root
+-----> Copying file: tree_1235.root 
+Error accessing path/file for tree_309.root
+-----> Copying file: tree_31.root 
+Error accessing path/file for tree_1235.root
+-----> Copying file: tree_1236.root 
+Error accessing path/file for tree_31.root
+-----> Copying file: tree_310.root 
+Error accessing path/file for tree_1236.root
+-----> Copying file: tree_1237.root 
+Error accessing path/file for tree_310.root
+-----> Copying file: tree_311.root 
+Error accessing path/file for tree_1237.root
+-----> Copying file: tree_1238.root 
+Error accessing path/file for tree_311.root
+-----> Copying file: tree_312.root 
+Error accessing path/file for tree_1238.root
+-----> Copying file: tree_1239.root 
+Error accessing path/file for tree_312.root
+-----> Copying file: tree_313.root 
+Error accessing path/file for tree_1239.root
+-----> Copying file: tree_1240.root 
+Error accessing path/file for tree_313.root
+-----> Copying file: tree_314.root 
+Error accessing path/file for tree_1240.root
+-----> Copying file: tree_1241.root 
+Error accessing path/file for tree_1241.root
+Error accessing path/file for tree_314.root
+-----> Copying file: tree_1242.root 
+-----> Copying file: tree_315.root 
+Error accessing path/file for tree_1242.root
+-----> Copying file: tree_1243.root 
+Error accessing path/file for tree_315.root
+-----> Copying file: tree_316.root 
+Error accessing path/file for tree_316.root
+Error accessing path/file for tree_1243.root
+-----> Copying file: tree_317.root 
+-----> Copying file: tree_1244.root 
+Error accessing path/file for tree_317.root
+Error accessing path/file for tree_1244.root
+-----> Copying file: tree_318.root 
+-----> Copying file: tree_1245.root 
+Error accessing path/file for Error accessing path/file for tree_318.roottree_1245.root
+
+-----> Copying file: tree_319.root 
+-----> Copying file: tree_1246.root 
+Error accessing path/file for tree_1246.root
+-----> Copying file: tree_1247.root 
+Error accessing path/file for tree_319.root
+-----> Copying file: tree_32.root 
+Error accessing path/file for tree_1247.root
+-----> Copying file: tree_1248.root 
+Error accessing path/file for tree_32.root
+-----> Copying file: tree_320.root 
+Error accessing path/file for tree_1248.root
+Error accessing path/file for tree_320.root
+-----> Copying file: tree_1249.root 
+-----> Copying file: tree_321.root 
+Error accessing path/file for tree_321.root
+^Z
+[3]+  Stopped                 python file_mover.py
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [m
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [m
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mpython file_mover.py 
+Error in <TGClient::TGClient>: can't open display "localhost:12.0", switching to batch mode...
+ In case you run from a remote ssh session, reconnect with ssh -Y
+ttbar_ext1_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/
+ttbar_ext2_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext2/
+ttbar_ext3_hadd.txt
+/exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext3/
+-----> Copying file: tree_1000.root 
+-----> Copying file: tree_1.root 
+-----> Copying file: tree_2000.root 
+Error accessing path/file for Error accessing path/file for tree_2000.roottree_1000.root
+
+-----> Copying file: tree_2004.root 
+-----> Copying file: tree_1001.root 
+Better to use cp in this case. (dest: /exports/uftrig01a/dcurry/heppy/v24/split_files/ttbar_ext1/)
+-----> Copying file: tree_10.root 
+Error accessing path/file for tree_1001.root
+Error accessing path/file for tree_10.root
+-----> Copying file: tree_1002.root 
+-----> Copying file: tree_100.root 
+Error accessing path/file for tree_2004.root
+-----> Copying file: tree_2006.root 
+Error accessing path/file for tree_100.root
+-----> Copying file: tree_101.root 
+Error accessing path/file for tree_1002.root
+Error accessing path/file for tree_2006.root
+-----> Copying file: tree_1003.root 
+-----> Copying file: tree_2008.root 
+Error accessing path/file for tree_101.root
+-----> Copying file: tree_102.root 
+Error accessing path/file for tree_1003.root
+-----> Copying file: tree_1004.root 
+Error accessing path/file for tree_2008.root
+-----> Copying file: tree_2009.root 
+Error accessing path/file for tree_102.root
+-----> Copying file: tree_103.root 
+Error accessing path/file for tree_1004.root
+-----> Copying file: tree_1005.root 
+Error accessing path/file for tree_2009.root
+-----> Copying file: tree_2014.root 
+Error accessing path/file for tree_103.root
+-----> Copying file: tree_104.root 
+Error accessing path/file for tree_1005.root
+-----> Copying file: tree_1006.root 
+Error accessing path/file for tree_2014.root
+-----> Copying file: tree_2015.root 
+Error accessing path/file for tree_104.root
+-----> Copying file: tree_105.root 
+Error accessing path/file for tree_1006.root
+-----> Copying file: tree_1007.root 
+Error accessing path/file for tree_2015.root
+-----> Copying file: tree_2016.root 
+Error accessing path/file for tree_105.root
+-----> Copying file: tree_106.root 
+Error accessing path/file for tree_1007.root
+-----> Copying file: tree_1008.root 
+Error accessing path/file for tree_2016.root
+-----> Copying file: tree_2017.root 
+Error accessing path/file for tree_106.root
+-----> Copying file: tree_107.root 
+Error accessing path/file for tree_1008.root
+-----> Copying file: tree_1009.root 
+Error accessing path/file for tree_2017.root
+-----> Copying file: tree_2021.root 
+Error accessing path/file for tree_107.root
+-----> Copying file: tree_108.root 
+Error accessing path/file for tree_1009.root
+-----> Copying file: tree_1010.root 
+Error accessing path/file for tree_2021.root
+-----> Copying file: tree_2023.root 
+Error accessing path/file for tree_108.root
+-----> Copying file: tree_109.root 
+Error accessing path/file for Error accessing path/file for tree_1010.roottree_2023.root
+
+-----> Copying file: tree_1011.root 
+-----> Copying file: tree_2025.root 
+Error accessing path/file for tree_109.root
+-----> Copying file: tree_11.root 
+Error accessing path/file for tree_1011.root
+-----> Copying file: tree_1012.root 
+Error accessing path/file for tree_2025.root
+-----> Copying file: tree_2026.root 
+Error accessing path/file for tree_11.root
+-----> Copying file: tree_110.root 
+Error accessing path/file for tree_1012.root
+-----> Copying file: tree_1013.root 
+Error accessing path/file for tree_2026.root
+-----> Copying file: tree_2029.root 
+Error accessing path/file for tree_110.root
+-----> Copying file: tree_111.root 
+Error accessing path/file for tree_1013.root
+-----> Copying file: tree_1014.root 
+Error accessing path/file for tree_2029.root
+-----> Copying file: tree_2030.root 
+Error accessing path/file for tree_111.root
+-----> Copying file: tree_112.root 
+Error accessing path/file for tree_1014.root
+-----> Copying file: tree_1015.root 
+Error accessing path/file for tree_2030.root
+-----> Copying file: tree_2032.root 
+Error accessing path/file for tree_112.root
+-----> Copying file: tree_113.root 
+Error accessing path/file for tree_1015.root
+-----> Copying file: tree_1016.root 
+Error accessing path/file for tree_2032.root
+-----> Copying file: tree_2040.root 
+Error accessing path/file for tree_113.root
+-----> Copying file: tree_114.root 
+Error accessing path/file for tree_1016.root
+-----> Copying file: tree_1017.root 
+Error accessing path/file for tree_2040.root
+-----> Copying file: tree_2042.root 
+Error accessing path/file for tree_114.root
+-----> Copying file: tree_115.root 
+Error accessing path/file for tree_1017.root
+-----> Copying file: tree_1018.root 
+Error accessing path/file for tree_2042.root
+-----> Copying file: tree_2043.root 
+Error accessing path/file for tree_115.root
+-----> Copying file: tree_116.root 
+Error accessing path/file for tree_1018.root
+-----> Copying file: tree_1019.root 
+Error accessing path/file for tree_2043.root
+-----> Copying file: tree_2045.root 
+Error accessing path/file for tree_116.root
+-----> Copying file: tree_117.root 
+Error accessing path/file for tree_1019.root
+-----> Copying file: tree_1020.root 
+Error accessing path/file for tree_2045.root
+-----> Copying file: tree_2046.root 
+Error accessing path/file for tree_117.root
+-----> Copying file: tree_118.root 
+Error accessing path/file for tree_1020.root
+-----> Copying file: tree_1021.root 
+Error accessing path/file for tree_2046.root
+-----> Copying file: tree_2052.root 
+Error accessing path/file for tree_118.root
+-----> Copying file: tree_119.root 
+Error accessing path/file for tree_1021.root
+-----> Copying file: tree_1022.root 
+Error accessing path/file for Error accessing path/file for tree_119.roottree_2052.root
+
+-----> Copying file: tree_12.root 
+-----> Copying file: tree_2056.root 
+Error accessing path/file for tree_1022.root
+-----> Copying file: tree_1023.root 
+Error accessing path/file for tree_2056.root
+-----> Copying file: tree_2059.root 
+Error accessing path/file for tree_12.root
+-----> Copying file: tree_120.root 
+Error accessing path/file for tree_1023.root
+-----> Copying file: tree_1024.root 
+Error accessing path/file for tree_2059.root
+-----> Copying file: tree_2060.root 
+Error accessing path/file for tree_120.root
+-----> Copying file: tree_121.root 
+Error accessing path/file for tree_1024.root
+-----> Copying file: tree_1025.root 
+Error accessing path/file for tree_2060.root
+-----> Copying file: tree_2061.root 
+Error accessing path/file for tree_121.root
+-----> Copying file: tree_122.root 
+Error accessing path/file for tree_1025.root
+-----> Copying file: tree_1026.root 
+Error accessing path/file for tree_122.rootError accessing path/file for tree_2061.root
+
+-----> Copying file: tree_123.root 
+-----> Copying file: tree_2062.root 
+Error accessing path/file for tree_1026.root
+-----> Copying file: tree_1027.root 
+Error accessing path/file for tree_2062.root
+-----> Copying file: tree_2066.root 
+Error accessing path/file for tree_123.root
+-----> Copying file: tree_124.root 
+Error accessing path/file for tree_1027.root
+-----> Copying file: tree_1028.root 
+Error accessing path/file for tree_2066.root
+-----> Copying file: tree_2068.root 
+Error accessing path/file for tree_124.root
+-----> Copying file: tree_125.root 
+Error accessing path/file for tree_1028.root
+-----> Copying file: tree_1029.root 
+Error accessing path/file for tree_2068.root
+Error accessing path/file for -----> Copying file: tree_2070.root 
+tree_125.root
+-----> Copying file: tree_126.root 
+Error accessing path/file for tree_1029.root
+-----> Copying file: tree_1030.root 
+Error accessing path/file for tree_126.root
+-----> Copying file: tree_127.root 
+Error accessing path/file for tree_2070.root
+-----> Copying file: tree_2071.root 
+Error accessing path/file for tree_1030.root
+-----> Copying file: tree_1031.root 
+Error accessing path/file for tree_2071.root
+-----> Copying file: tree_2072.root 
+Error accessing path/file for tree_127.root
+-----> Copying file: tree_128.root 
+Error accessing path/file for tree_1031.root
+-----> Copying file: tree_1032.root 
+Error accessing path/file for tree_2072.root
+-----> Copying file: tree_2075.root 
+Error accessing path/file for tree_128.root
+-----> Copying file: tree_129.root 
+Error accessing path/file for tree_1032.root
+-----> Copying file: tree_1033.root 
+Error accessing path/file for tree_129.rootError accessing path/file for tree_2075.root
+
+-----> Copying file: tree_2076.root 
+-----> Copying file: tree_13.root 
+Error accessing path/file for tree_1033.root
+-----> Copying file: tree_1034.root 
+Error accessing path/file for tree_13.root
+Error accessing path/file for tree_2076.root
+-----> Copying file: tree_130.root 
+-----> Copying file: tree_2077.root 
+Error accessing path/file for tree_1034.root
+-----> Copying file: tree_1035.root 
+Error accessing path/file for tree_2077.root
+-----> Copying file: tree_2078.root 
+Error accessing path/file for tree_130.root
+-----> Copying file: tree_131.root 
+Error accessing path/file for tree_1035.root
+-----> Copying file: tree_1036.root 
+Error accessing path/file for tree_2078.root
+-----> Copying file: tree_2079.root 
+Error accessing path/file for tree_131.root
+-----> Copying file: tree_132.root 
+Error accessing path/file for tree_1036.root
+-----> Copying file: tree_1037.root 
+Error accessing path/file for tree_2079.root
+-----> Copying file: tree_2080.root 
+Error accessing path/file for tree_132.root
+-----> Copying file: tree_133.root 
+Error accessing path/file for tree_1037.root
+-----> Copying file: tree_1038.root 
+Error accessing path/file for tree_2080.root
+-----> Copying file: tree_2082.root 
+Error accessing path/file for tree_133.root
+-----> Copying file: tree_134.root 
+Error accessing path/file for tree_2082.root
+Error accessing path/file for tree_1038.rootError accessing path/file for 
+tree_134.root
+-----> Copying file: tree_2083.root 
+-----> Copying file: tree_1039.root 
+-----> Copying file: tree_135.root 
+Error accessing path/file for tree_135.root
+Error accessing path/file for tree_1039.root
+-----> Copying file: tree_136.root 
+-----> Copying file: tree_1040.root 
+Error accessing path/file for tree_2083.root
+-----> Copying file: tree_2085.root 
+Error accessing path/file for tree_136.root
+-----> Copying file: tree_137.root 
+Error accessing path/file for tree_1040.root
+-----> Copying file: tree_1041.root 
+Error accessing path/file for tree_2085.root
+-----> Copying file: tree_2086.root 
+Error accessing path/file for tree_137.root
+Error accessing path/file for tree_1041.root
+-----> Copying file: tree_138.root 
+-----> Copying file: tree_1042.root 
+Error accessing path/file for tree_2086.root
+-----> Copying file: tree_2088.root 
+Error accessing path/file for tree_138.root
+-----> Copying file: tree_139.root 
+Error accessing path/file for tree_2088.root
+Error accessing path/file for -----> Copying file: tree_2091.root 
+tree_1042.root
+-----> Copying file: tree_1043.root 
+Error accessing path/file for tree_2091.root
+Error accessing path/file for tree_1043.root
+Error accessing path/file for tree_139.root
+-----> Copying file: tree_2092.root 
+-----> Copying file: tree_1044.root 
+-----> Copying file: tree_14.root 
+Error accessing path/file for tree_2092.root
+-----> Copying file: tree_2098.root 
+Error accessing path/file for tree_14.root
+-----> Copying file: tree_140.root 
+Error accessing path/file for tree_1044.root
+-----> Copying file: tree_1045.root 
+Error accessing path/file for tree_140.root
+-----> Copying file: tree_141.root 
+Error accessing path/file for tree_1045.root
+Error accessing path/file for tree_2098.root
+-----> Copying file: tree_1046.root 
+-----> Copying file: tree_2099.root 
+Error accessing path/file for tree_141.root
+Error accessing path/file for tree_1046.root
+-----> Copying file: tree_142.root 
+-----> Copying file: tree_1047.root 
+Error accessing path/file for tree_2099.root
+-----> Copying file: tree_2100.root 
+Error accessing path/file for tree_1047.root
+-----> Copying file: tree_1048.root 
+Error accessing path/file for tree_2100.root
+Error accessing path/file for tree_142.root
+-----> Copying file: tree_2101.root 
+-----> Copying file: tree_143.root 
+Error accessing path/file for tree_1048.root
+-----> Copying file: tree_1049.root 
+Error accessing path/file for tree_143.root
+-----> Copying file: tree_144.root 
+Error accessing path/file for tree_2101.root
+-----> Copying file: tree_2106.root 
+Error accessing path/file for tree_1049.root
+-----> Copying file: tree_1050.root 
+Error accessing path/file for tree_144.root
+-----> Copying file: tree_145.root 
+Error accessing path/file for tree_2106.root
+-----> Copying file: tree_2108.root 
+Error accessing path/file for tree_1050.root
+-----> Copying file: tree_1051.root 
+Error accessing path/file for tree_145.root
+-----> Copying file: tree_146.root 
+Error accessing path/file for tree_2108.root
+-----> Copying file: tree_2110.root 
+Error accessing path/file for tree_1051.root
+-----> Copying file: tree_1052.root 
+Error accessing path/file for tree_146.root
+-----> Copying file: tree_147.root 
+Error accessing path/file for tree_2110.root
+-----> Copying file: tree_2111.root 
+Error accessing path/file for tree_1052.root
+-----> Copying file: tree_1053.root 
+^Z
+[4]+  Stopped                 python file_mover.py
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mexit
+exit
+There are stopped jobs.
+]0;dcurry@uftrig01:/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples\[0;32m[uftrig01]/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/myMacros/samples [mexit
+exit

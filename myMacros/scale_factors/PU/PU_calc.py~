@@ -1,0 +1,15 @@
+import sys
+import os
+import re
+import fileinput
+import subprocess
+import numpy as np
+from matplotlib import interactive
+from ROOT import *
+
+
+input_root_file = TFile.Open('eleTrig_SF.root')
+
+
+# Get the Histo
+hist = input_root_file.Get('h_eleTrig_SF')

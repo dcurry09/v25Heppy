@@ -1,0 +1,11 @@
+# Lxplus Batch Job Script
+set CMSSW_PROJECT_SRC="cmssw_projects/13X/cmssw131hlt6/src"
+set CFG_FILE="cfgs/steps2_3_4_5.cfg"
+set OUTPUT_FILE="Analyzer_Output.root"
+set TOP="$PWD"
+
+cd /afs/cern.ch/user/s/ssimon/$CMSSW_PROJECT_SRC
+eval `scramv1 runtime -csh`
+cd $TOP
+cmsRun /afs/cern.ch/user/s/ssimon/$CMSSW_PROJECT_SRC/$CFG_FILE
+rfcp Analyzer_Output.root /castor/cern.ch/user/s/ssimon/$OUTPUT_FILE

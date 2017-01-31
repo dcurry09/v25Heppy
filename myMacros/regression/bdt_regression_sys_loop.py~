@@ -1,0 +1,47 @@
+# Python script to perform BDT regression loop
+# Tests performance as a function of several parmeters
+#
+#  !!!! Needs to be ran from python directory
+#
+# 2/15/2015 David Curry
+# ===================================================
+
+import sys
+import os
+import re
+import fileinput
+import subprocess
+import numpy as np
+from matplotlib import interactive
+from ROOT import *
+import multiprocessing
+
+
+data_list = ['Zuu', 'Zee']
+
+signal_list = ['ZH125', 'ggZH125']
+
+bkg_list = ['ZZ', 'WZ', 'ttbar', 'DY_inclusive']
+
+DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600toInf']
+
+ST_list= ['ST_t', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
+
+temp_list = ['ZH125']
+
+
+sample_list = temp_list
+#sample_list = ST_list
+#sample_list = signal_list + data_list + bkg_list + DY_list + ST_list
+
+
+
+def osSystem(sample):
+
+         os.system('./runAll.sh '+sample+' 13TeV sys')
+
+# define the multiprocessing object
+p = multiprocessing.Pool()
+results = p.imap(osSystem, sample_list)
+p.close()
+p.join()

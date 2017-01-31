@@ -1,0 +1,131 @@
+###########################################
+# Event Loop for jet ID plots and stats
+#
+# by David Curry
+#
+# 7.22.1014
+###########################################
+
+
+from ROOT import *
+from matplotlib import interactive
+import numpy as np
+from collections import Counter
+import itertools as it
+
+# Open root file of saved Hists
+file = TFile('/exports/uftrig01a/dcurry/heppy/v21/ZH125.root')
+
+# Set Trees
+tree = file.Get('tree')
+
+# Define Hist file to be saved
+newfile = TFile('plots_vType_study.root','recreate')
+
+# A more efficient way to count
+count = Counter()
+
+# A leptons plots =========================
+alep_pt  = TH1F('alep_pt', '', 50, 10, 220)
+
+alep_iso = TH1F('alep_iso', '', 50 , 0, 0.5)
+
+alep_id = TH1F('alep_id', '',50 , -1.1, 1.1)
+
+alep_eta = TH1F('alep_eta', '',50 , -2.5, 2.5)
+
+alep_eta_id = TH2F('alep_eta_id', '',50 , -2.5, 2.5, 50, -1.1, 1.1)
+
+hist_list = [alep_pt, alep_iso, alep_id, alep_eta, alep_eta_id]
+# ========================================
+
+
+# Loop over events
+for iEvt in range(tree.GetEntries()):
+
+    # for testing
+    if iEvt > 100000: break
+
+    tree.GetEntry(iEvt)
+
+    if iEvt % 10000 is 0: print 'Event #', iEvt
+
+    if tree.Vtype !=3: continue
+
+    if tree.nvLeptons < 1: continue
+
+    count['num_Evts_vType3'] += 1
+    
+    # set tLorentz vector for the one vLepton
+    v1 = TLorentzVector()
+    v1.SetPtEtaPhiM(tree.vLeptons_pt[0], tree.vLeptons_eta[0], tree.vLeptons_phi[0], tree.vLeptons_mass[0])
+
+    found_vmatch = False
+    # Loop over additional leptons
+    for iLep in range(tree.naLeptons):
+        
+        if tree.aLeptons_pt[iLep] < 20: continue
+        
+        # check for this aLepton and the one vLepton for a Z mass (+-10)
+        v2 = TLorentzVector()
+        v2.SetPtEtaPhiM(tree.aLeptons_pt[iLep], tree.aLeptons_eta[iLep], tree.aLeptons_phi[iLep], tree.aLeptons_mass[iLep])
+        
+        v = TLorentzVector() 
+        v_mass = (v1 + v2).M()
+        
+        if abs(v_mass - 91) <= 10:
+
+            count['num_aLep_in_10GeV_VMass_window'] += 1
+            
+            if found_vmatch == False:
+                count['num_events_aLep_in_10GeV_VMass_window'] += 1
+
+            found_vmatch = True
+
+            # Plot pt, MVA ID, ISolation for these a Leptons
+            alep_pt.Fill(tree.aLeptons_pt[iLep])
+            alep_iso.Fill(tree.aLeptons_relIso04[iLep])
+            alep_id.Fill(tree.aLeptons_eleMVArawSpring15NonTrig[iLep])
+            alep_eta.Fill(tree.aLeptons_eta[iLep])
+            alep_eta_id.Fill(tree.aLeptons_eta[iLep], tree.aLeptons_eleMVArawSpring15NonTrig[iLep])
+            
+            # === Some stats ===
+            
+            # How many aLeptons with ISO > 0.25
+            if tree.aLeptons_relIso04[iLep] > 0.25:
+                count['num_aLep_in_10GeV_VMass_window_ISO>0.25'] += 1
+            
+            # How many aLeptons with MVAID 
+            if abs(tree.aLeptons_eta[iLep]) < 0.8:
+                if tree.aLeptons_eleMVArawSpring15NonTrig[iLep] < 0.988153:
+                    count['num_aLep_in_10GeV_VMass_window_barrel_MinCut80%'] += 1
+                    
+            if abs(tree.aLeptons_eta[iLep]) >= 0.8 and abs(tree.aLeptons_eta[iLep]) <= 0.9:
+                if tree.aLeptons_eleMVArawSpring15NonTrig[iLep]< 0.967910:
+                    count['num_aLep_in_10GeV_VMass_window_barrel_MinCut80%'] += 1
+
+            if abs(tree.aLeptons_eta[iLep]) > 0.9:
+                if tree.aLeptons_eleMVArawSpring15NonTrig[iLep]< 0.841729:
+                    count['num_aLep_in_10GeV_VMass_window_endcap_MinCut80%'] += 1
+
+            
+
+
+# End Event Loop
+
+#  ======== Write Hists ==========
+for hist in hist_list:
+    if isinstance(hist, list):
+        newfile.mkdir('%s' % hist[0].GetName()).cd()
+        for i in hist: i.Write()
+    else: hist.Write()
+
+del newfile
+# ================================
+
+
+
+print count
+
+
+raw_input('press return to continue')
