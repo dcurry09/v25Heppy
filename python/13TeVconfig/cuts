@@ -104,8 +104,6 @@ upperHMass_beforeReg: HNoReg_mass < 250.
 
 zMassSafety: V_mass > 50.
 
-trigger: ( Vtype==1 & (triggerFlags[5]>0 || triggerFlags[6]>0) ) || ( Vtype==0 & ( triggerFlags[22]>0 || triggerFlags[23]>0 || triggerFlags[14]>0 ||triggerFlags[21]>0 ) )
-
 trigger_ee: Vtype==1
 #(Vtype==1 && isData && HLT_BIT_HLT_Ele27_eta2p1_WPLoose_Gsf_v) || !(isData)
 
