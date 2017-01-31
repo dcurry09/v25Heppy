@@ -18,30 +18,27 @@ ROOT.gSystem.Load("./BTagCalibrationStandalone.so")
 print '\nCompilation done...\n'
 
 # CSVv2
-#calib_csv = ROOT.BTagCalibration("csvv2", "./CSVv2_ichep.csv")
-#calib_csv = ROOT.BTagCalibration("csvv2", "myutils/jsons/./ttH_BTV_CSVv2_13TeV_2016EF_7p2_2016_09_23.csv")
-calib_csv = ROOT.BTagCalibration("csvv2", "./ttH_BTV_CSVv2_13TeV_2016BCD_12p9_2016_09_7.csv")
+#calib_csv = ROOT.BTagCalibration("csvv2", "./ttH_BTV_CSVv2_13TeV_2016BCD_12p9_2016_09_7.csv")
+
+# cMVAv2
+calib_cmva = ROOT.BTagCalibration("cmvav2", "./ttH_BTV_cMVAv2_13TeV_2016All_36p5_2017_1_26.csv")
 
 print "\nCalibration Done...\n"
 
-# cMVAv2
-#calib_cmva = ROOT.BTagCalibration("cmvav2", "./cMVAv2_ichep.csv")
-#calib_cmva = ROOT.BTagCalibration("cmvav2", "./ttH_BTV_cMVAv2_13TeV_2016EF_7p2_2016_09_23.csv")
-
 # map between algo/flavour and measurement type
 sf_type_map = {
-    "CSV" : {
-        "file" : calib_csv,
-        "bc" : "comb",
-        "l" : "incl",
-        }
-    }
-    #"CMVAV2" : {
-    #    "file" : calib_cmva,
-    #    "bc" : "ttbar",
+    #"CSV" : {
+    #    "file" : calib_csv,
+    #    "bc" : "comb",
     #    "l" : "incl",
-    #    },
+    #    }
     #}
+    "CMVAV2" : {
+        "file" : calib_cmva,
+        "bc" : "ttbar",
+        "l" : "incl",
+        },
+    }
 
 # map of calibrators. E.g. btag_calibrators["CSVM_nominal_bc"], btag_calibrators["CSVM_up_l"], ...
 btag_calibrators = {}
@@ -52,7 +49,7 @@ btag_calibrators = {}
 #                print "[btagSF]: Loading calibrator for algo:", algo, ", WP:", wp[1], ", systematic:", syst, ", flavour:", fl
 #                btag_calibrators[algo+wp[1]+"_"+syst+"_"+fl] = ROOT.BTagCalibrationReader(sf_type_map[algo]["file"], wp[0], sf_type_map[algo][fl], syst)
 
-for algo in ["CSV"]:
+for algo in ["CMVAV2"]:
     for syst in ["central", "up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf", "up_hfstats1", "down_hfstats1", "up_hfstats2", "down_hfstats2", "up_lfstats1", "down_lfstats1", "up_lfstats2", "down_lfstats2", "up_cferr1", "down_cferr1", "up_cferr2", "down_cferr2"]:
         print "[btagSF]: Loading calibrator for algo:", algo, "systematic:", syst
         btag_calibrators[algo+"_iterative_"+syst] = ROOT.BTagCalibrationReader(sf_type_map[algo]["file"], 3 , "iterativefit", syst)
@@ -70,7 +67,7 @@ def applies( flavour, syst ):
 
 
 # function that reads the SF
-def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CSV", wp="M", shape_corr=False, btag_calibrators=btag_calibrators):
+def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CMVAV2", wp="M", shape_corr=False, btag_calibrators=btag_calibrators):
 
     # no SF for pT<20 GeV or pt>1000 or abs(eta)>2.4
     if abs(eta)>2.4 or pt>1000. or pt<20.:
@@ -116,7 +113,7 @@ def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CSV", wp="M", s
         #print sf
         return  sf
 
-def get_event_SF(jets=[], syst="central", algo="CSV", btag_calibrators=btag_calibrators):
+def get_event_SF(jets=[], syst="central", algo="CMVAV2", btag_calibrators=btag_calibrators):
     weight = 1.0
     for jet in jets:
         if (jet.pt > ptmin and jet.pt < ptmax and abs(jet.eta) > etamin and abs(jet.eta) < etamax):
@@ -127,7 +124,7 @@ def get_event_SF(jets=[], syst="central", algo="CSV", btag_calibrators=btag_cali
 
 if debug_btagSF:
     print "POG WP:"
-    for algo in ["CSV"]:
+    for algo in ["CMVAV2"]:
         for wp in [ "L", "M", "T" ]:
             print algo+wp+":"
             for syst in ["central", "up", "down"]:
@@ -138,7 +135,7 @@ if debug_btagSF:
                     print ("\t\tL(pt=%.0f, eta=0.0): %.3f" % (pt, get_SF(pt=pt, eta=0.0, fl=0, val=0.0, syst=syst, algo=algo, wp=wp, shape_corr=False)))
 
     print "Iterative:"
-    for algo in ["CSV"]:
+    for algo in ["CMVAV2"]:
         print algo+":"
         for syst in ["central", "up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf", "up_hfstats1", "down_hfstats1", "up_hfstats2", "down_hfstats2", "up_lfstats1", "down_lfstats1", "up_lfstats2", "down_lfstats2", "up_cferr1", "down_cferr1", "up_cferr2", "down_cferr2"]:
             print "\t"+syst+":"
@@ -170,26 +167,23 @@ class Jet :
 ################################################################
 
 # sample prefix
-prefix = 'v24_9_15_'
+prefix = 'v25_'
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/MVA_out/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/temp_MVA/'
-
-#inpath = 'root://eoscms//eos/cms/store/user/dcurry/heppy/files/sys_out/'
-#outpath = 'root://eoscms//eos/cms/store/user/dcurry/heppy/files/sys_out_btag/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/temp/'
 
 # List of files to add btag weights to
-bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ']
+bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ', 'ZZ']
 
 data_list = ['Zuu', 'Zee']
 
-signal_list =['ZH125', 'ggZH125']
+signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600toInf', 'DY_Bjets', 'DY_BgenFilter',
-           'DY_inclusive_nlo', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
+DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter'
+           #'DY_inclusive_nlo', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
            ]
 
-ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop']
+ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t', 'ST_t_antitop']
 
 
 #file_list = bkg_list + data_list + signal_list + DY_list + ST_list
@@ -270,20 +264,18 @@ def osSystem(file):
     otree = tree.CloneTree(0)
 
     bTagWeights = {}
-    #bTagWeights["bTagWeightEF"] = np.zeros(1, dtype=float)
-    #otree.Branch("bTagWeightEF", bTagWeights["bTagWeightEF"], "bTagWeightEF/D")
-    bTagWeights["bTagWeightICHEP"] = np.zeros(1, dtype=float)
-    otree.Branch("bTagWeightICHEP", bTagWeights["bTagWeightICHEP"], "bTagWeightICHEP/D")
+    bTagWeights["bTagWeightMoriond"] = np.zeros(1, dtype=float)
+    otree.Branch("bTagWeightMoriond", bTagWeights["bTagWeightICHEP"], "bTagWeightICHEP/D")
 
     for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
         for sdir in ["Up", "Down"]:
-            bTagWeights["bTagWeightICHEP_"+syst+sdir] = np.zeros(1, dtype=float)
-            otree.Branch("bTagWeightICHEP_"+syst+sdir, bTagWeights["bTagWeightICHEP_"+syst+sdir], "bTagWeightICHEP_"+syst+sdir+"/D")
+            bTagWeights["bTagWeightMoriond_"+syst+sdir] = np.zeros(1, dtype=float)
+            otree.Branch("bTagWeightMoriond_"+syst+sdir, bTagWeights["bTagWeightMoriond_"+syst+sdir], "bTagWeightMoriond_"+syst+sdir+"/D")
             #bTagWeights["bTagWeightEF_"+sysMap[syst+sdir]] = np.zeros(1, dtype=float)
             #otree.Branch("bTagWeightEF_"+sysMap[syst+sdir], bTagWeights["bTagWeightEF_"+sysMap[syst+sdir]], "bTagWeightEF_"+sysMap[syst+sdir]+"/D")
             for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-                bTagWeights["bTagWeightICHEP_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
-                otree.Branch("bTagWeightICHEP_"+syst+systcat+sdir, bTagWeights["bTagWeightICHEP_"+syst+systcat+sdir], "bTagWeightICHEP_"+syst+systcat+sdir+"/D")
+                bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
+                otree.Branch("bTagWeightMoriond_"+syst+systcat+sdir, bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir], "bTagWeightMoriond_"+syst+systcat+sdir+"/D")
 
 
 
@@ -300,7 +292,7 @@ def osSystem(file):
         MakeSysRefMap()
         
         if 'Zee' in file or 'Zuu' in file:
-            bTagWeights["bTagWeightEF"][0] = 1.0
+            bTagWeights["bTagWeightMoriond"][0] = 1.0
             otree.Fill()
             continue
 
@@ -311,11 +303,10 @@ def osSystem(file):
                 jet = Jet(tree.Jet_pt[i], tree.Jet_eta[i], tree.Jet_hadronFlavour[i], tree.Jet_btagCSV[i])
                 jets.append(jet)
                 
-        #bTagWeights["bTagWeightEF"][0] = get_event_SF( jets, "central", "CSV", btag_calibrators) 
-        bTagWeights["bTagWeightICHEP"][0] = get_event_SF( jets, "central", "CSV", btag_calibrators)
+        bTagWeights["bTagWeightMoriond"][0] = get_event_SF( jets, "central", "CMVAV2", btag_calibrators)
         for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
             for sdir in ["Up", "Down"]:
-                bTagWeights["bTagWeightICHEP_"+syst+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CSV", btag_calibrators)
+                bTagWeights["bTagWeightMoriond_"+syst+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
                 for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
                     ptmin = 20.
                     ptmax = 1000.
@@ -329,10 +320,9 @@ def osSystem(file):
                         etamax = 1.4
                     if (systcat.find("Forward")!=-1):
                         etamin = 1.4
-                    bTagWeights["bTagWeightICHEP_"+syst+systcat+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CSV", btag_calibrators, ptmin, ptmax, etamin, etamax)
+                    bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators, ptmin, ptmax, etamin, etamax)
 
                 
-
         otree.Fill()
 
     
