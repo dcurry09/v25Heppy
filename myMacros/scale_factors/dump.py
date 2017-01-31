@@ -1,12 +1,12 @@
 import os
 import math
 
-name = 'ScaleFactor_doubleMuon76x'
-#name = 'ScaleFactor_doubleElectron76x'
+#name = 'ScaleFactor_tracker_80x'
+name = 'ScaleFactor_MVAID_80x'
 
 
-json = open(name+'.json', 'w')
-inp = open(name+'.txt', 'r')
+json = open('80x/'+name+'.json', 'w')
+inp  = open('80x/'+name+'.txt', 'r')
 
 ptbins = []
 etabins= []
@@ -39,7 +39,7 @@ iPtbin  = 0
 for etabin in etabins:
      iEtabin +=1
      json.write('            "eta:[' + etabin[0] + ','+ etabin[1] + ']\": {\n')
-     inp = open(name+'.txt', 'r')
+     inp = open('80x/'+name+'.txt', 'r')
 
      first = True
      for line in inp.readlines():   

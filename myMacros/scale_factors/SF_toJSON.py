@@ -14,11 +14,11 @@ from matplotlib import interactive
 from ROOT import *
 
 
-input_root_file = TFile.Open('doubleLepton/triggerSummary_ee.root')
-text_file = open("ScaleFactor_doubleElectron76x.txt", "w")
+#input_root_file = TFile.Open('80x/egammaEffi_MVAID.root')
+#text_file = open("80x/ScaleFactor_MVAID_80x.txt", "w")
 
-#input_root_file = TFile.Open('doubleLepton/triggerSummary_uu.root')
-#text_file = open("ScaleFactor_doubleMuon76x.txt", "w")
+input_root_file = TFile.Open('80x/egammaEffi_tracker.root')
+text_file = open("80x/ScaleFactor_tracker_80x.txt", "w")
 
 # ======== If you first have to divide to TH2F =========
 
@@ -40,7 +40,7 @@ text_file = open("ScaleFactor_doubleElectron76x.txt", "w")
 
 # ===== If root file is a 2D histogram of scale factors do the following =======
 
-eSF = input_root_file.Get('scalefactor_eta2d_with_syst')
+eSF = input_root_file.Get('EGamma_SF2D')
 
 
 # loop over eta(x-axis) bins
