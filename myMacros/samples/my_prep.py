@@ -8,14 +8,19 @@ import multiprocessing
 pathIN  = '/exports/uftrig01a/dcurry/heppy/v24/'
 pathOUT = '/exports/uftrig01a/dcurry/heppy/v24/'
 
-file_list = ['Zuu_B_ext1', 'Zuu_B_ext2', 'Zuu_B_ext3', 'Zuu_B_ext4', 'Zuu_C_ext1', 'Zuu_C_ext2', 'Zuu_D_ext1', 'Zuu_D_ext2',
-             'Zuu_E_ext1', 'Zuu_E_ext2', 'Zuu_F_ext1', 'Zuu_G_ext1', 'Zuu_G_ext2', 'Zuu_G_ext3',
-             'Zee_B_ext1', 'Zee_B_ext2', 'Zee_B_ext3', 'Zee_B_ext4', 'Zee_C_ext1', 'Zee_C_ext2', 'Zee_D_ext1', 'Zee_D_ext2',
-             'Zee_E_ext1', 'Zee_E_ext2', 'Zee_F_ext1', 'Zee_G_ext1', 'Zee_G_ext2', 'Zee_G_ext3'
-             #'ttbar_ext1', 'ttbar_ext2', 'ttbar_ext3',
-             #'ttbar_ext1_NewExt', 'ttbar_ext2_NewExt', 'ttbar_ext3_NewExt',
-             #'ttbar_ext1_NewExt2', 'ttbar_ext2_NewExt2', 'ttbar_ext3_NewExt2'
-             ]
+file_list = [
+    #'Zuu_B_ext1', 'Zuu_B_ext2', 'Zuu_B_ext3', 'Zuu_B_ext4', 'Zuu_C_ext1', 'Zuu_C_ext2', 'Zuu_D_ext1', 'Zuu_D_ext2',
+    #'Zuu_E_ext1', 'Zuu_E_ext2', 'Zuu_F_ext1', 'Zuu_G_ext1', 'Zuu_G_ext2', 'Zuu_G_ext3',
+    #'Zee_B_ext1', 'Zee_B_ext2', 'Zee_B_ext3', 'Zee_B_ext4', 'Zee_C_ext1', 'Zee_C_ext2', 'Zee_D_ext1', 'Zee_D_ext2',
+    #'Zee_E_ext1', 'Zee_E_ext2', 'Zee_F_ext1', 'Zee_G_ext1', 'Zee_G_ext2', 'Zee_G_ext3'
+    
+    #'ttbar_ext1', 'ttbar_ext2', 'ttbar_ext3',
+    #'ttbar_ext1_NewExt', 'ttbar_ext2_NewExt', 'ttbar_ext3_NewExt',
+    #'ttbar_ext1_NewExt2', 'ttbar_ext2_NewExt2', 'ttbar_ext3_NewExt2'
+    
+    #'ST_t_ext1', 'ST_t_ext1_NewExt', 'ST_t_ext1_NewExt2'
+    #'DY_600to800_ext1', 'DY_600to800_ext1_NewExt', 'DY_600to800_ext1_NewExt2'
+    ]
 
 newprefix = 'prep_' 
 
@@ -25,11 +30,13 @@ Aprefix = ''
 
 
 # CUTS
-prep_cut = 'abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & vLeptons_pt[0] > 20. & vLeptons_pt[1] > 20.'
+prep_cut = 'abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4 & vLeptons_pt[0] > 20. & vLeptons_pt[1] > 20.'
 
-zee_cut = prep_cut + ' & Vtype == 1 & json == 1 & HLT_BIT_HLT_Ele27_eta2p1_WPLoose_Gsf_v==1'
+zee_cut = prep_cut + ' & Vtype == 1 & json == 1'
+# & HLT_BIT_HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_v'
 
-zuu_cut = prep_cut + ' & Vtype == 0 & json == 1 & (HLT_BIT_HLT_IsoMu22_v==1 || HLT_BIT_HLT_IsoTkMu22_v==1)'
+zuu_cut = prep_cut + ' & Vtype == 0 & json == 1'
+# & HLT_BIT_HLT_DoubleIsoMu17_eta2p1_v'
 
 ttbar_cut = prep_cut + ' & Vtype > -1 & Vtype < 2'
 
@@ -103,7 +110,7 @@ def branch_reduce(tree):
 
     tree.SetBranchStatus('TauGood*', 0)
 
-    tree.SetBranchStatus('GenHad*', 0)
+    #tree.SetBranchStatus('GenHad*', 0)
 
     tree.SetBranchStatus('htt*', 0)
 
@@ -129,10 +136,10 @@ def myPrep(file):
     if 'Zuu' in file:
         copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,zuu_cut)
 
-    if 'Zee' in file:
+    elif 'Zee' in file:
         copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,zee_cut)
 
-    if 'ttbar' in file:
+    else: 
         copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,ttbar_cut)
 
 # define the multiprocessing object

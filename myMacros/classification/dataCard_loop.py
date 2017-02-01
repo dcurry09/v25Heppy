@@ -110,12 +110,12 @@ sig_dir = 'v24_ICHEP_CMVA_SR_'+title
 # CR
 cr_dir = 'v24_ICHEP_CMVA_CR_'+title
 
-dir  = 'v24_ICHEP_CMVA_'+title
-
+#dir  = 'v24_ICHEP_CMVA_'+title
+dir = 'v24_ICHEP_VH_1_16_noRP'
 
 #Choose batch mode or sequential
 batch = False
-batch = True
+#batch = True
  
 # For Control Region Scale Factors
 isCombine = False
@@ -185,36 +185,36 @@ if batch:
     #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+cr_dir):
     #    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+cr_dir)
 
-if os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir):
-    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir)
+    if os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir):
+        os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir)
 
-if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+sig_dir):
-    os.makedirs('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+sig_dir)
+    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+sig_dir):
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+sig_dir)
 
-if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+cr_dir):
-    os.makedirs('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+cr_dir)
+    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+cr_dir):
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+cr_dir)
         
-if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir):
-    os.makedirs('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir)
-    
-print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir
-    
-# signal DCs
-os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
+    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir):
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir)
+        
+    print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/'+dir
 
-# background
-os.system('mv ../limits/*Zhf* ../limits/'+cr_dir+'/')
-os.system('mv ../limits/*Zlf* ../limits/'+cr_dir+'/')
-os.system('mv ../limits/*ttbar* ../limits/'+cr_dir+'/')
 
-# move both to one dir
-#os.system('mv ../limits/*.root ../limits/*.txt ../limits/'+dir+'/')
-os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
-os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+    # signal DCs
+    os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
+
+    # background
+    os.system('mv ../limits/*Zhf* ../limits/'+cr_dir+'/')
+    os.system('mv ../limits/*Zlf* ../limits/'+cr_dir+'/')
+    os.system('mv ../limits/*ttbar* ../limits/'+cr_dir+'/')
+
+    # move both to one dir
+    #os.system('mv ../limits/*.root ../limits/*.txt ../limits/'+dir+'/')
+    os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+    os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
 
 # Run combination and Fit tools 
 if isCombine:
-    
     
     os.chdir('../limits/'+dir)
     
@@ -541,11 +541,11 @@ if splitRegionFOM:
     print '\t\n\n========= CLS Limit ========='
     # CLs Limit
     t1 = "combine -M Asymptotic -m 125 -t -1 vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
+    #os.system(t1)
 
     print '\n==== NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
+    #os.system(t1)
     '''
     print '\n==== Post Fit ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 --toysFreq vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
@@ -560,11 +560,11 @@ if splitRegionFOM:
 
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt"
-    os.system(t2)
+    #os.system(t2)
 
     print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
+    #os.system(t2)
     '''
     print '\n==== Post Fit ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
@@ -580,7 +580,7 @@ if splitRegionFOM:
    
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
     
-    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --toysFreq --saveNorm --saveShapes vhbb_Zll.txt"
+    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --toysFreq --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes vhbb_Zll.txt"
     
@@ -590,7 +590,7 @@ if splitRegionFOM:
     
     #t3 = 'combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --stepSize=0.05 --rMin=-5 --rMax=5 --robustFit=1 --saveNorm --saveShapes --plots -v 3 vhbb_Zll.txt'
 
-    #os.system(t3)
+    os.system(t3)
     
 
 

@@ -18,13 +18,13 @@ from matplotlib import interactive
 #from ROOT import *
 
 isVV = False
-isVV = True
+#isVV = True
 
 # Wlv: WH
 #in_dir = 'WlnHbb_Datacards_Nov8_noRateParamsApplied_withSplitNuisances'
 
 # Wlv: VV
-in_dir = 'WlnZbb_Datacards_Nov24_withNuisancesSplit'
+#in_dir = 'WlnZbb_Datacards_Nov24_withNuisancesSplit'
 
 # Zvv: ZH
 #in_dir = 'ZnnHbb_LimitDatacards_withoutScaleFactors'
@@ -37,16 +37,15 @@ in_dir = 'WlnZbb_Datacards_Nov24_withNuisancesSplit'
 #in_dir = 'v24_ICHEP_VV_11_22_noRP'
 
 # VH
-#in_dir = 'v24_ICHEP_VH_11_22_noRP'
-#in_dir = 'v24_ICHEP_VH_11_22'
+#in_dir = 'v24_ICHEP_VH_1_16_noRP'
 
 # Gael
-#in_dir = 'DC_v23_VH_v2_25_11_2016'
+in_dir = 'DC_v23_VH_v2_25_11_2016'
 
 # CR
 #in_dir = 'v24_ICHEP_CR_11_22_SRplusCR'
 
-out_dir = '~/www/v24_ICHEP_12_10_TEST/PostFit_SR_VV'
+out_dir = '~/www/TEST_v2/'
 
 
 cr_list = {
@@ -94,12 +93,12 @@ sr_list = {
     #'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
     #'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
     
-    #'ZeeBDT_lowpt': 'ZeeBDT_lowpt',
-    #'ZeeBDT_highpt':'ZeeBDT_highpt',
-    #'ZuuBDT_lowpt': 'ZuuBDT_lowpt',
-    #'ZuuBDT_highpt':'ZuuBDT_highpt'
+    'ZeeBDT_lowpt': 'ZeeBDT_lowpt',
+    'ZeeBDT_highpt':'ZeeBDT_highpt',
+    'ZuuBDT_lowpt': 'ZuuBDT_lowpt',
+    'ZuuBDT_highpt':'ZuuBDT_highpt'
 
-    'vhbb_WenHighPt_13TeV': 'WenHighPt'
+    #'vhbb_WenHighPt_13TeV': 'WenHighPt'
     #'vhbb_WmnHighPt_13TeV': 'WmnHighPt'
     
     #'Znn_13TeV_HighPt_Signal':'Znn_13TeV'
@@ -111,9 +110,9 @@ sr_list = {
 vv_list = {
     #'BDT_VV_Zee':'Zee_13TeV',
     #'BDT_VV_Zuu':'Zuu_13TeV',
-    #'BDT_Zee_low_ZeePt':'ZeeLowPt_13TeV',
+    'BDT_Zee_low_ZeePt':'ZeeLowPt_13TeV',
     'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
-    #'BDT_Zuu_low_ZeePt':'ZuuLowPt_13TeV',
+    'BDT_Zuu_low_ZeePt':'ZuuLowPt_13TeV',
     'BDT_Zuu_HighPt':'ZuuHighPt_13TeV',
     }
 
@@ -189,67 +188,67 @@ for region in final_list:
     os.system(s1)
     
     #if 'VV' in region:
-    #    s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt* '+out_dir
+    #    s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt* '+out_dir
         
         
     # Move plot to website dir
     if 'Low' in region and 'Zee' in region or 'low' in region and 'Zee' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
 
     if 'Med' in region and 'Zee' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/gg_plus_ZH125_med_Zpt_ZeeMedPt_13TeV_PostFit_b.* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/gg_plus_ZH125_med_Zpt_ZeeMedPt_13TeV_PostFit_b.* '+out_dir
         
     if 'High' in region and 'Zee' in region or 'high' in region and 'Zee' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
 
     # muons
     if 'Low' in region and 'Zuu' in region or 'low' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
 
 
     if 'High' in region and 'Zuu' in region or 'Zmm' in region or 'high' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus* '+out_dir
 
 
         
     if 'Wen' in region or 'Wmn' in region:
         if 'HighPt' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt_W* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt_W* '+out_dir
         else:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV* '+out_dir
             
 
     if 'Znn' in region:
         if 'Signal' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt_Znn_13TeV_PostFit_b* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt_Znn_13TeV_PostFit_b* '+out_dir
         if 'QCD' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/Zvv_QCD/Zvv_QCD_minCSV** '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_QCD/Zvv_QCD_minCSV** '+out_dir
         if 'TT' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/Zvv_TT/minCSV* '+out_dir    
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_TT/minCSV* '+out_dir    
         if 'Zlight' in region :
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/Zvv_Zlight/minCSV* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_Zlight/minCSV* '+out_dir
         if 'Zbb' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/Zvv_Zbb/minCSV* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_Zbb/minCSV* '+out_dir
 
     '''
     # Control Regions
     if 'Zlf_low' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zlf_low_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zlf_low_PostFit_b* '+out_dir
     if 'Zlf_high' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zlf_high_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zlf_high_PostFit_b* '+out_dir
     if 'Zhf_low' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zhf_low_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zhf_low_PostFit_b* '+out_dir
     if 'Zhf_high' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zhf_high_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_Zhf_high_PostFit_b* '+out_dir
     if 'ttbar_low' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_ttbar_low_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_ttbar_low_PostFit_b* '+out_dir
     if 'ttbar_high' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_ttbar_high_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCSV_ttbar_high_PostFit_b* '+out_dir
     '''    
 
 
     if 'Zlf' in region or 'Zhf' in region or 'ttbar' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+final_list[region]+'/*minCSV_'+final_list[region]+'_PostFit_b* '+out_dir
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*minCSV_'+final_list[region]+'_PostFit_b* '+out_dir
     
 
 

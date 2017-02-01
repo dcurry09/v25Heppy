@@ -64,21 +64,21 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('HLT*', 0)
 
-    #tree.SetBranchStatus('met_shifted*', 0)
+    tree.SetBranchStatus('met_shifted*', 0)
 
     tree.SetBranchStatus('H3cj*', 0)
 
     tree.SetBranchStatus('ungroomed*', 0)
 
-    #tree.SetBranchStatus('GenLep*', 0)
+    tree.SetBranchStatus('GenLep*', 0)
 
-    #tree.SetBranchStatus('GenVbosons*', 0)
+    tree.SetBranchStatus('GenVbosons*', 0)
 
-    #tree.SetBranchStatus('GenTop*', 0)
+    tree.SetBranchStatus('GenTop*', 0)
 
     #tree.SetBranchStatus('aLeptons*', 0)
 
-    #tree.SetBranchStatus('GenNu*', 0)
+    tree.SetBranchStatus('GenNu*', 0)
 
     tree.SetBranchStatus('selLeptons*', 0)
 
@@ -86,20 +86,29 @@ def branch_reduce(tree):
 
     tree.SetBranchStatus('GenHad*', 0)
 
+    tree.SetBranchStatus('GenGluon*', 0)
+
     tree.SetBranchStatus('htt*', 0)
 
-    #tree.SetBranchStatus('GenWZ*', 0)
+    tree.SetBranchStatus('GenWZ*', 0)
 
-    #tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
+    tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
 
     tree.SetBranchStatus('trimmedFat*', 0)
 
-    #tree.SetBranchStatus('GenBQuarkFromTop*', 0)
+    tree.SetBranchStatus('GenBQuarkFromTop*', 0)
     
     tree.SetBranchStatus('Fat*', 0)
+    
+    tree.SetBranchStatus('nFat*', 0)
+    
+    tree.SetBranchStatus('ntrg*', 0)
 
     tree.SetBranchStatus('Subjet*', 0)
     
     tree.SetBranchStatus('Discarded*', 0)
+
+    tree.SetBranchStatus('l1*', 0)
+    
 
     return tree

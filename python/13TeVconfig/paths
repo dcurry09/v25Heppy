@@ -18,7 +18,7 @@ Wdir: /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/
 scratch: /scratch/dcurry
  
 # heppy version
-version: v24/
+version: v25/
 
 # Base file storage directory
 #file_source: root://t3dcachedb03.psi.ch:1094//pnfs/psi.ch/cms/trivcat/store/user/perrozzi/VHBBHeppyV21bis/

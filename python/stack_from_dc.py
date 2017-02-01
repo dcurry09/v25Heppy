@@ -11,7 +11,7 @@ from HiggsAnalysis.CombinedLimit.ShapeTools     import *
 from collections import Counter
 
 isVV = False
-isVV = True
+#isVV = True
 
 # import ROOT with a fix to get batch mode (http://root.cern.ch/phpBB3/viewtopic.php?t=3198)
 hasHelp = False
@@ -76,8 +76,8 @@ def readBestFit(theFile):
     fpf_b = fit_b.floatParsFinal()
     fpf_s = fit_s.floatParsFinal()
     nuiVariation = {}
-    
-    #print '\nReading Best Fits...'
+
+    print '\nReading Best Fits...'
 
     for i in range(fpf_s.getSize()):
         nuis_s = fpf_s.at(i)
@@ -85,8 +85,8 @@ def readBestFit(theFile):
         nuis_b = fpf_b.find(name)
         nuis_p = prefit.find(name)
 
-        #print 'Name:', name
-        #print 'nuis_b:', nuis_s
+        print 'Name:', name
+        #print 'nuis_s:', nuis_s
         #print 'nuis_b:', nuis_b
         #print 'nuis_p:', nuis_p
 
@@ -96,9 +96,24 @@ def readBestFit(theFile):
             if nuis_p != None:
                 valShift = (nuis_x.getVal() - mean_p)/sigma_p
                 sigShift = nuis_x.getError()/sigma_p
-                #print fit_name, name
-                #print valShift
+                #print 'Fit name:', fit_name, name
+                #print 'Nuisance shift:', valShift 
+                #print 'Nuisance error shift:', nuis_x.getError()/sigma_p
+
                 nuiVariation['%s_%s'%(fit_name,name)] = [valShift,sigShift]
+
+            # rate Param Uncertainties
+            if 'SF' in name:
+                print 'Fit name:', fit_name, name
+                print 'Value, error:', nuis_x.getVal(), nuis_x.getError()
+                print 'Nuisance shift:', abs(nuis_x.getVal() - 1)
+                print 'Nuisance error shift:', nuis_x.getError()
+                valShift = abs(nuis_x.getVal() - 1)
+                sigShift = nuis_x.getError()
+
+                nuiVariation['%s_%s'%(fit_name,name)] = [valShift,sigShift]
+
+    print 'Nuisance Variations:', nuiVariation
               
     return nuiVariation
 
@@ -149,7 +164,7 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
         #zll_Zuu_low_channel = 'ch1_Zmm'
         #zll_Zuu_high_channel= 'ch3_Zmm'
 
-
+        
         # Zll
         if 'ZuuLowPt_13TeV' in b or 'ZuuBDT_lowpt' in b:
             dir = fit+'/'+zll_Zuu_low_channel+'_SIG_low/'
@@ -569,8 +584,6 @@ def drawFromDC():
     options.nuisancesToExclude = []
     options.noJMax = None
     
-    
-
     theBinning = ROOT.RooFit.Binning(Stack.nBins,Stack.xMin,Stack.xMax)
 
     if 'Wmn' in opts.bin or 'Wen' in opts.bin or 'Znn' in opts.bin:        # SET: WLV MINCSV BINNING
@@ -579,8 +592,6 @@ def drawFromDC():
             print '\n\t Changing Wlv/Zvv CSV bins to ', 15
             theBinning = ROOT.RooFit.Binning(15,Stack.xMin,Stack.xMax)
         
-
-
 
 
     print '/n----> The Binning:'
@@ -612,14 +623,14 @@ def drawFromDC():
 
     if not opts.bin in DC.bins: raise RuntimeError, "Cannot open find %s in bins %s of %s" % (opts.bin,DC.bins,opts.dc)
 
-
-
     print '\n-----> Looping over bins in datacard...'
     for b in DC.bins:
 
         print '  bin: ', b 
 
         procs = DC.exp[b].keys()
+
+        #print 'Process:', procs
 
         #if 'VV' in procs:
         #    procs.remove('VV')
@@ -638,13 +649,13 @@ def drawFromDC():
             exps[p] = [ e, [] ]
             expNui[p] = [ e, [] ]
             
-        #print '\n-----> Datacard systematics: ', DC.systs    
+        print '\n-----> Datacard systematics: ', DC.systs    
             
         for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
-
-            #print '\n-----> Looping over systematics in datacard: ', (lsyst,nofloat,pdf,pdfargs,errline)  
-
-            if pdf in ('param', 'flatParam'): continue
+            
+            print '\n-----> Looping over systematics in datacard: ', (lsyst,nofloat,pdf,pdfargs,errline)  
+            
+            #if pdf in ('param', 'flatParam'): continue
             
             # begin skip systematics
             skipme = False
@@ -652,14 +663,13 @@ def drawFromDC():
                 if re.search(xs, lsyst): 
                     skipme = True
             if skipme:
-                print '\n-----> skipping systematics...'
+                print '\n-----> skipping systematics...' 
                 continue
             # end skip systematics
 
             counter = 0
             #print '\n\t-----> Looping over keys in datacard: ', DC.exp[b].keys()
-            
-
+       
             #for p in DC.exp[b].keys(): # so that we get only self.DC.processes contributing to this bin
             for p in procs:
                 #print '\n\t-----> Looping over process in this bin: ', p
@@ -677,22 +687,28 @@ def drawFromDC():
                     exps[p][1].append(kmax-1.);
                 elif pdf == 'lnN':
                      lnNVar = max(errline[b][p], 1.0/errline[b][p])-1.
+                     print 'lnNVar', lnNVar
                      if not nuiVar.has_key('%s_%s'%(opts.fit,lsyst)):
                          nui = 0.
                      else:
                         nui= nuiVar['%s_%s'%(opts.fit,lsyst)][0]
                         lnNVar = lnNVar*nuiVar['%s_%s'%(opts.fit,lsyst)][1]
+                        print 'nui, lnNVar', nui,lnNVar
                      exps[p][1].append(lnNVar)
                      expNui[p][1].append(abs(1-errline[b][p])*nui);
 
-                elif 'shape' in pdf:
+
+
+                if 'shape' in pdf:
                     
                     #print '\n\t-----> Filling the Shapes for this process...'
                     
                     #print 'shape %s %s: %s'%(pdf,p,lsyst)
+
                     s0 = MB.getShape(b,p)
                     sUp   = MB.getShape(b,p,lsyst+"Up")
                     sDown = MB.getShape(b,p,lsyst+"Down")
+               
                     if (s0.InheritsFrom("RooDataHist")):
                         s0 = ROOT.RooAbsData.createHistogram(s0,p,ws_var,theBinning)
                         s0.SetName(p)
@@ -700,6 +716,7 @@ def drawFromDC():
                         sUp.SetName(p+lsyst+'Up')
                         sDown = ROOT.RooAbsData.createHistogram(sDown,p+lsyst+'Down',ws_var,theBinning)
                         sDown.SetName(p+lsyst+'Down')
+                    
                     theShapes[p] = s0.Clone()
                     theShapes[p+lsyst+'Up'] = sUp.Clone()
                     theShapes[p+lsyst+'Down'] = sDown.Clone()
@@ -722,9 +739,30 @@ def drawFromDC():
                             theSyst[lsyst+'Down'].Add(sDown.Clone()) 
                         counter += 1
 
-    #procs = DC.exp[b].keys(); procs.sort()
+            #### Adding Rate Parameter Uncertainty ####
+            # Make sure the SF acts on this bin 
+                print '\n Adding Rate Param Uncertainties for bin(process):', b,p
+                for sys in nuiVar:
+                    if 'SF' not in sys: continue
+                    if p not in sys: continue
+                    if 'Zuu' in b or 'Zee' in b or 'Zmm' in b:
+                        if 'Zll' not in sys: continue
+                        if 'high' in b and 'high' not in sys: continue
+                        if 'low' in b and 'low' not in sys: continue
+                        print '\nRate Param:', sys
+                        nui= nuiVar[sys][0]      
+                        lnNVar = nuiVar[sys][1]
+                        exps[p][1].append(lnNVar)
+                        print nui, lnNVar
+                        
+                    if 'Wln' in b:
+                        print '!!!Error!!!'
+                        
 
 
+        #procs = DC.exp[b].keys(); procs.sort()
+
+                        
 
 
     print 'Process from DC:', procs
@@ -746,7 +784,10 @@ def drawFromDC():
     for p in procs:
         relunc = sqrt(sum([x*x for x in exps[p][1]]))
         print fmt % (p, exps[p][0], exps[p][0]*relunc)
+
         theNormUncert[p] = relunc
+        print 'The Norm Uncertainty:', theNormUncert[p]
+
         absBestFit = sum([x for x in expNui[p][1]])
         theBestFit[p] = 1.+absBestFit
 
@@ -796,13 +837,14 @@ def drawFromDC():
     #Compute absolute uncertainty from shapes
     counter = 0
     for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
+
         sumErr = 0
         
         for p in procs:
             sumErr += errline[b][p]
             
-            #print '---> PDF:',pdf, lsyst
-
+        print '---> Systematic Uncertainty for:', lsyst,nofloat,pdf,pdfargs,errline
+        
         if ("shape" in pdf) and not 'CMS_vhbb_stat' in lsyst and not sumErr == 0:
             theSystUp = theSyst[lsyst+'Up'].Clone()
             theSystUp.Add(theSyst[lsyst].Clone(),-1.)
@@ -889,10 +931,12 @@ def drawFromDC():
         if math.isnan(binError):
             binError = 0.
         total[bin-1]=theTotalMC.GetBinContent(bin)
-
+        
         #Stat uncertainty of the MC outline
         errUp[bin-1] = [binError]
         errDown[bin-1] = [binError]
+
+        print 'Stat uncertainty of the MC outline, bin', bin, errUp
 
         # Temp hack to fix theNormUncert naming
         temp_theNormUncert = {}
@@ -909,11 +953,12 @@ def drawFromDC():
             #errDown[bin-1].append(histos[h].GetBinContent(bin)*theNormUncert[histos[h].GetName()])
             errUp[bin-1].append(histos[h].GetBinContent(bin)*temp_theNormUncert[histos[h].GetName()])
             errDown[bin-1].append(histos[h].GetBinContent(bin)*temp_theNormUncert[histos[h].GetName()])
-
-
+            print 'Norm Uncertainty for', histos[h].GetName(), ':', temp_theNormUncert[histos[h].GetName()]
+            
+    
     #Shape uncertainty of the MC
     for bin in range(1,nBins+1):
-        #print sqrt(theSystUp.GetBinContent(bin))
+        print 'Shape uncertainty of the MC', sqrt(theSystUp.GetBinContent(bin))
         errUp[bin-1].append(sqrt(theAbsSystUp.GetBinContent(bin)))
         errDown[bin-1].append(sqrt(theAbsSystDown.GetBinContent(bin)))
     
@@ -946,9 +991,9 @@ def drawFromDC():
     print 'Data name:', dataname
     
     
-    #if opts.var == 'BDT':
-    #    for bin in range(11,datas[0].GetNbinsX()+1):
-    #        datas[0].SetBinContent(bin,0)
+    if opts.var == 'BDT':
+        for bin in range(11,datas[0].GetNbinsX()+1):
+            datas[0].SetBinContent(bin,0)
     
     for bin in range(0,datas[0].GetNbinsX()+1):
         print 'Data in bin ', bin, ':', datas[0].GetBinContent(bin)
@@ -964,6 +1009,7 @@ def drawFromDC():
     print 'Signal List:', signalList 
 
     histos.append(copy(Overlay))
+
     if 'ZH' in signalList and 'WH' in signalList:
         #typs.append('WH')
         #if 'ZH' in Stack.setup: Stack.setup.remove('ZH')
@@ -973,10 +1019,10 @@ def drawFromDC():
         typs.append('WH')
         typs.append('ZH')
 
-    #elif 'ZH' in signalList:
+    elif 'ZH' in signalList:
         #Stack.setup.remove('WH')
         #typs.append('ggZH')
-        #typs.append('ZH')
+        typs.append('ZH')
 
     if 'VVb' in signalList or 'VVHF' in signalList:
         typs.append('WH')

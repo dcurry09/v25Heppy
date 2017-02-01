@@ -104,11 +104,9 @@ upperHMass_beforeReg: HNoReg_mass < 250.
 
 zMassSafety: V_mass > 50.
 
-trigger_ee: Vtype==1
-#(Vtype==1 && isData && HLT_BIT_HLT_Ele27_eta2p1_WPLoose_Gsf_v) || !(isData)
+trigger_uu: (Vtype==0 && (HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v* || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v* || HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v* || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*))
 
-trigger_uu: Vtype==0
-#(Vtype==0 && isData && (HLT_BIT_HLT_IsoMu22_v || HLT_BIT_HLT_IsoTkMu22_v)) || !(isData)
+trigger_ee: (Vtype==1 && HLT_BIT_HLT_DoubleEle24_22_eta2p1_WPLoose)
 
 
 trigger_combined:   (<!ZHbb|trigger_ee!> | <!ZHbb|trigger_uu!>)

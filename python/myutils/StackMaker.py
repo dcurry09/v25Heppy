@@ -13,7 +13,7 @@ isVV = False
 #isVV = True
 
 isOverlay = False
-#isOverlay = True
+isOverlay = True
 
 class StackMaker:
 
@@ -197,6 +197,9 @@ class StackMaker:
         #else: self.addFlag2 = 'High p_{T}(V)'
 
         TdrStyles.tdrStyle()
+
+        print 'histos:', self.histos
+        print 'self.typs:', self.typs
 
         histo_dict = HistoMaker.orderandadd([{self.typs[i]:self.histos[i]} for i in range(len(self.histos))],self.setup)
         

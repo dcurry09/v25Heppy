@@ -31,7 +31,7 @@ def getRatio(hist, reference, min, max, yTitle="", maxUncertainty = 1000.000, re
    
     theHist, theReference = renewHist(hist, reference, min, max)
     #ROOT.gSystem.Load('./myutils/Ratio_C.so') 
-    ROOT.gSystem.Load('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/python/myutils/Ratio_C.so')
+    ROOT.gSystem.Load('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_4_7/src/VHbb/python/myutils/Ratio_C.so')
 
     from ROOT import coolRatio
 

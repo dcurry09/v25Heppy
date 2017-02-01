@@ -246,19 +246,19 @@ DY_400to600_merge_list = ['DY_400to600_ext1','DY_400to600_ext2']
 
 
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151803/0000/')
-file_names.append('DY_600to800_ext1')
+#file_list.append(eos_path3+'DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151803/0000/')
+#file_names.append('DY_600to800_ext1')
 
 #DY_600toInf_merge_list = ['DY_600toInf_ext1','DY_600toInf_ext2']
 
 #file_list.append(eos_path3+'DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151850/0000/')
 #file_names.append('DY_800to1200')
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151610/0000/')
-file_names.append('DY_1200to2500')
+#file_list.append(eos_path3+'DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151610/0000/')
+#file_names.append('DY_1200to2500')
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151714/0000/')
-file_names.append('DY_2500toInf')
+#file_list.append(eos_path3+'DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151714/0000/')
+#file_names.append('DY_2500toInf')
 
 
 # Dedicated DY Bjet Sample
@@ -334,7 +334,7 @@ file_names.append('DY_5to50_600toInf_ext1')
 
 # ==== Diboson ====
 
-#file_list.append(eos_path+'ZZ_TuneCUETP8M1_13TeV-pythia8/VHBB_HEPPY_V21_ZZ_TuneCUETP8M1_13TeV-Py8__fall15MAv2-pu25ns15v1_76r2as_v12-v1/160316_150554/0000/')
+#file_list.append(eos_path2+'ZZ_TuneCUETP8M1_13TeV-pythia8/VHBB_HEPPY_V25_ZZ_TuneCUETP8M1_13TeV-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_111722/0000/')
 #file_names.append('ZZ')
 
 #file_list.append(eos_path2+'WZ_TuneCUETP8M1_13TeV-pythia8/VHBB_HEPPY_V25_WZ_TuneCUETP8M1_13TeV-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_121302/0000/')
@@ -351,7 +351,7 @@ file_names.append('DY_5to50_600toInf_ext1')
 
 
 file_list.append(eos_path2+'ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/VHBB_HEPPY_V25_ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-Py8_TuneCUETP8M1__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_115321/0000/')
-file_names.append('ST_t')
+file_names.append('ST_t_ext1')
 
 #file_list.append(eos_path2+'ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/VHBB_HEPPY_V25_ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-Py8_TuneCUETP8M1__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_115127/0000')
 #file_names.append('ST_t_antitop')
@@ -427,8 +427,8 @@ isUftrig = False
 isUftrig = True
 
 eos1_list = []
-eos2_list = ['WZ', 'ST_s', 'ST_t', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top']
-eos3_list = ['ZH', 'ggZH', 'DY_inclusive', 'DY_100to200_ext1','DY_100to200_ext2', 'DY_200to400_ext1','DY_200to400_ext2', 'DY_400to600_ext1','DY_400to600_ext2', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf']
+eos2_list = ['ZZ', 'WZ', 'ST_s', 'ST_t_ext1', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top']
+eos3_list = ['ZH125', 'ggZH125', 'DY_inclusive', 'DY_100to200_ext1','DY_100to200_ext2', 'DY_200to400_ext1','DY_200to400_ext2', 'DY_400to600_ext1','DY_400to600_ext2', 'DY_600to800_ext1', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf']
 
 def print_fileNames(file):
 
@@ -491,8 +491,8 @@ def osSystem(file):
             
             print '-----> Copying file:', x
             
-            os.system('xrdcp -f '+x+' '+temp_dir)
-          
+            #os.system('xrdcp -f '+x+' '+temp_dir)
+            
 
     # Now merge the files
     os.system('rm '+temp_name)
@@ -515,17 +515,36 @@ def osSystem(file):
             
             x = line.replace('\n', ' ')
             
-            if '600to800' not in file or 'ttbar' not in file:
-                input_file += x
-
-            else:
+            if 'ttbar' in name:
+                #print '\n---> Splitting input files...'
                 if i < 350:
                     input_file += x
                 if i > 750:
                     input_file_ext += x
-                if i < 750 and i > 350: 
+                if i < 750 and i > 350:
                     input_file_ext2 += x
 
+            elif 'ST_t_ext1' in name:
+                #print '\n---> Splitting input files...'
+                if i < 100:
+                    input_file += x
+                if i >= 100 and i < 200:
+                    input_file_ext += x
+                if i >= 200:
+                    input_file_ext2 += x
+
+            elif '600to800' in name:
+                #print '\n---> Splitting input files...'
+                if i < 50:
+                    input_file += x
+                if i >= 50 and 1 < 100:
+                    input_file_ext += x
+                if i >= 100:
+                    input_file_ext2 += x
+
+            else:
+                input_file += x
+                
                     
     merge = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file)
     
@@ -533,17 +552,17 @@ def osSystem(file):
     
     os.system(merge)
 
-    if '600to800' in file or 'ttbar' in file:
+    if '600to800' in name or 'ttbar' in name or 'ST_t_ext1' in name:
         # Now for really large ttbar files
         merge_ext = "hadd -f %s %s" % (uftrig_path+name+'_NewExt.root', input_file_ext)
         print '----> Merging Files into', uftrig_path+name+'_NewExt.root','.  This may take a while....'
         os.system(merge_ext)
     
-        merge_ext2 = "hadd -f %s %s" % (uftrig_path+name+'_NewExt2.root', input_file_ext)
+        merge_ext2 = "hadd -f %s %s" % (uftrig_path+name+'_NewExt2.root', input_file_ext2)
         print '----> Merging Files into', uftrig_path+name+'_NewExt2.root','.  This may take a while....'
         os.system(merge_ext2)
 
-        print '\n----> Finished Merging: ', uftrig_path+name+'.root'
+    print '\n----> Finished Merging: ', uftrig_path+name+'.root'
     
 
 if isUftrig:
@@ -568,17 +587,23 @@ ttbar_merge_list = ['prep_ttbar_ext1', 'prep_ttbar_ext2', 'prep_ttbar_ext3',
                     'prep_ttbar_ext1_NewExt', 'prep_ttbar_ext2_NewExt',
                     'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2']
 
+ST_t_merge_list = ['prep_ST_t_ext1', 'prep_ST_t_ext1_NewExt', 'prep_ST_t_ext1_NewExt2']
+
+DY_600to800_merge_list = ['prep_DY_600to800_ext1', 'prep_DY_600to800_ext1_NewExt', 'prep_DY_600to800_ext1_NewExt2']
+
 merge_list = [
     #['Zuu.root', Zuu_merge_list],
     #['Zee.root', Zee_merge_list],
     #['DY_inclusive.root', DY_inclusive_merge_list],
-    ['DY_100to200.root', DY_100to200_merge_list], 
-    ['DY_200to400.root',DY_200to400_merge_list], 
-    ['DY_400to600.root',DY_400to600_merge_list], 
+    #['DY_100to200.root', DY_100to200_merge_list], 
+    #['DY_200to400.root',DY_200to400_merge_list], 
+    #['DY_400to600.root',DY_400to600_merge_list], 
     #['DY_600toInf.root',DY_600toInf_merge_list],
     #['ttbar.root',ttbar_merge_list]
     #['ZH125.root', ZH125_merge_list],
     #['ggZH125.root', ggZH125_merge_list],
+    #['ST_t',ST_t_merge_list],
+    #['DY_600to800.root', DY_600to800_merge_list],
     ]
 
 

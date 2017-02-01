@@ -1432,8 +1432,7 @@ for job in info:
 					    
 
 			    elif tree.Vtype == 1:
-				    				    
-				    	    
+				    				    	    
 				    if j.find('ScaleFactor_eMVAID_80x') != -1:
 					    eId90SFWeight[0] = weight[0][0]*weight[1][0]
 					    eId90SFWeightUp[0] = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
