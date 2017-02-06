@@ -104,10 +104,11 @@ upperHMass_beforeReg: HNoReg_mass < 250.
 
 zMassSafety: V_mass > 50.
 
-trigger_uu: (Vtype==0 && (HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v* || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v* || HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v* || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*))
+#trigger_uu: (Vtype==0 && (HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v* || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v* || HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v* || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v*))
+trigger_uu: Vtype==0
 
-trigger_ee: (Vtype==1 && HLT_BIT_HLT_DoubleEle24_22_eta2p1_WPLoose)
-
+#trigger_ee: (Vtype==1 && HLT_BIT_HLT_DoubleEle24_22_eta2p1_WPLoose)
+trigger_ee: Vtype==1
 
 trigger_combined:   (<!ZHbb|trigger_ee!> | <!ZHbb|trigger_uu!>)
 
@@ -440,8 +441,7 @@ bdt_tightHmass_Zee: <!ZHbb|trigger_ee!> & Vtype == 1 & <!ZHbb|bdt_Btag!> & <!ZHb
 #& <!ZHbb|met_signal!>
 #& <!ZHbb|minCSV_peakCut!> 
 
-bdt_high_Zpt:<!ZHbb|trigger_combined!> & Vtype > -1 & Vtype < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
-
+bdt_high_Zpt:<!ZHbb|trigger_combined!> & Vtype > -1 & Vtype < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 bdt_Zuu_high_Zpt:<!ZHbb|trigger_uu!> & Vtype == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
 #bdt_Zee_high_Zpt:<!ZHbb|preselection!>&<!ZHbb|jet_pt_20!>&<!ZHbb|looseHMass!>&<!ZHbb|trigger_ee!>&Vtype==1&<!ZHbb|bdt_Btag!>&<!ZHbb|Zwindow_mass!>&<!ZHbb|Vpt_high_window!> 

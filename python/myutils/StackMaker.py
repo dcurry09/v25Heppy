@@ -200,6 +200,7 @@ class StackMaker:
 
         print 'histos:', self.histos
         print 'self.typs:', self.typs
+        print 'self.setup:',self.setup
 
         histo_dict = HistoMaker.orderandadd([{self.typs[i]:self.histos[i]} for i in range(len(self.histos))],self.setup)
         
@@ -273,8 +274,6 @@ class StackMaker:
             allStack.Add(self.histos[i])
             #for bin in range(0,self.histos[i].GetNbinsX()+1):
             #    print 'MC in bin ', bin, ':', self.histos[i].GetBinContent(bin)
-
-
 
 
 
@@ -454,6 +453,7 @@ class StackMaker:
         allMC = allStack.GetStack().Last().Clone()
 
         print 'allStack:', allStack
+        print 'allMC:', allMC
         print '# of Hists in stack:', allStack.ls()
 
         allStack.SetTitle()

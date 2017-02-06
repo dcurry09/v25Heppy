@@ -265,7 +265,7 @@ def osSystem(file):
 
     bTagWeights = {}
     bTagWeights["bTagWeightMoriond"] = np.zeros(1, dtype=float)
-    otree.Branch("bTagWeightMoriond", bTagWeights["bTagWeightICHEP"], "bTagWeightICHEP/D")
+    otree.Branch("bTagWeightMoriond", bTagWeights["bTagWeightMoriond"], "bTagWeightMoriond/D")
 
     for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
         for sdir in ["Up", "Down"]:

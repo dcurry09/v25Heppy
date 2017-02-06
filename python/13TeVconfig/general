@@ -103,8 +103,8 @@ yields: {'Zbb':584.8,'Zudsg':881.61,'ttbar':135.7,'ZZ':44.04,'Sig':5.13}
 #!! SYSTEMATICS
 #!! --------------------------
 [systematics]
-systematics: Nominal JER_up JER_down JEC_up JEC_down 
-#systematics: Nominal JER_up JER_down JEC_up JEC_down JER_up_high JER_down_high JER_up_low JER_down_low JER_up_central JER_down_central JER_up_forward JER_down_forward JEC_up_high JEC_down_high JEC_up_low JEC_down_low JEC_up_central JEC_down_central JEC_up_forward JEC_down_forward  
+#systematics: Nominal JER_up JER_down JEC_up JEC_down 
+systematics: Nominal JER_up JER_down JEC_up JEC_down JER_up_high JER_down_high JER_up_low JER_down_low JER_up_central JER_down_central JER_up_forward JER_down_forward JEC_up_high JEC_down_high JEC_up_low JEC_down_low JEC_up_central JEC_down_central JEC_up_forward JEC_down_forward  
 
 # --------------------------------------------------
 # Varibles definition for trainging and evaluation
@@ -149,13 +149,13 @@ DY2b_nolhe:   'Z2b',  'Z2b5070',  'Z2b70100',  'Z2b100ext'
 
 #DYudsg: 'Zudsg','Zudsg1J','Zudsg2J','Zudsg3J','Zudsg4J','ZudsgHT100to200','ZudsgHT200to400','ZudsgHT400to600', 'ZudsgHT600toInf','Zudsg5070','Zudsg70100','Zudsg100','Zudsg180','Zudsg100ext'
 
-DYudsg: 'Zudsg','ZudsgHT100to200', 'ZudsgHT200to400','ZudsgHT400to600','ZudsgHT600toInf', 'Zudsg_Bjets', 'Zudsg_BgenFilter', 'Zudsg5to50', 'Zudsg5to50_100to200', 'Zudsg5to50_200to400', 'Zudsg5to50_400to600', 'Zudsg5to50_600toInf', 'Zudsg_nlo','ZudsgVpt100to250','ZudsgVpt250to400','ZudsgVpt400to650','ZudsgVpt650toInf', 'ZudsgHT600to800', 'ZudsgHT800to1200', 'ZudsgHT1200to2500', 'ZudsgHT2500toInf'
+DYudsg: 'Zudsg','ZudsgHT100to200', 'ZudsgHT200to400','ZudsgHT400to600','ZudsgHT600toInf', 'Zudsg_Bjets', 'Zudsg_BgenFilter', 'Zudsg5to50', 'Zudsg5to50_100to200', 'Zudsg5to50_200to400', 'Zudsg5to50_400to600', 'Zudsg5to50_600toInf', 'Zudsg_nlo','ZudsgVpt100to250','ZudsgVpt250to400','ZudsgVpt400to650','ZudsgVpt650toInf', 'ZudsgHT600to800', 'ZudsgHT800to1200', 'ZudsgHT1200to2500', 'ZudsgHT2500toInf', 'ZudsgHT70to100'
 
-DYc: 'Zcc','ZccHT100to200','ZccHT200to400','ZccHT400to600','ZccHT600toInf', 'Zcc_Bjets', 'Zcc_BgenFilter', 'Zcc5to50', 'Zcc5to50_100to200', 'Zcc5to50_200to400', 'Zcc5to50_400to600', 'Zcc5to50_600toInf','Zcc_nlo','ZccVpt100to250','ZccVpt250to400','ZccVpt400to650','ZccVpt650toInf'  
+DYc: 'Zcc','ZccHT100to200','ZccHT200to400','ZccHT400to600','ZccHT600toInf', 'Zcc_Bjets', 'Zcc_BgenFilter', 'Zcc5to50', 'Zcc5to50_100to200', 'Zcc5to50_200to400', 'Zcc5to50_400to600', 'Zcc5to50_600toInf','Zcc_nlo','ZccVpt100to250','ZccVpt250to400','ZccVpt400to650','ZccVpt650toInf','ZccHT70to100'
 
-DY1b: 'Z1b','Z1bHT100to200','Z1bHT200to400','Z1bHT400to600','Z1bHT600toInf', 'Z1b_Bjets', 'Z1b_BgenFilter', 'Z1b5to50', 'Z1b5to50_100to200', 'Z1b5to50_200to400', 'Z1b5to50_400to600', 'Z1b5to50_600toInf','Z1b_nlo','Z1bVpt100to250','Z1bVpt250to400','Z1bVpt400to650','Z1bVpt650toInf','Z1bHT600to800', 'Z1bHT800to1200', 'Z1bHT1200to2500', 'Z1bHT2500toInf'  
+DY1b: 'Z1b','Z1bHT100to200','Z1bHT200to400','Z1bHT400to600','Z1bHT600toInf', 'Z1b_Bjets', 'Z1b_BgenFilter', 'Z1b5to50', 'Z1b5to50_100to200', 'Z1b5to50_200to400', 'Z1b5to50_400to600', 'Z1b5to50_600toInf','Z1b_nlo','Z1bVpt100to250','Z1bVpt250to400','Z1bVpt400to650','Z1bVpt650toInf','Z1bHT600to800', 'Z1bHT800to1200', 'Z1bHT1200to2500', 'Z1bHT2500toInf','Z1bHT70to100'  
 
-DY2b: 'Z2b','Z2bHT100to200','Z2bHT200to400','Z2bHT400to600','Z2bHT600toInf', 'Z2b_Bjets', 'Z2b_BgenFilter', 'Z2b5to50', 'Z2b5to50_100to200', 'Z2b5to50_200to400', 'Z2b5to50_400to600', 'Z2b5to50_600toInf','Z2b_nlo','Z2bVpt100to250','Z2bVpt250to400','Z2bVpt400to650','Z2bVpt650toInf', 'Z2bHT600to800', 'Z2bHT800to1200', 'Z2bHT1200to2500', 'Z2bHT2500toInf'  
+DY2b: 'Z2b','Z2bHT100to200','Z2bHT200to400','Z2bHT400to600','Z2bHT600toInf', 'Z2b_Bjets', 'Z2b_BgenFilter', 'Z2b5to50', 'Z2b5to50_100to200', 'Z2b5to50_200to400', 'Z2b5to50_400to600', 'Z2b5to50_600toInf','Z2b_nlo','Z2bVpt100to250','Z2bVpt250to400','Z2bVpt400to650','Z2bVpt650toInf', 'Z2bHT600to800', 'Z2bHT800to1200', 'Z2bHT1200to2500', 'Z2bHT2500toInf','Z2bHT70to100'  
 
 
 DY_inclusive: 'Zudsg','Zcc','Z1b','Z2b'
@@ -221,7 +221,8 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
         'ggZH125': 'ZH', \
 	'Zudsg':'DYlight', 'ZudsgHT100to200':'DYlight', 'ZudsgHT200to400':'DYlight', 'ZudsgHT400to600':'DYlight', 'ZudsgHT600toInf':'DYlight', 'Zudsg_Bjets':'DYlight', \
 	'Zudsg_BgenFilter':'DYlight', 'Zudsg5to50':'DYlight', 'Zudsg5to50_100to200':'DYlight', 'Zudsg5to50_200to400':'DYlight','Zudsg5to50_400to600':'DYlight',\
-	'Zudsg5to50_600toInf':'DYlight','ZudsgHT600to800':'DYlight', 'ZudsgHT800to1200':'DYlight', 'ZudsgHT1200to2500':'DYlight', 'ZudsgHT2500toInf':'DYlight'
+	'Zudsg5to50_600toInf':'DYlight','ZudsgHT600to800':'DYlight', 'ZudsgHT800to1200':'DYlight', 'ZudsgHT1200to2500':'DYlight', 'ZudsgHT2500toInf':'DYlight', 
+	'ZudsgHT70to100':'DYlight',
         #'Zcc':'DYc', 'ZccHT100to200':'DYc', 'ZccHT200to400':'DYc', 'ZccHT400to600':'DYc', 'ZccHT600toInf':'DYc', \
 	'Zcc':'DYlight', 'ZccHT100to200':'DYlight', 'ZccHT200to400':'DYlight', 'ZccHT400to600':'DYlight', 'ZccHT600toInf':'DYlight', 'Zcc_Bjets':'DYlight',\
 	'Zcc_BgenFilter':'DYlight', 'Zcc5to50':'DYlight', 'Zcc5to50_100to200':'DYlight', 'Zcc5to50_200to400':'DYlight', 'Zcc5to50_400to600':'DYlight', 
@@ -231,11 +232,11 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
 	'Z1b':'DY1b','Z1bHT100to200':'DY1b', 'Z1bHT200to400':'DY1b', 'Z1bHT400to600':'DY1b', 'Z1bHT600toInf':'DY1b', 'Z1b_Bjets':'DY1b', \
 	'Z1b_BgenFilter':'DY1b', 'Z1b5to50':'DY1b', 'Z1b5to50_100to200':'DY1b', 'Z1b5to50_200to400':'DY1b', 'Z1b5to50_400to600':'DY1b', 'Z1b5to50_600toInf':'DY1b',\
 	'Z1b_nlo':'DY1b', 'Z1bVpt100to250':'DY1b', 'Z1bVpt250to400':'DY1b','Z1bVpt400to650':'DY1b','Z1bVpt650toInf':'DY1b',
-	'Z1bHT600to800':'DY1b', 'Z1bHT800to1200':'DY1b', 'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b',
+	'Z1bHT600to800':'DY1b', 'Z1bHT800to1200':'DY1b', 'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b'
 	'Z2b':'DY2b','Z2bHT100to200':'DY2b','Z2bHT200to400':'DY2b','Z2bHT400to600':'DY2b','Z2bHT600toInf':'DY2b', 'Z2b_Bjets':'DY2b', \
 	'Z2b_BgenFilter':'DY2b', 'Z2b5to50':'DY2b', 'Z2b5to50_100to200':'DY2b', 'Z2b5to50_200to400':'DY2b', 'Z2b5to50_400to600':'DY2b', 'Z2b5to50_600toInf':'DY2b',\
 	'Z2b_nlo':'DY2b', 'Z2bVpt100to250':'DY2b', 'Z2bVpt250to400':'DY2b','Z2bVpt400to650':'DY2b','Z2bVpt650toInf':'DY2b',
-	'Z2bHT600to800':'DY2b', 'Z2bHT800to1200':'DY2b', 'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b',
+	'Z2bHT600to800':'DY2b', 'Z2bHT800to1200':'DY2b', 'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b'
         'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF',
 	'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF',
 	'ttbar':'TT','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT',\

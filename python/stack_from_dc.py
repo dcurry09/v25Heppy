@@ -76,7 +76,7 @@ def readBestFit(theFile):
     fpf_b = fit_b.floatParsFinal()
     fpf_s = fit_s.floatParsFinal()
     nuiVariation = {}
-
+    
     print '\nReading Best Fits...'
 
     for i in range(fpf_s.getSize()):
@@ -412,8 +412,8 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     print '\nOVERLAY!!!', Overlay        
     print 'Histos:', histos
     print 'Types:', typs
-
-
+    
+    
     # Sig/Bkg count in most sensitive bins
     #print '\n\n\t\t====== Region:', opts.bin, ' ======'
     #print 'Total Signal:', total_sig_count
@@ -752,7 +752,7 @@ def drawFromDC():
                         print '\nRate Param:', sys
                         nui= nuiVar[sys][0]      
                         lnNVar = nuiVar[sys][1]
-                        exps[p][1].append(lnNVar)
+                        #exps[p][1].append(lnNVar)
                         print nui, lnNVar
                         
                     if 'Wln' in b:

@@ -47,6 +47,9 @@ samplesinfo = config.get('Directories','samplesinfo')
 INpath  = config.get('Directories','MVAin')
 OUTpath = config.get('Directories','MVAout')
 
+#read shape systematics
+systematics=config.get('systematics','systematics')
+
 info = ParseInfo(samplesinfo,INpath)
 
 arglist = opts.discr #RTight_blavla,bsbsb
@@ -125,11 +128,12 @@ for job in samples:
     for i in range(0,len(theMVAs)):
         if job.type == 'Data':
             mvaVals.append(array('f',[0]))
-            newtree.Branch(MVAinfos[i].MVAname,mvaVals[i],'nominal/F') 
+            newtree.Branch(MVAinfos[i].MVAname,mvaVals[i],'Nominal/F') 
         else:
-            mvaVals.append(array('f',[0]*21))
-            #newtree.Branch(theMVAs[i].MVAname,mvaVals[i],'nominal:JER_up:JER_down:JES_up:JES_down/F')
-	    newtree.Branch(theMVAs[i].MVAname,mvaVals[i],'Nominal:JER_up:JER_down:JES_up:JES_down:JER_up_high:JER_down_high:JER_up_low:JER_down_low:JER_up_central:JER_down_central:JER_up_forward:JER_down_forward:JEC_up_high:JEC_down_high:JEC_up_low:JEC_down_low:JEC_up_central:JEC_down_central:JEC_up_forward:JEC_down_forward/F')
+            mvaVals.append(array('f',[0]*len(systematics.split())))
+	    newtree.Branch(theMVAs[i].MVAname,mvaVals[i],':'.join(systematics.split())+'/F')
+            #mvaVals.append(array('f',[0]*21))
+	    #newtree.Branch(theMVAs[i].MVAname,mvaVals[i],'Nominal:JER_up:JER_down:JES_up:JES_down:JER_up_high:JER_down_high:JER_up_low:JER_down_low:JER_up_central:JER_down_central:JER_up_forward:JER_down_forward:JEC_up_high:JEC_down_high:JEC_up_low:JEC_down_low:JEC_up_central:JEC_down_central:JEC_up_forward:JEC_down_forward/F')
         MVA_formulas_Nominal = []
      
     # Fill event by event:
