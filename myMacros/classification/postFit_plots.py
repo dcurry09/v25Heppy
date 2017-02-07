@@ -37,15 +37,15 @@ isVV = False
 #in_dir = 'v24_ICHEP_VV_11_22_noRP'
 
 # VH
-#in_dir = 'v24_ICHEP_VH_1_16_noRP'
+in_dir = 'v24_ICHEP_VH_1_16_noRP'
 
 # Gael
-in_dir = 'DC_v23_VH_v2_25_11_2016'
+#in_dir = 'DC_v23_VH_v2_25_11_2016'
 
 # CR
 #in_dir = 'v24_ICHEP_CR_11_22_SRplusCR'
 
-out_dir = '~/www/TEST_v2/'
+out_dir = '~/www/TEST_v5/'
 
 
 cr_list = {
@@ -88,15 +88,15 @@ cr_list = {
 
 sr_list = { 
     
-    #'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
-    #'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
-    #'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
-    #'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
+    'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
+    'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
+    'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
+    'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
     
-    'ZeeBDT_lowpt': 'ZeeBDT_lowpt',
-    'ZeeBDT_highpt':'ZeeBDT_highpt',
-    'ZuuBDT_lowpt': 'ZuuBDT_lowpt',
-    'ZuuBDT_highpt':'ZuuBDT_highpt'
+    #'ZeeBDT_lowpt': 'ZeeBDT_lowpt',
+    #'ZeeBDT_highpt':'ZeeBDT_highpt',
+    #'ZuuBDT_lowpt': 'ZuuBDT_lowpt',
+    #'ZuuBDT_highpt':'ZuuBDT_highpt'
 
     #'vhbb_WenHighPt_13TeV': 'WenHighPt'
     #'vhbb_WmnHighPt_13TeV': 'WmnHighPt'
@@ -140,7 +140,9 @@ os.system(temp_string3)
 for region in final_list:
     print region
     
+    os.system('cp ../limits/'+in_dir+'/mlfit.root .')
 
+    '''
     if not isVV:
         if os.path.isfile('mlfit_combined_channels.root'):
             if os.path.isfile('../limits/'+in_dir+'/mlfit.root'):
@@ -152,30 +154,30 @@ for region in final_list:
             if os.path.isfile('../limits/'+in_dir+'/mlfit.root'):
                 os.system('rm mlfit.root')
             os.system('cp mlfit_VV_combined_channels.root ../limits/'+in_dir+'/mlfit.root')
-
+    '''
 
     if 'Zlf' in region or 'Zhf' in region or 'ttbar' in region:
-        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
     
     else:
-        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
     if 'Wen' in region and 'HighPt' in region or 'Wmn' in region and 'HighPt' in region:
-        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
     elif 'Wen' in region or 'Wmn' in region and not 'HighPt' in region:
 
         print '\n\t Making Wlv Control region Plots...\n\n'
 
-        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
 
 
     if 'Znn' in region and 'Signal' in region:
-        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
     elif 'Znn' in region:
-         s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+         s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
     #os.system(s3)
 

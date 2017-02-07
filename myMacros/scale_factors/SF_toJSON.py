@@ -14,11 +14,11 @@ from matplotlib import interactive
 from ROOT import *
 
 
-#input_root_file = TFile.Open('80x/egammaEffi_MVAID.root')
-#text_file = open("80x/ScaleFactor_MVAID_80x.txt", "w")
+input_root_file = TFile.Open('80x/egammaEffi.txt_EGM2D.root')
+text_file = open("80x/ScaleFactor_MVAIDWP80_80x.txt", "w")
 
-input_root_file = TFile.Open('80x/egammaEffi_tracker.root')
-text_file = open("80x/ScaleFactor_tracker_80x.txt", "w")
+#input_root_file = TFile.Open('80x/egammaEffi_tracker.root')
+#text_file = open("80x/ScaleFactor_tracker_80x.txt", "w")
 
 # ======== If you first have to divide to TH2F =========
 

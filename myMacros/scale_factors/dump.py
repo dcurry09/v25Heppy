@@ -2,7 +2,7 @@ import os
 import math
 
 #name = 'ScaleFactor_tracker_80x'
-name = 'ScaleFactor_MVAID_80x'
+name = 'ScaleFactor_MVAIDWP80_80x'
 
 
 json = open('80x/'+name+'.json', 'w')

@@ -580,7 +580,7 @@ if splitRegionFOM:
    
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
     
-    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --toysFreq --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
+    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes vhbb_Zll.txt"
     

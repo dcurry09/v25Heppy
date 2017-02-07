@@ -7,8 +7,8 @@
 import ROOT
 import numpy as np
 
-#path = '/exports/uftrig01a/dcurry/heppy/v24/' 
-path = '/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_'
+path = '/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_' 
+
 
 
 def getWeight(fileInc, fileB, region):
@@ -41,11 +41,14 @@ def getWeight(fileInc, fileB, region):
 
 
 ZLLjetsHT0       = "DY_inclusive"
+ZLLjetsHT70     = "DY_70to100"
 ZLLjetsHT100     = "DY_100to200"
 ZLLjetsHT200     = "DY_200to400"
 ZLLjetsHT400     = "DY_400to600"
-ZLLjetsHT600     = "DY_600toInf"
-
+ZLLjetsHT600     = "DY_600to800"
+ZLLjetsHT600     = "DY_800to1200"
+ZLLjetsHT600     = "DY_1200to2500"
+ZLLjetsHT600     = "DY_2500toInf"
 
 ZLLBjets         = "DY_Bjets"
 ZLLjetsBGenFilter= "DY_BgenFilter"
@@ -53,11 +56,15 @@ ZLLjetsBGenFilter= "DY_BgenFilter"
 DYBJets          = "(lheNb>0)"
 DYJetsBGenFilter = "(lheNb==0 && nGenStatus2bHad>0)"
 
-HT0              = "(lheHT<100)"
+HT0              = "(lheHT<70)"
+HT70             = "(lheHT>70 && lheHT<100)"
 HT100            = "(lheHT>100 && lheHT<200)"
 HT200            = "(lheHT>200 && lheHT<400)"
 HT400            = "(lheHT>400 && lheHT<600)"
-HT600            = "(lheHT>600)"
+HT600            = "(lheHT>600&&lheHT<800)"
+HT800            = "(lheHT>800&&lheHT<1200)"
+HT1200           = "(lheHT>1200&&lheHT<2500)"
+HT2500           = "(lheHT>2500)"
 
 # For Vpt NLO sampels
 ZLLjetsPt0       = "DY_inclusive_nlo"
@@ -80,17 +87,24 @@ Pt650            = "(lheV_pt>650)"
 
 
 print "weightZBjetsHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLBjets, HT0+"&&"+DYBJets)
+print "weightZBjetsHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLBjets, HT70+"&&"+DYBJets)
 print "weightZBjetsHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLBjets, HT100+"&&"+DYBJets)
 print "weightZBjetsHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLBjets, HT200+"&&"+DYBJets)
 print "weightZBjetsHT400=\t%.2f\n" %getWeight(ZLLjetsHT400,   ZLLBjets, HT400+"&&"+DYBJets)
 print "weightZBjetsHT600=\t%.2f\n" %getWeight(ZLLjetsHT600,   ZLLBjets, HT600+"&&"+DYBJets)
+print "weightZBjetsHT800=\t%.2f\n" %getWeight(ZLLjetsHT800,   ZLLBjets, HT800+"&&"+DYBJets)
+print "weightZBjetsHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLBjets, HT1200+"&&"+DYBJets)
+print "weightZBjetsHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLBjets, HT2500+"&&"+DYBJets)
 
 print "weightZBGenFilterHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLjetsBGenFilter, HT0+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLjetsBGenFilter, HT70+"&&"+DYJetsBGenFilter)
 print "weightZBGenFilterHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLjetsBGenFilter, HT100+"&&"+DYJetsBGenFilter)
 print "weightZBGenFilterHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLjetsBGenFilter, HT200+"&&"+DYJetsBGenFilter)
 print "weightZBGenFilterHT400=\t%.2f\n" %getWeight(ZLLjetsHT400,   ZLLjetsBGenFilter, HT400+"&&"+DYJetsBGenFilter)
 print "weightZBGenFilterHT600=\t%.2f\n" %getWeight(ZLLjetsHT600,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
-
+print "weightZBGenFilterHT800=\t%.2f\n" %getWeight(ZLLjetsHT800,   ZLLjetsBGenFilter, HT800+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLjetsBGenFilter, HT1200+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLjetsBGenFilter, HT2500+"&&"+DYJetsBGenFilter)
 
 
 
