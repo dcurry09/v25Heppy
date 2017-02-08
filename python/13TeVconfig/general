@@ -283,12 +283,13 @@ weightF_SF: ((Vtype == 1)*<!Weights|weightF_eSF!> + (Vtype == 0)*<!Weights|weigh
 btagWeight = bTagWeightICHEP[0]
 #btagWeight = btagWeightCSV
 
-PUWeight: VHbb::puWeight_ichep(nTrueInt) 
-#PUWeight: VHbb::puWeight_ichep(nPVs)
+#PUWeight: VHbb::puWeight_ichep(nTrueInt) 
+PUWeight: puWeight
 
 # =================
 
-weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight
+#weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight
+weightF: <!Weights|PUWeight!>
 
 weightF_bdt: sign(genWeight)*<!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight
 

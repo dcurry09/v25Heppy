@@ -2,6 +2,7 @@ import ROOT
 import os
 import sys
 import multiprocessing
+import numpy as np
 
 debug_btagSF = False
 
@@ -113,14 +114,17 @@ def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CMVAV2", wp="M"
         #print sf
         return  sf
 
-def get_event_SF(jets=[], syst="central", algo="CMVAV2", btag_calibrators=btag_calibrators):
+def get_event_SF(ptmin, ptmax, etamin, etamax, jets=[], syst="central", algo="CMVAV2", btag_calibrators=btag_calibrators):
     weight = 1.0
+
     for jet in jets:
         if (jet.pt > ptmin and jet.pt < ptmax and abs(jet.eta) > etamin and abs(jet.eta) < etamax):
             weight *= get_SF(pt=jet.pt, eta=jet.eta, fl=jet.hadronFlavour, val=jet.csv, syst=syst, algo=algo, wp="", shape_corr=True, btag_calibrators=btag_calibrators)
         else:
             weight *= get_SF(pt=jet.pt, eta=jet.eta, fl=jet.hadronFlavour, val=jet.csv, syst="central", algo=algo, wp="", shape_corr=True, btag_calibrators=btag_calibrators)
     return weight                             
+
+##########
 
 if debug_btagSF:
     print "POG WP:"
@@ -170,7 +174,7 @@ class Jet :
 prefix = 'v25_'
 
 inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/temp/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
 bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ', 'ZZ']
@@ -179,7 +183,7 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter'
+DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter'
            #'DY_inclusive_nlo', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
            ]
 
@@ -235,8 +239,8 @@ sysMap["cErr2Up"] = "up_cferr2"
 sysMap["cErr2Down"] = "down_cferr2"
 
 
-#for file in file_list:
-def osSystem(file):
+for file in file_list:
+#def osSystem(file):
 
 
     print '\n Adding btag weights to sample:', inpath+prefix+file+'.root'
@@ -299,19 +303,21 @@ def osSystem(file):
     
         jets = []
         for i in range(tree.nJet):
-            if (tree.Jet_pt[i] > 25 and abs(tree.Jet_eta[i]) < 2.4): 
-                jet = Jet(tree.Jet_pt[i], tree.Jet_eta[i], tree.Jet_hadronFlavour[i], tree.Jet_btagCSV[i])
+            if (tree.Jet_pt_reg[i] > 20 and abs(tree.Jet_eta[i]) < 2.4): 
+                jet = Jet(tree.Jet_pt_reg[i], tree.Jet_eta[i], tree.Jet_hadronFlavour[i], tree.Jet_btagCMVAV2[i])
                 jets.append(jet)
-                
-        bTagWeights["bTagWeightMoriond"][0] = get_event_SF( jets, "central", "CMVAV2", btag_calibrators)
+
+        ptmin = 20.
+        ptmax = 1000.
+        etamin = 0.
+        etamax = 2.4
+                        
+        bTagWeights["bTagWeightMoriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax,jets, "central", "CMVAV2", btag_calibrators)
+        #print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightMoriond"][0]
         for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
             for sdir in ["Up", "Down"]:
                 bTagWeights["bTagWeightMoriond_"+syst+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
                 for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-                    ptmin = 20.
-                    ptmax = 1000.
-                    etamin = 0.
-                    etamax = 2.4
                     if (systcat.find("High")!=-1):
                         ptmin = 100.
                     if (systcat.find("Low")!=-1):
@@ -320,7 +326,7 @@ def osSystem(file):
                         etamax = 1.4
                     if (systcat.find("Forward")!=-1):
                         etamin = 1.4
-                    bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators, ptmin, ptmax, etamin, etamax)
+                    bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
 
                 
         otree.Fill()

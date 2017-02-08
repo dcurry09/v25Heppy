@@ -490,7 +490,14 @@ for job in info:
     newtree.Branch('mTrigSFWeight_doubleMu76x', mTrigSFWeight_doubleMu76x, 'mTrigSFWeight_doubleMu76x/F')
     newtree.Branch('mTrigSFWeight_doubleMu76xUp', mTrigSFWeight_doubleMu76xUp, 'mTrigSFWeight_doubleMu76xUp/F')
     newtree.Branch('mTrigSFWeight_doubleMu76xDown', mTrigSFWeight_doubleMu76xDown, 'mTrigSFWeight_doubleMu76xDown/F')
+
+    # New for trigger string short cut
+    zee_trigger = zee_trigger = array('f',[0]*1)
+    newtree.Branch('zee_trigger',zee_trigger,'zee_trigger/F')
     
+    zuu_trigger = array('f',[0]*1)
+    newtree.Branch('zuu_trigger',zuu_trigger,'zuu_trigger/F')
+
     # For DY special Weights
     DY_specialWeight = array('f',[0]*1)
     newtree.Branch('DY_specialWeight',DY_specialWeight,'DY_specialWeight/F')
@@ -886,7 +893,7 @@ for job in info:
 
 	    if entry % 10000 is 0: print 'Event #', entry
 	    
-            if tree.nJet < 2: continue
+            #if tree.nJet < 2: continue
 	    #if tree.nhJCidx == 0 : continue
 	    
 	    # Set the special Weight
@@ -900,6 +907,17 @@ for job in info:
 		    
 		    nlo_weight_ = nlo_weight.EvalInstance()
 		    NLO_Weight[0] = nlo_weight_ 
+
+	    if tree.Vtype == 0 and (tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v==1):  
+		    zuu_trigger[0] = 1
+	    else:
+		    zuu_trigger[0] = 0
+
+
+	    if tree.Vtype == 1 and tree.HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v == 1:
+		    zee_trigger[0] = 1
+            else:
+                    zee_trigger[0] = 0
 
 	    '''
 	    ### Fill new variable from configuration ###
@@ -1364,15 +1382,27 @@ for job in info:
 		    muTrigEffAftr2 = 1
 		    
 		    jsons = {
-			    'myutils/jsons/SingleMuonTrigger_LooseMuons_afterL2fix_Z_RunBCD_prompt80X_7p65.json' : ['MuonTrigger_data_all_IsoMu22_OR_IsoTkMu22_pteta_Run2016B_afterL2Fix', 'abseta_pt_MC'],
-			    'myutils/jsons/SingleMuonTrigger_LooseMuons_beforeL2fix_Z_RunBCD_prompt80X_7p65.json' : ['MuonTrigger_data_all_IsoMu22_OR_IsoTkMu22_pteta_Run2016B_beforeL2Fix', 'abseta_pt_MC'],
-			    'myutils/jsons/EfficienciesAndSF_ISO.json' : ['MC_NUM_LooseRelIso_DEN_LooseID_PAR_pt_spliteta_bin1', 'abseta_pt_ratio'],
+			    #'myutils/jsons/SingleMuonTrigger_LooseMuons_afterL2fix_Z_RunBCD_prompt80X_7p65.json' : ['MuonTrigger_data_all_IsoMu22_OR_IsoTkMu22_pteta_Run2016B_afterL2Fix', 'abseta_pt_MC'],
+			    #'myutils/jsons/SingleMuonTrigger_LooseMuons_beforeL2fix_Z_RunBCD_prompt80X_7p65.json' : ['MuonTrigger_data_all_IsoMu22_OR_IsoTkMu22_pteta_Run2016B_beforeL2Fix', 'abseta_pt_MC'],
+			    #'myutils/jsons/EfficienciesAndSF_ISO.json' : ['MC_NUM_LooseRelIso_DEN_LooseID_PAR_pt_spliteta_bin1', 'abseta_pt_ratio'],
 			    #'myutils/jsons/WP90PlusIso_BCD.json' : ['WP90PlusIso_BCD', 'eta_pt_ratio'],
 			    #'myutils/jsons/WP90PlusIso_BCDEF.json' : ['WP90PlusIso_BCDEF', 'eta_pt_ratio'],
 			    #'myutils/jsons/WP90_BCD_withRelIso.json': ['electronTriggerEfficiencyHLT_Ele27_WPLoose_eta2p1_WP90_BCD', 'eta_pt_ratio'],
 			    #'myutils/jsons/WP90_BCDEF_withRelIso.json' : ['electronTriggerEfficiencyHLT_Ele27_WPLoose_eta2p1_WP90_BCDEF', 'eta_pt_ratio'],
 			    #'myutils/jsons/HLT_Ele23_WPLoose.json' : ['HLT_Ele23_WPLoose', 'eta_pt_ratio'],
 			    
+			    #### Muon trigger ISO, and ID ####
+			    
+			    # ID
+			    'myutils/jsons/80x/muonID80x_BCDEF.json' : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
+			    'myutils/jsons/80x/muonID80x_GH.json'    : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
+			    
+			    # ISO
+			    'myutils/jsons/80x/MuISO_SFs_BCDEF.json' : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
+			    'myutils/jsons/80x/MuISO_SFs_GH.json'    : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
+
+
+			    #### Electron trigger and ID ####
 			    # 80x in v25
 			    '../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_etracker_80x', 'eta_pt_ratio'],
 			    '../myMacros/scale_factors/80x/ScaleFactor_eMVAID_80x.json' : ['ScaleFactor_eMVAID_80x', 'eta_pt_ratio'],
@@ -1394,9 +1424,9 @@ for job in info:
 			    else:	    
 				    weight.append(lepCorr.get_2D( tree.vLeptons_pt[0], tree.vLeptons_eta[0]))
 				    weight.append(lepCorr.get_2D( tree.vLeptons_pt[1], tree.vLeptons_eta[1]))
-
+				    
 			    if tree.Vtype == 0:
-
+				    
 				    if j.find('SingleMuonTrigger_LooseMuons_beforeL2fix_Z_RunBCD_prompt80X_7p65') != -1:
 					    muTrigEffBfr1 = weight[0][0]
 					    muTrigEffBfr2 = weight[1][0]
@@ -1438,6 +1468,18 @@ for job in info:
 					    eId90SFWeightUp[0] = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
 					    eId90SFWeightDown[0] = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
 					    
+				    elif j.find('WP90_BCD_withRelIso.json') != -1:
+					    eff1 = weight[0][0]
+					    eff2 = weight[1][0]
+					    eff1Up = (weight[0][0]+weight[0][1])
+					    eff2Up = (weight[1][0]+weight[1][1])
+					    eff1Down = (weight[0][0]-weight[0][1])
+                                            eff2Down = (weight[1][0]-weight[1][1])
+					    eTrigSFWeight_ele27[0]     = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
+					    eTrigSFWeight_ele27Up[0]   = eff1Up*(1-eff2Up)*eff1Up + eff2Up*(1-eff1Up)*eff2Up + eff1Up*eff1Up*eff2Up*eff2Up 
+					    eTrigSFWeight_ele27Down[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
+					    
+					    
 				    elif j.find('ScaleFactor_doubleElectron76x') != -1:
                                             eTrigSFWeight_doubleEle76x[0] = weight[0][0]
                                             eTrigSFWeight_doubleEle76xUp[0] = weight[0][0] + weight[0][1]
@@ -1466,9 +1508,9 @@ for job in info:
                             mTrigSFWeightDown[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
 			    
 			    # for 22/fb
-			    eff1 = 0.02772*muTrigEffBfr1 + 0.97227*muTrigEffAftr1
-			    eff2 = 0.02772*muTrigEffBfr2 + 0.97227*muTrigEffAftr2
-			    mTrigSFWeight[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
+			    #eff1 = 0.02772*muTrigEffBfr1 + 0.97227*muTrigEffAftr1
+			    #eff2 = 0.02772*muTrigEffBfr2 + 0.97227*muTrigEffAftr2
+			    #mTrigSFWeight[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
 					    
 
 		    			    
