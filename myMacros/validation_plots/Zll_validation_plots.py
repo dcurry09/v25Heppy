@@ -11,7 +11,7 @@ from matplotlib import interactive
 import os
 #from ROOT import RooAbsPdf
 #from ROOT import RooRealProxy
-ROOT.gROOT.SetBatch(True)
+gROOT.SetBatch(True)
 
 # PU weights
 #ROOT.gSystem.CompileMacro("/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_6_1_1/src/VHbb/plugins/PU.C")
@@ -26,7 +26,7 @@ ROOT.gROOT.SetBatch(True)
 # ZH125
 #file = TFile.Open('root://eoscms//eos/cms/store/group/phys_higgs/hbb/ntuples/80X_test_v2/ZH_HToBB_ZToLL_M125_13TeV_powheg_herwigpp/VHBB_HEPPY_80X_TEST_V2_ZH_HToBB_ZToLL_M125_13TeV_powheg_herwigpp__spring16MAv2-PUSpring16RAWAODSIM_80X_r2as_2016_miniAODv2_v0-v1/160621_150125/0000/tree_1.root')
 
-file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ZH125.root')
+file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_ZH125.root')
 #file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_50t-13d-1000k.root')
 
 file_ttbar = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ttbar.root')
@@ -44,14 +44,22 @@ file_old = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v21_5_22_ZH125.
 new_version = '80x'
 old_version = '76x'
 
-title = 'diBoson'
+title = 'ZH125'
 
 # Outpath:
 #outdir = 'Zll_validation_plots/'+new_version+'/'
-outdir = '~/www/v24_ICHEP_preSF_9_29/Regression/'
+outdir = '~/www/v25_Regression_Vars/'
 
-if not os.path.exists(outdir):
-        os.makedirs(outdir)
+try:
+    os.system('mkdir '+outdir)
+except:
+     print outdir+' already exists...'
+
+temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/.htaccess '+outdir
+temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/index.php '+outdir
+
+os.system(temp_string2)
+os.system(temp_string3)
 
 ###########################################
 
@@ -94,8 +102,8 @@ zz_header = '#sqrt{s}=13TeV,   ZZ'
 zz_title  = 'ZZ_'+new_version
 
 # create output directory
-if (ROOT.gSystem.AccessPathName(outdir)):
-    ROOT.gSystem.mkdir(outdir)
+#if (ROOT.gSystem.AccessPathName(outdir)):
+#    ROOT.gSystem.mkdir(outdir)
 
 
 # List of variables to plot:  var name, # of bins, x-axis range
@@ -397,8 +405,8 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     if ptRegion == 'all':
         myTree.Project('hReg', 'HCSV_reg_mass', myCut)
         myTree.Project('hNom', 'HCSV_mass', myCut)
-	tree_zz.Project('hReg_zz', 'HCSV_reg_mass', myCut)
-        tree_zz.Project('hNom_zz', 'HCSV_mass', myCut)
+	#tree_zz.Project('hReg_zz', 'HCSV_reg_mass', myCut)
+        #tree_zz.Project('hNom_zz', 'HCSV_mass', myCut)
         #myTree.Project('hFsr', 'HCSV_reg_mass_FSR', myCut)
 	#myTree.Project('hFsr', 'HCSV_reg_mass_met', myCut)
 	#myTree.Project('hFsr', 'HCSV_reg_mass_met_FSR', myCut)
@@ -418,6 +426,7 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
 
     
     # For ZZ scale thei Hist
+    '''
     hReg.Scale(1 / hReg.Integral())
     hNom.Scale(1 / hNom.Integral())
 
@@ -433,14 +442,15 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
 
     hReg_zz.SetLineStyle(2)
     hNom_zz.SetLineStyle(2)
-    
+    '''
+
     canvas.cd()
     stack.Add(hReg)
     stack.Add(hNom)
     
     # For Zz
-    stack.Add(hReg_zz)
-    stack.Add(hNom_zz)
+    #stack.Add(hReg_zz)
+    #stack.Add(hNom_zz)
     #stack.Add(hFsr)
     stack.Draw('nostack')
     stack.GetXaxis().SetTitle('m(jj) [GeV]')
@@ -451,7 +461,7 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     low_nom = 40
     high_nom = 180
 
-    '''
+
     # ==== Bukin Fit ====
     mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, high, "GeV")
     bC_p0=RooRealVar("bC_p0", "bC_p0", 90., 130.)
@@ -501,7 +511,7 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     hNom_mu=str(round(hNom_mu,4))
     hNom_metric_str = str(round(mass_metric1,3))
 
-
+    '''
     # For ZZ
     # ==== Bukin Fit ====
     mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, high, "GeV")
@@ -585,19 +595,19 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     leg.SetFillStyle(0)
     leg.SetBorderSize(0)
     leg.AddEntry(hNom, 'ZH Nominal', 'l')
-    #leg.AddEntry(0, '#sigma='+hNom_std, '')
-    #leg.AddEntry(0, '#mu='+hNom_mu, '')
-    #leg.AddEntry(0, '#sigma/#mu='+hNom_metric_str, '')
+    leg.AddEntry(0, '#sigma='+hNom_std, '')
+    leg.AddEntry(0, '#mu='+hNom_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hNom_metric_str, '')
     leg.AddEntry(hReg, 'ZH Regressed', 'l')
-    #leg.AddEntry(0, '#sigma='+hReg_std, '')
-    #leg.AddEntry(0, '#mu='+hReg_mu, '')
-    #leg.AddEntry(0, '#sigma/#mu='+hReg_metric_str, '')
+    leg.AddEntry(0, '#sigma='+hReg_std, '')
+    leg.AddEntry(0, '#mu='+hReg_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hReg_metric_str, '')
     #leg.AddEntry(hFsr, 'Regressed+FSR', 'l')
     #leg.AddEntry(0, '#sigma='+hFsr_std, '')
     #leg.AddEntry(0, '#mu='+hFsr_mu, '')
     #leg.AddEntry(0, '#sigma/#mu='+mass_metric1_str, '')
-    leg.AddEntry(hNom, 'ZZ Nominal', 'l')
-    leg.AddEntry(hReg, 'ZZ Regressed', 'l')
+    #leg.AddEntry(hNom, 'ZZ Nominal', 'l')
+    #leg.AddEntry(hReg, 'ZZ Regressed', 'l')
 
     #leg.AddEntry(0, '', '')
     #x = leg.AddEntry(0, 'Improvement='+str(round(percent_improvement,1))+'%', '')

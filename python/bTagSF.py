@@ -19,26 +19,25 @@ ROOT.gSystem.Load("./BTagCalibrationStandalone.so")
 print '\nCompilation done...\n'
 
 # CSVv2
-#calib_csv = ROOT.BTagCalibration("csvv2", "./ttH_BTV_CSVv2_13TeV_2016BCD_12p9_2016_09_7.csv")
+calib_csv = ROOT.BTagCalibration("csvv2", "./ttH_BTV_CSVv2_13TeV_2016All_36p5_2017_1_10.csv")
 
 # cMVAv2
 calib_cmva = ROOT.BTagCalibration("cmvav2", "./ttH_BTV_cMVAv2_13TeV_2016All_36p5_2017_1_26.csv")
 
-print "\nCalibration Done...\n"
+print "\nCalibration Init...\n"
 
 # map between algo/flavour and measurement type
 sf_type_map = {
-    #"CSV" : {
-    #    "file" : calib_csv,
-    #    "bc" : "comb",
-    #    "l" : "incl",
-    #    }
-    #}
+    "CSV" : {
+        "file" : calib_csv,
+        "bc" : "comb",
+        "l" : "incl",
+        },
     "CMVAV2" : {
         "file" : calib_cmva,
         "bc" : "ttbar",
         "l" : "incl",
-        },
+        }
     }
 
 # map of calibrators. E.g. btag_calibrators["CSVM_nominal_bc"], btag_calibrators["CSVM_up_l"], ...
@@ -50,10 +49,14 @@ btag_calibrators = {}
 #                print "[btagSF]: Loading calibrator for algo:", algo, ", WP:", wp[1], ", systematic:", syst, ", flavour:", fl
 #                btag_calibrators[algo+wp[1]+"_"+syst+"_"+fl] = ROOT.BTagCalibrationReader(sf_type_map[algo]["file"], wp[0], sf_type_map[algo][fl], syst)
 
-for algo in ["CMVAV2"]:
+for algo in ["CSV", "CMVAV2"]:
     for syst in ["central", "up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf", "up_hfstats1", "down_hfstats1", "up_hfstats2", "down_hfstats2", "up_lfstats1", "down_lfstats1", "up_lfstats2", "down_lfstats2", "up_cferr1", "down_cferr1", "up_cferr2", "down_cferr2"]:
         print "[btagSF]: Loading calibrator for algo:", algo, "systematic:", syst
         btag_calibrators[algo+"_iterative_"+syst] = ROOT.BTagCalibrationReader(sf_type_map[algo]["file"], 3 , "iterativefit", syst)
+
+
+print "\nCalibration Done...\n"
+
 
 # depending on flavour, only a sample of systematics matter
 def applies( flavour, syst ):
@@ -68,7 +71,7 @@ def applies( flavour, syst ):
 
 
 # function that reads the SF
-def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CMVAV2", wp="M", shape_corr=False, btag_calibrators=btag_calibrators):
+def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CSV", wp="M", shape_corr=False, btag_calibrators=btag_calibrators):
 
     # no SF for pT<20 GeV or pt>1000 or abs(eta)>2.4
     if abs(eta)>2.4 or pt>1000. or pt<20.:
@@ -114,7 +117,7 @@ def get_SF(pt=30., eta=0.0, fl=5, val=0.0, syst="central", algo="CMVAV2", wp="M"
         #print sf
         return  sf
 
-def get_event_SF(ptmin, ptmax, etamin, etamax, jets=[], syst="central", algo="CMVAV2", btag_calibrators=btag_calibrators):
+def get_event_SF(ptmin, ptmax, etamin, etamax, jets=[], syst="central", algo="CSV", btag_calibrators=btag_calibrators):
     weight = 1.0
 
     for jet in jets:
@@ -268,19 +271,31 @@ for file in file_list:
     otree = tree.CloneTree(0)
 
     bTagWeights = {}
-    bTagWeights["bTagWeightMoriond"] = np.zeros(1, dtype=float)
-    otree.Branch("bTagWeightMoriond", bTagWeights["bTagWeightMoriond"], "bTagWeightMoriond/D")
+    bTagWeights["bTagWeightCMVAV2_Moriond"] = np.zeros(1, dtype=float)
+    otree.Branch("bTagWeightCMVAv2_Moriond", bTagWeights["bTagWeightCMVAV2_Moriond"], "bTagWeightCMVAV2_Moriond/D")
+    
+    bTagWeights["bTagWeightCSV_Moriond"] = np.zeros(1, dtype=float)
+    otree.Branch("bTagWeightCSV_Moriond", bTagWeights["bTagWeightCSV_Moriond"], "bTagWeightCSV_Moriond/D")
+    
 
     for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
         for sdir in ["Up", "Down"]:
-            bTagWeights["bTagWeightMoriond_"+syst+sdir] = np.zeros(1, dtype=float)
-            otree.Branch("bTagWeightMoriond_"+syst+sdir, bTagWeights["bTagWeightMoriond_"+syst+sdir], "bTagWeightMoriond_"+syst+sdir+"/D")
-            #bTagWeights["bTagWeightEF_"+sysMap[syst+sdir]] = np.zeros(1, dtype=float)
-            #otree.Branch("bTagWeightEF_"+sysMap[syst+sdir], bTagWeights["bTagWeightEF_"+sysMap[syst+sdir]], "bTagWeightEF_"+sysMap[syst+sdir]+"/D")
-            for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-                bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
-                otree.Branch("bTagWeightMoriond_"+syst+systcat+sdir, bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir], "bTagWeightMoriond_"+syst+systcat+sdir+"/D")
 
+            bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+sdir] = np.zeros(1, dtype=float)
+            otree.Branch("bTagWeightCMVAV2_Moriond_"+syst+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+sdir], "bTagWeightCMVAV2_Moriond_"+syst+sdir+"/D")
+
+            bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir] = np.zeros(1, dtype=float)
+            otree.Branch("bTagWeightCSV_Moriond_"+syst+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir], "bTagWeightCSV_Moriond_"+syst+sdir+"/D")
+
+            for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
+
+                bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
+                otree.Branch("bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir], "bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir+"/D")
+
+                bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
+                otree.Branch("bTagWeightCSV_Moriond_"+syst+systcat+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir], "bTagWeightCSV_Moriond_"+syst+systcat+sdir+"/D")
+                
+                
 
 
     nentries = tree.GetEntries()
@@ -296,27 +311,40 @@ for file in file_list:
         MakeSysRefMap()
         
         if 'Zee' in file or 'Zuu' in file:
-            bTagWeights["bTagWeightMoriond"][0] = 1.0
+            bTagWeights["bTagWeightCMVAV2_Moriond"][0] = 1.0
+            bTagWeights["bTagWeightCSV_Moriond"][0] = 1.0
             otree.Fill()
             continue
 
     
-        jets = []
+        jets_csv = []
+        jets_cmva = []
+        
         for i in range(tree.nJet):
             if (tree.Jet_pt_reg[i] > 20 and abs(tree.Jet_eta[i]) < 2.4): 
-                jet = Jet(tree.Jet_pt_reg[i], tree.Jet_eta[i], tree.Jet_hadronFlavour[i], tree.Jet_btagCMVAV2[i])
-                jets.append(jet)
+                jet_csv = Jet(tree.Jet_pt_reg[i], tree.Jet_eta[i], tree.Jet_hadronFlavour[i], tree.Jet_btagCSV[i])
+                jets_csv.append(jet_csv)
+                jet_cmva = Jet(tree.Jet_pt_reg[i], tree.Jet_eta[i], tree.Jet_hadronFlavour[i], tree.Jet_btagCMVAV2[i])
+                jets_cmva.append(jet_cmva)
 
         ptmin = 20.
         ptmax = 1000.
         etamin = 0.
         etamax = 2.4
                         
-        bTagWeights["bTagWeightMoriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax,jets, "central", "CMVAV2", btag_calibrators)
-        #print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightMoriond"][0]
+        bTagWeights["bTagWeightCMVAV2_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, "central", "CMVAV2", btag_calibrators)
+        bTagWeights["bTagWeightCSV_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, "central", "CSV", btag_calibrators)
+        
+        print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
+        print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
+        
         for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
             for sdir in ["Up", "Down"]:
-                bTagWeights["bTagWeightMoriond_"+syst+sdir][0] = get_event_SF( jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
+                
+                bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
+                bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
+                
+
                 for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
                     if (systcat.find("High")!=-1):
                         ptmin = 100.
@@ -326,8 +354,10 @@ for file in file_list:
                         etamax = 1.4
                     if (systcat.find("Forward")!=-1):
                         etamin = 1.4
-                    bTagWeights["bTagWeightMoriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
-
+                 
+                    bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
+   
+                    bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
                 
         otree.Fill()
 

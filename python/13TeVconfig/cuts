@@ -6,36 +6,40 @@
 # --------------------------------
 
 # Choose Jet Index: Highest Pt or CMVA
-#jet_index: hJidx
-jet_index: hJCMVAV2idx
+jet_index: hJCidx
+#jet_index: hJCMVAV2idx
 
-CSVT: 0.875
-CSVM: 0.185
-CSVL: -0.715
-CSVC: 0.244
+# CHoose jet batg weight
+#jet_btag: Jet_btagCMVAV2
+jet_btag: Jet_btagCSV
 
-minBtag: min(Jet_btagCSV[<!ZHbb|jet_index!>[0]],Jet_btagCSV[<!ZHbb|jet_index!>[1]])
-maxBtag: max(Jet_btagCSV[<!ZHbb|jet_index!>[0]],Jet_btagCSV[<!ZHbb|jet_index!>[1]])
+CMVAT: 0.875
+CMVAM: 0.185
+CMVAL: -0.715
+
+CSVT: 0.935
+CSVM: 0.800
+CSVL: 0.460
 
 # --------------------------------
 # Single variable cuts
 # --------------------------------
 
 # To get rid of minCSV peak
-#minCSV_peakCut: ((Jet_puId[hJCMVAV2idx[1]] >= 7 & Jet_btagCSV[hJCMVAV2idx[1]] >= 0.53 & Jet_btagCSV[hJCMVAV2idx[1]] < 0.55) || !(Jet_btagCSV[hJCMVAV2idx[1]] >= 0.53 & Jet_btagCSV[hJCMVAV2idx[1]] < 0.55))
+#minCSV_peakCut: ((Jet_puId[<!ZHbb|jet_index!>[1]] >= 7 & Jet_btagCSV[<!ZHbb|jet_index!>[1]] >= 0.53 & Jet_btagCSV[<!ZHbb|jet_index!>[1]] < 0.55) || !(Jet_btagCSV[<!ZHbb|jet_index!>[1]] >= 0.53 & Jet_btagCSV[<!ZHbb|jet_index!>[1]] < 0.55))
 
-minCSV_peakCut: ((Jet_puId[hJCMVAV2idx[1]] >= 7 & Jet_btagCMVAV2[hJCMVAV2idx[1]] > 0.52 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < 0.55) || !(Jet_btagCMVAV2[hJCMVAV2idx[1]] > 0.52 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < 0.55))
+minCSV_peakCut: ((Jet_puId[<!ZHbb|jet_index!>[1]] >= 7 & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > 0.52 & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < 0.55) || !(<!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > 0.52 & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < 0.55))
 
-Zhf_Btag: Jet_btagCMVAV2[hJCMVAV2idx[0]] > <!ZHbb|CSVT!> & Jet_btagCMVAV2[hJCMVAV2idx[1]] > <!ZHbb|CSVL!> 
+Zhf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!> 
 
 # for regression validation
-Zhf_Btag_reg: Jet_btagCMVAV2[hJCMVAV2idx[0]] > <!ZHbb|CSVM!> & Jet_btagCMVAV2[hJCMVAV2idx[1]] > <!ZHbb|CSVL!>
+Zhf_Btag_reg: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
-Zlf_Btag: Jet_btagCMVAV2[hJCMVAV2idx[0]] < <!ZHbb|CSVT!> & Jet_btagCMVAV2[hJCMVAV2idx[1]] < <!ZHbb|CSVL!>
+Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < <!ZHbb|CSVL!>
 
-ttbar_Btag: Jet_btagCMVAV2[hJCMVAV2idx[0]] > <!ZHbb|CSVT!> & Jet_btagCMVAV2[hJCMVAV2idx[1]] > <!ZHbb|CSVL!>
+ttbar_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
-bdt_Btag: Jet_btagCMVAV2[hJCMVAV2idx[0]] > <!ZHbb|CSVL!> & Jet_btagCMVAV2[hJCMVAV2idx[1]] > <!ZHbb|CSVL!> 
+bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVL!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!> 
 
 
 noAddJet: Sum$(Jet_pt > 20 & abs(Jet_eta) < 2.4 & Jet_puId == 7) == 2
@@ -84,11 +88,11 @@ Hpt_100: HCMVAV2_reg_pt > 100.
 Hpt_Zhf: HCMVAV2_reg_pt > 0.
 
 # Jet cuts
-jet_pt_20: Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. 
-#jet_pt_20: Jet_pt[hJCMVAV2idx[0]] > 20. & Jet_pt[hJCMVAV2idx[1]] > 20.
+jet_pt_20: Jet_pt_reg[<!ZHbb|jet_index!>[0]] > 20. & Jet_pt_reg[<!ZHbb|jet_index!>[1]] > 20. 
+#jet_pt_20: Jet_pt[<!ZHbb|jet_index!>[0]] > 20. & Jet_pt[<!ZHbb|jet_index!>[1]] > 20.
 
-jet_pt_30: Jet_pt_reg[hJCMVAV2idx[0]] > 30. & Jet_pt_reg[hJCMVAV2idx[1]] > 30.
-jet_pt_30_noREG: Jet_pt[hJCMVAV2idx[0]] > 30. & Jet_pt[hJCMVAV2idx[1]] > 30.
+jet_pt_30: Jet_pt_reg[<!ZHbb|jet_index!>[0]] > 30. & Jet_pt_reg[<!ZHbb|jet_index!>[1]] > 30.
+jet_pt_30_noREG: Jet_pt[<!ZHbb|jet_index!>[0]] > 30. & Jet_pt[<!ZHbb|jet_index!>[1]] > 30.
 
 jet_pt_Zhf: <!ZHbb|jet_pt_20!>
 #jet_pt_Zhf: <!ZHbb|jet_pt_30_noREG!>
@@ -102,8 +106,8 @@ deltaRjj_Zuu: deltaR_jj < 1.6
 deltaRjj_Zee: deltaR_jj < 1.6
 
 #dPhiVH: abs(HVdPhi) > 2.9 
-dPhiVH: abs(HVdPhi_reg) > 2.5
-#dPhiVH: abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_phi))>2.5
+#dPhiVH: abs(HVdPhi_reg) > 2.5
+dPhiVH: abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_phi))>2.5
 
 upperHMass          : HCMVAV2_reg_mass < 250.
 upperHMass_beforeReg: HNoReg_mass < 250.
@@ -152,7 +156,7 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 # Preselections (combination of single cuts)
 # -------------------------------------------
 
-jet_preselection: Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4 
+jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4 
 
 # Lepton Isolation
 lepton_Iso_uu: vLeptons_relIso04[0] < 0.25 & vLeptons_relIso04[1] < 0.25
@@ -162,7 +166,7 @@ lepton_Iso_ee: vLeptons_relIso03[0] < 0.15 & vLeptons_relIso03[1] < 0.15
 lepton_preselection: (((Vtype==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!>) || ((Vtype==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>))
  
 # Full Set (36/fb)
-full_preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & V_pt > -25.0
+preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & V_pt > -25.0
 
 # === V24 Ranges ===
 # Ichep 12.9/fb
@@ -181,13 +185,13 @@ full_preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & V_
 #preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & (run <= 274421 )
 
 
-semiLepton: Jet_leptonPt[hJCMVAV2idx[0]] > 0. & Jet_leptonPt[hJCMVAV2idx[1]] > 0.
+semiLepton: Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. & Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.
 
-#NOsemiLepton: !(Jet_leptonPt[hJCMVAV2idx[0]] > 0. || Jet_leptonPt[hJCMVAV2idx[1]] > 0.) & !(Jet_leptonPt[hJCMVAV2idx[0]] > 0. & Jet_leptonPt[hJCMVAV2idx[1]] > 0.)
-NOsemiLepton: !(Jet_leptonPt[hJCMVAV2idx[0]] > 0. || Jet_leptonPt[hJCMVAV2idx[1]] > 0.)
+#NOsemiLepton: !(Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. || Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.) & !(Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. & Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.)
+NOsemiLepton: !(Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. || Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.)
 
-#1semiLepton: (Jet_leptonPt[hJCMVAV2idx[0]] > 0. || Jet_leptonPt[hJCMVAV2idx[1]] > 0.) & !(Jet_leptonPt[hJCMVAV2idx[0]] > 0. & Jet_leptonPt[hJCMVAV2idx[1]] > 0.)
-1semiLepton: (Jet_leptonPt[hJCMVAV2idx[0]] > 0. || Jet_leptonPt[hJCMVAV2idx[1]] > 0.)
+#1semiLepton: (Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. || Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.) & !(Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. & Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.)
+1semiLepton: (Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. || Jet_leptonPt[<!ZHbb|jet_index!>[1]] > 0.)
 
 
 # ----------------------------------------
@@ -445,6 +449,7 @@ bdt_tightHmass_Zee: <!ZHbb|trigger_ee!> & Vtype == 1 & <!ZHbb|bdt_Btag!> & <!ZHb
 #& <!ZHbb|minCSV_peakCut!> 
 
 bdt_high_Zpt:<!ZHbb|trigger_combined!> & Vtype > -1 & Vtype < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
+
 bdt_Zuu_high_Zpt:<!ZHbb|trigger_uu!> & Vtype == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
 #bdt_Zee_high_Zpt:<!ZHbb|preselection!>&<!ZHbb|jet_pt_20!>&<!ZHbb|looseHMass!>&<!ZHbb|trigger_ee!>&Vtype==1&<!ZHbb|bdt_Btag!>&<!ZHbb|Zwindow_mass!>&<!ZHbb|Vpt_high_window!> 

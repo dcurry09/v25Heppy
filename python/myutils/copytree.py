@@ -90,7 +90,7 @@ def branch_reduce(tree):
 
     tree.SetBranchStatus('htt*', 0)
 
-    tree.SetBranchStatus('GenWZ*', 0)
+    #tree.SetBranchStatus('GenWZ*', 0)
 
     tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
 

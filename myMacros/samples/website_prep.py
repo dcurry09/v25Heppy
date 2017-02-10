@@ -12,8 +12,8 @@ import multiprocessing
 
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
-main_dir  = 'TEST'
-#main_dir = 'v24_ICHEP_12_10_TEST'
+#main_dir  = 'TEST'
+main_dir = 'v25_CR_2_9'
 
 
 
@@ -63,10 +63,10 @@ region_list = control_list
 # ======= copy over datacards ========
 
 datacard_dir_list = [
-     '/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/4_22_2fb',
-     '/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/4_22_5fb',
-     '/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/4_22_10fb',
-     '/afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/limits/4_22_20fb'
+     '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/4_22_2fb',
+     '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/4_22_5fb',
+     '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/4_22_10fb',
+     '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/4_22_20fb'
      ]
 
 datacard_list = ['vhbb_DC_TH_BDT_M125_Zee_LowPt.txt', 'vhbb_DC_TH_BDT_M125_Zee_HighPt.txt']
@@ -105,7 +105,7 @@ for dir in region_list:
 
     if 'Zlf_low_Zuu' in dir:
          t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zuu/'
-         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zuu/'
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zuu/'
          temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zuu/'+dir
          temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zuu/'+dir
          temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -114,7 +114,7 @@ for dir in region_list:
         
     if 'Zlf_low_Zee' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zee/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zee'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zee'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zee/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low_Zee/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -122,7 +122,7 @@ for dir in region_list:
 
     if 'Zhf_low_Zuu' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zuu/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zuu'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zuu'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zuu/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zuu/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -131,7 +131,7 @@ for dir in region_list:
 
     if 'Zhf_low_Zee' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zee/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zee'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zee'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zee/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low_Zee/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -139,7 +139,7 @@ for dir in region_list:
 
     if 'ttbar_low_Zuu' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zuu/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zuu'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zuu'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zuu/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zuu/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -147,7 +147,7 @@ for dir in region_list:
 
     if 'ttbar_low_Zee' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zee'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zee'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zee'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zee/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low_Zee/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -157,7 +157,7 @@ for dir in region_list:
 
     if 'Zlf_high_Zuu' in dir:
          t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zuu/'
-         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zuu/'
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zuu/'
          temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zuu/'+dir
          temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zuu/'+dir
          temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -166,7 +166,7 @@ for dir in region_list:
         
     if 'Zlf_high_Zee' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zee/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zee'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zee'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zee/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high_Zee/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -174,7 +174,7 @@ for dir in region_list:
 
     if 'Zhf_high_Zuu' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zuu/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zuu'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zuu'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zuu/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zuu/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -183,7 +183,7 @@ for dir in region_list:
 
     if 'Zhf_high_Zee' in dir:
         t1 = 'rm -rf /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zee/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zee'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zee'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zee/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high_Zee/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -191,7 +191,7 @@ for dir in region_list:
 
     if 'ttbar_high_Zuu' in dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zuu/'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zuu'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zuu'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zuu/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zuu/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -199,7 +199,7 @@ for dir in region_list:
 
     if 'ttbar_high_Zee' in dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zee'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zee'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zee'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zee/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high_Zee/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -210,7 +210,7 @@ for dir in region_list:
 
     if 'ttbar_high' == dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_high/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -219,7 +219,7 @@ for dir in region_list:
 
     if 'Zlf_high' == dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_high/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -227,7 +227,7 @@ for dir in region_list:
 
     if 'Zhf_high' == dir:
          t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high'
-         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high'
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high'
          temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high/'+dir
          temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_high/'+dir
          temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -235,7 +235,7 @@ for dir in region_list:
 
     if 'ttbar_low' == dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/ttbar_low/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -244,7 +244,7 @@ for dir in region_list:
 
     if 'Zlf_low' == dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low'
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_low/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -252,7 +252,7 @@ for dir in region_list:
 
     if 'Zhf_low' == dir:
          t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low'
-         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low'
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low'
          temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low/'+dir
          temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zhf_low/'+dir
          temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -262,7 +262,7 @@ for dir in region_list:
 
     if 'signal_all_Zpt' == dir:
          t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/signal_all_Zpt'
-         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/signal_all_Zpt'
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/signal_all_Zpt'
          temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/signal_all_Zpt/'+dir
          temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/signal_all_Zpt/'+dir
          temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -272,13 +272,13 @@ for dir in region_list:
 
     if 'jet_regression' in dir:    
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
 
     if 'bdt' in dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -286,7 +286,7 @@ for dir in region_list:
 
     if 'bdt_tightHmass' in dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -298,7 +298,7 @@ for dir in region_list:
 
     if 'regression' in dir:
         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
-        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
+        temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
@@ -308,7 +308,7 @@ for dir in region_list:
 
     os.system(t1)
 
-    #temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'
+    #temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'
 
     #print temp_string
     os.system(temp_string)

@@ -232,15 +232,15 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
 	'Z1b':'DY1b','Z1bHT100to200':'DY1b', 'Z1bHT200to400':'DY1b', 'Z1bHT400to600':'DY1b', 'Z1bHT600toInf':'DY1b', 'Z1b_Bjets':'DY1b', \
 	'Z1b_BgenFilter':'DY1b', 'Z1b5to50':'DY1b', 'Z1b5to50_100to200':'DY1b', 'Z1b5to50_200to400':'DY1b', 'Z1b5to50_400to600':'DY1b', 'Z1b5to50_600toInf':'DY1b',\
 	'Z1b_nlo':'DY1b', 'Z1bVpt100to250':'DY1b', 'Z1bVpt250to400':'DY1b','Z1bVpt400to650':'DY1b','Z1bVpt650toInf':'DY1b',
-	'Z1bHT600to800':'DY1b', 'Z1bHT800to1200':'DY1b', 'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b'
+	'Z1bHT600to800':'DY1b', 'Z1bHT800to1200':'DY1b', 'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b',
 	'Z2b':'DY2b','Z2bHT100to200':'DY2b','Z2bHT200to400':'DY2b','Z2bHT400to600':'DY2b','Z2bHT600toInf':'DY2b', 'Z2b_Bjets':'DY2b', \
 	'Z2b_BgenFilter':'DY2b', 'Z2b5to50':'DY2b', 'Z2b5to50_100to200':'DY2b', 'Z2b5to50_200to400':'DY2b', 'Z2b5to50_400to600':'DY2b', 'Z2b5to50_600toInf':'DY2b',\
 	'Z2b_nlo':'DY2b', 'Z2bVpt100to250':'DY2b', 'Z2bVpt250to400':'DY2b','Z2bVpt400to650':'DY2b','Z2bVpt650toInf':'DY2b',
-	'Z2bHT600to800':'DY2b', 'Z2bHT800to1200':'DY2b', 'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b'
+	'Z2bHT600to800':'DY2b', 'Z2bHT800to1200':'DY2b', 'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b',
         'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF',
 	'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF',
 	'ttbar':'TT','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT',\
-	'ST_s':'ST','ST_t':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST', 'ST_t_antitop':'ST'\
+	'ST_s':'ST','ST_t':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST', 'ST_t_antitop':'ST',
         'Zee':'Data','Zuu':'Data',\
 	#'Zll':'ZH', 'Zll_regr':'ZH',\
 	'DY_sync':'DYlight',\
@@ -284,7 +284,7 @@ btagWeight = bTagWeightICHEP[0]
 #btagWeight = btagWeightCSV
 
 #PUWeight: VHbb::puWeight_ichep(nTrueInt) 
-PUWeight: puWeight
+PUWeight: puWeight*0.90
 
 # =================
 

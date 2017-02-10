@@ -52,10 +52,10 @@ class HistoMaker:
         TrainFlag = eval(self.config.get('Analysis','TrainFlag'))
         if TrainFlag:
             BDT_test_cut = 'evt%2!=0'
-            print '\n======== Filling Datacard with BDT Test Events =========='
+            #print '\n======== Filling Datacard with BDT Test Events =========='
         else: 
             BDT_test_cut = 'evt%2==0'
-            print '\n======== Filling Datacard with BDT Train Events =========='
+            #print '\n======== Filling Datacard with BDT Train Events =========='
 
         plot_path   = self.config.get('Directories','plotpath')
         addOverFlow = eval(self.config.get('Plot_general','addOverFlow'))
@@ -134,7 +134,7 @@ class HistoMaker:
                 weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
             
 
-            # FOr high/low SF
+            # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':
                 
                 print '\n\t !!! Adding RateParam !!!'

@@ -41,7 +41,7 @@ def getWeight(fileInc, fileB, region):
 
 
 ZLLjetsHT0       = "DY_inclusive"
-ZLLjetsHT70     = "DY_70to100"
+ZLLjetsHT70      = "DY_70to100"
 ZLLjetsHT100     = "DY_100to200"
 ZLLjetsHT200     = "DY_200to400"
 ZLLjetsHT400     = "DY_400to600"

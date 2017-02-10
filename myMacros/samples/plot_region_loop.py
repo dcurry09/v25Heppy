@@ -22,7 +22,7 @@ import multiprocessing
 # ===== Define the regions to be submitted to ./runAll.sh and plots made =====
 
 isSplit = False
-isSplit = True
+#isSplit = True
 
 
 
@@ -73,11 +73,9 @@ vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
                   'VV_bdt_Zuu_low', 'VV_bdt_Zuu_high']
 
 # Jet Regression Regions
-reg_list = ['jet_regression_Zhf']
+#reg_list = ['jet_regression_Zhf']
 
-temp_list = ['Zhf_low_Zee','Zhf_high_Zuu',
-             'Zhf_low_Zuu',
-             'Zhf_high_Zee']
+temp_list = ['ttbar_low_Zuu']
 
 # choose which lists to loop over                
 
