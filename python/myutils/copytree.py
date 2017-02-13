@@ -11,8 +11,10 @@ def copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,Acut):
     print "Input File : %s/%s%s.root " %(pathIN,prefix,file)
     print "Output File : %s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file)
         
-    input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
+    #input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
+    input = ROOT.TFile.Open("%s/%s%s%s.root" %(pathIN,newprefix,Aprefix,file),'read')
     output = ROOT.TFile.Open("%s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file),'recreate')
+    
     
     input.cd()
 
@@ -70,9 +72,9 @@ def branch_reduce(tree):
 
     tree.SetBranchStatus('ungroomed*', 0)
 
-    tree.SetBranchStatus('GenLep*', 0)
+    #tree.SetBranchStatus('GenLep*', 0)
 
-    tree.SetBranchStatus('GenVbosons*', 0)
+    #tree.SetBranchStatus('GenVbosons*', 0)
 
     tree.SetBranchStatus('GenTop*', 0)
 
@@ -80,7 +82,7 @@ def branch_reduce(tree):
 
     tree.SetBranchStatus('GenNu*', 0)
 
-    tree.SetBranchStatus('selLeptons*', 0)
+    #tree.SetBranchStatus('selLeptons*', 0)
 
     tree.SetBranchStatus('TauGood*', 0)
 

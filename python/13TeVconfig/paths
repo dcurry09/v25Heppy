@@ -67,9 +67,9 @@ plot_dc_path: <!Directories|vhbbpath!>/datacards/
 limits: <!Directories|vhbbpath!>/limits/
 
 # Where to take the raw samples and where to put the prepared trees:
-PREPin : <!Directories|samplepath!><!Directories|version!>
-PREPout : <!Directories|uftrig_storage!>/files/prep_out_large/
-#PREPout: <!Directories|uftrig_storage!>/files/prep_out/
+#PREPin : <!Directories|samplepath!><!Directories|version!>
+PREPin : <!Directories|uftrig_storage!>/files/vtype_out/
+PREPout: <!Directories|uftrig_storage!>/files/prep_out/
 
 # Where Regression takes its input, and where to put the Regression output
 REGRin : <!Directories|PREPout!>
@@ -81,7 +81,8 @@ SYSin : <!Directories|PREPout!>
 SYSout: <!Directories|uftrig_storage!>/files/sys_out
 
 # On which samples to evaluate the MVA on and where to write the resulting trees:
-MVAin : <!Directories|SYSout!>
+#MVAin : <!Directories|SYSout!>
+MVAin : <!Directories|uftrig_storage!>/files/btag_out/
 MVAout: <!Directories|uftrig_storage!>/files/MVA_out
 
 #!! to fix corruption problem use scratch

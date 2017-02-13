@@ -908,13 +908,13 @@ for job in info:
 		    nlo_weight_ = nlo_weight.EvalInstance()
 		    NLO_Weight[0] = nlo_weight_ 
 
-	    if tree.Vtype == 0 and (tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v==1):  
+	    if tree.Vtype_new == 0 and (tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v==1):  
 		    zuu_trigger[0] = 1
 	    else:
 		    zuu_trigger[0] = 0
 
 
-	    if tree.Vtype == 1 and tree.HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v == 1:
+	    if tree.Vtype_new == 1 and tree.HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v == 1:
 		    zee_trigger[0] = 1
             else:
                     zee_trigger[0] = 0
@@ -1420,12 +1420,12 @@ for job in info:
 			    lepCorr = LeptonSF(j , name[0], name[1])
 			    
 			    if '_double' in j:
-				    weight.append(lepCorr.get_2D( abs(tree.vLeptons_eta[1]), abs(tree.vLeptons_eta[0])))
+				    weight.append(lepCorr.get_2D( abs(tree.vLeptons_new_eta[1]), abs(tree.vLeptons_new_eta[0])))
 			    else:	    
-				    weight.append(lepCorr.get_2D( tree.vLeptons_pt[0], tree.vLeptons_eta[0]))
-				    weight.append(lepCorr.get_2D( tree.vLeptons_pt[1], tree.vLeptons_eta[1]))
+				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
+				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[1], tree.vLeptons_new_eta[1]))
 				    
-			    if tree.Vtype == 0:
+			    if tree.Vtype_new == 0:
 				    
 				    if j.find('SingleMuonTrigger_LooseMuons_beforeL2fix_Z_RunBCD_prompt80X_7p65') != -1:
 					    muTrigEffBfr1 = weight[0][0]
@@ -1461,7 +1461,7 @@ for job in info:
                                             mIsoSFWeightDown[0] = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
 					    
 
-			    elif tree.Vtype == 1:
+			    elif tree.Vtype_new == 1:
 				    				    	    
 				    if j.find('ScaleFactor_eMVAID_80x') != -1:
 					    eId90SFWeight[0] = weight[0][0]*weight[1][0]
@@ -1492,7 +1492,7 @@ for job in info:
 
                     # End JSON loop ====================================
 
-		    if tree.Vtype == 0:
+		    if tree.Vtype_new == 0:
 			    
 			    #for ICHEP dataset
 			    eff1 = 0.04854*muTrigEffBfr1 + 0.95145*muTrigEffAftr1
@@ -1524,35 +1524,35 @@ for job in info:
                     # dR matching
                     for k in range(0,2):
                         for l in range(0,len(tree.trgObjects_hltIsoMu18_eta)):
-                            dr_ = deltaR(tree.vLeptons_eta[k], tree.vLeptons_phi[k], tree.trgObjects_hltIsoMu18_eta[l], tree.trgObjects_hltIsoMu18_phi[l])
-                            if dr_ < DR[k] and tree.vLeptons_pt[k] > 22:
+                            dr_ = deltaR(tree.vLeptons_new_eta[k], tree.vLeptons_new_phi[k], tree.trgObjects_hltIsoMu18_eta[l], tree.trgObjects_hltIsoMu18_phi[l])
+                            if dr_ < DR[k] and tree.vLeptons_new_pt[k] > 22:
                                 DR[k] = dr_
 
                     Mu1pass = DR[0] < 0.5
                     Mu2pass = DR[1] < 0.5
 		    
-                    SF1 = tree.vLeptons_SF_HLT_RunD4p2[0]*0.1801911165 + tree.vLeptons_SF_HLT_RunD4p3[0]*0.8198088835
-                    SF2 = tree.vLeptons_SF_HLT_RunD4p2[1]*0.1801911165 + tree.vLeptons_SF_HLT_RunD4p3[1]*0.8198088835
-                    eff1 = tree.vLeptons_Eff_HLT_RunD4p2[0]*0.1801911165 + tree.vLeptons_Eff_HLT_RunD4p3[0]*0.8198088835
-                    eff2 = tree.vLeptons_Eff_HLT_RunD4p2[1]*0.1801911165 + tree.vLeptons_Eff_HLT_RunD4p3[1]*0.8198088835
+                    SF1 = tree.vLeptons_new_SF_HLT_RunD4p2[0]*0.1801911165 + tree.vLeptons_new_SF_HLT_RunD4p3[0]*0.8198088835
+                    SF2 = tree.vLeptons_new_SF_HLT_RunD4p2[1]*0.1801911165 + tree.vLeptons_new_SF_HLT_RunD4p3[1]*0.8198088835
+                    eff1 = tree.vLeptons_new_Eff_HLT_RunD4p2[0]*0.1801911165 + tree.vLeptons_new_Eff_HLT_RunD4p3[0]*0.8198088835
+                    eff2 = tree.vLeptons_new_Eff_HLT_RunD4p2[1]*0.1801911165 + tree.vLeptons_new_Eff_HLT_RunD4p3[1]*0.8198088835
 
-                    #print 'vLeptSFw is', vLeptons_SFweight_HLT[0]
-                    #print 'Vtype is', tree.Vtype
+                    #print 'vLeptSFw is', vLeptons_new_SFweight_HLT[0]
+                    #print 'Vtype_new is', tree.Vtype_new
 		    
-                    if tree.Vtype == 1:
-			    vLeptons_SFweight_HLT[0] = eTrigSFWeight*eIDTightSFWeight
-                    elif tree.Vtype == 0:
-			vLeptons_SFweight_HLT[0] = 1    
+                    if tree.Vtype_new == 1:
+			    vLeptons_new_SFweight_HLT[0] = eTrigSFWeight*eIDTightSFWeight
+                    elif tree.Vtype_new == 0:
+			vLeptons_new_SFweight_HLT[0] = 1    
                         if not Mu1pass and not Mu2pass:
-                            vLeptons_SFweight_HLT[0] = 0
+                            vLeptons_new_SFweight_HLT[0] = 0
                         elif Mu1pass and not Mu2pass:
-                            vLeptons_SFweight_HLT[0] = SF1
+                            vLeptons_new_SFweight_HLT[0] = SF1
                         elif not Mu1pass and Mu2pass:
-                            vLeptons_SFweight_HLT[0] = SF2
+                            vLeptons_new_SFweight_HLT[0] = SF2
                         elif Mu1pass and Mu2pass:
                             effdata = 1 - (1-SF1*eff1)*(1-SF2*eff2);
                             effmc = 1 - (1-eff1)*(1-eff2);
-                            vLeptons_SFweight_HLT[0] = effdata/effmc
+                            vLeptons_new_SFweight_HLT[0] = effdata/effmc
 		    '''	    
                 		
 	    # end if not Data

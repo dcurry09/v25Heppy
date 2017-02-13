@@ -123,7 +123,7 @@ min    : 50
 max    : 450
 
 [plotDef:Vpt]
-relPath: V_pt
+relPath: V_new_pt
 xAxis  : p_{T} (V) [GeV]
 nBins  : 40
 min    : 0
@@ -137,14 +137,14 @@ min    : 0
 max    : 3.5
 
 [plotDef:Vmass]
-relPath: V_mass
+relPath: V_new_mass
 xAxis  : m_{l^{+}l^{-}} [GeV]
 nBins  : 20
 min    : 75
 max    : 105
 
 [plotDef:Vmass_ttbar]
-relPath: V_mass
+relPath: V_new_mass
 xAxis  : m_{l^{+}l^{-}} [GeV]
 nBins  : 20
 min    : 0
@@ -223,23 +223,21 @@ max    : 250
 
 
 [plotDef:ptBalance]
-relPath : HCSV_reg_pt/V_pt
-#relPath : H.pt/V_pt
+relPath : HCSV_reg_pt/V_new_pt
 xAxis   : p_{T} balance after regression
 nBins   : 15
 min     : 0.
 max     : 2.
 
 [plotDef:ptBalance_noReg]
-relPath : HCSV_pt/V_pt
-#relPath : HNoReg.pt/V_pt
+relPath : HCSV_pt/V_new_pt
 xAxis   : p_{T} balance before regression
 nBins   : 15
 min     : 0.
 max     : 2.
 
 [plotDef:ptBalance_FSR]
-relPath : HCSV_reg_pt_FSR/V_pt
+relPath : HCSV_reg_pt_FSR/V_new_pt
 xAxis   : p_{T} balance after regression + FSR
 nBins   : 15
 min     : 0.
@@ -603,84 +601,84 @@ max    : 1
 # Lepton Variables
 
 [plotDef:vLeptons_ptMax]
-relPath = max(vLeptons_pt[0],vLeptons_pt[1])
+relPath = max(vLeptons_new__pt[0],vLeptons_new__pt[1])
 xAxis = Leading lepton P_{t}
 nBins = 15
 min = 0
 max = 150
 
 [plotDef:vLeptons_ptMin]
-relPath = min(vLeptons_pt[0],vLeptons_pt[1])
+relPath = min(vLeptons_new__pt[0],vLeptons_new__pt[1])
 xAxis = Leading lepton P_{t}
 nBins = 20
 min = 0
 max = 150
 
 [plotDef:vLeptons_etaMax]
-relPath = max(abs(vLeptons_eta[0]),abs(vLeptons_eta[1]))
+relPath = max(abs(vLeptons_new__eta[0]),abs(vLeptons_new__eta[1]))
 xAxis = Most forward lepton #eta
 nBins = 25
 min = 0
 max = 5
 
 [plotDef:vLeptons_etaMin]
-relPath = min(abs(vLeptons_eta[0]),abs(vLeptons_eta[1]))
+relPath = min(abs(vLeptons_new__eta[0]),abs(vLeptons_new__eta[1]))
 xAxis = more central lepton #eta
 nBins = 25
 min = 0
 max = 5
 
 [plotDef:vLeptons_pfRelIso04Max]
-relPath = max(vLeptons_pfRelIso04[0],vLeptons_pfRelIso04[1])
+relPath = max(vLeptons_new__pfRelIso04[0],vLeptons_new__pfRelIso04[1])
 xAxis = max lepton pfRelIso04
 nBins = 50
 min = 0
 max = 1
 
 [plotDef:vLeptons_pfRelIso04Min]
-relPath = min(vLeptons_pfRelIso04[0],vLeptons_pfRelIso04[1])
+relPath = min(vLeptons_new__pfRelIso04[0],vLeptons_new__pfRelIso04[1])
 xAxis = min lepton pfRelIso04
 nBins = 50
 min = 0
 max = 1
 
 [plotDef:vLeptons0_pt]
-relPath = vLeptons_pt[0]
+relPath = vLeptons_new__pt[0]
 xAxis = leading Lepton p_T
 nBins = 20
 min = 0
 max = 150
 
 [plotDef:vLeptons1_pt]
-relPath = vLeptons_pt[1]
+relPath = vLeptons_new__pt[1]
 xAxis = second Lepton p_T
 nBins = 20
 min = 0
 max = 150
 
 [plotDef:vLeptons0_eta]
-relPath = vLeptons_eta[0]
+relPath = vLeptons_new__eta[0]
 xAxis = leading Lepton #eta
 nBins = 25
 min = -2.5
 max = 2.5
 
 [plotDef:vLeptons1_eta]
-relPath = vLeptons_eta[1]
+relPath = vLeptons_new__eta[1]
 xAxis = second Lepton #eta
 nBins = 25
 min = -2.5
 max = 2.5
 
 [plotDef:vLeptons0_phi]
-relPath = vLeptons_phi[0]
+relPath = vLeptons_new__phi[0]
 xAxis = leading Lepton #phi
 nBins = 25
 min = -3.14
 max = 3.14
 
 [plotDef:vLeptons1_phi]
-relPath = vLeptons_phi[1]
+relPath = vLeptons_new__phi[1]
 xAxis = second Lepton #phi
 nBins = 25
 min = -3.14
@@ -689,14 +687,14 @@ max = 3.14
 
 
 [plotDef:vLeptons0_RelIso04]
-relPath = vLeptons_relIso04[0]
+relPath = vLeptons_new__relIso04[0]
 xAxis = leading lepton RelIso04
 nBins = 30
 min = 0
 max = 0.30
 
 [plotDef:vLeptons1_RelIso04]
-relPath = vLeptons_relIso04[1]
+relPath = vLeptons_new__relIso04[1]
 xAxis = second lepton RelIso04
 nBins = 30
 min = 0
@@ -704,14 +702,14 @@ max = 0.30
 
 
 [plotDef:vLeptons0_RelIso03]
-relPath = vLeptons_relIso03[0]
+relPath = vLeptons_new__relIso03[0]
 xAxis = leading lepton RelIso03
 nBins = 30
 min = 0
 max = 0.25
 
 [plotDef:vLeptons1_RelIso03]
-relPath = vLeptons_relIso03[1]
+relPath = vLeptons_new__relIso03[1]
 xAxis = second lepton RelIso03
 nBins = 50
 min = 0

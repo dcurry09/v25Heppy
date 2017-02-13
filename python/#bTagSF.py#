@@ -194,59 +194,19 @@ DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to80
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
 
-file_list = bkg_list + data_list + signal_list + DY_list + ST_list
-#file_list = ['ZH125']
+#file_list = bkg_list + data_list + signal_list + DY_list + ST_list
+file_list = ['ZH125']
 
 
 
 #for file in file_list:
 def osSystem(file):
+
+
     
-    # map from the systematic names we prefer to keep the same as before
-    # to the new names
-    sysRefMap = {}
+    
 
-    def MakeSysRefMap():
-        sysRefMap["JESUp"] = tree.btagWeightCSV_up_jes
-        sysRefMap["JESDown"] = tree.btagWeightCSV_down_jes
-        sysRefMap["LFUp"] = tree.btagWeightCSV_up_lf
-        sysRefMap["LFDown"] = tree.btagWeightCSV_down_lf
-        sysRefMap["HFUp"] = tree.btagWeightCSV_up_hf
-        sysRefMap["HFDown"] = tree.btagWeightCSV_down_hf
-        sysRefMap["HFStats1Up"] = tree.btagWeightCSV_up_hfstats1
-        sysRefMap["HFStats1Down"] = tree.btagWeightCSV_down_hfstats1
-        sysRefMap["HFStats2Up"] = tree.btagWeightCSV_up_hfstats2
-        sysRefMap["HFStats2Down"] = tree.btagWeightCSV_down_hfstats2
-        sysRefMap["LFStats1Up"] = tree.btagWeightCSV_up_lfstats1
-        sysRefMap["LFStats1Down"] = tree.btagWeightCSV_down_lfstats1
-        sysRefMap["LFStats2Up"] = tree.btagWeightCSV_up_lfstats2
-        sysRefMap["LFStats2Down"] = tree.btagWeightCSV_down_lfstats2
-        sysRefMap["cErr1Up"] = tree.btagWeightCSV_up_cferr1
-        sysRefMap["cErr1Down"] = tree.btagWeightCSV_down_cferr1
-        sysRefMap["cErr2Up"] = tree.btagWeightCSV_up_cferr2
-        sysRefMap["cErr2Down"] = tree.btagWeightCSV_down_cferr2
-        
-    sysMap = {}
-    sysMap["JESUp"] = "up_jes"
-    sysMap["JESDown"] = "down_jes"
-    sysMap["LFUp"] = "up_lf"
-    sysMap["LFDown"] = "down_lf"
-    sysMap["HFUp"] = "up_hf"
-    sysMap["HFDown"] = "down_hf"
-    sysMap["HFStats1Up"] = "up_hfstats1"
-    sysMap["HFStats1Down"] = "down_hfstats1"
-    sysMap["HFStats2Up"] = "up_hfstats2"
-    sysMap["HFStats2Down"] = "down_hfstats2"
-    sysMap["LFStats1Up"] = "up_lfstats1"
-    sysMap["LFStats1Down"] = "down_lfstats1"
-    sysMap["LFStats2Up"] = "up_lfstats2"
-    sysMap["LFStats2Down"] = "down_lfstats2"
-    sysMap["cErr1Up"] = "up_cferr1"
-    sysMap["cErr1Down"] = "down_cferr1"
-    sysMap["cErr2Up"] = "up_cferr2"
-    sysMap["cErr2Down"] = "down_cferr2"
-        
-
+    
     print '\n Adding btag weights to sample:', inpath+prefix+file+'.root'
     print '\n Output File                  :', outpath+prefix+file+'.root'
 
@@ -303,20 +263,23 @@ def osSystem(file):
     print "nentries = ",nentries
     for entry in range(nentries):
 
-        if (entry%10000 == 0): printc('green', '', "\t processing entry: %i" % entry)
-        
+        #if (entry%10000 == 0): printc('green', '', "\t processing entry: %i" % entry)
+        if (entry%100 == 0): print "\t processing entry: %i" % entry
+
         #if entry > 1000: continue
-
+        print 'here1'
         tree.GetEntry(entry)
-
+        print 'here4'
         MakeSysRefMap()
+        print 'here2'
 
         if 'Zee' in file or 'Zuu' in file:
             bTagWeights["bTagWeightCMVAV2_Moriond"][0] = 1.0
             bTagWeights["bTagWeightCSV_Moriond"][0] = 1.0
             otree.Fill()
             continue
-
+        
+        print 'here3'
         jets_csv = []
         jets_cmva = []
         
@@ -335,8 +298,8 @@ def osSystem(file):
         bTagWeights["bTagWeightCMVAV2_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, "central", "CMVAV2", btag_calibrators)
         bTagWeights["bTagWeightCSV_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, "central", "CSV", btag_calibrators)
         
-        #print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
-        #print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
+        print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
+        print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
         
         for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
             for sdir in ["Up", "Down"]:

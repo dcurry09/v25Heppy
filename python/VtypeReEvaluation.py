@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import ROOT
 import sys
+import multiprocessing
 import numpy as np
 from array import array
 
@@ -46,9 +47,13 @@ class TreeCopierWithCorrectionFromFile:
     def copy(self, inputFileName, inpath, outpath):
 
         prefix = 'v25_'
+        
+        if 'Zee' in inputFileName or 'Zuu' in inputFileName or 'ttbar' in inputFileName:
+            inpath = '/exports/uftrig01a/dcurry/heppy/v25/'
+            prefix =''
 
-         print '\n Adding new Vtype to sample:', inpath+prefix+inputFileName+'.root'
-         print '\n Output File               :', outpath+prefix+inputFileName+'.root'
+        print '\n Adding new Vtype to sample:', inpath+prefix+inputFileName+'.root'
+        print '\n Output File               :', outpath+prefix+inputFileName+'.root'
 
         ifile = ROOT.TFile.Open(inpath+prefix+inputFileName+'.root', "READ")
         ofile = ROOT.TFile.Open(outpath+prefix+inputFileName+'.root', "RECREATE")
@@ -214,30 +219,46 @@ theTreeCopier = TreeCopierWithCorrectionFromFile()
 ################################################################
 
 # sample prefix
-#prefix = 'v25_'
+prefix = 'v25_'
 
 inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out_large/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 
 # List of files to add btag weights to
-bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ', 'ZZ']
+bkg_list = ['DY_inclusive', 'ZZ_2L2Q', 'WZ']
 
-data_list = ['Zuu', 'Zee']
+#data_list = ['Zuu', 'Zee']
+
+prep_list = [
+    #'prep_Zuu_B_ext1', 'prep_Zuu_B_ext2', 'prep_Zuu_B_ext3','prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3',
+    #'prep_Zuu_C_ext1', 'prep_Zee_C_ext1',
+    #'prep_Zuu_D_ext1', 'prep_Zuu_D_ext2', 'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
+    #'prep_Zuu_E_ext1', 'prep_Zee_E_ext1',
+    #'prep_Zuu_F_ext1', 'prep_Zee_F_ext1',
+    #'prep_Zuu_G_ext1', 'prep_Zuu_G_ext2', 'prep_Zee_G_ext1', 'prep_Zee_G_ext2',
+    #'prep_Zuu_H_ext1', 'prep_Zuu_H_ext2', 'prep_Zee_H_ext1', 'prep_Zee_H_ext2',
+    #'prep_Zuu_H_ext3', 'prep_Zuu_H_ext4', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
+
+    'prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3']
+
+    #'prep_ttbar_ext1', 'prep_ttbar_ext2',
+    #'prep_ttbar_ext1_NewExt', 'prep_ttbar_ext2_NewExt',
+    #'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
+    #'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
+    #'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter'
-           #'DY_inclusive_nlo', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
-           ]
+DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter']
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t', 'ST_t_antitop']
 
 
-#file_list = bkg_list + data_list + signal_list + DY_list + ST_list
-file_list = ['ST_s']
+#file_list = bkg_list + signal_list + DY_list + ST_list
+file_list = prep_list
 
-for file in file_list:
-#def osSystem(file):
+#for file in file_list:
+def osSystem(file):
     
     theTreeCopier.copy(file, inpath, outpath)
 

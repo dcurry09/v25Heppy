@@ -77,7 +77,8 @@ sys_BDT: [
     'btagWeightCSV_lfstats2_LowForward',
     'btagWeightCSV_hfstats1_HighCentral',
     'btagWeightCSV_hfstats1_LowCentral',
-    'btagWeightCSV_hfstats1_HighForward',    'btagWeightCSV_hfstats1_LowForward',
+    'btagWeightCSV_hfstats1_HighForward',    
+    'btagWeightCSV_hfstats1_LowForward',
     'btagWeightCSV_hfstats2_HighCentral',
     'btagWeightCSV_hfstats2_LowCentral',
     'btagWeightCSV_hfstats2_HighForward',
@@ -432,8 +433,6 @@ systematicsnaming_low:  <!LimitGeneral|systematicsnaming!>
 
 systematicsnaming_high:  <!LimitGeneral|systematicsnaming!>
 #systematicsnaming_high:  <!LimitGeneral|systematicsnamingHigh!>
-
-
 
 # Add a different Cut (syntax: 'oldVar>newVar?' -> '?' will then automatically be replaced with 'Up'/'Down' for the variations)
 sys_cut_suffix: {'JER':'nominal',
