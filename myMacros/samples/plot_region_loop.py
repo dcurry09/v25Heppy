@@ -22,11 +22,14 @@ import multiprocessing
 # ===== Define the regions to be submitted to ./runAll.sh and plots made =====
 
 isSplit = False
-#isSplit = True
-
-
+isSplit = True
 
 # control regions
+
+#control_list = ['Zlf_Zee', 'Zhf_Zee','ttbar_Zee',
+#                'Zlf_Zuu', 'Zhf_Zuu', 'ttbar_Zuu']
+
+
 control_list = ['Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee',
                 'Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu',
                 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu',
@@ -39,19 +42,8 @@ zlf_list = ['Zlf_low_Zee', 'Zlf_high_Zuu', 'Zlf_low_Zuu', 'Zlf_high_Zee']
 
 ttbar_list = ['ttbar_low_Zee', 'ttbar_high_Zuu', 'ttbar_low_Zuu', 'ttbar_high_Zee']
 
-#control_list = ['Zlf_low', 'Zhf_low', 'Zlf_high', 'Zhf_high', 'ttbar_low', 'ttbar_high']
-
-#control_list = ['Zhf_low', 'Zhf_high', 'ttbar_low', 'ttbar_high']
 
 log_control_list = ['Zlf_Zuu_log', 'Zlf_Zee_log', 'Zhf_Zee_log', 'Zhf_Zuu_log', 'ttbar_Zuu_log', 'ttbar_Zee_log']
-
-pt_control_list = ['Zlf_Zuu_lowPt', 'Zlf_Zuu_medPt', 'Zlf_Zuu_highPt',\
-                   'Zlf_Zee_lowPt', 'Zlf_Zee_medPt', 'Zlf_Zee_highPt',\
-                   'Zhf_Zee_lowPt', 'Zhf_Zee_medPt', 'Zhf_Zee_highPt',\
-                   'Zhf_Zuu_lowPt', 'Zhf_Zuu_medPt', 'Zhf_Zuu_highPt', \
-                   'ttbar_Zee_lowPt', 'ttbar_Zee_medPt', 'ttbar_Zee_highPt', \
-                   'ttbar_Zuu_lowPt', 'ttbar_Zuu_medPt', 'ttbar_Zuu_highPt'
-                   ]
 
 pt_log_control_list = ['Zlf_Zuu_log_lowPt', 'Zlf_Zuu_log_medPt', 'Zlf_Zuu_log_highPt',\
                        'Zlf_Zee_log_lowPt', 'Zlf_Zee_log_medPt', 'Zlf_Zee_log_highPt',\
@@ -64,9 +56,9 @@ pt_log_control_list = ['Zlf_Zuu_log_lowPt', 'Zlf_Zuu_log_medPt', 'Zlf_Zuu_log_hi
 # BDT Regions
 # signal regions for Z_pt cuts  
 signal_list = ['bdt_Zuu_low_Zpt', 'bdt_Zuu_high_Zpt',
-               'bdt_Zee_low_Zpt', 'bdt_Zee_high_Zpt',
-               'VV_bdt_Zee_low', 'VV_bdt_Zee_high',
-               'VV_bdt_Zuu_low', 'VV_bdt_Zuu_high'
+               'bdt_Zee_low_Zpt', 'bdt_Zee_high_Zpt'
+               #'VV_bdt_Zee_low', 'VV_bdt_Zee_high',
+               #'VV_bdt_Zuu_low', 'VV_bdt_Zuu_high'
                ]
 
 vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
@@ -75,7 +67,7 @@ vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
 # Jet Regression Regions
 #reg_list = ['jet_regression_Zhf']
 
-temp_list = ['ttbar_low_Zuu']
+temp_list = ['Zhf_low_Zuu']
 
 # choose which lists to loop over                
 
@@ -129,6 +121,11 @@ if isSplit:
      results = p3.imap(osSystem, zlf_list)
      p3.close()
      p3.join()
+     
+     p4 = multiprocessing.Pool()
+     results = p4.imap(osSystem, signal_list)
+     p4.close()
+     p4.join()
 
 
 # If desired move newly created plots to their own directory

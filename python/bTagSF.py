@@ -175,7 +175,8 @@ class Jet :
 ################################################################
 
 # sample prefix
-prefix = 'v25_'
+#prefix = 'v25_'
+prefix = ''
 
 inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
@@ -188,14 +189,18 @@ data_list = ['Zuu', 'Zee']
 signal_list = ['ZH125', 'ggZH125']
 
 DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter'
-           #'DY_inclusive_nlo', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
+           'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
            ]
+
+DY_parton_list = ['DY0J', 'DY1J', 'DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3', 'DY2J_ext4']
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
+temp_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
+             'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
 
-file_list = bkg_list + data_list + signal_list + DY_list + ST_list
-#file_list = ['ZH125']
+#file_list = bkg_list + data_list + signal_list + DY_list + ST_list
+file_list = temp_list
 
 
 

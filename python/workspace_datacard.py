@@ -9,6 +9,8 @@ warnings.filterwarnings( action='ignore', category=RuntimeWarning, message='crea
 from optparse import OptionParser
 from myutils import BetterConfigParser, Sample, progbar, printc, ParseInfo, Rebinner, HistoMaker
 
+btag = 'CSV'
+#batg = 'CMVAV2'
 
 def useSpacesInDC(fileName):
     file_ = open(fileName,"r+")
@@ -179,6 +181,7 @@ toy=eval(config.get('LimitGeneral','toy'))
 
 # blind data option:
 blind=eval(config.get('LimitGeneral','blind'))
+blind = False
 
 # additional blinding cut:
 addBlindingCut = None
@@ -220,7 +223,7 @@ print '\treevar::', treevar
 
 # Use the rebinning:
 rebin_active=eval(config.get('LimitGeneral','rebin_active'))
-#rebin_active = False
+rebin_active = True
 
 if 'Jet' in treevar:
    if rebin_active:
@@ -333,8 +336,8 @@ for syst in systematics:
             _weight = _weight.replace('mTrigSFWeight_ICHEP', 'mTrigSFWeight'+Q)
 
         # Pu weight
-        if 'weight_pileUp' in syst:
-            _weight = weightF.replace('puWeight_ichep', 'puWeight_ichep_%s' % Q.lower())
+        #if 'weight_pileUp' in syst:
+        #    _weight = weightF.replace('puWeight_ichep', 'puWeight_ichep_%s' % Q.lower())
 
         # LHE Scale Variations(muF, muR)
         if 'CMS_vhbb_LHE_weights_scaleMuF' in syst:
@@ -348,9 +351,9 @@ for syst in systematics:
             if Q is 'Down':
                 _weight = _weight + '*(LHE_weights_scale_wgt[3])'
                     
-        if 'btag' in syst:
-            sys_temp = syst.replace('btagWeightCSV', 'btagWeightCSV_%s'%(Q.lower()))
-            _weight = _weight.replace('*btagWeightCSV', '*%s'%(sys_temp))            
+        #if 'btag' in syst:
+        #    sys_temp = syst.replace('btagWeightCSV', 'btagWeightCSV_%s'%(Q.lower()))
+        #    _weight = _weight.replace('*btagWeightCSV', '*%s'%(sys_temp))            
                 
         # for NEW 2016 weights
         # if 'JER' not in syst and 'JEC' not in syst and syst != 'weight_pileUp' and '_eff_' not in syst:
@@ -358,83 +361,83 @@ for syst in systematics:
         if 'btag' in syst:    
             if '_lf_' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFLowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFLowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFHighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFHighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFLowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFLowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFHighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFHighForward%s'%(Q))
 
             if '_hf_' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFLowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFLowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFHighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFHighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFLowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFLowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFHighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFHighForward%s'%(Q))
         
             if 'lfstats1' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats1LowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats1LowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats1HighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats1HighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats1LowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats1LowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats1HighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats1HighForward%s'%(Q))
 
             if 'hfstats1' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats1LowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats1LowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats1HighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats1HighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats1LowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats1LowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats1HighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats1HighForward%s'%(Q))
     
             if 'lfstats2' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats2LowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats2LowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats2HighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats2HighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats2LowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats2LowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_LFStats2HighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_LFStats2HighForward%s'%(Q))
 
             if 'hfstats2' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats2LowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats2LowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats2HighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats2HighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats2LowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats2LowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_HFStats2HighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_HFStats2HighForward%s'%(Q))
             
             if 'cferr1' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr1LowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr1LowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr1HighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr1HighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr1LowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr1LowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr1HighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr1HighForward%s'%(Q))
 
             if 'cferr2' in syst:
                 if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr2LowCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr2LowCentral%s'%(Q))
                 if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr2HighCentral%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr2HighCentral%s'%(Q))
                 if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr2LowForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr2LowForward%s'%(Q))
                 if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_cErr2HighForward%s'%(Q))
+                    _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr2HighForward%s'%(Q))
 
 
 
@@ -442,31 +445,36 @@ for syst in systematics:
         if 'JEC' in syst:    
                 
             if 'low' in syst:
-                _weight = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_JEC%s_low'%(Q))
+                _weight = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_JEC%s_low'%(Q))
             if 'high' in syst:
-                _weight = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_JEC%s_high'%(Q))
+                _weight = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_JEC%s_high'%(Q))
             if 'central' in syst:
-                _weight = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_JEC%s_central'%(Q))
+                _weight = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_JEC%s_central'%(Q))
             if 'forward' in syst:
-                _weight = _weight.replace('*bTagWeightICHEP', '*bTagWeightICHEP_JEC%s_forward'%(Q))
+                _weight = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_JEC%s_forward'%(Q))
         '''
         
         if 'JER' in syst or 'JEC' in syst:
             if bdt == True:
-                _treevar = treevar.replace('.nominal','.%s_%s'%(syst,Q.lower()))
-                _sys_cut = _sys_cut.replace('HCMVAV2_reg_mass', 'HCMVAV2_reg_corrJER%s_mass'%(Q))
                 
+                _treevar = treevar.replace('.nominal','.%s_%s'%(syst,Q.lower()))
+                
+                if 'JER' in syst:
+                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJER%s_mass'%(Q))
+                if 'JEC' in syst:
+                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJEC%s_mass'%(Q))
+                    
                 # Higgs mass
                                 
                 if 'VV' not in anType:
-                    _cut = _cut.replace('HCMVAV2_reg_mass < 150.', '(HCMVAV2_reg_mass<150.||HCMVAV2_reg_corrJERUp_mass<150.||HCMVAV2_reg_corrJERDown_mass<150.||HCMVAV2_reg_corrJECDown_mass<150.||HCMVAV2_reg_corrJECUp_mass<150.)')
+                    _cut = _cut.replace('HCSV_reg_mass < 150.', '(HCSV_reg_mass<150.||HCSV_reg_corrJERUp_mass<150.||HCSV_reg_corrJERDown_mass<150.||HCSV_reg_corrJECDown_mass<150.||HCSV_reg_corrJECUp_mass<150.)')
                 
-                    _cut = _cut.replace('HCMVAV2_reg_mass > 90.', '(HCMVAV2_reg_mass>90.||HCMVAV2_reg_corrJERUp_mass>90.||HCMVAV2_reg_corrJERDown_mass>90.||HCMVAV2_reg_corrJECDown_mass>90.||HCMVAV2_reg_corrJECUp_mass>90.)')
+                    _cut = _cut.replace('HCSV_reg_mass > 90.', '(HCSV_reg_mass>90.||HCSV_reg_corrJERUp_mass>90.||HCSV_reg_corrJERDown_mass>90.||HCSV_reg_corrJECDown_mass>90.||HCSV_reg_corrJECUp_mass>90.)')
                 
                 if 'VV' in anType:
-                    _cut = _cut.replace('HCMVAV2_reg_mass < 160.', '(HCMVAV2_reg_mass<160.||HCMVAV2_reg_corrJERUp_mass_low<160.||HCMVAV2_reg_corrJERDown_mass_low<160.||HCMVAV2_reg_corrJECDown_mass_low<160.||HCMVAV2_reg_corrJECUp_mass_low<160.|| HCMVAV2_reg_corrJERUp_mass_high<160.||HCMVAV2_reg_corrJERDown_mass_high<160.||HCMVAV2_reg_corrJECDown_mass_high<160.||HCMVAV2_reg_corrJECUp_mass_high<160. || HCMVAV2_reg_corrJERUp_mass_central<160.||HCMVAV2_reg_corrJERDown_mass_central<160.||HCMVAV2_reg_corrJECDown_mass_central<160.||HCMVAV2_reg_corrJECUp_mass_central<160. || HCMVAV2_reg_corrJERUp_mass_forward<160.||HCMVAV2_reg_corrJERDown_mass_forward<160.||HCMVAV2_reg_corrJECDown_mass_forward<160.||HCMVAV2_reg_corrJECUp_mass_forward<160.)')
+                    _cut = _cut.replace('HCSV_reg_mass < 160.', '(HCSV_reg_mass<160.||HCSV_reg_corrJERUp_mass_low<160.||HCSV_reg_corrJERDown_mass_low<160.||HCSV_reg_corrJECDown_mass_low<160.||HCSV_reg_corrJECUp_mass_low<160.|| HCSV_reg_corrJERUp_mass_high<160.||HCSV_reg_corrJERDown_mass_high<160.||HCSV_reg_corrJECDown_mass_high<160.||HCSV_reg_corrJECUp_mass_high<160. || HCSV_reg_corrJERUp_mass_central<160.||HCSV_reg_corrJERDown_mass_central<160.||HCSV_reg_corrJECDown_mass_central<160.||HCSV_reg_corrJECUp_mass_central<160. || HCSV_reg_corrJERUp_mass_forward<160.||HCSV_reg_corrJERDown_mass_forward<160.||HCSV_reg_corrJECDown_mass_forward<160.||HCSV_reg_corrJECUp_mass_forward<160.)')
 
-                    _cut = _cut.replace('HCMVAV2_reg_mass > 60.', '(HCMVAV2_reg_mass>60.||HCMVAV2_reg_corrJERUp_mass_low>60.||HCMVAV2_reg_corrJERDown_mass_low>60.||HCMVAV2_reg_corrJECDown_mass_low>60.||HCMVAV2_reg_corrJECUp_mass_low>60.|| HCMVAV2_reg_corrJERUp_mass_high>60.||HCMVAV2_reg_corrJERDown_mass_high>60.||HCMVAV2_reg_corrJECDown_mass_high>60.||HCMVAV2_reg_corrJECUp_mass_high>60. || HCMVAV2_reg_corrJERUp_mass_central>60.||HCMVAV2_reg_corrJERDown_mass_central>60.||HCMVAV2_reg_corrJECDown_mass_central>60.||HCMVAV2_reg_corrJECUp_mass_central>60. || HCMVAV2_reg_corrJERUp_mass_forward>60.||HCMVAV2_reg_corrJERDown_mass_forward>60.||HCMVAV2_reg_corrJECDown_mass_forward>60.||HCMVAV2_reg_corrJECUp_mass_forward>60.)')
+                    _cut = _cut.replace('HCSV_reg_mass > 60.', '(HCSV_reg_mass>60.||HCSV_reg_corrJERUp_mass_low>60.||HCSV_reg_corrJERDown_mass_low>60.||HCSV_reg_corrJECDown_mass_low>60.||HCSV_reg_corrJECUp_mass_low>60.|| HCSV_reg_corrJERUp_mass_high>60.||HCSV_reg_corrJERDown_mass_high>60.||HCSV_reg_corrJECDown_mass_high>60.||HCSV_reg_corrJECUp_mass_high>60. || HCSV_reg_corrJERUp_mass_central>60.||HCSV_reg_corrJERDown_mass_central>60.||HCSV_reg_corrJECDown_mass_central>60.||HCSV_reg_corrJECUp_mass_central>60. || HCSV_reg_corrJERUp_mass_forward>60.||HCSV_reg_corrJERDown_mass_forward>60.||HCSV_reg_corrJECDown_mass_forward>60.||HCSV_reg_corrJECUp_mass_forward>60.)')
 
                 # Jet energy         Jet_pt_reg[hJCidx[0]]>20.
                 #_cut = _cut.replace('Jet_pt_reg[hJCidx[0]] > 20.', '(Jet_pt_reg_corrJERUp_low[0]>20.||Jet_pt_reg_corrJERDown_low[0]>20.||Jet_pt_reg_corrJECUp_low[0]>20.||Jet_pt_reg_corrJECDown_low[0]>20. || Jet_pt_reg_corrJERUp_high[0]>20.||Jet_pt_reg_corrJERDown_high[0]>20.||Jet_pt_reg_corrJECUp_high[0]>20.||Jet_pt_reg_corrJECDown_high[0]>20. || Jet_pt_reg_corrJERUp_central[0]>20.||Jet_pt_reg_corrJERDown_central[0]>20.||Jet_pt_reg_corrJECUp_central[0]>20.||Jet_pt_reg_corrJECDown_central[0]>20. || Jet_pt_reg_corrJERUp_forward[0]>20.||Jet_pt_reg_corrJERDown_forward[0]>20.||Jet_pt_reg_corrJECUp_forward[0]>20.||Jet_pt_reg_corrJECDown_forward[0]>20.)')
@@ -551,6 +559,8 @@ print optionsList
 print '\n-----> Run MC HistoMaker...'
 mc_hMaker = HistoMaker(all_samples,path,config,optionsList,GroupDict)
 
+print 'mc_hMaker:', mc_hMaker
+
 print '\n-----> Run Data HistoMaker...'
 data_hMaker = HistoMaker(data_samples,path,config,[optionsList[0]])
 
@@ -586,7 +596,7 @@ if rebin_active:
 all_histos = {}
 data_histos = {}
 
-print '\n----> Fetching Histograms....'
+print '\n----> Fetching Histograms for samples:', all_samples
 
 
 for job in all_samples:
@@ -675,8 +685,10 @@ ROOT.gROOT.SetStyle("Plain")
 #order and add all together
 final_histos = {}
 print '\n-----> Ordering and Adding Histos'
+print 'all_histos:', all_histos
+print 'setup:', setup
+print 'all samples:', all_samples
 final_histos['nominal'] = HistoMaker.orderandadd([all_histos['%s'%job][0] for job in all_samples],setup) 
-
 
 print '\n------> Final Histograms: ', final_histos
 

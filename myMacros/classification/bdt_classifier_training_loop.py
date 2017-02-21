@@ -20,11 +20,11 @@ import multiprocessing
 
 # ===== Define the regions to be submitted to ./runAll.sh train.py =====
 
-#training_list = ['gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_highZpt', 'VV_bdt', 'VV_bdt_lowZpt', 'VV_bdt_highZpt']
+training_list = ['gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_highZpt', 'VV_bdt_lowZpt', 'VV_bdt_highZpt']
 
 #training_list = ['gg_plus_ZH125_semiLepton', 'gg_plus_ZH125_1semiLepton', 'gg_plus_ZH125_NOsemiLepton', 'gg_plus_ZH125_medZpt', 'gg_plus_ZH125_highZpt', 'gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_tightHmass']
 
-training_list = ['gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_highZpt']
+#training_list = ['gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_highZpt']
 
 # for tree Opt
 training_list_trees = ['gg_plus_trees100','gg_plus_trees150','gg_plus_trees200','gg_plus_trees250','gg_plus_trees300','gg_plus_trees350','gg_plus_trees400','gg_plus_trees450','gg_plus_trees500','gg_plus_trees550','gg_plus_trees600','gg_plus_trees700','gg_plus_trees800', 'gg_plus_trees1000']

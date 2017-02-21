@@ -6,28 +6,40 @@
 # --------------------------------
 
 # Choose Jet Index: Highest Pt or CMVA
-jet_index: hJCidx
-#jet_index: hJCMVAV2idx
+#jet_index: hJCidx
+#jet_btag: Jet_btagCSV
+#H_sel: HCSV
 
-# CHoose jet batg weight
-#jet_btag: Jet_btagCMVAV2
-jet_btag: Jet_btagCSV
+jet_btag: Jet_btagCMVAV2
+jet_index: hJCMVAV2idx
+H_sel: HCMVAV2
 
-CMVAT: 0.875
-CMVAM: 0.185
-CMVAL: -0.715
+#### choose vtype after fix
+vtype: Vtype_new
+V_pt: V_new
+vLeptons: vLeptons_new
 
-CSVT: 0.935
-CSVM: 0.800
-CSVL: 0.460
+#vtype: Vtype
+#V_pt: V
+#vLeptons: vLeptons
+
+#######################3
+
+
+
+CSVT: 0.875
+CSVM: 0.185
+CSVL: -0.715
+
+#CSVT: 0.935
+#CSVM: 0.800
+#CSVL: 0.460
 
 # --------------------------------
 # Single variable cuts
 # --------------------------------
 
 # To get rid of minCSV peak
-minCSV_peakCut: ((Jet_puId[<!ZHbb|jet_index!>[1]] >= 7 & Jet_btagCSV[<!ZHbb|jet_index!>[1]] >= 0.53 & Jet_btagCSV[<!ZHbb|jet_index!>[1]] < 0.55) || !(Jet_btagCSV[<!ZHbb|jet_index!>[1]] >= 0.53 & Jet_btagCSV[<!ZHbb|jet_index!>[1]] < 0.55))
-
 minCSV_peakCut: ((Jet_puId[<!ZHbb|jet_index!>[1]] >= 7 & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > 0.52 & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < 0.55) || !(<!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > 0.52 & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < 0.55))
 
 Zhf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!> 
@@ -54,38 +66,37 @@ max1AddJet: Sum$(aJet_pt > 20 & abs(aJet_eta) < 2.4) < 2.
 pullAngle: deltaPullAngle < 10. & deltaPullAngle2 < 10.
 
 # V pt cuts
-Vpt_50 : V_new_pt > 50. 
-#& H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & V_new_pt < 2000.
+Vpt_50 : <!ZHbb|V_pt!>_pt > 50. 
+#& H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
 
-Vpt_100: V_new_pt > 100. 
-#& V_new_pt < 2000.
+Vpt_100: <!ZHbb|V_pt!>_pt > 100. 
+#& <!ZHbb|V_pt!>_pt < 2000.
 
-bdt_Vpt_100: V_new_pt > 50. 
-#& V_new_pt < 2000. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
+bdt_Vpt_100: <!ZHbb|V_pt!>_pt > 50. 
+#& V_pt < 2000. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
 
-Vpt_low_window: V_new_pt > 50. & V_new_pt < 150 
+Vpt_low_window: <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150 
 #& H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
 
-Vpt_med_window: V_new_pt > 100 & V_new_pt < 150 & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
+Vpt_med_window: <!ZHbb|V_pt!>_pt > 100 & <!ZHbb|V_pt!>_pt < 150 & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
 
-Vpt_high_window: V_new_pt > 150.
-#& H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & V_new_pt < 2000.
+Vpt_high_window: <!ZHbb|V_pt!>_pt > 150. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
 
-Vpt_LF: V_new_pt > 100. 
-#& V_new_pt < 2000. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
+Vpt_LF: <!ZHbb|V_pt!>_pt > 100. 
+#& V_pt < 2000. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
 
-#Vpt_100: V_new_pt > 100.
-Vpt_120: V_new_pt > 120.
-Vpt_150: V_new_pt > 150.
-Vpt_240: V_new_pt > 240.
+#Vpt_100: V_pt > 100.
+Vpt_120: <!ZHbb|V_pt!>_pt > 120.
+Vpt_150: <!ZHbb|V_pt!>_pt > 150.
+Vpt_240: <!ZHbb|V_pt!>_pt > 240.
 
-Vpt_ttbar: V_new_pt < 999999
-Vpt_Zhf: V_new_pt < 999
+Vpt_ttbar: <!ZHbb|V_pt!>_pt < 999999
+Vpt_Zhf: <!ZHbb|V_pt!>_pt < 999
 
 # H pt cuts
-#Hpt_100: HCSV_reg_pt > 100.
-Hpt_100: HCSV_reg_pt > 100.
-Hpt_Zhf: HCSV_reg_pt > 0.
+#Hpt_100: <!ZHbb|H_sel!>_reg_pt > 100.
+Hpt_100: <!ZHbb|H_sel!>_reg_pt > 100.
+Hpt_Zhf: <!ZHbb|H_sel!>_reg_pt > 0.
 
 # Jet cuts
 jet_pt_20: Jet_pt_reg[<!ZHbb|jet_index!>[0]] > 20. & Jet_pt_reg[<!ZHbb|jet_index!>[1]] > 20. 
@@ -107,18 +118,18 @@ deltaRjj_Zee: deltaR_jj < 1.6
 
 #dPhiVH: abs(HVdPhi) > 2.9 
 #dPhiVH: abs(HVdPhi_reg) > 2.5
-dPhiVH: abs(VHbb::deltaPhi(HCSV_reg_phi,V_new_phi))>2.5
+dPhiVH: abs(VHbb::deltaPhi(<!ZHbb|H_sel!>_reg_phi,<!ZHbb|V_pt!>_phi))>2.5
 
-upperHMass          : HCSV_reg_mass < 250.
+upperHMass          : <!ZHbb|H_sel!>_reg_mass < 250.
 upperHMass_beforeReg: HNoReg_mass < 250.
 
-zMassSafety: V_new_mass > 50.
+zMassSafety: <!ZHbb|V_pt!>_mass > 50.
 
 trigger_uu: (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v)
-#trigger_uu: Vtype_new==0
+#trigger_uu: <!ZHbb|vtype!>==0
 
 trigger_ee: HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v
-#trigger_ee: Vtype_new==1
+#trigger_ee: <!ZHbb|vtype!>==1
 
 trigger_combined:   (<!ZHbb|trigger_ee!> || (<!ZHbb|trigger_uu!>))
 
@@ -127,26 +138,26 @@ trigger_combined:   (<!ZHbb|trigger_ee!> || (<!ZHbb|trigger_uu!>))
 # Windows and windows veto
 # ---------------------------------
 
-Zwindow_mass     : V_new_mass>75. & V_new_mass < 105. 
-Zwindow_mass_hf  : V_new_mass > 85. & V_new_mass < 97. 
+Zwindow_mass     : <!ZHbb|V_pt!>_mass>75. & <!ZHbb|V_pt!>_mass < 105. 
+Zwindow_mass_hf  : <!ZHbb|V_pt!>_mass > 85. & <!ZHbb|V_pt!>_mass < 97. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
 
-vetoVmass_ttbar: (V_new_mass < 75. || V_new_mass > 120.) & V_new_mass > 10. 
-vetoVmass_Zhf  : !(V_new_mass < 85. || V_new_mass > 97.)
+vetoVmass_ttbar: (<!ZHbb|V_pt!>_mass < 75. || <!ZHbb|V_pt!>_mass > 120.) & <!ZHbb|V_pt!>_mass > 10. 
+vetoVmass_Zhf  : !(<!ZHbb|V_pt!>_mass < 85. || <!ZHbb|V_pt!>_mass > 97.)
 
 vetoHmass_beforeReg : (HNoReg.mass < 90. || HNoReg.mass > 150.)
-vetoHmass           : (HCSV_reg_mass < 90. || HCSV_reg_mass > 150.)
+vetoHmass           : (<!ZHbb|H_sel!>_reg_mass < 90. || <!ZHbb|H_sel!>_reg_mass > 150.)
 
-vetoHmass_VV        : (HCSV_reg_mass < 60. || HCSV_reg_mass > 160.)
-#vetoHmass_VV        : (HCSV_reg_mass < 70. || HCSV_reg_mass > 105.)
+vetoHmass_VV        : (<!ZHbb|H_sel!>_reg_mass < 60. || <!ZHbb|H_sel!>_reg_mass > 160.)
+#vetoHmass_VV        : (<!ZHbb|H_sel!>_reg_mass < 70. || <!ZHbb|H_sel!>_reg_mass > 105.)
 
-looseHMass: HCSV_reg_mass < 150. & HCSV_reg_mass > 90.
+looseHMass: <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
 
-wideHMass: HCSV_reg_mass < 250. & HCSV_reg_mass > 50.
+wideHMass: <!ZHbb|H_sel!>_reg_mass < 250. & <!ZHbb|H_sel!>_reg_mass > 50.
 
-VV_HMass:  HCSV_reg_mass > 60. & HCSV_reg_mass < 160.
-#VV_HMass:  HCSV_reg_mass > 70. & HCSV_reg_mass < 105.
+VV_HMass:  <!ZHbb|H_sel!>_reg_mass > 60. & <!ZHbb|H_sel!>_reg_mass < 160.
+#VV_HMass:  <!ZHbb|H_sel!>_reg_mass > 70. & <!ZHbb|H_sel!>_reg_mass < 105.
 
-SR_HMass: HCSV_reg_mass < 150. & HCSV_reg_mass > 90.
+SR_HMass: <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
 
 looseHMass_beforeReg: HNoReg.mass > 40. & HNoReg.mass < 250.
 
@@ -156,15 +167,16 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 # Preselections (combination of single cuts)
 # -------------------------------------------
 
-jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4 & <!ZHbb|minCSV_peakCut!>
+jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4 
+#& <!ZHbb|minCSV_peakCut!>
 
-lepton_Iso_uu: vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25
-lepton_Iso_ee: vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15
+lepton_Iso_uu: <!ZHbb|vLeptons!>_relIso04[0] < 0.25 & <!ZHbb|vLeptons!>_relIso04[1] < 0.25
+lepton_Iso_ee: <!ZHbb|vLeptons!>_relIso03[0] < 0.15 & <!ZHbb|vLeptons!>_relIso03[1] < 0.15
 
-lepton_preselection: (((Vtype_new==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!>) || ((Vtype_new==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>))
+lepton_preselection: (((<!ZHbb|vtype!>==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!>) || ((<!ZHbb|vtype!>==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>))
  
 # Full Set (36/fb)
-preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & V_new_pt > -25.0
+preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & <!ZHbb|V_pt!>_pt > -25.0
 
 ######################################
 
@@ -177,10 +189,10 @@ NOsemiLepton: !(Jet_leptonPt[<!ZHbb|jet_index!>[0]] > 0. || Jet_leptonPt[<!ZHbb|
 # Electron muon splitting
 # ----------------------------------------
 [ZHeebb]
-addCuts: Vtype_new==1 
+addCuts: <!ZHbb|vtype!>==1 
 
 [ZHmmbb]
-addCuts: Vtype_new==0 
+addCuts: <!ZHbb|vtype!>==0 
 
 # ----------------------------------------
 # Signal Region definitions
@@ -193,133 +205,131 @@ addCuts: Vtype_new==0
 #Zll: <!ZHbb|preselection!>
 
 
-Vpt_low_window: V_new_pt > 50. & V_new_pt < 100. 
+Vpt_low_window: <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 100. 
 #& H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
-Vpt_med_window: V_new_pt > 120 & V_new_pt < 170 
+Vpt_med_window: <!ZHbb|V_pt!>_pt > 120 & <!ZHbb|V_pt!>_pt < 170 
 #& H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
-Vpt_high_wuindow: V_new_pt > 150. 
+Vpt_high_wuindow: <!ZHbb|V_pt!>_pt > 150. 
 
-Vpt_100: V_new_pt > 100.
+Vpt_100: <!ZHbb|V_pt!>_pt > 100.
 
 # ====================================================================================================================
 # ====================================================================================================================
 
 # my own Mjj test regions 
-muon_test: Vtype_new == 0 && <!ZHbb|trigger_uu!> & vLeptons_new_pt[0] > 15. & vLeptons_new_pt[1] > 15.
+muon_test: <!ZHbb|vtype!> == 0 && <!ZHbb|trigger_uu!> & <!ZHbb|vLeptons!>_pt[0] > 15. & <!ZHbb|vLeptons!>_pt[1] > 15.
 
 all_regions: <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!>
 
-regression: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|preselection!> & <!ZHbb|jet_pt_Zuu!> & HCSV_reg_mass > 0
+regression: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|preselection!> & <!ZHbb|jet_pt_Zuu!> & <!ZHbb|H_sel!>_reg_mass > 0
 
-signal_all_Zpt: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50 & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|met_signal!>
+signal_all_Zpt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50 & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|met_signal!>
 
-signal_Zuu: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50 & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|met_signal!>
+signal_Zuu: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50 & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|met_signal!>
 
-signal_Zee: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50 & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|met_signal!>
+signal_Zee: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50 & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|met_signal!>
 
 # ====== Control regions ======
 
 
 
 # ==== V pt Bins ====
-Zhf_high: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & V_new_pt > 150.
+Zhf_high: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zhf_low: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & V_new_pt > 50. & V_new_pt < 150. 
+Zhf_low: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150. 
 
-Zhf_high_Zee: <!ZHbb|preselection!> & Vtype_new == 1& <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & V_new_pt > 150.
+Zhf_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zhf_high_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & V_new_pt > 150.
+Zhf_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zhf_low_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & V_new_pt > 50. & V_new_pt < 150.
+Zhf_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
-Zhf_low_Zee: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & V_new_pt > 50. & V_new_pt < 150.
+Zhf_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
-Zlf_high: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & V_new_pt > 150.
+Zhf_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50.
 
+Zhf_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50.
 
-Zhf_high_Zee_VV: <!ZHbb|preselection!> & Vtype_new == 1& <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & V_new_pt > 150.
+Zlf_high: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zhf_high_Zuu_VV: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & V_new_pt > 150.
+Zhf_high_Zee_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zhf_low_Zuu_VV: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & V_new_pt > 50. & V_new_pt < 150.
+Zhf_high_Zuu_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zhf_low_Zee_VV: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & V_new_pt > 50. & V_new_pt < 150
+Zhf_low_Zuu_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
+Zhf_low_Zee_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150
 
-Zhf_Zee_VV: <!ZHbb|preselection!> & Vtype_new == 1& <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & V_new_pt > 50.
+Zhf_Zee_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50.
 
-Zhf_Zuu_VV: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & V_new_pt > 50.
+Zhf_Zuu_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50.
 
-Zlf_low_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & V_new_pt > 50. & V_new_pt < 150.
+Zlf_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
-Zlf_low_Zee: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & V_new_pt > 50. & V_new_pt < 150.
+Zlf_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
-Zlf_high_Zee: <!ZHbb|preselection!> & Vtype_new ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & V_new_pt > 150.
+Zlf_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zlf_high_Zuu: <!ZHbb|preselection!> & Vtype_new ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & V_new_pt > 150.
+Zlf_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 150.
 
-Zlf_low: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & V_new_pt > 50. & V_new_pt < 150.
+Zlf_low: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
-ttbar_high: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt > 150.
+Zlf_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 50.
 
-ttbar_low: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt > 50. & V_new_pt < 150.
+Zlf_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|V_pt!>_pt > 50.
 
-ttbar_high_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt > 150.
+ttbar_high: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 150.
 
-ttbar_high_Zee: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt > 150.
+ttbar_low: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
 
-ttbar_low_Zee: <!ZHbb|preselection!> & Vtype_new == 1& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt > 50. & V_new_pt < 150.
+ttbar_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 150.
 
-ttbar_low_Zuu: <!ZHbb|preselection!> & Vtype_new == 0& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt > 50. & V_new_pt < 150.
+ttbar_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 150.
+
+ttbar_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
+
+ttbar_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
+
+ttbar_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 50.
+
+ttbar_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 50. 
 
 # ==================
 
-Zallf: Vtype_new > -1 & Vtype_new < 2  & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> 
+Zallf: <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2  & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> 
 
-Zlf: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_LF!> 
+Zlf: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_LF!> 
 
-Zlf_Zee: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_LF!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zhf: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!>
 
-Zlf_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_LF!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zhf_VV:  <!ZHbb|preselection!> <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!>
 
-Zhf: <!ZHbb|preselection!>  & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass!> & <!ZHbb|met_signal!>
+ttbar: <!ZHbb|preselection!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!>
 
-Zhf_VV:  <!ZHbb|preselection!> <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!>
-
-Zhf_Zee: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|vetoHmass!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|met_signal!>
-
-Zhf_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|vetoHmass!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|met_signal!>
-
-ttbar: <!ZHbb|preselection!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!>
-
-ttbar_Zuu: <!ZHbb|preselection!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & V_new_pt < 9999999
-
-ttbar_Zee: <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_ttbar!>
-
-Zlf_Zee_log: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_100!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zlf_Zee_log: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_100!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
 
 
-Zlf_Zuu_log: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_100!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zlf_Zuu_log: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|Vpt_100!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
 
 
-Zhf_Zee_log: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|vetoHmass!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|aJets_Zhf!>
+Zhf_Zee_log: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|vetoHmass!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|aJets_Zhf!>
 
 
-Zhf_Zuu_log: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|vetoHmass!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|aJets_Zhf!>
+Zhf_Zuu_log: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|vetoHmass!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|aJets_Zhf!>
 #& <!ZHbb|Hpt_Zhf!> & <!ZHbb|Vpt_Zhf!> & <!ZHbb|aJets_Zhf!> 
 
 
-ttbar_Zuu_log: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!>
+ttbar_Zuu_log: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!>
 
 
 
-ttbar_Zee_log: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_ttbar!> & <!ZHbb|aJets_ttbar!>
+ttbar_Zee_log: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|Hpt_100!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_ttbar!> & <!ZHbb|aJets_ttbar!>
 
 # ===== pT Regions
 
-Zlf_Zuu_lowPt: <!ZHbb|Vpt_low_window!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zlf_Zuu_lowPt: <!ZHbb|Vpt_low_window!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
 
-Zlf_Zuu_log_lowPt: <!ZHbb|Vpt_low_window!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zlf_Zuu_log_lowPt: <!ZHbb|Vpt_low_window!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
 
 Zlf_Zuu_medPt: <!ZHbb|Vpt_med_window!> & <!Cuts|Zlf_Zuu!>
 
@@ -331,9 +341,9 @@ Zlf_Zuu_log_highPt: <!ZHbb|Vpt_150!> & <!Cuts|Zlf_Zuu!>
 
 # =========
 
-Zlf_Zee_lowPt: <!ZHbb|Vpt_low_window!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zlf_Zee_lowPt: <!ZHbb|Vpt_low_window!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
 
-Zlf_Zee_log_lowPt: <!ZHbb|Vpt_low_window!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
+Zlf_Zee_log_lowPt: <!ZHbb|Vpt_low_window!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|aJets_Zlf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!>
 
 Zlf_Zee_medPt: <!ZHbb|Vpt_med_window!> & <!Cuts|Zlf_Zee!>
 
@@ -403,50 +413,35 @@ ttbar_Zee_log_highPt: <!ZHbb|Vpt_150!> & <!Cuts|ttbar_Zee!>
 
 # ===== BDT V pt regions =====
 
-bdt_tightHmass: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
+bdt_tightHmass: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-#& <!ZHbb|met_signal!>
+bdt_tightHmass_Zuu: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-#& <!ZHbb|minCSV_peakCut!>
+bdt_tightHmass_Zee: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-bdt_tightHmass_Zuu: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
+bdt_Zuu: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-#& <!ZHbb|met_signal!>
+bdt_Zee: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-#& <!ZHbb|minCSV_peakCut!>
+bdt_high_Zpt:<!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-#& <!ZHbb|met_signal!>
+bdt_Zuu_high_Zpt:<!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-bdt_tightHmass_Zee: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
+bdt_Zee_high_Zpt:<!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-#& <!ZHbb|met_signal!>
+bdt_low_Zpt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-#& <!ZHbb|minCSV_peakCut!>
+bdt_Zuu_low_Zpt: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-#& <!ZHbb|noAddJet!>
-#& <!ZHbb|met_signal!>
-#& <!ZHbb|minCSV_peakCut!> 
+bdt_Zee_low_Zpt: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-bdt_high_Zpt:<!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
+bdt_med_Zpt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
-bdt_Zuu_high_Zpt:<!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
+bdt_Zuu_med_Zpt: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-#bdt_Zee_high_Zpt:<!ZHbb|preselection!>&<!ZHbb|jet_pt_20!>&<!ZHbb|looseHMass!>&<!ZHbb|trigger_ee!>&Vtype_new==1&<!ZHbb|bdt_Btag!>&<!ZHbb|Zwindow_mass!>&<!ZHbb|Vpt_high_window!> 
-bdt_Zee_high_Zpt:<!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
+bdt_Zee_med_Zpt: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
-bdt_low_Zpt: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
-
-bdt_Zuu_low_Zpt: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
-
-bdt_Zee_low_Zpt: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
-
-bdt_med_Zpt: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
-
-bdt_Zuu_med_Zpt: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
-
-bdt_Zee_med_Zpt: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
-
-bdt_pt30: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & HCSV_reg_mass > 40 & HCSV_reg_mass < 250 & <!ZHbb|met_signal!> & <!ZHbb|jet_pt_30!>
+bdt_pt30: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|H_sel!>_reg_mass > 40 & <!ZHbb|H_sel!>_reg_mass < 250 & <!ZHbb|met_signal!> & <!ZHbb|jet_pt_30!>
 
 
 # For custom stack maker
@@ -459,44 +454,44 @@ ZuuMedPt_13TeV: <!Cuts|bdt_Zuu_med_Zpt!>
 ZuuHighPt_13TeV: <!Cuts|bdt_Zuu_high_Zpt!>
 
 # === SemiLepton ====
-bdt_2semiLepton: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|wideHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|semiLepton!>
+bdt_2semiLepton: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|wideHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|semiLepton!>
 
-bdt_1semiLepton: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|wideHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|1semiLepton!>
+bdt_1semiLepton: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|wideHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|1semiLepton!>
 
-bdt_NOsemiLepton: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|wideHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|NOsemiLepton!>
-
-
-
-bdt_Zuu_semiLepton: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|semiLepton!>
-
-bdt_Zee_semiLepton: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|semiLepton!>
-
-bdt_Zuu_NOsemiLepton: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|NOsemiLepton!>
-
-bdt_Zee_NOsemiLepton: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|NOsemiLepton!>
-
-bdt_Zuu_1semiLepton: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!>& <!ZHbb|1semiLepton!>
-
-bdt_Zee_1semiLepton: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!>& <!ZHbb|1semiLepton!>
+bdt_NOsemiLepton: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|wideHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|NOsemiLepton!>
 
 
-VV_bdt: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50.
 
-VV_bdt_low: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50. & V_new_pt < 150.
+bdt_Zuu_semiLepton: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|semiLepton!>
 
-VV_bdt_high: <!ZHbb|trigger_combined!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 150.
+bdt_Zee_semiLepton: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|semiLepton!>
 
-VV_bdt_Zee: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50.
+bdt_Zuu_NOsemiLepton: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|NOsemiLepton!>
 
-VV_bdt_Zuu: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50.
+bdt_Zee_NOsemiLepton: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!> & <!ZHbb|NOsemiLepton!>
 
-VV_bdt_Zee_low: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50. & V_new_pt < 150.
+bdt_Zuu_1semiLepton: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!>& <!ZHbb|1semiLepton!>
 
-VV_bdt_Zee_high: <!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 150.
+bdt_Zee_1semiLepton: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & <!ZHbb|Vpt_50!>& <!ZHbb|1semiLepton!>
 
-VV_bdt_Zuu_low: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 50. & V_new_pt < 150.
 
-VV_bdt_Zuu_high: <!ZHbb|trigger_uu!> & Vtype_new == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & V_new_pt > 150.
+VV_bdt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50.
+
+VV_bdt_low: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
+
+VV_bdt_high: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 150.
+
+VV_bdt_Zee: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50.
+
+VV_bdt_Zuu: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50.
+
+VV_bdt_Zee_low: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50. & V_pt < 150.
+
+VV_bdt_Zee_high: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 150.
+
+VV_bdt_Zuu_low: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50. & <!ZHbb|V_pt!>_pt < 150.
+
+VV_bdt_Zuu_high: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 150.
 
 # ========================================================================================================================
 # Jet Regression Region
@@ -506,11 +501,11 @@ jet_regression_signal: <!Cuts|signal_Zee_all_Zpt!>
 
 jet_regression_ttbar: <!Cuts|ttbar_Zee!>
 
-jet_regression_Zhf:  <!ZHbb|trigger_combined!> & <!ZHbb|preselection!> & Vtype_new > -1 & Vtype_new < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zhf_Btag_reg!> & V_new_pt > 50
+jet_regression_Zhf:  <!ZHbb|trigger_combined!> & <!ZHbb|preselection!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zhf_Btag_reg!> & <!ZHbb|V_pt!>_pt > 50
 
-jet_regression_Zhf_Zee:  <!ZHbb|trigger_combined!> & <!ZHbb|preselection!> & Vtype_new == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zhf_Btag_reg!> & V_new_pt > 50
+jet_regression_Zhf_Zee:  <!ZHbb|trigger_combined!> & <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zhf_Btag_reg!> & <!ZHbb|V_pt!>_pt > 50
 
-#jet_regression_Zhf:<!ZHbb|trigger_ee!> & Vtype_new == 1 & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zhf_Btag_reg!>
+#jet_regression_Zhf:<!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zhf_Btag_reg!>
 
 # ========================================================================================================================
 
@@ -728,38 +723,38 @@ DYJets_fit_SV: <!ZHbb|preselection!> & <!ZHbb|maxBtag!> > <!ZHbb|CSVL!> & <!ZHbb
 #!! ---------------------------
 #!! Electron muons separation
 #!! ---------------------------
-RTight_EE: Vtype_new==1  & <!Cuts|RTight!>
-RTight_MM: Vtype_new==0 & <!Cuts|RTight!>
-RTight_120_EE: Vtype_new==1  & <!Cuts|RTight_120!>
-RTight_120_MM: Vtype_new==0 & <!Cuts|RTight_120!>
-RTight_150_EE: Vtype_new==1  & <!Cuts|RTight_150!>
-RTight_150_MM: Vtype_new==0 & <!Cuts|RTight_150!>
-RTight_240_EE: Vtype_new==1  & <!Cuts|RTight_240!>
-RTight_240_MM: Vtype_new==0 & <!Cuts|RTight_240!>
-RMed_EE: Vtype_new==1 & <!Cuts|RMed!>
-RMed_MM: Vtype_new==0 & <!Cuts|RMed!>
-RMed_120_EE: Vtype_new==1  & <!Cuts|RMed_120!>
-RMed_120_MM: Vtype_new==0 & <!Cuts|RMed_120!>
-RMed_150_EE: Vtype_new==1  & <!Cuts|RMed_150!>
-RMed_150_MM: Vtype_new==0 & <!Cuts|RMed_150!>
-RMed_240_EE: Vtype_new==1  & <!Cuts|RMed_240!>
-RMed_240_MM: Vtype_new==0 & <!Cuts|RMed_240!>
-RLoose_EE: Vtype_new==1  & <!Cuts|RLoose!>
-RLoose_MM: Vtype_new==0  & <!Cuts|RLoose!>
-RTightLooseBTag_EE: Vtype_new==1 & <!Cuts|RTightLooseBTag!>
-RTightLooseBTag_MM: Vtype_new==0 & <!Cuts|RTightLooseBTag!>
+RTight_EE: <!ZHbb|vtype!>_new==1  & <!Cuts|RTight!>
+RTight_MM: <!ZHbb|vtype!>_new==0 & <!Cuts|RTight!>
+RTight_120_EE: <!ZHbb|vtype!>_new==1  & <!Cuts|RTight_120!>
+RTight_120_MM: <!ZHbb|vtype!>_new==0 & <!Cuts|RTight_120!>
+RTight_150_EE: <!ZHbb|vtype!>_new_new==1  & <!Cuts|RTight_150!>
+RTight_150_MM: <!ZHbb|vtype!>_new_new==0 & <!Cuts|RTight_150!>
+RTight_240_EE: <!ZHbb|vtype!>_new_new==1  & <!Cuts|RTight_240!>
+RTight_240_MM: <!ZHbb|vtype!>_new_new==0 & <!Cuts|RTight_240!>
+RMed_EE: <!ZHbb|vtype!>_new_new==1 & <!Cuts|RMed!>
+RMed_MM: <!ZHbb|vtype!>_new_new==0 & <!Cuts|RMed!>
+RMed_120_EE: <!ZHbb|vtype!>_new_new==1  & <!Cuts|RMed_120!>
+RMed_120_MM: <!ZHbb|vtype!>_new_new==0 & <!Cuts|RMed_120!>
+RMed_150_EE: <!ZHbb|vtype!>_new_new==1  & <!Cuts|RMed_150!>
+RMed_150_MM: <!ZHbb|vtype!>_new_new==0 & <!Cuts|RMed_150!>
+RMed_240_EE: <!ZHbb|vtype!>_new_new==1  & <!Cuts|RMed_240!>
+RMed_240_MM: <!ZHbb|vtype!>_new_new==0 & <!Cuts|RMed_240!>
+RLoose_EE: <!ZHbb|vtype!>_new==1  & <!Cuts|RLoose!>
+RLoose_MM: <!ZHbb|vtype!>_new==0  & <!Cuts|RLoose!>
+RTightLooseBTag_EE: <!ZHbb|vtype!>_new==1 & <!Cuts|RTightLooseBTag!>
+RTightLooseBTag_MM: <!ZHbb|vtype!>_new==0 & <!Cuts|RTightLooseBTag!>
 
 #!! Change naming
-HighPt_EE: Vtype_new==1  & <!Cuts|RTight!>
-HighPt_MM: Vtype_new==0 & <!Cuts|RTight!>
+HighPt_EE: <!ZHbb|vtype!>_new==1  & <!Cuts|RTight!>
+HighPt_MM: <!ZHbb|vtype!>_new==0 & <!Cuts|RTight!>
 HighPt_Zee: <!Cuts|RTight_EE!>
 HighPt_Zmm: <!Cuts|RTight_MM!>
-LowPt_EE: Vtype_new==1 & <!Cuts|RMed!>
-LowPt_MM: Vtype_new==0 & <!Cuts|RMed!>
+LowPt_EE: <!ZHbb|vtype!>_new==1 & <!Cuts|RMed!>
+LowPt_MM: <!ZHbb|vtype!>_new==0 & <!Cuts|RMed!>
 LowPt_Zee: <!Cuts|RMed_EE!>
 LowPt_Zmm: <!Cuts|RMed_MM!>
-HighPtLooseBTag_EE: Vtype_new==1 & <!Cuts|RTightLooseBTag!>
-HighPtLooseBTag_MM: Vtype_new==0 & <!Cuts|RTightLooseBTag!>
+HighPtLooseBTag_EE: <!ZHbb|vtype!>_new==1 & <!Cuts|RTightLooseBTag!>
+HighPtLooseBTag_MM: <!ZHbb|vtype!>_new==0 & <!Cuts|RTightLooseBTag!>
 HighPtLooseBTag_Zee: <!Cuts|RTightLooseBTag_EE!>
 HighPtLooseBTag_Zmm: <!Cuts|RTightLooseBTag_MM!>
 TTbar_unbiased_Zee: <!Cuts|TTbar_unbiased!> & <!ZHeebb|addCuts!>
@@ -882,3 +877,5 @@ Mjj_pt150_Zmm =    <!Cuts|Mjj_pt150!>  & <!ZHmmbb|addCuts!>
 #!! ---------------------
 triggerEE = (triggerFlags[5]>0 || triggerFlags[6]>0)
 triggerMM = (triggerFlags[14]>0 || triggerFlags[21]>0 || triggerFlags[22]>0 || triggerFlags[23]>0) 
+
+#  LocalWords:  ZHbb

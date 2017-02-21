@@ -131,8 +131,9 @@ class HistoMaker:
             weightF = '%s'%(options['weight'])    
             
             if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
-                weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
-            
+                #weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
+                #weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
+                weightF  = weightF+ '*('+job.specialweight+')'
 
             # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':
@@ -140,17 +141,21 @@ class HistoMaker:
                 print '\n\t !!! Adding RateParam !!!'
                 print self.config.get('Plot_general', 'doSF')
                 
-                if 'V_pt > 50' in treeCut:
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.244)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.50)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.15)'
+                if 'V_new_pt > 50' in treeCut and 'Vtype_new == 1' in treeCut:
+                    print 'HERE1'
+                    #if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.10)'
                     
-                if 'V_pt > 150' in treeCut:
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.244)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.89)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.10)'
+                    #if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
+                    #if 'Z2b' in job.name: weightF = weightF+'*(1.50)'
+                    #if 'ttbar' in job.name: weightF = weightF+'*(1.15)'
+                    
+                if 'V_new_pt > 150' in treeCut and 'Vtype_new ==1' in treeCut:
+                    print 'HERE2'
+                    #if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.25)'
+                    
+                    #if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
+                    #if 'Z2b' in job.name: weightF = weightF+'*(1.89)'
+                    #if 'ttbar' in job.name: weightF = weightF+'*(1.10)'
 
                         
             print '\n-----> Making histograms for variable:', treeVar
@@ -203,7 +208,7 @@ class HistoMaker:
                 
                 
                 #if 'Zee' in job.name:
-                #    treeCut = treeCut + ' & HLT_BIT_HLT_Ele27_eta2p1_WPLoose_Gsf_v == 1 & json==1'
+                #    treeCut = treeCu'
                 #if 'Zuu' in job.name:
                 #    treeCut = treeCut + ' & (HLT_BIT_HLT_IsoMu22_v==1 || HLT_BIT_HLT_IsoTkMu22_v== 1) & json == 1'    
              

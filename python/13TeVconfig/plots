@@ -84,10 +84,8 @@ additional_vars: rHVpt,vxMult,Sum,fatHfileteredMass,dR_hJet0_V,dR_hJet1_V,FatH_H
 
 
 
-BDTs: gg_plus_ZH125_low_Zpt,gg_plus_ZH125_high_Zpt,VV_bdt,VV_bdt_lowZpt,VV_bdt_highZpt
-#,gg_plus_ZH125_semiLepton,gg_plus_ZH125_NOsemiLepton,gg_plus_ZH125_1semiLepton
-#gg_plus_ZH125_tightHmass
-#gg_plus_ZH125_semiLepton,gg_plus_ZH125_NOsemiLepton,gg_plus_ZH125_1semiLepton
+BDTs: gg_plus_ZH125_low_Zpt,gg_plus_ZH125_high_Zpt
+#,VV_bdt,VV_bdt_lowZpt,VV_bdt_highZpt
 
 REG_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,Jet0_rawPt,Jet0_leadTrackPt,Jet0_leptonPtRel,Jet0_leptonPt,Jet0_leptonDeltaR,Jet0_chEmEF,Jet0_chHEF,Jet0_neHEF,Jet0_neEmEF,Jet1_rawPt,Jet1_leadTrackPt,Jet1_leptonPtRel,Jet1_leptonPt,Jet1_leptonDeltaR,Jet1_chEmEF,Jet1_chHEF,Jet1_neHEF,Jet1_neEmEF,Jet0_vtxPt,Jet1_vtxPt,Jet0_vtxMass,Jet1_vtxMass,Jet_vtx3dL,Jet_vtx3deL,Jet_vtxNtrk
 

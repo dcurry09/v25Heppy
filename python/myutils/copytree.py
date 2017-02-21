@@ -10,7 +10,8 @@ def copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,Acut):
     print "##### COPY TREE - BEGIN ######"
     print "Input File : %s/%s%s.root " %(pathIN,prefix,file)
     print "Output File : %s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file)
-        
+    
+    
     #input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
     input = ROOT.TFile.Open("%s/%s%s%s.root" %(pathIN,newprefix,Aprefix,file),'read')
     output = ROOT.TFile.Open("%s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file),'recreate')
@@ -76,7 +77,7 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('GenVbosons*', 0)
 
-    tree.SetBranchStatus('GenTop*', 0)
+    #tree.SetBranchStatus('GenTop*', 0)
 
     #tree.SetBranchStatus('aLeptons*', 0)
 
@@ -86,7 +87,7 @@ def branch_reduce(tree):
 
     tree.SetBranchStatus('TauGood*', 0)
 
-    tree.SetBranchStatus('GenHad*', 0)
+    #tree.SetBranchStatus('GenHad*', 0)
 
     tree.SetBranchStatus('GenGluon*', 0)
 
@@ -94,11 +95,11 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('GenWZ*', 0)
 
-    tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
+    #tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
 
     tree.SetBranchStatus('trimmedFat*', 0)
 
-    tree.SetBranchStatus('GenBQuarkFromTop*', 0)
+    #tree.SetBranchStatus('GenBQuarkFromTop*', 0)
     
     tree.SetBranchStatus('Fat*', 0)
     

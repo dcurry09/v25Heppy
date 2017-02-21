@@ -48,7 +48,7 @@ class TreeCopierWithCorrectionFromFile:
 
         prefix = 'v25_'
         
-        if 'Zee' in inputFileName or 'Zuu' in inputFileName or 'ttbar' in inputFileName:
+        if 'prep' in inputFileName:
             inpath = '/exports/uftrig01a/dcurry/heppy/v25/'
             prefix =''
 
@@ -227,7 +227,7 @@ outpath = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 # List of files to add btag weights to
 bkg_list = ['DY_inclusive', 'ZZ_2L2Q', 'WZ']
 
-#data_list = ['Zuu', 'Zee']
+data_list = ['Zuu', 'Zee']
 
 prep_list = [
     #'prep_Zuu_B_ext1', 'prep_Zuu_B_ext2', 'prep_Zuu_B_ext3','prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3',
@@ -238,21 +238,39 @@ prep_list = [
     #'prep_Zuu_G_ext1', 'prep_Zuu_G_ext2', 'prep_Zee_G_ext1', 'prep_Zee_G_ext2',
     #'prep_Zuu_H_ext1', 'prep_Zuu_H_ext2', 'prep_Zee_H_ext1', 'prep_Zee_H_ext2',
     #'prep_Zuu_H_ext3', 'prep_Zuu_H_ext4', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
-
-    'prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3']
-
+    
+    #'prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3',
+    #'prep_Zee_C_ext1',
+    #'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
+    #'prep_Zee_E_ext1',
+    #'prep_Zee_F_ext1',
+    #'prep_Zee_G_ext1', 'prep_Zee_G_ext2','prep_Zee_G_ext3', 'prep_Zee_G_ext4',
+    #'prep_Zee_H_ext1', 'prep_Zee_H_ext2', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
+    
     #'prep_ttbar_ext1', 'prep_ttbar_ext2',
     #'prep_ttbar_ext1_NewExt', 'prep_ttbar_ext2_NewExt',
     #'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
     #'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
     #'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4']
 
+    #'prep_DY_600to800_ext1', 'prep_DY_600to800_ext1_NewExt', 'prep_DY_600to800_ext1_NewExt2',
+
+    'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 'prep_DY_2J_NewExt4', 
+    'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8'
+    ]
+
+
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter']
+DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter']
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t', 'ST_t_antitop']
 
+DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf']
+
+DY_parton_list = ['DY0J', 'DY1J']
+
+temp_list = ['DY_600to800']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
 file_list = prep_list
