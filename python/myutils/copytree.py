@@ -81,7 +81,7 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('aLeptons*', 0)
 
-    tree.SetBranchStatus('GenNu*', 0)
+    #tree.SetBranchStatus('GenNu*', 0)
 
     #tree.SetBranchStatus('selLeptons*', 0)
 
@@ -89,7 +89,7 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('GenHad*', 0)
 
-    tree.SetBranchStatus('GenGluon*', 0)
+    #tree.SetBranchStatus('GenGluon*', 0)
 
     tree.SetBranchStatus('htt*', 0)
 

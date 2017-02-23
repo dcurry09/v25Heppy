@@ -693,6 +693,12 @@ bdt_pt30: gg_plus_ZH125_pt30.nominal
 
 bdt: gg_plus_ZH125_highZpt.nominal
 
+vv_bdt_low : VV_bdt_lowZpt.nominal
+vv_bdt_high: VV_bdt_highZpt.nominal
+
+#vv_bdt_low : VV_bdt.nominal
+#vv_bdt_high: VV_bdt.nominal
+
 
 [dc:BDT_Zee]
 var       : <!Datacard|bdt!>
@@ -755,8 +761,8 @@ doBin     : True
 
 
 [dc:BDT_Zee_high_Zpt]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_highZpt.nominal
+#var       : gg_plus_ZH125_highZpt.nominal
+var       : gg_plus_ZH125_lowZpt.nominal
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_HighPt
@@ -770,7 +776,7 @@ doSYS     : True
 doBin     : True
 
 [dc:BDT_Zuu_high_Zpt]
-#var       : <!Datacard|bdt!>
+#var       : gg_plus_ZH125_highZpt.nominal
 var       : gg_plus_ZH125_lowZpt.nominal
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
@@ -786,7 +792,6 @@ doBin     : True
 
 
 [dc:BDT_Zee_low_Zpt]
-#var       : <!Datacard|bdt!>
 var       : gg_plus_ZH125_lowZpt.nominal
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
@@ -801,7 +806,6 @@ doSYS     : True
 doBin     : True
 
 [dc:BDT_Zuu_low_Zpt]
-#var       : <!Datacard|bdt!>
 var       : gg_plus_ZH125_lowZpt.nominal
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
@@ -810,133 +814,6 @@ cut       : bdt_Zuu_low_Zpt
 signal    : ZH125 ggZH125
 dcBin     : ZuuLowPt_13TeV
 data      : Zuu
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-
-[dc:BDT_Zee_med_Zpt]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_medZpt.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zee_MedPt
-cut       : bdt_Zee_med_Zpt
-signal    : ZH125 ggZH125
-dcBin     : ZeeMedPt_13TeV
-data      : Zee
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-[dc:BDT_Zuu_med_Zpt]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_medZpt.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zuu_MedPt
-cut       : bdt_Zuu_med_Zpt
-signal    : ZH125 ggZH125
-dcBin     : ZuuMedPt_13TeV
-data      : Zuu
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-
-
-# SemiLpetonic categories
-
-[dc:BDT_semiLepton_Zuu]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_semiLepton.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zuu_semiLepton
-cut       : bdt_Zuu_semiLepton
-signal    : ZH125 ggZH125
-dcBin     : ZuuSemiLepton_13TeV
-data      : Zuu
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-[dc:BDT_semiLepton_Zee]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_semiLepton.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zee_semiLepton
-cut       : bdt_Zee_semiLepton
-signal    : ZH125 ggZH125
-dcBin     : ZeeSemiLepton_13TeV
-data      : Zee
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-
-[dc:BDT_NOsemiLepton_Zuu]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_NOsemiLepton.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zuu_NOsemiLepton
-cut       : bdt_Zuu_NOsemiLepton
-signal    : ZH125 ggZH125
-dcBin     : ZuuNOSemiLepton_13TeV
-data      : Zuu
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-[dc:BDT_NOsemiLepton_Zee]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_NOsemiLepton.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zee_NOsemiLepton
-cut       : bdt_Zee_NOsemiLepton
-signal    : ZH125 ggZH125
-dcBin     : ZeeNOSemiLepton_13TeV
-data      : Zee
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-
-[dc:BDT_1semiLepton_Zuu]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_1semiLepton.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zuu_1semiLepton
-cut       : bdt_Zuu_1semiLepton
-signal    : ZH125 ggZH125
-dcBin     : Zuu1SemiLepton_13TeV
-data      : Zuu
-type      : BDT
-bdt_split : 0.6
-doSYS     : True
-doBin     : True
-
-[dc:BDT_1semiLepton_Zee]
-#var       : <!Datacard|bdt!>
-var       : gg_plus_ZH125_1semiLepton.nominal
-wsVarName : <!LimitGeneral|BDToutname!>
-range     : <!LimitGeneral|BDTrange!>
-dcName    : BDT_Zee_1semiLepton
-cut       : bdt_Zee_1semiLepton
-signal    : ZH125 ggZH125
-dcBin     : Zee1SemiLepton_13TeV
-data      : Zee
 type      : BDT
 bdt_split : 0.6
 doSYS     : True
@@ -990,8 +867,7 @@ doBin     : True
 # VV Pt Bins
 
 [dc:VV_BDT_Zee_lowZpt]
-var       : VV_bdt.nominal
-#var       : VV_bdt_lowZpt.nominal
+var       : <!Datacard|vv_bdt_low!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_LowPt
@@ -1005,8 +881,7 @@ doSYS     : True
 doBin     : True
 
 [dc:VV_BDT_Zee_highZpt]
-var       : VV_bdt.nominal
-#var       : VV_bdt_highZpt.nominal
+var       : <!Datacard|vv_bdt_high!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_HighPt
@@ -1020,8 +895,7 @@ doSYS     : True
 doBin     : True
 
 [dc:VV_BDT_Zuu_lowZpt]
-var       : VV_bdt.nominal
-#var       : VV_bdt_lowZpt.nominal
+var       : <!Datacard|vv_bdt_low!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_LowPt
@@ -1035,8 +909,7 @@ doSYS     : True
 doBin     : True
 
 [dc:VV_BDT_Zuu_highZpt]
-var       : VV_bdt.nominal
-#var       : VV_bdt_highZpt.nominal
+var       : <!Datacard|vv_bdt_high!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_HighPt

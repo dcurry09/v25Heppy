@@ -125,8 +125,8 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     print 'var:', opts.var
     print 'Fit:', opts.fit
     print 'DC:', opts.dc
-    
-    
+
+        
     file = ROOT.TFile.Open(mlfit)
 
     if file == None: raise RuntimeError, "Cannot open file %s" % theFile
@@ -149,112 +149,110 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     #fit = 'shapes_fit_b'
     #fit  = 'shapes_prefit'
     
-    if 'CSV' not in opts.var:
+    # if 'CSV' not in opts.var:
 
 
-        # for combined fit
-        zll_Zee_low_channel = 'ZllHbb_ch2_Zee'
-        zll_Zee_high_channel= 'ZllHbb_ch4_Zee'
-        zll_Zuu_low_channel = 'ZllHbb_ch1_Zmm'
-        zll_Zuu_high_channel= 'ZllHbb_ch3_Zmm'
+    #     # for combined fit
+    #     zll_Zee_low_channel = 'ZllHbb_ch2_Zee'
+    #     zll_Zee_high_channel= 'ZllHbb_ch4_Zee'
+    #     zll_Zuu_low_channel = 'ZllHbb_ch1_Zmm'
+    #     zll_Zuu_high_channel= 'ZllHbb_ch3_Zmm'
 
-        # for my fit
-        #zll_Zee_low_channel = 'ch2_Zee'
-        #zll_Zee_high_channel= 'ch4_Zee'
-        #zll_Zuu_low_channel = 'ch1_Zmm'
-        #zll_Zuu_high_channel= 'ch3_Zmm'
+    #     # for my fit
+    #     #zll_Zee_low_channel = 'ch2_Zee'
+    #     #zll_Zee_high_channel= 'ch4_Zee'
+    #     #zll_Zuu_low_channel = 'ch1_Zmm'
+    #     #zll_Zuu_high_channel= 'ch3_Zmm'
 
         
-        # Zll
-        if 'ZuuLowPt_13TeV' in b or 'ZuuBDT_lowpt' in b:
-            dir = fit+'/'+zll_Zuu_low_channel+'_SIG_low/'
-        if 'ZuuHighPt_13TeV' in b or 'ZuuBDT_highpt' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_SIG_high/'
-        if 'ZeeLowPt_13TeV' in b or 'ZeeBDT_lowpt' in b:
-            dir = fit+'/'+zll_Zee_low_channel+'_SIG_low/'
-        if 'ZeeHighPt_13TeV' in b or 'ZeeBDT_highpt' in b:
-            dir = fit+'/'+zll_Zee_high_channel+'_SIG_high/'
+    #     # Zll
+    #     if 'ZuuLowPt_13TeV' in b or 'ZuuBDT_lowpt' in b:
+    #         dir = fit+'/'+zll_Zuu_low_channel+'_SIG_low/'
+    #     if 'ZuuHighPt_13TeV' in b or 'ZuuBDT_highpt' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_SIG_high/'
+    #     if 'ZeeLowPt_13TeV' in b or 'ZeeBDT_lowpt' in b:
+    #         dir = fit+'/'+zll_Zee_low_channel+'_SIG_low/'
+    #     if 'ZeeHighPt_13TeV' in b or 'ZeeBDT_highpt' in b:
+    #         dir = fit+'/'+zll_Zee_high_channel+'_SIG_high/'
  
             
-        # Wlv
-        if 'WenHighPt' in b:
-            dir  = fit+'/WlnHbb_WenHighPt/'
-        if 'WmnHighPt' in b:
-            dir  = fit+'/WlnHbb_WmnHighPt/'
+    #     # Wlv
+    #     if 'WenHighPt' in b:
+    #         dir  = fit+'/WlnHbb_WenHighPt/'
+    #     if 'WmnHighPt' in b:
+    #         dir  = fit+'/WlnHbb_WmnHighPt/'
 
-        # Zvv
-        if 'Znn_13TeV' in b:
-            dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Signal/'
+    #     # Zvv
+    #     if 'Znn_13TeV' in b:
+    #         dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Signal/'
 
-    elif 'CSV' in opts.var:
+    # elif 'CSV' in opts.var:
 
         
-        # for combined fit
-        zll_Zee_low_channel = 'ZllHbb_ch2_Zee'
-        zll_Zee_high_channel= 'ZllHbb_ch4_Zee'
-        zll_Zuu_low_channel = 'ZllHbb_ch1_Zmm'
-        zll_Zuu_high_channel= 'ZllHbb_ch3_Zmm'
+    #     # for combined fit
+    #     zll_Zee_low_channel = 'ZllHbb_ch2_Zee'
+    #     zll_Zee_high_channel= 'ZllHbb_ch4_Zee'
+    #     zll_Zuu_low_channel = 'ZllHbb_ch1_Zmm'
+    #     zll_Zuu_high_channel= 'ZllHbb_ch3_Zmm'
         
-        # for my fit
-        #zll_Zee_low_channel = 'ch2_Zee'
-        #zll_Zee_high_channel= 'ch4_Zee'
-        #zll_Zuu_low_channel = 'ch1_Zmm'
-        #zll_Zuu_high_channel= 'ch3_Zmm'
+    #     # for my fit
+    #     #zll_Zee_low_channel = 'ch2_Zee'
+    #     #zll_Zee_high_channel= 'ch4_Zee'
+    #     #zll_Zuu_low_channel = 'ch1_Zmm'
+    #     #zll_Zuu_high_channel= 'ch3_Zmm'
 
-        #### Zll ####
-        if 'Zhf_low_Zee' in b:
-            dir = fit+'/'+zll_Zee_low_channel+'_Zhf_low/'
-        if 'Zlf_low_Zee' in b:
-            dir = fit+'/'+zll_Zee_low_channel+'_Zlf_low/'
-        if 'ttbar_low_Zee' in b:
-            dir = fit+'/'+zll_Zee_low_channel+'_TT_low/'
+    #     #### Zll ####
+    #     if 'Zhf_low_Zee' in b:
+    #         dir = fit+'/'+zll_Zee_low_channel+'_Zhf_low/'
+    #     if 'Zlf_low_Zee' in b:
+    #         dir = fit+'/'+zll_Zee_low_channel+'_Zlf_low/'
+    #     if 'ttbar_low_Zee' in b:
+    #         dir = fit+'/'+zll_Zee_low_channel+'_TT_low/'
 
-        if 'Zhf_high_Zee' in b:
-            dir = fit+'/'+zll_Zee_high_channel+'_Zhf_high/'
-        if 'Zlf_high_Zee' in b:
-            dir = fit+'/'+zll_Zee_high_channel+'_Zlf_high/'
-        if 'ttbar_high_Zee' in b:
-            dir = fit+'/'+zll_Zee_high_channel+'_TT_high/'
+    #     if 'Zhf_high_Zee' in b:
+    #         dir = fit+'/'+zll_Zee_high_channel+'_Zhf_high/'
+    #     if 'Zlf_high_Zee' in b:
+    #         dir = fit+'/'+zll_Zee_high_channel+'_Zlf_high/'
+    #     if 'ttbar_high_Zee' in b:
+    #         dir = fit+'/'+zll_Zee_high_channel+'_TT_high/'
 
-        if 'Zhf_high_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_Zhf_high/'
-        if 'Zlf_high_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_Zlf_high/'
-        if 'ttbar_high_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_TT_high/'
+    #     if 'Zhf_high_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zhf_high/'
+    #     if 'Zlf_high_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zlf_high/'
+    #     if 'ttbar_high_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_TT_high/'
 
-        if 'Zhf_low_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_low_channel+'_Zhf_low/'
-        if 'Zlf_low_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_low_channel+'_Zlf_low/'
-        if 'ttbar_low_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_low_channel+'_TT_low/'
+    #     if 'Zhf_low_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_low_channel+'_Zhf_low/'
+    #     if 'Zlf_low_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_low_channel+'_Zlf_low/'
+    #     if 'ttbar_low_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_low_channel+'_TT_low/'
 
-        if 'Zhf_high_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_Zhf_high/'
-        if 'Zlf_high_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_Zlf_high/'
-        if 'ttbar_high_Zuu' in b:
-            dir = fit+'/'+zll_Zuu_high_channel+'_TT_high/'
+    #     if 'Zhf_high_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zhf_high/'
+    #     if 'Zlf_high_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zlf_high/'
+    #     if 'ttbar_high_Zuu' in b:
+    #         dir = fit+'/'+zll_Zuu_high_channel+'_TT_high/'
 
-        # Wlv
-        if 'Wen' in b or 'Wmn' in b:
-            dir = fit+'/WlnHbb_'+b+'/'
+    #     # Wlv
+    #     if 'Wen' in b or 'Wmn' in b:
+    #         dir = fit+'/WlnHbb_'+b+'/'
             
-        # Zvv
-        if 'Znn_13TeV' in b:
-            if 'QCD' in opts.dc:
-                dir = fit+'/ZnnHbb_ZnnHbb_HighPt_QCD/'
-            if 'TT' in opts.dc:
-                dir = fit+'/ZnnHbb_ZnnHbb_HighPt_TT/'
-            if 'Zbb' in opts.dc:
-                dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Zbb/'
-            if 'Zlight' in opts.dc:
-                dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Zlight/'
+    #     # Zvv
+    #     if 'Znn_13TeV' in b:
+    #         if 'QCD' in opts.dc:
+    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_QCD/'
+    #         if 'TT' in opts.dc:
+    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_TT/'
+    #         if 'Zbb' in opts.dc:
+    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Zbb/'
+    #         if 'Zlight' in opts.dc:
+    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Zlight/'
             
-                
-
-    print 'Current Dir:', dir
+    #print 'Current Dir:', dir
     
 
     for p in procs:
@@ -271,42 +269,42 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
                 
         # New style from mlfit.root
         
-        if 'Znn' in b and 'VVLF' in p: continue
+        # if 'Znn' in b and 'VVLF' in p: continue
 
-        if 'Znn' in b and 'VVHF' in p:
-            nom2 = file.Get('%s%s' % (dir, 'VZbb')).Clone()
+        # if 'Znn' in b and 'VVHF' in p:
+        #     nom2 = file.Get('%s%s' % (dir, 'VZbb')).Clone()
 
-        else: nom2 = file.Get('%s%s' % (dir, p)).Clone()
+        # else: nom2 = file.Get('%s%s' % (dir, p)).Clone()
 
-        print 'Hist from mlfit.root:', nom2
+        # print 'Hist from mlfit.root:', nom2
 
         
-        # Set the DC bins to the mlfit bin contents
-        nBins = nom.GetNbinsX()
-        print 'nBins:', nBins
+        # # Set the DC bins to the mlfit bin contents
+        # nBins = nom.GetNbinsX()
+        # print 'nBins:', nBins
         
         
-        for bin in range(1,nBins+1):
-            print 'Bin', bin, ' Nom:', nom.GetBinContent(bin)
-            print 'Bin', bin, ' Fit:', nom2.GetBinContent(bin)
-            print 'Bin low edge:', nom.GetBinLowEdge(bin)
-            print 'Bin low edge mlfit:', nom2.GetBinLowEdge(bin)
-            nom.SetBinContent(bin, nom2.GetBinContent(bin))
-            print 'NEW Bin', bin, ' Nom:', nom.GetBinContent(bin)
+        # for bin in range(1,nBins+1):
+        #     print 'Bin', bin, ' Nom:', nom.GetBinContent(bin)
+        #     print 'Bin', bin, ' Fit:', nom2.GetBinContent(bin)
+        #     print 'Bin low edge:', nom.GetBinLowEdge(bin)
+        #     print 'Bin low edge mlfit:', nom2.GetBinLowEdge(bin)
+        #     nom.SetBinContent(bin, nom2.GetBinContent(bin))
+        #     print 'NEW Bin', bin, ' Nom:', nom.GetBinContent(bin)
             
-            # count the most sensitive bins
-            if bin > 11:
+        #     # count the most sensitive bins
+        #     if bin > 11:
 
-                count[p] += nom.GetBinContent(bin)
+        #         count[p] += nom.GetBinContent(bin)
 
-                if not isVV:
-                    if 'ZH' in p or 'ggZH' in p:
-                        total_sig_count += nom.GetBinContent(bin)
-                    else: total_bkg_count+= nom.GetBinContent(bin)
-                if isVV:
-                    if 'VVHF' in p:
-                        total_sig_count+= nom.GetBinContent(bin)
-                    else: total_bkg_count+= nom.GetBinContent(bin)
+        #         if not isVV:
+        #             if 'ZH' in p or 'ggZH' in p:
+        #                 total_sig_count += nom.GetBinContent(bin)
+        #             else: total_bkg_count+= nom.GetBinContent(bin)
+        #         if isVV:
+        #             if 'VVHF' in p:
+        #                 total_sig_count+= nom.GetBinContent(bin)
+        #             else: total_bkg_count+= nom.GetBinContent(bin)
 
 
 
@@ -330,8 +328,8 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
                     bestNui.Add(bestNuiVar)
                 counter +=1
         
-        #nom.Add(bestNui)
-        #nom.Scale(theShapes[p].Integral()/nom.Integral()*theBestFit[p])
+        nom.Add(bestNui)
+        nom.Scale(theShapes[p].Integral()/nom.Integral()*theBestFit[p])
 
         # Add the rateParam here
         '''
@@ -598,7 +596,7 @@ def drawFromDC():
     print 'nBins:', Stack.nBins
     print 'xMin:', Stack.xMin
     print 'xMax:', Stack.xMax
-
+    
 
     file = open(opts.dc, "r")
 
@@ -1066,7 +1064,7 @@ def drawFromDC():
     Stack.overlay = [Overlay]
     print '\n\n\t\t Overlay: ',Stack.overlay
     
-    Stack.AddErrors=Error
+    #Stack.AddErrors=Error
     if dataname == 'Wtn': 
         lumi = 18300.
     Stack.lumi = lumi

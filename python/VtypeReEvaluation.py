@@ -273,7 +273,7 @@ DY_parton_list = ['DY0J', 'DY1J']
 temp_list = ['DY_600to800']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
-file_list = prep_list
+file_list = DY_parton_list
 
 #for file in file_list:
 def osSystem(file):

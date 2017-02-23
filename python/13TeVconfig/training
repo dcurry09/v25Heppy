@@ -126,8 +126,8 @@ factorysettings: !V:Color:!DrawProgressBar:AnalysisType=Classification:Transform
 # which BDTs to apply during evaluation step
 
 
-List_for_submitscript:gg_plus_ZH125_highZpt,gg_plus_ZH125_lowZpt,VV_bdt_lowZpt,VV_bdt_highZpt
-#List_for_submitscript: 
+#List_for_submitscript:gg_plus_ZH125_highZpt,gg_plus_ZH125_lowZpt,VV_bdt_lowZpt,VV_bdt_highZpt
+List_for_submitscript:gg_plus_ZH125_highZpt,gg_plus_ZH125_lowZpt
 
 
 

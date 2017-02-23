@@ -20,24 +20,39 @@ class LeptonSF:
         if self.lep_binning not in self.res.keys():
             return [1.0, 0.0]
 
-        if "abseta" in self.lep_binning:
+        if "pt_abseta_ratio" in self.lep_binning:
             eta = abs(eta)
             stripForEta = 8
-
-        for etaKey, values in sorted(self.res[self.lep_binning].iteritems()) :
-            etaL = float(((etaKey[stripForEta:]).rstrip(']').split(',')[0]))
-            etaH = float(((etaKey[stripForEta:]).rstrip(']').split(',')[1]))
-            if not (eta>etaL and eta<etaH):
-                continue 
-            #print etaL, etaH
-            for ptKey, result in sorted(values.iteritems()) :
+            
+            for ptKey, values in sorted(self.res[self.lep_binning].iteritems()) :
                 ptL = float(((ptKey[4:]).rstrip(']').split(',')[0]))
-                ptH = float(((ptKey[4:]).rstrip(']').split(',')[1]))                
+                ptH = float(((ptKey[4:]).rstrip(']').split(',')[1]))
                 if not (pt>ptL and pt<ptH):
+                    continue
+
+                for etaKey, result in sorted(values.iteritems()) :
+                    #print etaKey
+                    etaL = float(((etaKey[stripForEta:]).rstrip(']').split(',')[0]))
+                    etaH = float(((etaKey[stripForEta:]).rstrip(']').split(',')[1]))
+                    if not (eta>etaL and eta<etaH):
+                        continue
+                    
+                    return [result["value"], result["error"]]
+
+        else:
+            for etaKey, values in sorted(self.res[self.lep_binning].iteritems()) :
+                #print etaKey
+                etaL = float(((etaKey[stripForEta:]).rstrip(']').split(',')[0]))
+                etaH = float(((etaKey[stripForEta:]).rstrip(']').split(',')[1]))
+                if not (eta>etaL and eta<etaH):
                     continue 
-                #print ptL, ptH
-                #print "|eta| bin: %s  pT bin: %s\tdata/MC SF: %f +/- %f" % (etaKey, ptKey, result["value"], result["error"])
-                return [result["value"], result["error"]]
+
+                for ptKey, result in sorted(values.iteritems()) :
+                    ptL = float(((ptKey[4:]).rstrip(']').split(',')[0]))
+                    ptH = float(((ptKey[4:]).rstrip(']').split(',')[1]))                
+                    if not (pt>ptL and pt<ptH):
+                        continue 
+                    return [result["value"], result["error"]]
 
         # if nothing was found, return 1 +/- 0
         return [1.0, 0.0]
