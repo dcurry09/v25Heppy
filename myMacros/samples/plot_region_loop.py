@@ -40,6 +40,10 @@ zhf_list = ['Zhf_low_Zee', 'Zhf_high_Zuu', 'Zhf_low_Zuu', 'Zhf_high_Zee']
 
 zlf_list = ['Zlf_low_Zee', 'Zlf_high_Zuu', 'Zlf_low_Zuu', 'Zlf_high_Zee']
 
+zlf_mu_list = ['Zlf_high_Zuu', 'Zlf_low_Zuu']
+
+zlf_ele_list = ['Zlf_low_Zee', 'Zlf_high_Zee']
+
 ttbar_list = ['ttbar_low_Zee', 'ttbar_high_Zuu', 'ttbar_low_Zuu', 'ttbar_high_Zee']
 
 
@@ -67,13 +71,13 @@ vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
 # Jet Regression Regions
 #reg_list = ['jet_regression_Zhf']
 
-temp_list = ['Zhf_low_Zuu']
+temp_list = ['Zlf_low_Zee']
 
 # choose which lists to loop over                
 
-#region_list = temp_list
+region_list = temp_list
 #region_list = reg_list
-region_list = control_list
+#region_list = control_list
 #region_list = signal_list
 #region_list = control_list + signal_list
 
@@ -117,15 +121,25 @@ if isSplit:
      p2.close()
      p2.join()
 
-     p3 = multiprocessing.Pool()
+     p3 = multiprocessing.Pool()     
      results = p3.imap(osSystem, zlf_list)
      p3.close()
      p3.join()
      
-     p4 = multiprocessing.Pool()
-     results = p4.imap(osSystem, signal_list)
-     p4.close()
-     p4.join()
+     # p3 = multiprocessing.Pool()
+     # results = p3.imap(osSystem, zlf_mu_list)
+     # p3.close()
+     # p3.join()
+     
+     # p3 = multiprocessing.Pool()
+     # results = p3.imap(osSystem, zlf_ele_list)
+     # p3.close()
+     # p3.join()
+
+     #p4 = multiprocessing.Pool()
+     #results = p4.imap(osSystem, signal_list)
+     #p4.close()
+     #p4.join()
 
 
 # If desired move newly created plots to their own directory

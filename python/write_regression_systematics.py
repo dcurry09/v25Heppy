@@ -580,7 +580,7 @@ for job in info:
     theForms = {}
     theVars0 = {}
     theVars1 = {}
-
+    
     def addVarsToReader(reader,theVars,theForms,i):
         for key in regVars:
             print key
@@ -603,7 +603,7 @@ for job in info:
 
 
 	return
-
+    
     addVarsToReader(readerJet0,theVars0,theForms,0)
     addVarsToReader(readerJet1,theVars1,theForms,1)
     readerJet0.BookMVA( "jet0Regression", regWeight )
@@ -633,6 +633,8 @@ for job in info:
 	    brakets = ""
 	    if formulaX.find("[hJCidx[0]]"): brakets = "[hJCidx[0]]"
 	    elif formulaX.find("[hJCidx[1]]"): brakets = "[hJCidx[1]]"
+	    elif formulaX.find("[hJCMVAV2idx[1]]"): brakets = "[hJCMVAV2idx[1]]"
+	    elif formulaX.find("[hJCMVAV2idx[0]]"): brakets = "[hJCMVAV2idx[0]]"
 	    elif formulaX.find("[0]"): brakets = "[0]"
 	    elif formulaX.find("[1]"): brakets = "[1]"
 	    else: pass
@@ -692,9 +694,8 @@ for job in info:
 	    readerJet1_JEC_up.BookMVA( "jet1Regression", regWeight )
 	    readerJet0_JEC_down.BookMVA( "jet0Regression", regWeight )
 	    readerJet1_JEC_down.BookMVA( "jet1Regression", regWeight )
+    
     '''
-	    
-    	    
     #Add training Flag
     #EventForTraining = array('i',[0])
     #newtree.Branch('EventForTraining',EventForTraining,'EventForTraining/I')

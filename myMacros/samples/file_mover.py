@@ -194,14 +194,8 @@ file_names.append('Zuu_H_ext4')
 #file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V25_DoubleEG__Run2016B-23Sep2016-v3/170130_125457/0001/')
 #file_names.append('Zee_B_ext3')
 
-#file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V24_SingleElectron__Run2016B-PromptReco-v2/160910_204523/0003/')
-#file_names.append('Zee_B_ext4')
-
 #file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V25_DoubleEG__Run2016C-23Sep2016-v1/170130_125536/0000/')
 #file_names.append('Zee_C_ext1')
-
-#file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V24_SingleElectron__Run2016C-PromptReco-v2/160910_204634/0001/')
-#file_names.append('Zee_C_ext2')
 
 #file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V25_DoubleEG__Run2016D-23Sep2016-v1/170130_125620/0000/')
 #file_names.append('Zee_D_ext1')
@@ -211,9 +205,6 @@ file_names.append('Zuu_H_ext4')
 
 #file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V25_DoubleEG__Run2016E-23Sep2016-v1/170130_125701/0000/')
 #file_names.append('Zee_E_ext1')
-
-#file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V24_SingleElectron__Run2016E-PromptReco-v2/160910_204822/0001/')
-#file_names.append('Zee_E_ext2')
 
 #file_list.append(eos_path4+'DoubleEG/VHBB_HEPPY_V25_DoubleEG__Run2016F-23Sep2016-v1/170130_125743/0000/')
 #file_names.append('Zee_F_ext1')
@@ -337,11 +328,11 @@ file_names.append('ggZH125')
 
 #file_list.append(eos_path+'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/VHBB_HEPPY_V21_passAll_ggZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__fall15MAv2-pu25ns15v1_76r2as_v12-v1/160322_111010/0000/')
 #file_names.append('ggZH125_allPass')
-
+'''
 
 # ==== Drell-Yan ====
-file_list.append(eos_path3+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v2/170128_125729/0000')
-file_names.append('DY_inclusive')
+#file_list.append(eos_path3+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v2/170128_125729/0000/')
+#file_names.append('DY_inclusive')
 
 #file_list.append(eos_path+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V23_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__spr16MAv2-puspr16_80r2as_2016_MAv2_v0_ext1-v1/160717_081716/0001/')
 #file_names.append('DY_inclusive_ext2')
@@ -360,63 +351,57 @@ file_names.append('DY_inclusive')
 
 #DY_inclusive_merge_list = ['DY_inclusive_ext1','DY_inclusive_ext2']
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_130358/0000/')
-file_names.append('DY_70to100')
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_130358/0000/')
+# file_names.append('DY_70to100')
 
-#DY_70to100_merge_list = ['DY_70to100']
+# #DY_70to100_merge_list = ['DY_70to100']
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_125920/0000/')
-file_names.append('DY_100to200_ext1')
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_125920/0000/')
+# file_names.append('DY_100to200_ext1')
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_125832/0000/')
-file_names.append('DY_100to200_ext2')
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_125832/0000/')
+# file_names.append('DY_100to200_ext2')
  
-DY_100to200_merge_list = ['DY_100to200_ext1','DY_100to200_ext2']
+
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_125549/0000/')
+# file_names.append('DY_200to400_ext1')
+
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_125637/0000/')
+# file_names.append('DY_200to400_ext2')
+
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_130054/0000/')
+# file_names.append('DY_400to600_ext1')
+
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_130143/0000/')
+# file_names.append('DY_400to600_ext2')
+
+# #file_list.append(eos_path3+'DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151803/0000/')
+# #file_names.append('DY_600to800_ext1')
+
+#file_list.append(eos_path3+'DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151850/0000/')
+#file_names.append('DY_800to1200_ext1')
+
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151610/0000/')
+# file_names.append('DY_1200to2500')
+
+# file_list.append(eos_path3+'DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151714/0000/')
+# file_names.append('DY_2500toInf')
 
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_125549/0000/')
-file_names.append('DY_200to400_ext1')
+# # Dedicated DY Bjet Sample
+# file_list.append(eos_path3+'DYBJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYBJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_153101/0000/')
+# file_names.append('DY_Bjets')
 
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_125637/0000/')
-file_names.append('DY_200to400_ext2')
-
-DY_200to400_merge_list = ['DY_200to400_ext1','DY_200to400_ext2']
-
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_130054/0000/')
-file_names.append('DY_400to600_ext1')
-
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_130143/0000/')
-file_names.append('DY_400to600_ext2')
-
-DY_400to600_merge_list = ['DY_400to600_ext1','DY_400to600_ext2']
-
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151803/0000/')
-file_names.append('DY_600to800_ext1')
-
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151850/0000/')
-file_names.append('DY_800to1200_ext1')
-
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151610/0000/')
-file_names.append('DY_1200to2500')
-
-file_list.append(eos_path3+'DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151714/0000/')
-file_names.append('DY_2500toInf')
+# file_list.append(eos_path3+'DYJetsToLL_BGenFilter_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_BGenFilter_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_153211/0000/')
+# file_names.append('DY_BgenFilter')
 
 
-# Dedicated DY Bjet Sample
-file_list.append(eos_path3+'DYBJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYBJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_153101/0000/')
-file_names.append('DY_Bjets')
+# ##### NLO samples #####
+# file_list.append(eos_path3+'DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v3/170128_130507/0000/')
+# file_names.append('DY_Pt50to100')
 
-file_list.append(eos_path3+'DYJetsToLL_BGenFilter_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_BGenFilter_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_153211/0000/')
-file_names.append('DY_BgenFilter')
-'''
-
-##### NLO samples #####
-#file_list.append(eos_path3+'DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYJetsToLL_Pt-50To100_TuneCUETP8M1_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v3/170128_130507/0000/')
-#file_names.append('DY_Pt50to100')
-
-#file_list.append(eos_path3+'DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_130853/0000/')
-#file_names.append('DY_Pt100to250_ext1')
+# file_list.append(eos_path3+'DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_130853/0000/')
+# file_names.append('DY_Pt100to250_ext1')
 
 # file_list.append(eos_path3+'DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYJetsToLL_Pt-100To250_TuneCUETP8M1_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_151938/0000/')
 # file_names.append('DY_Pt100to250_ext1')
@@ -457,8 +442,14 @@ file_names.append('DY_BgenFilter')
 #file_list.append(eos_path3+'DYToLL_1J_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25/170206_153522/0001/')
 #file_names.append('DY_1J_ext2')
 
-file_list.append(eos_path3+'DYToLL_2J_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYToLL_2J_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151520/0000/')
-file_names.append('DY_2J')
+#file_list.append(eos_path3+'DYToLL_2J_13TeV-amcatnloFXFX-pythia8/VHBB_HEPPY_V25_DYToLL_2J_13TeV-amcatnloFXFX-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151520/0000/')
+#file_names.append('DY_2J')
+
+#file_list.append(eos_path3+'DY3JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DY3JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_160715/0000/')
+#file_names.append('DY_3J')
+
+#file_list.append(eos_path3+'VHBB_HEPPY_V25_DY4JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DY4JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_160813/0000/')
+#file_names.append('DY_4J')
 
 #####################
 
@@ -768,7 +759,8 @@ Zee_merge_list = ['prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3', #'pre
                   'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
                   'prep_Zee_E_ext1', #'prep_Zee_E_ext2',
                   'prep_Zee_F_ext1',
-                  'prep_Zee_G_ext1', 'prep_Zee_G_ext2', 'prep_Zee_G_ext3', 'prep_Zee_G_ext4',
+                  #'prep_Zee_G_ext1', 'prep_Zee_G_ext2', 
+                  'prep_Zee_G_ext3', 'prep_Zee_G_ext4',
                   'prep_Zee_H_ext1', 'prep_Zee_H_ext2', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
                   
 
@@ -791,6 +783,8 @@ DY_100to200_merge_list = ['DY_100to200_ext1', 'DY_100to200_ext2']
 DY_200to400_merge_list = ['DY_200to400_ext1', 'DY_200to400_ext2']
 
 DY_400to600_merge_list = ['DY_400to600_ext1', 'DY_400to600_ext2']
+
+DY_800to1200_merge_list = ['DY_800to1200_ext1']
 
 ZH125_merge_list = ['ZH125_ext1', 'ZH125_ext2']
 
@@ -825,23 +819,28 @@ merge_list = [
     #['Zuu.root', Zuu_merge_list],
     #['Zee.root', Zee_merge_list]
     #['DY_inclusive.root', DY_inclusive_merge_list],
+
     #['DY_100to200.root',DY_100to200_merge_list], 
     #['DY_200to400.root',DY_200to400_merge_list], 
     #['DY_400to600.root',DY_400to600_merge_list], 
+    #['DY_800to1200.root',DY_800to1200_merge_list],
+
     #['DY_600to800.root',DY_600to800_merge_list],
     #['ttbar.root',ttbar_merge_list]
     #['ZH125.root',ZH125_merge_list],
     #['ggZH125.root', ggZH125_merge_list],
     #['ST_t',ST_t_merge_list],
+
     #['DY_Pt100to250.root',DY_Pt100to250_list],
     #['DY_Pt250to400.root',DY_Pt250to400_list],
     #['DY_Pt400to650.root',DY_Pt400to650_list],
     #['DY_Pt650toInf.root',DY_Pt650toInf_list]
+    
     #['DY1J.root',DY_1J_list],
-    ['DY2J_ext1.root',DY_2J_ext1_list],
-    ['DY2J_ext2.root',DY_2J_ext2_list],
-    ['DY2J_ext3.root',DY_2J_ext3_list],
-    ['DY2J_ext4.root',DY_2J_ext4_list]
+    #['DY2J_ext1.root',DY_2J_ext1_list],
+    #['DY2J_ext2.root',DY_2J_ext2_list],
+    #['DY2J_ext3.root',DY_2J_ext3_list],
+    #['DY2J_ext4.root',DY_2J_ext4_list]
     ]
 
 
@@ -855,11 +854,11 @@ def merge(list):
     input_file = ''
 
     for sample in list[1]:
-        #input_file += ' '+uftrig_path+sample+'.root'
-        input_file += ' /exports/uftrig01a/dcurry/heppy/files/btag_out/'+sample+'.root'
+        input_file += ' '+uftrig_path+sample+'.root'
+        #input_file += ' /exports/uftrig01a/dcurry/heppy/files/vtype_out/'+sample+'.root'
 
-    #merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
-    merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/btag_out/v25_'+outfile_name, input_file)
+    merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
+    #merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/vtype_out/v25_'+outfile_name, input_file)
     print '----> Merging Files into', uftrig_path+outfile_name,'.  This may take a while....'
     os.system(merge)
 

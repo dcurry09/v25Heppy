@@ -13,7 +13,7 @@ import multiprocessing
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
 #main_dir  = 'TEST'
-main_dir = 'v25_CR_CMVA_NLO_2_19'
+main_dir = 'v25_CR_CSV_NLO_2_22'
 
 
 
@@ -306,8 +306,8 @@ for dir in region_list:
 
 
 
-    os.system(t1)
-
+    #os.system(t1)
+    
     #temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'
 
     #print temp_string

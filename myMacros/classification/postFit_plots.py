@@ -20,6 +20,9 @@ from matplotlib import interactive
 isVV = False
 #isVV = True
 
+isFromDC = False
+isFromDC = True
+
 # Wlv: WH
 #in_dir = 'WlnHbb_Datacards_Nov8_noRateParamsApplied_withSplitNuisances'
 
@@ -37,7 +40,8 @@ isVV = False
 #in_dir = 'v24_ICHEP_VV_11_22_noRP'
 
 # VH
-in_dir = 'v24_ICHEP_VH_1_16_noRP'
+in_dir = 'v25_SR_CSV_NLO_2_21'
+#in_dir = 'v25_VH_CSV_2_14'
 
 # Gael
 #in_dir = 'DC_v23_VH_v2_25_11_2016'
@@ -45,7 +49,9 @@ in_dir = 'v24_ICHEP_VH_1_16_noRP'
 # CR
 #in_dir = 'v24_ICHEP_CR_11_22_SRplusCR'
 
-out_dir = '~/www/TEST_v5/'
+#out_dir = '~/www/v25_VH_CSV_NLO_2_21_preFit_12bins/'
+out_dir = '~/www/v25_VH_CSV_NLO_2_21_preFit_12bins_noRebin/'
+#out_dir = '~/www/TEST4/'
 
 
 cr_list = {
@@ -179,11 +185,10 @@ for region in final_list:
     elif 'Znn' in region:
          s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCSV -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
-    #os.system(s3)
 
-    # copy the mlfit file to DC directory
-    #c1 = "cp mlfit.root ../limits/"+in_dir
-    #os.system(c1)
+
+    if isFromDC:
+        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
     print 'Plot Command:', s1
     

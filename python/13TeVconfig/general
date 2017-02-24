@@ -291,7 +291,9 @@ PUWeight: puWeight
 # =================
 
 #weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight
-weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>
+weightF: <!Weights|PUWeight!>
+#*<!Weights|btagWeight!>
+#*<!Weights|weightF_SF!>
 
 weightF_bdt: sign(genWeight)*<!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight[0]* DY_ewkWeight[0]
 #*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight

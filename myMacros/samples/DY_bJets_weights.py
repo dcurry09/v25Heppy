@@ -7,7 +7,7 @@
 import ROOT
 import numpy as np
 
-path = '/exports/uftrig01a/dcurry/heppy/files/btag_out/v25_' 
+path = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/v25_' 
 
 
 def getWeight(fileInc, fileB, region):
@@ -115,7 +115,7 @@ Pt650            = "(lheV_pt>650)"
 
 
 
-# print "weightZBjetsHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLBjets, HT0+"&&"+DYBJets)
+#print "weightZBjetsHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLBjets, HT0+"&&"+DYBJets)
 # print "weightZBjetsHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLBjets, HT70+"&&"+DYBJets)
 # print "weightZBjetsHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLBjets, HT100+"&&"+DYBJets)
 # print "weightZBjetsHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLBjets, HT200+"&&"+DYBJets)
@@ -125,7 +125,7 @@ Pt650            = "(lheV_pt>650)"
 # print "weightZBjetsHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLBjets, HT1200+"&&"+DYBJets)
 # print "weightZBjetsHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLBjets, HT2500+"&&"+DYBJets)
 
-# print "weightZBGenFilterHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLjetsBGenFilter, HT0+"&&"+DYJetsBGenFilter)
+# #print "weightZBGenFilterHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLjetsBGenFilter, HT0+"&&"+DYJetsBGenFilter)
 # print "weightZBGenFilterHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLjetsBGenFilter, HT70+"&&"+DYJetsBGenFilter)
 # print "weightZBGenFilterHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLjetsBGenFilter, HT100+"&&"+DYJetsBGenFilter)
 # print "weightZBGenFilterHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLjetsBGenFilter, HT200+"&&"+DYJetsBGenFilter)
@@ -135,204 +135,145 @@ Pt650            = "(lheV_pt>650)"
 # print "weightZBGenFilterHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLjetsBGenFilter, HT1200+"&&"+DYJetsBGenFilter)
 # print "weightZBGenFilterHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLjetsBGenFilter, HT2500+"&&"+DYJetsBGenFilter)
 
+
+
 dy2b_file_list = ['DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3','DY2J_ext4']
 
-getWeight_nom(dy2b_file_list)
+#getWeight_nom(dy2b_file_list)
 
 
 
-data_list = ['Zuu', 'Zee']
+zee_list = ['prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3', 
+            'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
+            'prep_Zee_E_ext1', 
+            'prep_Zee_C_ext1',  
+            'prep_Zee_F_ext1',  
+            'prep_Zee_G_ext3', 'prep_Zee_G_ext4',  
+            'prep_Zee_H_ext1', 'prep_Zee_H_ext2',  'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
 
-signal_list = ['ZH125', 'ggZH125']
+sample_list = zee_list
 
-bkg_list = ['ZZ_2L2Q', 'WZ', 'ttbar']
+path = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 
-DY_list = ['DY_inclusive', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600toInf', 'DY_Bjets', 'DY_BgenFilter']
-           #'DY_5to50_inclusive', 'DY_5to50_100to200', 'DY_5to50_200to400', 'DY_5to50_400to600', 'DY_5to50_600toInf']
-
-ST_list = ['ST_t', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
-
-#sample_list = signal_list + bkg_list + DY_list
-sample_list = data_list
-
-
-xsec_list = {'ZH125':0.04837, 'ggZH125': 0.01340, 'ZZ_2L2Q':3.32, 'WZ':0.16, 'ttbar':815.16,
-             'DY_inclusive':6024.0, 'DY_100to200':171.46, 'DY_200to400':52.585, 'DY_400to600':6.76131, 'DY_600toInf':2.718,
-             'ST_t':220.45, 'ST_s':10.32, 'ST_tW_antitop':35.6, 'ST_tW_top':35.6,
-             'DY_inclusive':6024.0, 'DY_100to200':171.46, 'DY_200to400':52.585, 'DY_400to600':6.76131, 'DY_600toInf':2.718, 'DY_Bjets':1, 'DY_BgenFilter':1
-             }
-
-
-prep_cut = '(Vtype == 1 | Vtype == 0) & vLeptons_pt[0] > 15. & vLeptons_pt[1] > 15.'
-
-nolepton = '!(Jet_leptonPt[hJCidx[0]] > 0. || Jet_leptonPt[hJCidx[1]] > 0.)'
-
-semiLepton = '(Jet_leptonPt[hJCidx[0]] > 0. || Jet_leptonPt[hJCidx[1]] > 0.)'
-
-Vpt_150 = ' & V_pt > 150.0'
-
-Vpt_high = ' & V_pt > 140.0'
-
-Vpt_low = ' & V_pt > 50 & V_pt < 90'
-
-Vpt_med = ' & V_pt > 90 & V_pt < 140'
-
-SR_cut = ' & Jet_btagCSV[hJCidx[0]] > 0.460 & Jet_btagCSV[hJCidx[1]] > 0.460 & V_mass > 75. & V_mass < 105. & abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & Jet_puId[hJCidx[0]] >= 4 & Jet_puId[hJCidx[1]] >= 4 & ((Jet_puId[hJCidx[1]] >= 7 & Jet_btagCSV[hJCidx[1]] >= 0.53 & Jet_btagCSV[hJCidx[1]] <= 0.55) || !(Jet_btagCSV[hJCidx[1]] > 0.53 & Jet_btagCSV[hJCidx[1]] < 0.55)) & vLeptons_pt[0] > 20. & vLeptons_pt[1] > 20. & ((Vtype == 1 & vLeptons_relIso03[0] < 0.15 & vLeptons_relIso03[1] < 0.15) || (Vtype == 0 & vLeptons_relIso04[0] < 0.25 & vLeptons_relIso04[1] < 0.25)) & (run <= 275125) & HCSV_reg_mass < 150. & HCSV_reg_mass > 90. & Jet_pt_reg[hJCidx[0]] > 20. & Jet_pt_reg[hJCidx[1]] > 20. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & V_pt < 2000.'
-
-ele_cut = ' & Vtype == 1'
-
-mu_cut = ' & Vtype == 0'
-
-final_cut_semi = prep_cut  +' & '+ semiLepton +' & '+ Vpt_150+' & '+SR_cut  
-
-final_cut_NOsemi = prep_cut +' & '+ nolepton +' & '+ Vpt_150+' & '+SR_cut
-
-final_cut_semi_ele = semiLepton +' & '+ Vpt_150+' & '+SR_cut +' & Vtype == 1'
-
-final_cut_semi_mu = semiLepton +' & '+ Vpt_150+' & '+SR_cut +' & Vtype == 0'
-
-final_cut_NOsemi_mu = prep_cut +' & '+ nolepton +' & '+ Vpt_150+' & '+SR_cut +' & Vtype == 0'
-
-final_cut_NOsemi_ele = prep_cut +' & '+ nolepton +' & '+ Vpt_150+' & '+SR_cut +' & Vtype == 1'
-
-
-low_cut = prep_cut + SR_cut + Vpt_low
-med_cut = prep_cut + SR_cut + Vpt_med
-high_cut = prep_cut + SR_cut + Vpt_high
-
-low_cut_ele = prep_cut + SR_cut + Vpt_low + ele_cut
-med_cut_ele = prep_cut + SR_cut + Vpt_med + ele_cut
-high_cut_ele = prep_cut + SR_cut + Vpt_high + ele_cut
-
-low_cut_mu = prep_cut + SR_cut + Vpt_low + mu_cut
-med_cut_mu = prep_cut + SR_cut + Vpt_med + mu_cut
-high_cut_mu = prep_cut + SR_cut + Vpt_high + mu_cut
-
-low_bkg_tot = 0
-low_sig_tot = 0
-
-med_bkg_tot = 0
-med_sig_tot = 0
-
-high_bkg_tot = 0
-high_sig_tot = 0
-
-low_bkg_ele = 0
-low_sig_ele = 0
-med_bkg_ele = 0
-med_sig_ele = 0
-high_bkg_ele = 0
-high_sig_ele = 0
-
-low_bkg_mu = 0
-low_sig_mu = 0
-med_bkg_mu = 0
-med_sig_mu = 0
-high_bkg_mu = 0
-high_sig_mu = 0
-
-lumi = 4340.0
+count_B, count_D, count_G, count_H2, count_H3 = 0,0,0,0,0
 
 for sample in sample_list:
     
-    break
     print '\n Sample:', sample
     
     f = ROOT.TFile.Open(path+sample+".root")
     tree = f.Get("tree")
+    
+    countB      = 1.* tree.GetEntries()
+    print 'countB',countB
+    f.Close()
+    
+    if 'Zee_B' in sample: 
+        count_B += countB
+        print 'DoubleEG__Run2016B-23Sep2016-v3:', count_B
 
-    posWeight = f.Get('CountPosWeight')
-    negWeight = f.Get('CountNegWeight')
+    if 'Zee_D' in sample: 
+        count_D += countB
+        print 'DoubleEG__Run2016D-23Sep2016-v1', count_D
 
-    xsec = xsec_list[sample]
-    theScale = lumi*xsec / (posWeight.GetBinContent(1) - negWeight.GetBinContent(1))
+    if 'Zee_G' in sample: 
+        count_G += countB
+        print 'DoubleEG__Run2016G-23Sep2016-v1', count_G
+    
+    if 'Zee_H_ext3' in sample or 'Zee_H_ext4' in sample: 
+        count_H2 += countB
+        print 'VHBB_HEPPY_V25_DoubleEG__Run2016H-PromptReco-v2', count_H2
+        
+    if 'Zee_H_ext2' in sample:
+        count_H3 += countB
+        print 'VHBB_HEPPY_V25_DoubleEG__Run2016H-PromptReco-v3', count_H3
 
 
-    # For sig/bkg counts
-    if sample == 'ZH125' or sample == 'ggZH125':
-        low_sig_tot += 1.* tree.GetEntries(low_cut) * theScale
-        med_sig_tot += 1.* tree.GetEntries(med_cut) * theScale
-        high_sig_tot += 1.* tree.GetEntries(high_cut) * theScale
+#     # For sig/bkg counts
+#     if sample == 'ZH125' or sample == 'ggZH125':
+#         low_sig_tot += 1.* tree.GetEntries(low_cut) * theScale
+#         med_sig_tot += 1.* tree.GetEntries(med_cut) * theScale
+#         high_sig_tot += 1.* tree.GetEntries(high_cut) * theScale
 
-        low_sig_ele += 1.* tree.GetEntries(low_cut_ele) * theScale
-        med_sig_ele += 1.* tree.GetEntries(med_cut_ele) * theScale
-        high_sig_ele += 1.* tree.GetEntries(high_cut_ele) * theScale
+#         low_sig_ele += 1.* tree.GetEntries(low_cut_ele) * theScale
+#         med_sig_ele += 1.* tree.GetEntries(med_cut_ele) * theScale
+#         high_sig_ele += 1.* tree.GetEntries(high_cut_ele) * theScale
 
-        low_sig_mu += 1.* tree.GetEntries(low_cut_mu) * theScale
-        med_sig_mu += 1.* tree.GetEntries(med_cut_mu) * theScale
-        high_sig_mu += 1.* tree.GetEntries(high_cut_mu) * theScale
+#         low_sig_mu += 1.* tree.GetEntries(low_cut_mu) * theScale
+#         med_sig_mu += 1.* tree.GetEntries(med_cut_mu) * theScale
+#         high_sig_mu += 1.* tree.GetEntries(high_cut_mu) * theScale
 
         
-    else:
-        low_bkg_tot += 1.* tree.GetEntries(low_cut) * theScale
-        med_bkg_tot += 1.* tree.GetEntries(med_cut) * theScale
-        high_bkg_tot += 1.* tree.GetEntries(high_cut) * theScale
+#     else:
+#         low_bkg_tot += 1.* tree.GetEntries(low_cut) * theScale
+#         med_bkg_tot += 1.* tree.GetEntries(med_cut) * theScale
+#         high_bkg_tot += 1.* tree.GetEntries(high_cut) * theScale
 
-        low_bkg_ele += 1.* tree.GetEntries(low_cut_ele) * theScale
-        med_bkg_ele += 1.* tree.GetEntries(med_cut_ele) * theScale
-        high_bkg_ele += 1.* tree.GetEntries(high_cut_ele) * theScale
+#         low_bkg_ele += 1.* tree.GetEntries(low_cut_ele) * theScale
+#         med_bkg_ele += 1.* tree.GetEntries(med_cut_ele) * theScale
+#         high_bkg_ele += 1.* tree.GetEntries(high_cut_ele) * theScale
 
-        low_bkg_mu += 1.* tree.GetEntries(low_cut_mu) * theScale
-        med_bkg_mu += 1.* tree.GetEntries(med_cut_mu) * theScale
-        high_bkg_mu += 1.* tree.GetEntries(high_cut_mu) * theScale
+#         low_bkg_mu += 1.* tree.GetEntries(low_cut_mu) * theScale
+#         med_bkg_mu += 1.* tree.GetEntries(med_cut_mu) * theScale
+#         high_bkg_mu += 1.* tree.GetEntries(high_cut_mu) * theScale
 
 
         
-    '''
-    count_1semi_pt150 = 1.* tree.GetEntries(final_cut_semi)
-    print "\n"+sample+" 1 semi pT 150 Count: ", count_1semi_pt150
+#     '''
+#     count_1semi_pt150 = 1.* tree.GetEntries(final_cut_semi)
+#     print "\n"+sample+" 1 semi pT 150 Count: ", count_1semi_pt150
     
-    count_NOsemi_pt150 = 1.* tree.GetEntries(final_cut_NOsemi)
-    print "\n"+sample+" NO semi pT 150 Count: ", count_NOsemi_pt150
+#     count_NOsemi_pt150 = 1.* tree.GetEntries(final_cut_NOsemi)
+#     print "\n"+sample+" NO semi pT 150 Count: ", count_NOsemi_pt150
     
     
-    count = 1.* tree.GetEntries(final_cut_semi_ele)
-    print "\n"+sample+" 1 semi pT 150 Electron Count: ", count
+#     count = 1.* tree.GetEntries(final_cut_semi_ele)
+#     print "\n"+sample+" 1 semi pT 150 Electron Count: ", count
 
-    count = 1.* tree.GetEntries(final_cut_semi_mu)
-    print "\n"+sample+" 1 semi pT 150 Muon Count: ", count
+#     count = 1.* tree.GetEntries(final_cut_semi_mu)
+#     print "\n"+sample+" 1 semi pT 150 Muon Count: ", count
 
-    count = 1.* tree.GetEntries(final_cut_NOsemi_ele)
-    print "\n"+sample+" NO semi pT 150 Electron Count: ", count
+#     count = 1.* tree.GetEntries(final_cut_NOsemi_ele)
+#     print "\n"+sample+" NO semi pT 150 Electron Count: ", count
     
-    count = 1.* tree.GetEntries(final_cut_NOsemi_mu)
-    print "\n"+sample+" NO semi pT 150 Muon Count: ", count
-    '''
+#     count = 1.* tree.GetEntries(final_cut_NOsemi_mu)
+#     print "\n"+sample+" NO semi pT 150 Muon Count: ", count
+#     '''
 
 
-    '''
-    if sample == 'Zuu' or sample == 'Zee':
-        f = ROOT.TFile.Open(path+sample+".root")
-        tree = f.Get("tree")
-        countInc = 1.* tree.GetEntries(prep_cut+'&json==1')
-    '''
+#     '''
+#     if sample == 'Zuu' or sample == 'Zee':
+#         f = ROOT.TFile.Open(path+sample+".root")
+#         tree = f.Get("tree")
+#         countInc = 1.* tree.GetEntries(prep_cut+'&json==1')
+#     '''
 
-    #print "\n"+sample+" Event Count: ", countInc 
-
-
-'''
-print '============ Results ============='
-print ' Low Sig:', low_sig_tot, ' , Low Ele:', low_sig_ele,' , Low Mu:', low_sig_mu
-print ' Low Bkg:', low_bkg_tot, ' , Low Ele:', low_bkg_ele,' , Low Mu:', low_bkg_mu
-sb_low = low_sig_tot/np.sqrt(low_bkg_tot)
-print 'Low S/rootB:', sb_low
-
-print ' \nMed Sig:', med_sig_tot, ' , Med Ele:', med_sig_ele,' , Med Mu:', med_sig_mu
-print ' Med Bkg  :', med_bkg_tot, ' , Med Ele:', med_bkg_ele,' , Med Mu:', med_bkg_mu
-sb_med = med_sig_tot/np.sqrt(med_bkg_tot)
-print 'Med S/rootB:', sb_med
-
-print ' \nHigh Sig:', high_sig_tot, ' , High Ele:', high_sig_ele,' , High Mu:', high_sig_mu
-print ' High Bkg  :', high_bkg_tot, ' , high Ele:', high_bkg_ele,' , High Mu:', high_bkg_mu
-sb_high = high_sig_tot/np.sqrt(high_bkg_tot)
-print 'High S/rootB:', sb_high
+#     #print "\n"+sample+" Event Count: ", countInc 
 
 
-print '\n Total from Categories S/rootB:', 
-sb_tot = np.sqrt( (sb_low)*(sb_low) + (sb_med)*(sb_med) + (sb_high)*(sb_high) )
-print sb_tot
+# '''
+# print '============ Results ============='
+# print ' Low Sig:', low_sig_tot, ' , Low Ele:', low_sig_ele,' , Low Mu:', low_sig_mu
+# print ' Low Bkg:', low_bkg_tot, ' , Low Ele:', low_bkg_ele,' , Low Mu:', low_bkg_mu
+# sb_low = low_sig_tot/np.sqrt(low_bkg_tot)
+# print 'Low S/rootB:', sb_low
 
-print '\n Total from NO Categories S/rootB:'
-sb_one = (low_sig_tot+med_sig_tot+high_sig_tot)/(np.sqrt(low_bkg_tot+med_bkg_tot+high_bkg_tot ) )
-print sb_one
-'''
+# print ' \nMed Sig:', med_sig_tot, ' , Med Ele:', med_sig_ele,' , Med Mu:', med_sig_mu
+# print ' Med Bkg  :', med_bkg_tot, ' , Med Ele:', med_bkg_ele,' , Med Mu:', med_bkg_mu
+# sb_med = med_sig_tot/np.sqrt(med_bkg_tot)
+# print 'Med S/rootB:', sb_med
+
+# print ' \nHigh Sig:', high_sig_tot, ' , High Ele:', high_sig_ele,' , High Mu:', high_sig_mu
+# print ' High Bkg  :', high_bkg_tot, ' , high Ele:', high_bkg_ele,' , High Mu:', high_bkg_mu
+# sb_high = high_sig_tot/np.sqrt(high_bkg_tot)
+# print 'High S/rootB:', sb_high
+
+
+# print '\n Total from Categories S/rootB:', 
+# sb_tot = np.sqrt( (sb_low)*(sb_low) + (sb_med)*(sb_med) + (sb_high)*(sb_high) )
+# print sb_tot
+
+# print '\n Total from NO Categories S/rootB:'
+# sb_one = (low_sig_tot+med_sig_tot+high_sig_tot)/(np.sqrt(low_bkg_tot+med_bkg_tot+high_bkg_tot ) )
+# print sb_one
+# '''

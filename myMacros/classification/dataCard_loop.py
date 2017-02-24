@@ -54,8 +54,15 @@ SR_combine_list_high = ['vhbb_DC_TH_BDT_Zee_HighPt.txt', 'vhbb_DC_TH_BDT_Zuu_Hig
 # ======== Signal Split Regions ========
 bdt_list = ['BDT_Zee_high_Zpt', 'BDT_Zuu_high_Zpt', 'BDT_Zee_low_Zpt', 'BDT_Zuu_low_Zpt']
 
+#bdt_list = ['BDT_Zee_high_Zpt', 'BDT_Zuu_high_Zpt']
+
+
 control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu',
                 'Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
+
+mu_control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu']
+
+ele_control_list = ['Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
 
 #bdt_list = ['BDT_Zee', 'BDT_Zuu'] 
 
@@ -69,7 +76,7 @@ control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu',
 
 # ====================================
 
-temp_list = ['Zlf_Zuu']
+temp_list = ['BDT_Zee_low_Zpt']
 
 # ==============================================
 #datacard_list = bdt_list
@@ -79,7 +86,7 @@ datacard_list = temp_list
 
 ##### Directory to save datacards ####
 
-title = 'CMVA_NLO_2_19'
+title = 'CSV_NLO_2_21'
 
 sig_dir = 'v25_SR_'+title
 
@@ -95,7 +102,7 @@ batch = False
 
 # choose bdt, CR split
 isSplit = False
-isSplit = True
+#isSplit = True
  
 # For Control Region Scale Factors
 isCombine = False
@@ -107,11 +114,11 @@ isFinalFit = False
 
 # For BDT final fit(One Category)
 isFOM = False
-isFOM = True
+#isFOM = True
 
 # BDT final fit(split Pt Categories)
 splitRegionFOM = False
-#splitRegionFOM = True
+splitRegionFOM = True
 
 # For Diboson Analysis
 isDiboson = False
@@ -158,6 +165,7 @@ if batch:
     p.close()
     p.join()
 
+    
     # Move all datacards to unique directory
     #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
     #    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
@@ -179,9 +187,9 @@ if batch:
         
     print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
 
-
     # signal DCs
     os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
+    
 
     # background
     os.system('mv ../limits/*Zhf* ../limits/'+cr_dir+'/')
@@ -210,35 +218,38 @@ if isSplit:
     p.close()
     p.join()
 
+    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+    os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
+    
+    # p1 = multiprocessing.Pool()
+    # results = p1.imap(osSystem, control_list)
+    # p1.close()
+    # p1.join()
+
     p1 = multiprocessing.Pool()
-    results = p1.imap(osSystem, control_list)
+    results = p1.imap(osSystem, mu_control_list)
     p1.close()
     p1.join()
-
-    # Move all datacards to unique directory
-    #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
-    #    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
-
-    #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
-    #    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+    
+    p1 = multiprocessing.Pool()
+    results = p1.imap(osSystem, ele_control_list)
+    p1.close()
+    p1.join()
+    
 
     if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
         os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
 
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
-        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
 
     if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
         
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
-        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
         
     print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
 
-
-    # signal DCs
-    os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
 
     # background
     os.system('mv ../limits/*Zhf* ../limits/'+cr_dir+'/')
@@ -654,11 +665,11 @@ if splitRegionFOM:
 
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt"
-    #os.system(t2)
+    os.system(t2)
 
     print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    #os.system(t2)
+    os.system(t2)
 
     print '\n==== Post Fit ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
@@ -684,7 +695,7 @@ if splitRegionFOM:
     
     #t3 = 'combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --stepSize=0.05 --rMin=-5 --rMax=5 --robustFit=1 --minimizerTolerance=100.0 --saveNorm --saveShapes --plots -v 3 vhbb_Zll.txt'
     
-    os.system(t3)
+    #os.system(t3)
     
 
 

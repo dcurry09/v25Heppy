@@ -9,10 +9,17 @@
 #jet_index: hJCidx
 #jet_btag: Jet_btagCSV
 #H_sel: HCSV
+#CSVT: 0.935
+#CSVM: 0.800
+#CSVL: 0.460
 
 jet_btag: Jet_btagCMVAV2
 jet_index: hJCMVAV2idx
 H_sel: HCMVAV2
+
+CSVT: 0.875
+CSVM: 0.185
+CSVL: -0.715
 
 #### choose vtype after fix
 vtype: Vtype_new
@@ -22,14 +29,7 @@ vLeptons: vLeptons_new
 #vtype: Vtype
 #V_pt: V
 #vLeptons: vLeptons
-                
-CSVT: 0.875
-CSVM: 0.185
-CSVL: -0.715
 
-#CSVT: 0.935
-#CSVM: 0.800
-#CSVL: 0.460
 #######################3
 
 # --------------------------------
