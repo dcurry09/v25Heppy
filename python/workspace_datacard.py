@@ -334,10 +334,10 @@ for syst in systematics:
             _weight = _weight.replace('mIsoSFWeight', 'mIsoSFWeight'+Q)
             _weight = _weight.replace('vLeptons_SF_IdCutLoose[0]*vLeptons_SF_IdCutLoose[1]', 'mIdSFWeight'+Q+'[0]')
             _weight = _weight.replace('mTrigSFWeight_ICHEP', 'mTrigSFWeight'+Q)
-
+        
         # Pu weight
-        #if 'weight_pileUp' in syst:
-        #    _weight = weightF.replace('puWeight_ichep', 'puWeight_ichep_%s' % Q.lower())
+        if 'weight_pileUp' in syst:
+            _weight = weightF.replace('puWeight', 'puWeight%s' % Q)
 
         # LHE Scale Variations(muF, muR)
         if 'CMS_vhbb_LHE_weights_scaleMuF' in syst:
@@ -440,7 +440,6 @@ for syst in systematics:
                     _weight   = _weight.replace('*bTagWeightCSV_Moriond', '*bTagWeightCSV_Moriond_cErr2HighForward%s'%(Q))
 
 
-
         '''            
         if 'JEC' in syst:    
                 
@@ -455,82 +454,40 @@ for syst in systematics:
         '''
         
         if 'JER' in syst or 'JEC' in syst:
+            if 'JEC' in syst: syst = syst.replace('JEC_', '')
+            #print 'New JEC SYST:', syst
             if bdt == True:
-                
                 _treevar = treevar.replace('.nominal','.%s_%s'%(syst,Q.lower()))
-                
-                if 'JER' in syst:
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJER%s_mass'%(Q))
-                if 'JEC' in syst:
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJEC%s_mass'%(Q))
-                    
-                # Higgs mass
-                                
+               
+                # Set the new string cut for JEC/JER mass and jet values.  Loop over JEC sys list and create string cut.
+                JECsys = {"JER",
+                          "PileUp",
+                          "Relative",
+                          "AbsoluteMisc"}
+                new_Hcut90  = 'HCMVAV2_reg_mass>90.'
+                new_Hcut150 = 'HCMVAV2_reg_mass<150.'
+                new_Jcut    = '(Jet_pt_reg[hJCMVAV2idx[0]]>20.&Jet_pt_reg[hJCMVAV2idx[1]]>20.)'
+                for sys in JECsys:
+                    new_Hcut150 = new_Hcut150+'||HCMVAV2_reg_mass_corr'+sys+Q+'<150'
+                    new_Hcut90  = new_Hcut90+'||HCMVAV2_reg_mass_corr'+sys+Q+'>90'
+                    new_Jcut    = new_Jcut+'||(hJetCMVAV2_pt_reg'+sys+Q+'[0]>20 && hJetCMVAV2_pt_reg'+sys+Q+'[1]>20)'
+                print '\n New Hcut', new_Hcut150
+        
+
                 if 'VV' not in anType:
-                    _cut = _cut.replace('HCSV_reg_mass < 150.', '(HCSV_reg_mass<150.||HCSV_reg_corrJERUp_mass<150.||HCSV_reg_corrJERDown_mass<150.||HCSV_reg_corrJECDown_mass<150.||HCSV_reg_corrJECUp_mass<150.)')
-                
-                    _cut = _cut.replace('HCSV_reg_mass > 90.', '(HCSV_reg_mass>90.||HCSV_reg_corrJERUp_mass>90.||HCSV_reg_corrJERDown_mass>90.||HCSV_reg_corrJECDown_mass>90.||HCSV_reg_corrJECUp_mass>90.)')
-                
-                if 'VV' in anType:
-                    _cut = _cut.replace('HCSV_reg_mass < 160.', '(HCSV_reg_mass<160.||HCSV_reg_corrJERUp_mass_low<160.||HCSV_reg_corrJERDown_mass_low<160.||HCSV_reg_corrJECDown_mass_low<160.||HCSV_reg_corrJECUp_mass_low<160.|| HCSV_reg_corrJERUp_mass_high<160.||HCSV_reg_corrJERDown_mass_high<160.||HCSV_reg_corrJECDown_mass_high<160.||HCSV_reg_corrJECUp_mass_high<160. || HCSV_reg_corrJERUp_mass_central<160.||HCSV_reg_corrJERDown_mass_central<160.||HCSV_reg_corrJECDown_mass_central<160.||HCSV_reg_corrJECUp_mass_central<160. || HCSV_reg_corrJERUp_mass_forward<160.||HCSV_reg_corrJERDown_mass_forward<160.||HCSV_reg_corrJECDown_mass_forward<160.||HCSV_reg_corrJECUp_mass_forward<160.)')
+                    _cut = _cut.replace('HCMVAV2_reg_mass < 150.', '('+new_Hcut150+')')
+                    _cut = _cut.replace('HCMVAV2_reg_mass > 90.', '('+new_Hcut90+')')
+                    _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', '('+new_Jcut+')')
 
-                    _cut = _cut.replace('HCSV_reg_mass > 60.', '(HCSV_reg_mass>60.||HCSV_reg_corrJERUp_mass_low>60.||HCSV_reg_corrJERDown_mass_low>60.||HCSV_reg_corrJECDown_mass_low>60.||HCSV_reg_corrJECUp_mass_low>60.|| HCSV_reg_corrJERUp_mass_high>60.||HCSV_reg_corrJERDown_mass_high>60.||HCSV_reg_corrJECDown_mass_high>60.||HCSV_reg_corrJECUp_mass_high>60. || HCSV_reg_corrJERUp_mass_central>60.||HCSV_reg_corrJERDown_mass_central>60.||HCSV_reg_corrJECDown_mass_central>60.||HCSV_reg_corrJECUp_mass_central>60. || HCSV_reg_corrJERUp_mass_forward>60.||HCSV_reg_corrJERDown_mass_forward>60.||HCSV_reg_corrJECDown_mass_forward>60.||HCSV_reg_corrJECUp_mass_forward>60.)')
+                _sys_cut = _sys_cut.replace('HCMVAV2_reg_mass', 'HCMVAV2_reg_mass_corr%s%s'%(syst,Q))
+                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[0]]', 'hJetCMVAV2_pt_reg%s%s[0]'%(syst,Q))
+                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[1]]', 'hJetCMVAV2_pt_reg%s%s[1]'%(syst,Q))
 
-                # Jet energy         Jet_pt_reg[hJCidx[0]]>20.
-                #_cut = _cut.replace('Jet_pt_reg[hJCidx[0]] > 20.', '(Jet_pt_reg_corrJERUp_low[0]>20.||Jet_pt_reg_corrJERDown_low[0]>20.||Jet_pt_reg_corrJECUp_low[0]>20.||Jet_pt_reg_corrJECDown_low[0]>20. || Jet_pt_reg_corrJERUp_high[0]>20.||Jet_pt_reg_corrJERDown_high[0]>20.||Jet_pt_reg_corrJECUp_high[0]>20.||Jet_pt_reg_corrJECDown_high[0]>20. || Jet_pt_reg_corrJERUp_central[0]>20.||Jet_pt_reg_corrJERDown_central[0]>20.||Jet_pt_reg_corrJECUp_central[0]>20.||Jet_pt_reg_corrJECDown_central[0]>20. || Jet_pt_reg_corrJERUp_forward[0]>20.||Jet_pt_reg_corrJERDown_forward[0]>20.||Jet_pt_reg_corrJECUp_forward[0]>20.||Jet_pt_reg_corrJECDown_forward[0]>20.)')
-                
-                #_cut = _cut.replace('Jet_pt_reg[hJCidx[1]] > 20.', '(Jet_pt_reg_corrJERUp_low[1]>20.||Jet_pt_reg_corrJERDown_low[1]>20.||Jet_pt_reg_corrJECUp_low[1]>20.||Jet_pt_reg_corrJECDown_low[1]>20. || Jet_pt_reg_corrJERUp_high[1]>20.||Jet_pt_reg_corrJERDown_high[1]>20.||Jet_pt_reg_corrJECUp_high[1]>20.||Jet_pt_reg_corrJECDown_high[1]>20. || Jet_pt_reg_corrJERUp_central[1]>20.||Jet_pt_reg_corrJERDown_central[1]>20.||Jet_pt_reg_corrJECUp_central[1]>20.||Jet_pt_reg_corrJECDown_central[1]>20. || Jet_pt_reg_corrJERUp_forward[1]>20.||Jet_pt_reg_corrJERDown_forward[1]>20.||Jet_pt_reg_corrJECUp_forward[1]>20.||Jet_pt_reg_corrJECDown_forward[1]>20.)')
-                '''
-                if 'JER' in syst and 'low' in syst:
-                    _treevar = treevar.replace('.nominal','.JER_%s_low'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJER%s_mass_low'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJER%s_low[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJER%s_low[1]'%(Q))
+                            
+            # if 'VV' in anType:
+            #     _cut = _cut.replace('HCSV_reg_mass < 160.', '(HCSV_reg_mass<160.||HCSV_reg_corrJERUp_mass_low<160.||HCSV_reg_corrJERDown_mass_low<160.||HCSV_reg_corrJECDown_mass_low<160.||HCSV_reg_corrJECUp_mass_low<160.|| HCSV_reg_corrJERUp_mass_high<160.||HCSV_reg_corrJERDown_mass_high<160.||HCSV_reg_corrJECDown_mass_high<160.||HCSV_reg_corrJECUp_mass_high<160. || HCSV_reg_corrJERUp_mass_central<160.||HCSV_reg_corrJERDown_mass_central<160.||HCSV_reg_corrJECDown_mass_central<160.||HCSV_reg_corrJECUp_mass_central<160. || HCSV_reg_corrJERUp_mass_forward<160.||HCSV_reg_corrJERDown_mass_forward<160.||HCSV_reg_corrJECDown_mass_forward<160.||HCSV_reg_corrJECUp_mass_forward<160.)')
 
-                if 'JER' in syst and 'high' in syst:
-                    _treevar = treevar.replace('.nominal','.JER_%s_high'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJEC%s_mass_high'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJER%s_high[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJER%s_high[1]'%(Q))
-
-                if 'JEC' in syst and 'low' in syst:
-                    _treevar = treevar.replace('.nominal','.JEC_%s_low'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJEC%s_mass_low'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJEC%s_low[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJEC%s_low[1]'%(Q))
-
-                if 'JEC' in syst and 'high' in syst:
-                    _treevar = treevar.replace('.nominal','.JEC_%s_high'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJEC%s_mass_high'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJEC%s_high[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJEC%s_high[1]'%(Q))
-
-                if 'JER' in syst and 'central' in syst:
-                    _treevar = treevar.replace('.nominal','.JER_%s_central'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJER%s_mass_central'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJER%s_central[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJER%s_central[1]'%(Q))
-
-                if 'JEC' in syst and 'central' in syst:
-                    _treevar = treevar.replace('.nominal','.JEC_%s_central'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass','HCSV_reg_corrJEC%s_mass_central'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJEC%s_central[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJEC%s_central[1]'%(Q))
-                    
-                if 'JEC' in syst and 'forward' in syst:
-                    _treevar = treevar.replace('.nominal','.JEC_%s_forward'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJEC%s_mass_forward'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJEC%s_forward[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJEC%s_forward[1]'%(Q))
-                    
-                if 'JER' in syst and 'forward' in syst:
-                    _treevar = treevar.replace('.nominal','.JER_%s_forward'%(Q.lower()))
-                    _sys_cut = _sys_cut.replace('HCSV_reg_mass', 'HCSV_reg_corrJER%s_mass_forward'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[0]]', 'Jet_pt_reg_corrJER%s_forward[0]'%(Q))
-                    #_sys_cut = _sys_cut.replace('Jet_pt_reg[hJCidx[1]]', 'Jet_pt_reg_corrJER%s_forward[1]'%(Q))
-        '''
-                    
-
+            
         else:
             _treevar = treevar
         

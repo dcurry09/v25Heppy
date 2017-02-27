@@ -24,64 +24,6 @@ TrainFlag: True
 
 writeNewVariables = {}
 
-    
-#writeNewVariables = {#
-
-#    'CSV3':'Max$(Jet_btagCSV[aJCidx])',\
-#	'naddGoodLeptons5':'Sum$(aLeptons_pt>5 && (aLeptons_jetBTagCSV<0.25 || aLeptons_relIso03<0.4 || aLeptons_looseIdSusy!=0 ||  aLeptons_jetDR>0.3 ))+Sum$(vLeptons_pt>5 && (vLeptons_jetBTagCSV<0.25 || vLeptons_relIso03<0.4 || vLeptons_looseIdSusy!=0 ||  vLeptons_jetDR>0.3 ))',\
-#	'naddGoodLeptons7':'Sum$(aLeptons_pt>7 && (aLeptons_jetBTagCSV<0.25 || aLeptons_relIso03<0.4 || aLeptons_looseIdSusy!=0 ||  aLeptons_jetDR>0.3 ))+Sum$(vLeptons_pt>7 && (vLeptons_jetBTagCSV<0.25 || vLeptons_relIso03<0.4 || vLeptons_looseIdSusy!=0 ||  vLeptons_jetDR>0.3 ))',\
-#	'naddGoodLeptons10':'Sum$(aLeptons_pt>10 && (aLeptons_jetBTagCSV<0.25 || aLeptons_relIso03<0.4 || aLeptons_looseIdSusy!=0 ||  aLeptons_jetDR>0.3 ))+Sum$(vLeptons_pt>10 && (vLeptons_jetBTagCSV<0.25 || vLeptons_relIso03<0.4 || vLeptons_looseIdSusy!=0 ||  vLeptons_jetDR>0.3 ))',\
-#	'naddGoodLeptons15':'Sum$(aLeptons_pt>15 && (aLeptons_jetBTagCSV<0.25 || aLeptons_relIso03<0.4 || aLeptons_looseIdSusy!=0 ||  aLeptons_jetDR>0.3 ))+Sum$(vLeptons_pt>15 && (vLeptons_jetBTagCSV<0.25 || vLeptons_relIso03<0.4 || vLeptons_looseIdSusy!=0 ||  vLeptons_jetDR>0.3 ))',\
-#	'naddGoodLeptons20':'Sum$(aLeptons_pt>20 && (aLeptons_jetBTagCSV<0.25 || aLeptons_relIso03<0.4 || aLeptons_looseIdSusy!=0 ||  aLeptons_jetDR>0.3 ))+Sum$(vLeptons_pt>20 && (vLeptons_jetBTagCSV<0.25 || vLeptons_relIso03<0.4 || vLeptons_looseIdSusy!=0 ||  vLeptons_jetDR>0.3 ))',\
-#	'addLepton5':'Sum$(aLeptons_pt>5&&abs(aLeptons_eta)<2.5)+Sum$(vLeptons_pt>5&&abs(vLeptons_eta)<2.5)',\
-#	'addLepton10':'Sum$(aLeptons_pt>10&&abs(aLeptons_eta)<2.5)+Sum$(vLeptons_pt>10&&abs(vLeptons_eta)<2.5)',\
-#	'addLepton20':'Sum$(aLeptons_pt>20&&abs(aLeptons_eta)<2.5)+Sum$(vLeptons_pt>20&&abs(vLeptons_eta)<2.5)',\
-#	'addLepton30':'Sum$(aLeptons_pt>30&&abs(aLeptons_eta)<2.5)+Sum$(vLeptons_pt>30&&abs(vLeptons_eta)<2.5)',\
-#	'addJet20':'Sum$(Jet_pt[aJCidx]>20. && abs(Jet_eta[aJCidx])<2.5)',\
-#	'addJetNoPU20':'Sum$(Jet_pt[aJCidx]>20. && abs(Jet_eta[aJCidx])<2.5 && Jet_puId[aJCidx]>0)',\
-#	'addCenJet20':'Sum$(Jet_pt[aJCidx]>20. && abs(Jet_eta[aJCidx])<2.4)',\
-#	'addCenJetNoPU20':'Sum$(Jet_pt[aJCidx]>20. && abs(Jet_eta[aJCidx])<2.4 && Jet_puId[aJCidx]>0)',\
-#	'addJet30':'Sum$(Jet_pt[aJCidx]>30.)',\
-#	'addJetNoPU30':'Sum$(Jet_pt[aJCidx]>30. && Jet_puId[aJCidx]>0)',\
-#	'addCenJet30':'Sum$(Jet_pt[aJCidx]>30. && abs(Jet_eta[aJCidx])<2.4)',\
-#	'addCenJetNoPU30':'Sum$(Jet_pt[aJCidx]>30. && abs(Jet_eta[aJCidx])<2.4 && Jet_puId[aJCidx]>0)',\
-#	'addJet40':'Sum$(Jet_pt[aJCidx]>40.)',\
-#	'addJetNoPU40':'Sum$(Jet_pt[aJCidx]>40. && Jet_puId[aJCidx]>0)',\
-#	'addCenJet40':'Sum$(Jet_pt[aJCidx]>40. && abs(Jet_eta[aJCidx])<2.4)',\
-#	'addCenJetNoPU40':'Sum$(Jet_pt[aJCidx]>40. && abs(Jet_eta[aJCidx])<2.4 && Jet_puId[aJCidx]>0)',\
-#	'pt_1':'max(Jet_pt[hJCidx[0]],Jet_pt[hJCidx[1]])',\
-#	'pt_2':'min(Jet_pt[hJCidx[0]],Jet_pt[hJCidx[1]])',\
-#	'addJet40':'Sum$(Jet_pt[aJCidx]>40.)',\
-#	'minDeltaPhiJet1Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Iteration$<1)',\
-#	'minDeltaPhiJet2Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Iteration$<2)',\
-#	'minDeltaPhiJet3Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Iteration$<3)',\
-#	'minDeltaPhiJet4Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Iteration$<4)',\
-#	'minDeltaPhiCenJetNoPU20Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>20 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU30Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>30 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU30Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>30 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU30Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>30 && Jet_eta<2.5 )',\
-#	'minDeltaPhiCenJetNoPU30Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>30 )',\
-#	'minDeltaPhiCenJetNoPU40Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>40 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU50Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>50 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU60Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>60 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU70Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>70 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiCenJetNoPU80Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>80 && Jet_eta<2.5 && Jet_puId)',\
-#	'minDeltaPhiJetNoPU80Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>80 && Jet_puId)',\
-#	'minDeltaPhiCenJet80Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>80 && Jet_eta<2.5 )',\
-#	'minDeltaPhiJet80Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>80 )',\
-#	'minDeltaPhiJet90Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>90 )',\
-#	'minDeltaPhiJet100Met':'MinIf$(abs(TVector2::Phi_mpi_pi(Jet_phi-met_phi)),Jet_pt>100)',\
-#	'metmetType1p2_sig':'metType1p2_pt/sqrt(met_sumEt)',\
-#	'metPuppi_sig':'metPuppi_pt/sqrt(met_sumEt)',\
-#	'met_sig':'met_pt/sqrt(met_sumEt)',\
-#	'met_sig':'met_pt/sqrt(met_sumEt)',\
-#	'DeltaPhiJet1Jet2':'abs(TVector2::Phi_mpi_pi(Jet_phi[0]-Jet_phi[1]))',\
-#	'DeltaPhiHMET':'abs(TVector2::Phi_mpi_pi(H_phi-met_phi))',\
-#        'DeltaPhiHCSVMET':'abs(TVector2::Phi_mpi_pi(HCSV_phi-met_phi))'
-
-#}
-
-
 #!! --------------------------
 #!! Libraries
 #!! --------------------------
@@ -103,37 +45,15 @@ yields: {'Zbb':584.8,'Zudsg':881.61,'ttbar':135.7,'ZZ':44.04,'Sig':5.13}
 #!! SYSTEMATICS
 #!! --------------------------
 [systematics]
-systematics: Nominal JER_up JER_down JEC_up JEC_down 
-#systematics: Nominal JER_up JER_down JEC_up JEC_down JER_up_high JER_down_high JER_up_low JER_down_low JER_up_central JER_down_central JER_up_forward JER_down_forward JEC_up_high JEC_down_high JEC_up_low JEC_down_low JEC_up_central JEC_down_central JEC_up_forward JEC_down_forward  
+#systematics: Nominal JER_up JER_down JEC_up JEC_down 
+systematics: Nominal JER_up JER_down PileUp_up PileUp_down Relative_up Relative_down 
+#AbsoluteMisc_up AbsoluteMisc_down
 
 # --------------------------------------------------
 # Varibles definition for trainging and evaluation
 # --------------------------------------------------
 
 [ZllBDTVars]
-
-#Nominal: HCSV_reg_mass HCSV_reg_pt HVdPhi met_pt HCSV_dEta hJet_btagCSV[0] hJet_btagCSV[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#JER_up:  HCSV_reg_mass_JER_up  HCSV_reg_pt_JER_up HVdPhi met_pt H.dEta hJet_btagCSV[0] hJet_btagCSV[1] addCenJetNoPU30 H.dR max(hJet_pt_JER_up[0],hJet_pt_JER_up[1]) min(hJet_pt_JER_up[0],hJet_pt_JER_up[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#JER_down:  HCSV_reg_mass_JER_down HCSV_reg_pt_JER_down HVdPhi met_pt H.dEta hJet_btagCSV[0] hJet_btagCSV[1] addCenJetNoPU30 H.dR  max(hJet_pt_JER_down[0],hJet_pt_JER_down[1]) min(hJet_pt_JER_down[0],hJet_pt_JER_down[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#JES_up:  HCSV_reg_corrJECUp_mass HCSV_reg_corrJERUp_pt HVdPhi met_pt H.dEta hJet_btagCSV[0] hJet_btagCSV[1] addCenJetNoPU30 H.dR max(hJet_pt_JES_up[0],hJet_pt_JES_up[1]) min(hJet_pt_JES_up[0],hJet_pt_JES_up[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#JES_down:  HCSV_reg_mass_JES_down HCSV_reg_pt_JER_down HVdPhi met_pt H.dEta hJet_btagCSV[0] hJet_btagCSV[1] addCenJetNoPU30 H.dR max(hJet_pt_JES_down[0],hJet_pt_JES_down[1]) min(hJet_pt_JES_down[0],hJet_pt_JES_down[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#beff_up: H_JES.mass_down H_JES.pt_down HVdPhi metPuppi_pt H.dEta hJet_btagCSVUp[0] hJet_btagCSVUp[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#beff_down: H_JES.mass_down H_JES.pt_down HVdPhi metPuppi_pt H.dEta hJet_btagCSVDown[0] hJet_btagCSVDown[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#bmis_up: H_JES.mass_down H_JES.pt_down HVdPhi metPuppi_pt H.dEta hJet_btagCSVFUp[0] hJet_btagCSVFUp[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#bmis_down: H_JES.mass_down H_JES.pt_down HVdPhi metPuppi_pt H.dEta hJet_btagCSVFDown[0] hJet_btagCSVFDown[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-##FIXME###  beff1 is identical to bmis
-#beff1_up: H_JES.mass_down H_JES.pt_down HVdPhi metPuppi_pt H.dEta hJet_btagCSVFUp[0] hJet_btagCSVFUp[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
-
-#beff1_down: H_JES.mass_down H_JES.pt_down HVdPhi metPuppi_pt H.dEta hJet_btagCSVFDown[0] hJet_btagCSVFDown[1] addCenJetNoPU30 H.dR max(hJet_pt[0],hJet_pt[1]) min(hJet_pt[0],hJet_pt[1]) naddGoodLeptons5 Max$(Jet_btagCSV[aJCidx])
 
 
 
@@ -295,7 +215,8 @@ weightF: <!Weights|PUWeight!>
 #*<!Weights|btagWeight!>
 #*<!Weights|weightF_SF!>
 
-weightF_bdt: sign(genWeight)*<!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight[0]* DY_ewkWeight[0]
+weightF_bdt: sign(genWeight)*<!Weights|PUWeight!>*<!Weights|btagWeight!>
+#*<!Weights|weightF_SF!>*DY_specialWeight[0]* DY_ewkWeight[0]
 #*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight
 
 
