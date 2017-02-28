@@ -1,0 +1,635 @@
+#-*-Perl-*-
+
+#!! -----------------------------
+#!! Config for the MVA training
+#!! -----------------------------
+
+[MVAGeneral]
+
+name: _01_07_test
+
+#!! ------------------
+#!! Factory settings
+#!! ------------------
+type: BDT
+
+SettingsTight: !H:!V:NTrees=400:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:PruneMethod=NoPruning
+
+SettingsLooseBtag: !H:!V:NTrees=400:nEventsMin=500:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
+SettingsMed: !H:!V:NTrees=400:nEventsMin=300:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
+SettingsTight_overtrain: !H:!V:NTrees=400:nEventsMin=2:MaxDepth=5:BoostType=Grad:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=100:PruneMethod=CostComplexity:PruneStrength=50:GradBaggingFraction=1.0:Shrinkage=0.1:UseBaggedGrad=True:UseRandomisedTrees=False:UseNvars=30
+SettingsTight_optimisation: !H:!V:NTrees=400:nEventsMin=500:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
+SettingsTT: !H:!V:NTrees=300:nEventsMin=300:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
+SettingsDY: !H:!V:NTrees=400:nEventsMin=500:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
+
+
+SettingsTight_VV: !H:!V:NTrees=500:nEventsMin=400:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=20:PruneMethod=CostComplexity:PruneBeforeBoost=False:PruneStrength=3
+SettingsMed_VV: !H:!V:NTrees=500:nEventsMin=500:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=20:PruneMethod=CostComplexity:PruneBeforeBoost=False:PruneStrength=3
+
+Settings_opt: !H:!V:NTrees=100:nEventsMin=100:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.10:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
+
+# NEW: Settings for low,med,high pt regions
+SettingsLow: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:MinNodeSize=2:IgnoreNegWeightsInTraining=True:nCuts=15
+
+SettingsMed: !H:!V:NTrees=800:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=100:MinNodeSize=0.5:IgnoreNegWeightsInTraining=True
+
+SettingsHigh: !H:!V:NTrees=400:BoostType=AdaBoost:SeparationType=MisClassificationError:IgnoreNegWeightsInTraining=True
+
+SettingsVV: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning:IgnoreNegWeightsInTraining=True
+
+SettingsVVLow: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning:IgnoreNegWeightsInTraining=True
+
+SettingsVVHigh: !H:!V:NTrees=300:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.11:SeparationType=MisClassificationError:IgnoreNegWeightsInTraining=True
+
+
+#!! define the backgorund for the training.
+#!! the "Samples" seciton is in the file "general".
+backgrounds: [<!Samples|allBKG_BDT!>] 
+
+signals    : [<!Samples|allSIG_BDT!>]
+ 
+gg_signals: [<!Samples|allSIG_BDT_gg!>]
+
+VV_signals: [<!Samples|VV_SIG!>]
+
+VV_backgrounds: [<!Samples|VV_BKG!>]
+
+[treeVars]
+
+##### Var Selection #####
+
+jet1_pt: hJetCMVAV2_pt_reg[0]
+jet2_pt: hJetCMVAV2_pt_reg[1]
+#jet1_pt: Jet_pt_reghJCidx[0]]
+#jet2_pt: Jet_pt_reghJCidx[1]]
+
+#jet_index: hJCidx
+#jet_btag: Jet_btagCSV
+#H_sel: HCSV
+
+jet_btag: Jet_btagCMVAV2
+jet_index: hJCMVAV2idx
+H_sel: HCMVAV2
+
+#########################3
+
+Nominal: <!treeVars|H_sel!>_reg_mass <!treeVars|H_sel!>_reg_pt VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] <!treeVars|jet1_pt!> <!treeVars|jet2_pt!> V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta,<!treeVars|H_sel!>_reg_phi,V_new_eta,V_new_phi) met_pt 
+
+JER_up: <!treeVars|H_sel!>_reg_mass_corrJERUp <!treeVars|H_sel!>_reg_pt_corrJERUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrJERUp,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regJERUp[0] hJetCMVAV2_pt_regJERUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrJERUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrJERUp,<!treeVars|H_sel!>_reg_phi_corrJERUp,V_new_eta,V_new_phi) met_pt 
+
+JER_down: <!treeVars|H_sel!>_reg_mass_corrJERDown <!treeVars|H_sel!>_reg_pt_corrJERDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrJERDown,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regJERDown[0] hJetCMVAV2_pt_regJERDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrJERDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrJERDown,<!treeVars|H_sel!>_reg_phi_corrJERDown,V_new_eta,V_new_phi) met_pt
+
+# JEC Factorized Groups
+
+PileUp_up: <!treeVars|H_sel!>_reg_mass_corrPileUpUp <!treeVars|H_sel!>_reg_pt_corrPileUpUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regPileUpUp[0] hJetCMVAV2_pt_regPileUpUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpUp,<!treeVars|H_sel!>_reg_phi_corrPileUpUp,V_new_eta,V_new_phi) met_ptPileUp_up: <!treeVars|H_sel!>_reg_mass_corrPileUpUp <!treeVars|H_sel!>_reg_pt_corrPileUpUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regPileUpUp[0] hJetCMVAV2_pt_regPileUpUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpUp,<!treeVars|H_sel!>_reg_phi_corrPileUpUp,V_new_eta,V_new_phi) met_pt
+
+PileUp_down: <!treeVars|H_sel!>_reg_mass_corrPileUpDown <!treeVars|H_sel!>_reg_pt_corrPileUpDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regPileUpDown[0] hJetCMVAV2_pt_regPileUpDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpDown,<!treeVars|H_sel!>_reg_phi_corrPileUpDown,V_new_eta,V_new_phi) met_pt
+
+Relative_up:<!treeVars|H_sel!>_reg_mass_corrRelativeUp <!treeVars|H_sel!>_reg_pt_corrRelativeUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regRelativeUp[0] hJetCMVAV2_pt_regRelativeUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeUp,<!treeVars|H_sel!>_reg_phi_corrRelativeUp,V_new_eta,V_new_phi) met_pt
+ 
+Relative_down:<!treeVars|H_sel!>_reg_mass_corrRelativeDown <!treeVars|H_sel!>_reg_pt_corrRelativeDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regRelativeDown[0] hJetCMVAV2_pt_regRelativeDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeDown,<!treeVars|H_sel!>_reg_phi_corrRelativeDown,V_new_eta,V_new_phi) met_pt
+   
+AbsoluteMisc_up:<!treeVars|H_sel!>_reg_mass_corrAbsoluteMiscUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteMiscUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regAbsoluteMiscUp[0] hJetCMVAV2_pt_regAbsoluteMiscUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteMiscUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteMiscUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteMiscUp,V_new_eta,V_new_phi) met_pt
+
+AbsoluteMisc_down:<!treeVars|H_sel!>_reg_mass_corrAbsoluteMiscDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteMiscDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regAbsoluteMiscDown[0] hJetCMVAV2_pt_regAbsoluteMiscDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteMiscDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteMiscDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteMiscDown,V_new_eta,V_new_phi) met_pt
+
+
+#JEC_up:  HCSV_reg_corrJECDown_mass HCSV_reg_corrJECDown_pt VHbb::deltaPhi(HCSV_reg_phi,V_new_phi) <!treeVars|Jet_btagCMVAV2!>[hJCidx[0]] <!treeVars|Jet_btagCMVAV2!>[hJCidx[1]] Jet_pt_reg_corrJECUp[hJCidx[0]] Jet_pt_reg_corrJECUp[hJCidx[1]] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_new_pt (HCSV_reg_corrJECUp_pt/V_new_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_eta,HCSV_reg_phi,V_new_eta,V_new_phi) met_pt 
+
+#JEC_down: HCSV_reg_corrJECDown_mass HCSV_reg_corrJECDown_pt VHbb::deltaPhi(HCSV_reg_phi,V_new_phi) <!treeVars|Jet_btagCMVAV2!>[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECDown[hJCidx[0]] Jet_pt_reg_corrJECDown[hJCidx[1]] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_new_pt (HCSV_reg_corrJECDown_pt/V_new_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_eta,HCSV_reg_phi,V_new_eta,V_new_phi) met_pt 
+
+#################################
+# For JEC factorized SYS
+
+
+# # high pt
+# JER_up_high: HCSV_reg_corrJERUp_mass_high HCSV_reg_corrJERUp_pt_high VHbb::deltaPhi(HCSV_reg_corrJERUp_phi_high,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERUp_high[0] Jet_pt_reg_corrJERUp_high[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERUp_pt_high/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERUp_eta_high,HCSV_reg_corrJERUp_phi_high,V_eta,V_phi) met_pt
+
+# JER_down_high: HCSV_reg_corrJERDown_mass_high HCSV_reg_corrJERDown_pt_high VHbb::deltaPhi(HCSV_reg_corrJERDown_phi_high,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERDown_high[0] Jet_pt_reg_corrJERDown_high[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERDown_pt_high/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERDown_eta_high,HCSV_reg_corrJERDown_phi_high,V_eta,V_phi) met_pt
+
+# JEC_up_high: HCSV_reg_corrJECUp_mass_high HCSV_reg_corrJECUp_pt_high VHbb::deltaPhi(HCSV_reg_corrJECUp_phi_high,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECUp_high[0] Jet_pt_reg_corrJECUp_high[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECUp_pt_high/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECUp_eta_high,HCSV_reg_corrJECUp_phi_high,V_eta,V_phi) met_pt
+
+# JEC_down_high: HCSV_reg_corrJECDown_mass_high HCSV_reg_corrJECDown_pt_high VHbb::deltaPhi(HCSV_reg_corrJECDown_phi_high,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECDown_high[0] Jet_pt_reg_corrJECDown_high[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECDown_pt_high/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECDown_eta_high,HCSV_reg_corrJECDown_phi_high,V_eta,V_phi) met_pt
+
+# # low pt
+# JER_up_low: HCSV_reg_corrJERUp_mass_low HCSV_reg_corrJERUp_pt_low VHbb::deltaPhi(HCSV_reg_corrJERUp_phi_low,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERUp_low[0] Jet_pt_reg_corrJERUp_low[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERUp_pt_low/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERUp_eta_low,HCSV_reg_corrJERUp_phi_low,V_eta,V_phi) met_pt
+
+# JER_down_low: HCSV_reg_corrJERDown_mass_low HCSV_reg_corrJERDown_pt_low VHbb::deltaPhi(HCSV_reg_corrJERDown_phi_low,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERDown_low[0] Jet_pt_reg_corrJERDown_low[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERDown_pt_low/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERDown_eta_low,HCSV_reg_corrJERDown_phi_low,V_eta,V_phi) met_pt
+
+# JEC_up_low: HCSV_reg_corrJECUp_mass_low HCSV_reg_corrJECUp_pt_low VHbb::deltaPhi(HCSV_reg_corrJECUp_phi_low,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECUp_low[0] Jet_pt_reg_corrJECUp_low[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECUp_pt_low/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECUp_eta_low,HCSV_reg_corrJECUp_phi_low,V_eta,V_phi) met_pt
+
+# JEC_down_low: HCSV_reg_corrJECDown_mass_low HCSV_reg_corrJECDown_pt_low VHbb::deltaPhi(HCSV_reg_corrJECDown_phi_low,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECDown_low[0] Jet_pt_reg_corrJECDown_low[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECDown_pt/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECDown_eta_low,HCSV_reg_corrJECDown_phi_low,V_eta,V_phi) met_pt
+
+# # central
+# JER_up_central: HCSV_reg_corrJERUp_mass_central HCSV_reg_corrJERUp_pt_central VHbb::deltaPhi(HCSV_reg_corrJERUp_phi_central,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERUp_central[0] Jet_pt_reg_corrJERUp_central[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERUp_pt_central/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERUp_eta_central,HCSV_reg_corrJERUp_phi_central,V_eta,V_phi) met_pt
+
+# JER_down_central: HCSV_reg_corrJERDown_mass_central HCSV_reg_corrJERDown_pt_central VHbb::deltaPhi(HCSV_reg_corrJERDown_phi_central,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERDown_central[0] Jet_pt_reg_corrJERDown_central[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERDown_pt_central/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERDown_eta_central,HCSV_reg_corrJERDown_phi_central,V_eta,V_phi) met_pt
+
+# JEC_up_central: HCSV_reg_corrJECUp_mass_central HCSV_reg_corrJECUp_pt_central VHbb::deltaPhi(HCSV_reg_corrJECUp_phi_central,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECUp_central[0] Jet_pt_reg_corrJECUp_central[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECUp_pt_central/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECUp_eta_central,HCSV_reg_corrJECUp_phi_central,V_eta,V_phi) met_pt
+
+# JEC_down_central: HCSV_reg_corrJECDown_mass_central HCSV_reg_corrJECDown_pt_central VHbb::deltaPhi(HCSV_reg_corrJECDown_phi_central,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECDown_central[0] Jet_pt_reg_corrJECDown_central[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECDown_pt_central/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECDown_eta_central,HCSV_reg_corrJECDown_phi_central,V_eta,V_phi) met_pt
+
+# # forward
+# JER_up_forward: HCSV_reg_corrJERUp_mass_forward HCSV_reg_corrJERUp_pt_forward VHbb::deltaPhi(HCSV_reg_corrJERUp_phi_forward,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERUp_forward[0] Jet_pt_reg_corrJERUp_forward[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERUp_pt_forward/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERUp_eta_forward,HCSV_reg_corrJERUp_phi_forward,V_eta,V_phi) met_pt
+
+# JER_down_forward: HCSV_reg_corrJERDown_mass_forward HCSV_reg_corrJERDown_pt_forward VHbb::deltaPhi(HCSV_reg_corrJERDown_phi_forward,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJERDown_forward[0] Jet_pt_reg_corrJERDown_forward[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJERDown_pt_forward/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJERDown_eta_forward,HCSV_reg_corrJERDown_phi_forward,V_eta,V_phi) met_pt
+
+# JEC_up_forward: HCSV_reg_corrJECUp_mass_forward HCSV_reg_corrJECUp_pt_forward VHbb::deltaPhi(HCSV_reg_corrJECUp_phi_forward,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECUp_forward[0] Jet_pt_reg_corrJECUp_forward[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECUp_pt_forward/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECUp_eta_forward,HCSV_reg_corrJECUp_phi_forward,V_eta,V_phi) met_pt
+
+# JEC_down_forward: HCSV_reg_corrJECDown_mass_forward HCSV_reg_corrJECDown_pt_forward VHbb::deltaPhi(HCSV_reg_corrJECDown_phi_forward,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg_corrJECDown_forward[0] Jet_pt_reg_corrJECDown_forward[1] V_mass Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_corrJECDown_pt_forward/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_corrJECDown_eta_forward,HCSV_reg_corrJECDown_phi_forward,V_eta,V_phi) met_pt
+
+
+
+
+# For high/low PT systematics
+#JEC_up_low: HCSV_mass * math.sqrt( Jet_corr_JECUp[ev.hJCidx[0]]*ev.Jet_corr_JECUp[hJCidx[1]]/Jet_corr[hJCidx[0]]/Jet_corr[hJCidx[1]]) if len(ev.hJCidx)==2 and Jet_corr_JECUp[ev.hJCidx[0]]>0. and Jet_corr_JECUp[ev.hJCidx[1]]>0. and (Jet_pt_JECUp[ev.hJCidx[0]]>100. or Jet_corr_JECUp[ev.hJCidx[1]]>100.)  else ev.HCSV_mass
+
+
+
+[factory]
+#!! additional options for the factory
+factoryname: MVA
+factorysettings: !V:Color:!DrawProgressBar:AnalysisType=Classification:Transformations=I
+#:Transformations=I;D;P;G,D
+
+[MVALists]
+# which BDTs to apply during evaluation step
+
+
+#List_for_submitscript:gg_plus_ZH125_highZpt,gg_plus_ZH125_lowZpt,VV_bdt_lowZpt,VV_bdt_highZpt
+List_for_submitscript:gg_plus_ZH125_highZpt,gg_plus_ZH125_lowZpt
+
+
+
+
+# Tree Opt
+tree_list: gg_plus_trees100,gg_plus_trees150,gg_plus_trees200,gg_plus_trees250,gg_plus_trees300,gg_plus_trees350,gg_plus_trees400,gg_plus_trees450,gg_plus_trees500,gg_plus_trees550,gg_plus_trees600,gg_plus_trees700,gg_plus_trees800,gg_plus_trees1000
+
+nEvt_list:gg_plus_nEvt0.1,gg_plus_nEvt0.5,gg_plus_nEvt1,gg_plus_nEvt2,gg_plus_nEvt3,gg_plus_nEvt4,gg_plus_nEvt5,gg_plus_nEvt10,gg_plus_nEvt15,gg_plus_nEvt20
+
+depth_list: gg_plus_depth1,gg_plus_depth2,gg_plus_depth3,gg_plus_depth4,gg_plus_depth5
+
+cut_list: gg_plus_nCuts5,gg_plus_nCuts10,gg_plus_nCuts25,gg_plus_nCuts50,gg_plus_nCuts100,gg_plus_nCuts250,gg_plus_nCuts500,gg_plus_nCuts1000
+
+#List_for_submitscript: <!MVALists|tree_list!>,<!MVALists|nEvt_list!>,<!MVALists|depth_list!>,<!MVALists|cut_list!>
+
+opt_tree_cut:  bdt_high_Zpt
+
+
+
+
+# ==== My BDT training regions =====
+
+#  ==== Now for ZH+ggZH ====
+
+[gg_plus_ZH125_tightHmass]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsTight!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_tightHmass
+
+
+# PT bins
+[gg_plus_ZH125_highZpt]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsHigh!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_high_Zpt
+
+[gg_plus_ZH125_lowZpt]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsLow!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_low_Zpt
+
+[gg_plus_ZH125_medZpt]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsMed!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_med_Zpt
+
+
+
+[gg_plus_ZH125_pt30]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: <!MVAGeneral|SettingsTight!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_pt30
+
+
+# ===================================
+# SemiLepton
+[gg_plus_ZH125_semiLepton]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsTight!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+#treeVarSet  : treeVars
+treeVarSet  : 1semiLepton
+treeCut     : bdt_2semiLepton
+
+[gg_plus_ZH125_1semiLepton]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsTight!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+#treeVarSet  : treeVars
+treeVarSet  : 1semiLepton
+treeCut     : bdt_1semiLepton
+
+[gg_plus_ZH125_NOsemiLepton]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsTight!>
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_NOsemiLepton
+
+
+# ===================================
+# VV BDT
+
+[VV_bdt]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsVV!>
+signals     : <!MVAGeneral|VV_signals!>
+backgrounds : <!MVAGeneral|VV_backgrounds!>
+treeVarSet  : treeVars
+treeCut     : VV_bdt
+
+[VV_bdt_lowZpt]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsVVLow!>
+signals     : <!MVAGeneral|VV_signals!>
+backgrounds : <!MVAGeneral|VV_backgrounds!>
+treeVarSet  : treeVars
+treeCut     : VV_bdt_low 
+
+[VV_bdt_highZpt]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : <!MVAGeneral|SettingsVVHigh!>
+signals     : <!MVAGeneral|VV_signals!>
+backgrounds : <!MVAGeneral|VV_backgrounds!>
+treeVarSet  : treeVars
+treeCut     : VV_bdt_high
+
+
+
+
+# ===================================
+
+
+[gg_plus_ZH125_highZpt_OPTIMIZE]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: <!MVAGeneral|SettingsTight!>
+signals     : <!MVAGeneral|ZH_gg_signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : bdt_high_Zpt
+
+
+
+
+# For opt
+[gg_plus_trees100]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=100:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees150]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=150:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_trees200]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_trees250]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=250:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_trees300]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=300:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_trees350]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=350:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_trees400]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees450]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=450:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees500]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=500:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees550]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=550:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees600]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=600:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees700]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=700:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees800]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees900]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=900:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_trees1000]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=1000:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_nEvt0.1]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=0.1
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt0.5]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=0.5
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt1]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=1
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt2]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt3]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=3
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt4]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=4
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt5]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=5
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt10]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=10
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt15]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=15
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt20]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=20
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth1]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=1:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=20
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth2]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth3]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth4]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth5]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth6]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=6:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_depth7]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=200:MaxDepth=7:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+[gg_plus_nCuts5]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=5:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts10]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=10:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts25]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts50]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=50:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts100]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=100:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts250]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=250:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts500]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=500:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nCuts1000]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=1000:MinNodeSize=2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+
+
+# pT windows, 3 regions
+
+

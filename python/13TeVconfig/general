@@ -46,8 +46,8 @@ yields: {'Zbb':584.8,'Zudsg':881.61,'ttbar':135.7,'ZZ':44.04,'Sig':5.13}
 #!! --------------------------
 [systematics]
 #systematics: Nominal JER_up JER_down JEC_up JEC_down 
-systematics: Nominal JER_up JER_down PileUp_up PileUp_down Relative_up Relative_down 
-#AbsoluteMisc_up AbsoluteMisc_down
+#systematics: Nominal JER_up JER_down PileUp_up PileUp_down Relative_up Relative_down 
+systematics: Nominal JER_Up JER_Down PileUpDataMC_Up PileUpDataMC_Down PileUpPtRef_Up PileUpPtRef_Down PileUpPtBB_Up PileUpPtBB_Down PileUpPtEC1_Up PileUpPtEC1_Down PileUpPtEC2_Up PileUpPtEC2_Down PileUpPtHF_Up PileUpPtHF_Down RelativeJEREC1_Up RelativeJEREC1_Down RelativeJEREC2_Up RelativeJEREC2_Down RelativeJERHF_Up RelativeJERHF_Down RelativeFSR_Up RelativeFSR_Down RelativeStatFSR_Up RelativeStatFSR_Down RelativeStatEC_Up RelativeStatEC_Down RelativeStatHF_Up RelativeStatHF_Down RelativePtBB_Up RelativePtBB_Down RelativePtEC1_Up RelativePtEC1_Down RelativePtEC2_Up RelativePtEC2_Down RelativePtHF_Up RelativePtHF_Down AbsoluteScale_Up AbsoluteScale_Down AbsoluteMPFBias_Up AbsoluteMPFBias_Down AbsoluteStat_Up AbsoluteStat_Down SinglePionECAL_Up SinglePionECAL_Down SinglePionHCAL_Up SinglePionHCAL_Down Fragmentation_Up Fragmentation_Down TimePtEta_Up TimePtEta_Down FlavorQCD_Up FlavorQCD_Down
 
 # --------------------------------------------------
 # Varibles definition for trainging and evaluation

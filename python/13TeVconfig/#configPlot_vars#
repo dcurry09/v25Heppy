@@ -8,22 +8,17 @@ BDTbins = 15
 
 CSVbins = 20
 
-#################################
+##############################
 # Vtype <!General|V_pt!>
 #V_pt: V
 #vLeptons: vLeptons
 V_pt: V_new
 vLeptons: vLeptons_new
 
-## CSV <!Analysis|jet_index!>
-#jet_index: hJCidx
-#H_sel: HCSV
 
-## CMVA
-jet_index: hJCMVAV2idx
-H_sel: HCMVAV2
 
-#################################
+
+##############################3
 
 
 
@@ -84,14 +79,14 @@ min    : -3.2
 max    : 3.2
 
 [plotDef:HCSV_mass]
-relPath: <!General|H_sel!>_mass
+relPath: HCSV_mass
 xAxis  : m(jj) [GeV]
 nBins  : 20
 min    : 10
 max    : 400
 
 [plotDef:HCSV_reg_mass]
-relPath: <!General|H_sel!>_reg_mass
+relPath: HCSV_reg_mass
 xAxis  : Regressed m(jj) [GeV]
 nBins  : 20
 min    : 10
@@ -119,14 +114,14 @@ min    : 0
 max    : 400
 
 [plotDef:HCSV_pt]
-relPath: <!General|H_sel!>_pt
+relPath: HCSV_pt
 xAxis  : p_{T} (jj) [GeV]
 nBins  : 40
 min    : 0
 max    : 400
 
 [plotDef:HCSV_reg_pt]
-relPath: <!General|H_sel!>_reg_pt
+relPath: HCSV_reg_pt
 xAxis  : Regressed p_{T} (jj) [GeV]
 nBins  : 40
 min    : 0
@@ -199,42 +194,42 @@ max    : 1
 
 [plotDef:hJet0pt_reg]
 #relPath: hJet_pt_reg[0]
-relPath: Jet_pt_reg[<!General|jet_index!>[0]]
+relPath: Jet_pt_reg[hJCidx[0]]
 xAxis  : leading jet p_{T} Regressed [GeV]
 nBins  : 25
 min    : 0
 max    : 400
 
 [plotDef:hJet0pt]
-relPath: Jet_pt[<!General|jet_index!>[0]]
+relPath: Jet_pt[hJCidx[0]]
 xAxis  : leading jet p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 400
 
 [plotDef:hJet1pt_reg]
-relPath: Jet_pt_reg[<!General|jet_index!>[1]]
+relPath: Jet_pt_reg[hJCidx[1]]
 xAxis  : second jet p_{T} Regressed [GeV]
 nBins  : 25
 min    : 0
 max    : 400
 
 [plotDef:hJet1pt]
-relPath: Jet_pt[<!General|jet_index!>[1]]
+relPath: Jet_pt[hJCidx[1]]
 xAxis  : second jet p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 400
 
 [plotDef:hJet0pt_CMVA]
-relPath: Jet_pt[<!General|jet_index!>[0]]
+relPath: Jet_pt[hJCidx[0]]
 xAxis  : leading jet p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 400
 
 [plotDef:hJet1pt_CMVA]
-relPath: Jet_pt[<!General|jet_index!>[1]]
+relPath: Jet_pt[hJCidx[1]]
 xAxis  : second jet p_{T} [GeV]
 nBins  : 25
 min    : 0
@@ -242,21 +237,21 @@ max    : 250
 
 
 [plotDef:ptBalance]
-relPath : <!General|H_sel!>_reg_pt/<!General|V_pt!>_pt
+relPath : HCSV_reg_pt/<!General|V_pt!>_pt
 xAxis   : p_{T} balance after regression
 nBins   : 15
 min     : 0.
 max     : 2.
 
 [plotDef:ptBalance_noReg]
-relPath : <!General|H_sel!>_pt/<!General|V_pt!>_pt
+relPath : HCSV_pt/<!General|V_pt!>_pt
 xAxis   : p_{T} balance before regression
 nBins   : 15
 min     : 0.
 max     : 2.
 
 [plotDef:ptBalance_FSR]
-relPath : <!General|H_sel!>_reg_pt_FSR/<!General|V_pt!>_pt
+relPath : HCSV_reg_pt_FSR/<!General|V_pt!>_pt
 xAxis   : p_{T} balance after regression + FSR
 nBins   : 15
 min     : 0.
@@ -355,42 +350,42 @@ max    : 1
 # ================================
 # Regression Variables
 [plotDef:Jet0_mcPt]
-relPath: Jet_mcPt[<!General|jet_index!>[0]]
+relPath: Jet_mcPt[hJCidx[0]]
 xAxis  : Leading jet MC p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 200
 
 [plotDef:Jet1_mcPt]
-relPath: Jet_mcPt[<!General|jet_index!>[1]]
+relPath: Jet_mcPt[hJCidx[1]]
 xAxis  : Second jet MC p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 200
 
 [plotDef:Jet0_rawPt]
-relPath: Jet_rawPt[<!General|jet_index!>[0]]
+relPath: Jet_rawPt[hJCidx[0]]
 xAxis  : Leading jet Raw p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 200
 
 [plotDef:Jet1_rawPt]
-relPath: Jet_rawPt[<!General|jet_index!>[1]]
+relPath: Jet_rawPt[hJCidx[1]]
 xAxis  : Second jet Raw p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 200
 
 [plotDef:Jet0_corr]
-relPath: Jet_corr[<!General|jet_index!>[0]]
+relPath: Jet_corr[hJCidx[0]]
 xAxis  : Leading jet Correction Factor
 nBins  : 25
 min    : 0.5
 max    : 1.5
 
 [plotDef:Jet1_corr]
-relPath: Jet_corr[<!General|jet_index!>[1]]
+relPath: Jet_corr[hJCidx[1]]
 xAxis  : Second jet Correction Factor
 nBins  : 25
 min    : 0.5
@@ -399,21 +394,21 @@ max    : 1.5
 
 
 [plotDef:Jet0_eta]
-relPath: Jet_eta[<!General|jet_index!>[0]]
+relPath: Jet_eta[hJCidx[0]]
 xAxis  : Leading jet #eta
 nBins  : 25
 min    : -4
 max    : 4
 
 [plotDef:Jet1_eta]
-relPath: Jet_eta[<!General|jet_index!>[1]]
+relPath: Jet_eta[hJCidx[1]]
 xAxis  : Second jet #eta
 nBins  : 25
 min    : -4
 max    : 4
 
 [plotDef:jet_dEta]
-relPath: abs(Jet_eta[<!General|jet_index!>[0]]-Jet_eta[<!General|jet_index!>[1]])
+relPath: abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]])
 xAxis  : Jet #delta #eta
 nBins  : 25
 min    : -1
@@ -427,42 +422,42 @@ min     : -0.5
 max     : 24.5
 
 [plotDef:Jet0_leadTrackPt]
-relPath: Jet_leadTrackPt[<!General|jet_index!>[0]]
+relPath: Jet_leadTrackPt[hJCidx[0]]
 xAxis  : Leading jet Track p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 150
 
 [plotDef:Jet1_leadTrackPt]
-relPath: Jet_leadTrackPt[<!General|jet_index!>[1]]
+relPath: Jet_leadTrackPt[hJCidx[1]]
 xAxis  : Second jet Track p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 150
 
 [plotDef:Jet0_leptonPtRel]
-relPath: Jet_leptonPtRel[<!General|jet_index!>[0]]
+relPath: Jet_leptonPtRel[hJCidx[0]]
 xAxis  : Leading jet lepton relative p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 15
 
 [plotDef:Jet1_leptonPtRel]
-relPath: Jet_leptonPtRel[<!General|jet_index!>[1]]
+relPath: Jet_leptonPtRel[hJCidx[1]]
 xAxis  : Second jet lepton relative p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 15
 
 [plotDef:Jet0_leptonPt]
-relPath: Jet_leptonPt[<!General|jet_index!>[0]]
+relPath: Jet_leptonPt[hJCidx[0]]
 xAxis  : Leading jet lepton p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 150
 
 [plotDef:Jet1_leptonPt]
-relPath: Jet_leptonPt[<!General|jet_index!>[1]]
+relPath: Jet_leptonPt[hJCidx[1]]
 xAxis  : Second jet lepton p_{T} [GeV]
 nBins  : 25
 min    : 0
@@ -470,113 +465,113 @@ max    : 150
 
 
 [plotDef:Jet0_leptonDeltaR]
-relPath: Jet_leptonDeltaR[<!General|jet_index!>[0]]
+relPath: Jet_leptonDeltaR[hJCidx[0]]
 xAxis  : Leading jet lepton DeltaR 
 nBins  : 25
 min    : 0
 max    : 0.7
 
 [plotDef:Jet1_leptonDeltaR]
-relPath: Jet_leptonDeltaR[<!General|jet_index!>[1]]
+relPath: Jet_leptonDeltaR[hJCidx[1]]
 xAxis  : Second jet lepton DeltaR
 nBins  : 25
 min    : 0
 max    : 0.7
 
 [plotDef:Jet0_chEmEF]
-relPath: Jet_chEmEF[<!General|jet_index!>[0]]
+relPath: Jet_chEmEF[hJCidx[0]]
 xAxis  : Leading jet charged EmEF
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet1_chEmEF]
-relPath: Jet_chEmEF[<!General|jet_index!>[1]]
+relPath: Jet_chEmEF[hJCidx[1]]
 xAxis  : Second jet charged EmEF
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet0_chHEF]
-relPath: Jet_chHEF[<!General|jet_index!>[0]]
+relPath: Jet_chHEF[hJCidx[0]]
 xAxis  : Leading jet charged HEF 
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet1_chHEF]
-relPath: Jet_chHEF[<!General|jet_index!>[1]]
+relPath: Jet_chHEF[hJCidx[1]]
 xAxis  : Second jet charged HEF
 nBins = 15
 min = 0
 max = 150
 
 [plotDef:Jet0_neHEF]
-relPath: Jet_neHEF[<!General|jet_index!>[0]]
+relPath: Jet_neHEF[hJCidx[0]]
 xAxis  : Leading jet neutral HEF 
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet1_neHEF]
-relPath: Jet_neHEF[<!General|jet_index!>[1]]
+relPath: Jet_neHEF[hJCidx[1]]
 xAxis  : Second jet neutral HEF
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet0_neEmEF]
-relPath: Jet_neEmEF[<!General|jet_index!>[0]]
+relPath: Jet_neEmEF[hJCidx[0]]
 xAxis  : Leading jet neutral EmEF
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet1_neEmEF]
-relPath: Jet_neEmEF[<!General|jet_index!>[1]]
+relPath: Jet_neEmEF[hJCidx[1]]
 xAxis  : Second jet neutral EmEF
 nBins  : 25
 min    : 0
 max    : 1
 
 [plotDef:Jet0_vtxPt]
-relPath: Jet_vtxPt[<!General|jet_index!>[0]]
+relPath: Jet_vtxPt[hJCidx[0]]
 xAxis  : Leading jet vertex p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 50
 
 [plotDef:Jet1_vtxPt]
-relPath: Jet_vtxPt[<!General|jet_index!>[1]]
+relPath: Jet_vtxPt[hJCidx[1]]
 xAxis  : Second jet vertex p_{T} [GeV]
 nBins  : 25
 min    : 0
 max    : 50
 
 [plotDef:Jet0_vtxMass]
-relPath: Jet_vtxMass[<!General|jet_index!>[0]]
+relPath: Jet_vtxMass[hJCidx[0]]
 xAxis  : Leading jet vertex Mass [GeV]
 nBins  : 25
 min    : 0
 max    : 5
 
 [plotDef:Jet1_vtxMass]
-relPath: Jet_vtxMass[<!General|jet_index!>[1]]
+relPath: Jet_vtxMass[hJCidx[1]]
 xAxis  : Second jet vertex Mass [GeV]
 nBins  : 25
 min    : 0
 max    : 5
 
 [plotDef:Jet0_shift]
-relPath: Jet_pt_reg[<!General|jet_index!>[0]]/Jet_pt[<!General|jet_index!>[0]]
+relPath: Jet_pt_reg[hJCidx[0]]/Jet_pt[hJCidx[0]]
 xAxis  : Leading Jet p_{T} Shift (p_{T} Reg/p_{T} Nom) [GeV]
 nBins  : 25
 min    : 0.5
 max    : 1.5
 
 [plotDef:Jet1_shift]
-relPath: Jet_pt_reg[<!General|jet_index!>[1]]/Jet_pt[<!General|jet_index!>[1]]
-xAxis  : Second Jet p_{T} Shift (p_{T} Reg/p_{T} Nom) [GeV]
+relPath: Jet_pt_reg[hJCidx[1]]/Jet_pt[hJCidx[1]]
+    xAxis  : Second Jet p_{T} Shift (p_{T} Reg/p_{T} Nom) [GeV]
 nBins  : 25
 min    : 0.5
 max    : 1.5

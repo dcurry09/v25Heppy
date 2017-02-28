@@ -50,9 +50,9 @@ logpath: <!Directories|vhbbpath!>/LOG/
 # from which samples to plot and where to save the plots
 #plottingSamples: /exports/uftrig01a/dcurry/data/bbar/13TeV/heppy/regression/fromPier/
 #plottingSamples : <!Directories|SYSout!>
-#plottingSamples : <!Directories|PREPout!>
+plottingSamples : <!Directories|PREPout!>
 #plottingSamples : <!Directories|uftrig_storage!>/files/btag_out/
-plottingSamples : <!Directories|MVAout!>
+#plottingSamples : <!Directories|MVAout!>
 plotpath        : <!Directories|vhbbpath!>/plots/basic_out/
 
 # cahed files
