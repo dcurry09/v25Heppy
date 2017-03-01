@@ -13,7 +13,7 @@ import multiprocessing
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
 #main_dir  = 'TEST'
-main_dir = 'v25_CR_CSV_NLO_2_22'
+main_dir = 'v25_CR_CMVA_LO_2_28'
 
 
 

@@ -64,9 +64,12 @@ mu_control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zu
 
 ele_control_list = ['Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
 
-#bdt_list = ['BDT_Zee', 'BDT_Zuu'] 
+zhf_list = ['Zhf_low_Zee', 'Zhf_high_Zuu', 'Zhf_low_Zuu', 'Zhf_high_Zee']
 
-#control_list = ['Zlf_Zuu', 'Zhf_Zuu', 'ttbar_Zuu', 'Zlf_Zee', 'Zhf_Zee', 'ttbar_Zee']
+zlf_list = ['Zlf_low_Zee', 'Zlf_high_Zuu', 'Zlf_low_Zuu', 'Zlf_high_Zee']
+
+ttbar_list = ['ttbar_low_Zee', 'ttbar_high_Zuu', 'ttbar_low_Zuu', 'ttbar_high_Zee']
+
 
 # ======== Diboson Analysis =========
 #bdt_list = ['VV_BDT_Zee_lowZpt', 'VV_BDT_Zee_highZpt', 'VV_BDT_Zuu_lowZpt', 'VV_BDT_Zuu_highZpt']
@@ -76,7 +79,7 @@ ele_control_list = ['Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Z
 
 # ====================================
 
-temp_list = ['BDT_Zee_low_Zpt']
+temp_list = ['BDT_Zee_high_Zpt']
 
 # ==============================================
 #datacard_list = bdt_list
@@ -86,7 +89,8 @@ datacard_list = temp_list
 
 ##### Directory to save datacards ####
 
-title = 'CSV_NLO_2_21'
+#title = 'CMVA_LO_2_25'
+title = 'TEST1'
 
 sig_dir = 'v25_SR_'+title
 
@@ -102,7 +106,7 @@ batch = False
 
 # choose bdt, CR split
 isSplit = False
-#isSplit = True
+isSplit = True
  
 # For Control Region Scale Factors
 isCombine = False
@@ -118,7 +122,7 @@ isFOM = False
 
 # BDT final fit(split Pt Categories)
 splitRegionFOM = False
-splitRegionFOM = True
+#splitRegionFOM = True
 
 # For Diboson Analysis
 isDiboson = False
@@ -222,20 +226,36 @@ if isSplit:
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
     os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
     
-    # p1 = multiprocessing.Pool()
-    # results = p1.imap(osSystem, control_list)
-    # p1.close()
-    # p1.join()
 
     p1 = multiprocessing.Pool()
-    results = p1.imap(osSystem, mu_control_list)
+    results = p1.imap(osSystem, ttbar_list)
+    p1.close()
+    p1.join()
+
+    p1 = multiprocessing.Pool()
+    results = p1.imap(osSystem, zhf_list)
+    p1.close()
+    p1.join()
+
+    p1 = multiprocessing.Pool()
+    results = p1.imap(osSystem, zlf_list)
     p1.close()
     p1.join()
     
-    p1 = multiprocessing.Pool()
-    results = p1.imap(osSystem, ele_control_list)
-    p1.close()
-    p1.join()
+    #p1 = multiprocessing.Pool()
+    #results = p1.imap(osSystem, control_list)
+    #p1.close()
+    #p1.join()
+
+    #p1 = multiprocessing.Pool()
+    #results = p1.imap(osSystem, mu_control_list)
+    #p1.close()
+    #p1.join()
+    
+    #p1 = multiprocessing.Pool()
+    #results = p1.imap(osSystem, ele_control_list)
+    #p1.close()
+    #p1.join()
     
 
     if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):

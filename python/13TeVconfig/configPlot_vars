@@ -84,24 +84,38 @@ min    : -3.2
 max    : 3.2
 
 [plotDef:HCSV_mass]
-relPath: <!General|H_sel!>_mass
+relPath: HCSV_mass
 xAxis  : m(jj) [GeV]
 nBins  : 20
-min    : 10
+min    : 0
 max    : 400
 
 [plotDef:HCSV_reg_mass]
-relPath: <!General|H_sel!>_reg_mass
+relPath: HCSV_reg_mass
 xAxis  : Regressed m(jj) [GeV]
 nBins  : 20
-min    : 10
+min    : 0
+max    : 400
+
+[plotDef:HCMVAV2_mass]
+relPath: HCMVAV2_mass
+xAxis  : m(jj) [GeV]
+nBins  : 20
+min    : 0
+max    : 400
+
+[plotDef:HCMVAV2_reg_mass]
+relPath: HCMVAV2_reg_mass
+xAxis  : Regressed m(jj) [GeV]
+nBins  : 20
+min    : 0
 max    : 400
 
 [plotDef:Hmass]
 relPath: H_mass
 xAxis  : m(jj) [GeV]
 nBins  : 20
-min    : 10
+min    : 0
 max    : 400
 
 [plotDef:Hmass_NoReg]
@@ -109,7 +123,7 @@ relPath: HNoReg_mass
 xAxis  : m(jj) [GeV]
 nBins  : 20
 min    : 0
-max    : 200
+max    : 400
 
 [plotDef:Hpt]
 relPath: H_pt
@@ -119,20 +133,32 @@ min    : 0
 max    : 400
 
 [plotDef:HCSV_pt]
-relPath: <!General|H_sel!>_pt
+relPath: HCSV_pt
 xAxis  : p_{T} (jj) [GeV]
 nBins  : 40
 min    : 0
 max    : 400
 
 [plotDef:HCSV_reg_pt]
-relPath: <!General|H_sel!>_reg_pt
+relPath: HCSV_reg_pt
 xAxis  : Regressed p_{T} (jj) [GeV]
 nBins  : 40
 min    : 0
 max    : 400
 
+[plotDef:HCMVAV2_pt]
+relPath: HCMVAV2_pt
+xAxis  : p_{T} (jj) [GeV]
+nBins  : 40
+min    : 0
+max    : 400
 
+[plotDef:HCMVAV2_reg_pt]
+relPath: HCMVAV2_reg_pt
+xAxis  : Regressed p_{T} (jj) [GeV]
+nBins  : 40
+min    : 0
+max    : 400
 
 [plotDef:HptWmn]
 relPath: H_pt

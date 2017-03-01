@@ -71,11 +71,12 @@ vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
 # Jet Regression Regions
 #reg_list = ['jet_regression_Zhf']
 
-temp_list = ['Zlf_low_Zee']
+temp_list = ['Zlf_low_Zuu']
 
 # choose which lists to loop over                
 
 region_list = temp_list
+#region_list = zlf_list
 #region_list = reg_list
 #region_list = control_list
 #region_list = signal_list

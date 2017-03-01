@@ -66,8 +66,8 @@ prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_
 
 temp_list = ['ZH125']
 
-#file_list = bkg_list + data_list + signal_list + ST_list + DY_list
-file_list = temp_list
+file_list = bkg_list + data_list + signal_list + ST_list + DY_list
+#file_list = temp_list
 
 
 
@@ -196,8 +196,8 @@ def osSystem(file):
         for syst in JECsys:
             for sdir in ["Up", "Down"]:
                 for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
-                    resolution_hists[var+syst+sdir] = TH1F(var+syst+sdir, var+syst+sdir, 50 ,-1,1)
-        
+                    #resolution_hists[var+syst+sdir] = TH1F(var+syst+sdir, var+syst+sdir, 30,-0.5,0.5)
+                    resolution_hists[var+syst+sdir] = TH1F(var+syst+sdir, var+syst+sdir, 50,-0.05,0.05)
     
     
     print '----> Input : ', input
@@ -322,7 +322,7 @@ def osSystem(file):
         
         if entry % 1000 is 0: print '-----> Event # ', entry
         
-        if entry > 10000: break
+        #if entry > 10000: break
         
         Jet_pt_0 = tree.Jet_pt[tree.hJCMVAV2idx[0]]
         Jet_pt_1 = tree.Jet_pt[tree.hJCMVAV2idx[1]]
@@ -661,10 +661,13 @@ def osSystem(file):
                     if doPlots:
                         for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
                             if 'mass' in var:
+                                #resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_mass"][0]))
                                 resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_mass"][0])/JEC_systematics["HCMVAV2_reg_mass"][0])
                             if 'HCMVAV2_reg_pt' in var:
+                                #resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_pt"][0]))
                                 resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_pt"][0])/JEC_systematics["HCMVAV2_reg_pt"][0])
                             if 'hJetCMVAV2_pt_reg' in var:
+                                #resolution_hists[var+syst+sdir].Fill((JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] - JEC_systematics["hJetCMVAV2_pt_reg"][0]))
                                 resolution_hists[var+syst+sdir].Fill((JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] - JEC_systematics["hJetCMVAV2_pt_reg"][0])/JEC_systematics["hJetCMVAV2_pt_reg"][0])
                                     
                     if isVerbose:
@@ -730,21 +733,35 @@ def osSystem(file):
     if doPlots:
         PlotDir = plotpath
         for syst in JECsys:
-            for sdir in ["Up", "Down"]:
-                for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
-                    c = ROOT.TCanvas(var+syst+sdir,'', 600, 600)
-                    c.SetFillStyle(4000)
-                    c.SetFrameFillStyle(1000)
-                    c.SetFrameFillColor(0)
-                    c.SetLogy()
-                    name = '%s/%s' %(PlotDir, var+syst+sdir+'.pdf')
-                    resolution_hists[var+syst+sdir].GetXaxis().SetTitle('(JEC Shifted - Nominal)/Nominal')
-                    resolution_hists[var+syst+sdir].Draw()
-                    c.Print(name)
-                    name2 = name.replace('.pdf', '.png', 2)
-                    #print '---> name:', name2
-                    c.Print(name2)
-                    c.Delete()
+            for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
+                for sdir in ["Up", "Down"]:
+                    
+                    if sdir is 'Up':
+                        c = ROOT.TCanvas(var+syst+sdir,'', 600, 600)
+                        c.SetFillStyle(4000)
+                        c.SetFrameFillStyle(1000)
+                        c.SetFrameFillColor(0)
+                        c.SetLogy()
+                        name = '%s/%s' %(PlotDir, var+syst+'.pdf')
+                        resolution_hists[var+syst+sdir].GetXaxis().SetTitle('(JEC Shifted - Nominal)/Nominal')
+                        resolution_hists[var+syst+sdir].SetLineColor(kRed)
+                        resolution_hists[var+syst+sdir].SetStats(0)
+                        resolution_hists[var+syst+sdir].Draw()
+                        
+                        leg = TLegend(0.7,0.7,0.9,0.9)
+                        leg.SetFillStyle(0)
+                        leg.SetBorderSize(0)
+                        leg.AddEntry(resolution_hists[var+syst+sdir], 'Up', 'l')
+
+                    else:
+                        resolution_hists[var+syst+sdir].Draw('same')
+                        leg.AddEntry(resolution_hists[var+syst+sdir], 'Down', 'l')
+                        leg.Draw('same')
+
+                        c.Print(name)
+                        name2 = name.replace('.pdf', '.png', 2)
+                        c.Print(name2)
+                        c.Delete()
                     
                                                                              
     newtree.AutoSave()

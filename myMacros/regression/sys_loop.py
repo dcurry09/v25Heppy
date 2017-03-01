@@ -24,8 +24,8 @@ signal_list = ['ZH125', 'ggZH125']
 bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q']
 
 DY_list = ['DY_70to100', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_Bjets', 'DY_BgenFilter',
-           'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_70to100',
-           'DY0J', 'DY1J', 'DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3', 'DY2J_ext4',
+           'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_70to100'
+           #'DY0J', 'DY1J', 'DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3', 'DY2J_ext4',
            ]
 
 DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf']

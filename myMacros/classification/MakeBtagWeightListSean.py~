@@ -1,0 +1,53 @@
+import ROOT
+ROOT.gStyle.SetOptStat(0)
+ROOT.gROOT.SetBatch()
+
+#VarList = ['HCSV_reg_corrSYSUD_mass_CAT','HCSV_reg_corrSYSUD_pt_CAT', 'HCSV_reg_corrSYSUD_eta_CAT', 'HCSV_reg_corrSYSUD_phi_CAT','Jet_pt_reg_corrSYSUD_CAT_INDEX0','Jet_pt_reg_corrSYSUD_CAT_INDEX1', 'Sum$(Jet_pt_reg_corrSYSUD_CAT>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1])))']
+
+#VarList = ['SYS_UD_CAT: HCSV_reg_mass HCSV_reg_pt VHbb::deltaPhi(HCSV_reg_phi,V_phi) Jet_btagCSV[hJCidx[0]] Jet_btagCSV[hJCidx[1]] Jet_pt_reg[hJCidx[0]] Jet_pt_reg[hJCidx[1]] V_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1]))) V_pt (HCSV_reg_pt/V_pt) abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]) softActivityVH_njets5 VHbb::deltaR(HCSV_reg_eta,HCSV_reg_phi,V_eta,V_phi) met_pt']
+
+VarList = ['SYS_UD_CAT: <!treeVars|H_sel!>_reg_mass_corrSYSUD <!treeVars|H_sel!>_reg_pt_corrSYSUD VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSYSUD,V_new_phi) <!treeVars|jet_btag!>[<!treeVars|jet_index!>[0]] <!treeVars|jet_btag!>[<!treeVars|jet_index!>[1]] hJetCMVAV2_pt_regSYSUD[0] hJetCMVAV2_pt_regSYSUD[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSYSUD/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSYSUD,<!treeVars|H_sel!>_reg_phi_corrSYSUD,V_new_eta,V_new_phi) met_pt']
+
+sysList = 'systematics: Nominal'
+
+sys = 'SYS_UD_CAT'
+
+SysList = ['JER',
+           "PileUpDataMC",
+           "PileUpPtRef",
+           "PileUpPtBB",
+           "PileUpPtEC1",
+           "PileUpPtEC2",
+           "PileUpPtHF",
+           
+           "RelativeJEREC1",
+           "RelativeJEREC2",
+           "RelativeJERHF",
+           "RelativeFSR",
+           "RelativeStatFSR",
+           "RelativeStatEC",
+           "RelativeStatHF",
+           "RelativePtBB",
+           "RelativePtEC1",
+           "RelativePtEC2",
+           "RelativePtHF",
+           
+           "AbsoluteScale",
+           "AbsoluteMPFBias",
+           "AbsoluteStat",
+           "SinglePionECAL",
+           "SinglePionHCAL",
+           "Fragmentation",
+           "TimePtEta",
+           "FlavorQCD"]
+UDList = ['Up','Down']
+
+for syst in SysList:
+    for ud in UDList:
+        for var in VarList:
+            var =  var.replace('SYS',syst).replace('UD',ud)
+            print var+'\n'
+            sysList += ' '+sys.replace('SYS',syst).replace('UD',ud)
+
+print sysList
+

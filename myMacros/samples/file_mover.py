@@ -825,7 +825,7 @@ merge_list = [
     #['DY_400to600.root',DY_400to600_merge_list], 
     #['DY_800to1200.root',DY_800to1200_merge_list],
 
-    #['DY_600to800.root',DY_600to800_merge_list],
+    ['DY_600to800.root',DY_600to800_merge_list],
     #['ttbar.root',ttbar_merge_list]
     #['ZH125.root',ZH125_merge_list],
     #['ggZH125.root', ggZH125_merge_list],
@@ -854,11 +854,11 @@ def merge(list):
     input_file = ''
 
     for sample in list[1]:
-        input_file += ' '+uftrig_path+sample+'.root'
-        #input_file += ' /exports/uftrig01a/dcurry/heppy/files/vtype_out/'+sample+'.root'
+        #input_file += ' '+uftrig_path+sample+'.root'
+        input_file += ' /exports/uftrig01a/dcurry/heppy/files/vtype_out/'+sample+'.root'
 
-    merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
-    #merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/vtype_out/v25_'+outfile_name, input_file)
+    #merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
+    merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/vtype_out/v25_'+outfile_name, input_file)
     print '----> Merging Files into', uftrig_path+outfile_name,'.  This may take a while....'
     os.system(merge)
 
