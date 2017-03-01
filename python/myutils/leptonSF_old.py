@@ -64,12 +64,14 @@ class LeptonSF:
         if self.lep_binning not in self.res.keys():
             return [1.0, 0.0]
 
-        #print 'eta:', eta
-        
-        for etaKey, result in sorted(self.res[self.lep_binning].iteritems()) :
-            #print etaKey
-            etaL = float(etaKey.strip("[]").split(',')[0])
-            etaH = float(etaKey.strip("[]").split(',')[1])
+        print 'eta:', eta
+
+        for etaKey, values in sorted(self.res[self.lep_binning].iteritems()) :
+            print etaKey
+            print etaKey.strip("[]").split(',')
+            print etaKey.strip("[]").split(',')[0]
+            etaL = float(((etaKey[stripForEta:]).rstrip(']').split(',')[0]))
+            etaH = float(((etaKey[stripForEta:]).rstrip(']').split(',')[1]))
             if not (eta>etaL and eta<etaH):
                 continue 
 

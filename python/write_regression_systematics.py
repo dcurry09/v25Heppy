@@ -438,12 +438,12 @@ for job in info:
     newtree.Branch('eTrigSFWeight_ele27_BCDEF', eTrigSFWeight_ele27_BCDEF, 'eTrigSFWeight_ele27_BCDEF/F')
 
     # New for double ele
-    eTrigSFWeight_doubleEle76x = array('f',[0]*1)
-    eTrigSFWeight_doubleEle76xUp = array('f',[0]*1)
-    eTrigSFWeight_doubleEle76xDown = array('f',[0]*1)
-    newtree.Branch('eTrigSFWeight_doubleEle76x', eTrigSFWeight_doubleEle76x, 'eTrigSFWeight_doubleEle76x/F')
-    newtree.Branch('eTrigSFWeight_doubleEle76xUp', eTrigSFWeight_doubleEle76xUp, 'eTrigSFWeight_doubleEle76xUp/F')
-    newtree.Branch('eTrigSFWeight_doubleEle76xDown', eTrigSFWeight_doubleEle76xDown, 'eTrigSFWeight_doubleEle76xDown/F')
+    eTrigSFWeight_doubleEle80x = array('f',[0]*1)
+    eTrigSFWeight_doubleEle80xUp = array('f',[0]*1)
+    eTrigSFWeight_doubleEle80xDown = array('f',[0]*1)
+    newtree.Branch('eTrigSFWeight_doubleEle80x', eTrigSFWeight_doubleEle80x, 'eTrigSFWeight_doubleEle80x/F')
+    newtree.Branch('eTrigSFWeight_doubleEle80xUp', eTrigSFWeight_doubleEle80xUp, 'eTrigSFWeight_doubleEle80xUp/F')
+    newtree.Branch('eTrigSFWeight_doubleEle80xDown', eTrigSFWeight_doubleEle80xDown, 'eTrigSFWeight_doubleEle80xDown/F')
 
     eTrackerSFWeight = array('f',[0]*1)
     newtree.Branch('eTrackerSFWeight', eTrackerSFWeight, 'eTrackerSFWeight/F')
@@ -486,12 +486,12 @@ for job in info:
     newtree.Branch('mIsoSFWeight', mIsoSFWeight, 'mIsoSFWeight/F')
 
     # New for double ele
-    mTrigSFWeight_doubleMu76x = array('f',[0]*1)
-    mTrigSFWeight_doubleMu76xUp = array('f',[0]*1)
-    mTrigSFWeight_doubleMu76xDown = array('f',[0]*1)
-    newtree.Branch('mTrigSFWeight_doubleMu76x', mTrigSFWeight_doubleMu76x, 'mTrigSFWeight_doubleMu76x/F')
-    newtree.Branch('mTrigSFWeight_doubleMu76xUp', mTrigSFWeight_doubleMu76xUp, 'mTrigSFWeight_doubleMu76xUp/F')
-    newtree.Branch('mTrigSFWeight_doubleMu76xDown', mTrigSFWeight_doubleMu76xDown, 'mTrigSFWeight_doubleMu76xDown/F')
+    mTrigSFWeight_doubleMu80x = array('f',[0]*1)
+    mTrigSFWeight_doubleMu80xUp = array('f',[0]*1)
+    mTrigSFWeight_doubleMu80xDown = array('f',[0]*1)
+    newtree.Branch('mTrigSFWeight_doubleMu80x', mTrigSFWeight_doubleMu80x, 'mTrigSFWeight_doubleMu80x/F')
+    newtree.Branch('mTrigSFWeight_doubleMu80xUp', mTrigSFWeight_doubleMu80xUp, 'mTrigSFWeight_doubleMu80xUp/F')
+    newtree.Branch('mTrigSFWeight_doubleMu80xDown', mTrigSFWeight_doubleMu80xDown, 'mTrigSFWeight_doubleMu80xDown/F')
 
     # # New for trigger string short cut
     # zee_trigger = zee_trigger = array('f',[0]*1)
@@ -512,12 +512,16 @@ for job in info:
     DY_ewkWeight = array('f',[0]*1)
     newtree.Branch('DY_ewkWeight',DY_ewkWeight,'DY_ewkWeight/F')
 
-    if 'DY' in job.name:
-	    nloweight = ROOT.TTreeFormula('nloweight', "VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4&&GenJet_numBHadrons))", tree)
+    if 'DY' in job.name or 'ZZ_2L2Q' in job.name:
+	    
+	    if 'ZZ_2L2Q' in job.name:
+		    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
+	    else:
+		    nloweight = ROOT.TTreeFormula('nloweight', "VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4&&GenJet_numBHadrons))", tree)
 
-	    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
+		    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
 
-	    DY_ewkWeight ROOT.TTreeFormula('ewkWeight', 'VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)')
+		    DY_ewkWeight = ROOT.TTreeFormula('ewkWeight', 'VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)')
 	    
 
     # For 2016E+F HIP mitigation
@@ -558,7 +562,7 @@ for job in info:
     for entry in range(0,nEntries):
 
 	    # for testing
-	    #if entry > 10000: break
+	    if entry > 10000: break
 	    	    
             tree.GetEntry(entry)
 
@@ -569,10 +573,16 @@ for job in info:
 	    
 	    # Set the special Weight
 	    # Init the weight string
-	    if 'DY' not in job.name: 
-	    	    DY_specialWeight[0] = 1
-	    	    NLO_Weight[0] = 1		    
-		    DY_ewkWeight[0] = 1
+	    if 'DY' not in job.name:
+		    if 'ZZ_2L2Q' in job.name:
+			    specialWeight_ = specialWeight.EvalInstance()
+			    DY_specialWeight[0] = specialWeight_
+			    NLO_Weight[0] = 1		    
+			    DY_ewkWeight[0] = 1
+		    else:
+			    NLO_Weight[0] = 1
+			    DY_ewkWeight[0] = 1
+			    DY_specialWeight[0] = 1
 	    else:
 	    	    specialWeight_ = specialWeight.EvalInstance()
 	    	    DY_specialWeight[0] = specialWeight_
@@ -621,9 +631,9 @@ for job in info:
 		    
 		    eTrigSFWeight_ele27_BCDEF[0] = 1
 		    
-		    eTrigSFWeight_doubleEle76x[0] = 1
-		    eTrigSFWeight_doubleEle76xUp[0] = 1
-		    eTrigSFWeight_doubleEle76xDown[0] = 1
+		    eTrigSFWeight_doubleEle80x[0] = 1
+		    eTrigSFWeight_doubleEle80xUp[0] = 1
+		    eTrigSFWeight_doubleEle80xDown[0] = 1
 
 		    mIdSFWeight[0]      = 1
 		    mIdSFWeightUp[0]      = 1
@@ -643,9 +653,9 @@ for job in info:
 		    
 		    mTrigSFWeight_ICHEP[0] = 1
 
-		    mTrigSFWeight_doubleMu76x[0] = 1
-		    mTrigSFWeight_doubleMu76xUp[0] = 1
-		    mTrigSFWeight_doubleMu76xDown[0] = 1
+		    mTrigSFWeight_doubleMu80x[0] = 1
+		    mTrigSFWeight_doubleMu80xUp[0] = 1
+		    mTrigSFWeight_doubleMu80xDown[0] = 1
 
 		    muTrigEffBfr1 = 1
 		    muTrigEffBfr2 = 1
@@ -660,6 +670,9 @@ for job in info:
 		    muID_BCDEF= 1
 		    muID_GH = 1
 		    
+		    mTrk_BCDEF= 1
+                    mTrk_GH = 1
+		    
 
 		    jsons = {
 			    #### Muon trigger ISO, and ID ####
@@ -671,41 +684,58 @@ for job in info:
 			    # ISO
 			    'myutils/jsons/80x/muon_ISO_BCDEF.json' : ['LooseISO_LooseID_pt_eta', 'pt_abseta_ratio'],
 			    'myutils/jsons/80x/muon_ISO_GH.json'    : ['LooseISO_LooseID_pt_eta', 'pt_abseta_ratio'],
-			    
+
+			    # tracker
+			    'myutils/jsons/80x/trk_SF_RunBCDEF.json' : ['Graph', 'ratio_eff_eta3_dr030e030_corr'],
+			    'myutils/jsons/80x/trk_SF_RunGH.json'    : ['Graph', 'ratio_eff_eta3_dr030e030_corr'],
+
 			    #### Electron trigger and ID ####
-			    # 80x in v25
-			    #'../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_tracker_80x', 'eta_pt_ratio'],
-			    #'../myMacros/scale_factors/80x/ScaleFactor_eMVAID_80x.json' : ['ScaleFactor_MVAID_80x', 'eta_pt_ratio']
-			    #'../myMacros/scale_factors/ScaleFactor_doubleElectron76x.json' : ['ScaleFactor_doubleElectron76x', 'eta_pt_ratio'],
-			    #'../myMacros/scale_factors/ScaleFactor_doubleMuon76x.json' : ['ScaleFactor_doubleMuon76x', 'eta_pt_ratio']
+			    
+			    # tracker
+			    '../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_tracker_80x', 'eta_pt_ratio'],
+
+			    # MVAID
+			    'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
+
+			    # trigger
+			    'myutils/jsons/80x/DiEleLeg1AfterIDISO_out.json' : ['DiEleLeg1AfterIDISO', 'eta_pt_ratio'],
+			    'myutils/jsons/80x/DiEleLeg2AfterIDISO_out.json' : ['DiEleLeg2AfterIDISO', 'eta_pt_ratio']
 			    }
 
 		    for j, name in jsons.iteritems():
 			    
-			    # print '\n New Json Iteration...'
-			    # print j
-			    # print name[0], name[1]
+			    #print '\n New Json Iteration...'
+			    #print j
+			    #print name[0], name[1]
 			    			    
 			    weight = []
 			    lepCorr = LeptonSF(j, name[0], name[1])
 			    
-			    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
-			    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[1], tree.vLeptons_new_eta[1]))
-				    
+			    if 'trk_SF_Run' not in j:
+				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
+				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[1], tree.vLeptons_new_eta[1]))
+			    if 'trk_SF_Run' in j:	    
+				    weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[0]))
+                                    weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[1]))
+
 			    if tree.Vtype_new == 0:
 				    
-				    if j.find('SingleMuonTrigger_LooseMuons_beforeL2fix_Z_RunBCD_prompt80X_7p65') != -1:
-					    muTrigEffBfr1 = weight[0][0]
-					    muTrigEffBfr2 = weight[1][0]
-					    muEffUpBfr1   = (weight[0][0]+weight[0][1])
-                                            muEffUpBfr2   = (weight[1][0]+weight[1][1])
-                                            muEffDownBfr1 = (weight[0][0]-weight[0][1])
-                                            muEffDownBfr2 = (weight[1][0]-weight[1][1])
-				
-				    elif j.find('ScaleFactor_doubleMuon76x') != -1:
-					    mTrigSFWeight_doubleMu76x[0] = weight[0][0]
-                                            mTrigSFWeight_doubleMu76xUp[0] = weight[0][0] + weight[0][1] 
-                                            mTrigSFWeight_doubleMu76xDown[0] = weight[0][0] - weight[0][1]
+				    if j.find('trk_SF_RunBCDEF') != -1:
+					    mTrk_BCDEF     = weight[0][0]*weight[1][0]
+					    mTrk_BCDEF_up   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
+                                            mTrk_BCDEF_down = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
+					    #print mTrk_BCDEF
+
+				    elif j.find('trk_SF_RunGH') != -1:
+                                            mTrk_GH     = weight[0][0]*weight[1][0]
+					    mTrk_GH_up   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
+                                            mTrk_GH_down = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
+					    #print weight[0][0], weight[1][0]
+
+				    elif j.find('ScaleFactor_doubleMuon80x') != -1:
+					    mTrigSFWeight_doubleMu80x[0] = weight[0][0]
+                                            mTrigSFWeight_doubleMu80xUp[0] = weight[0][0] + weight[0][1] 
+                                            mTrigSFWeight_doubleMu80xDown[0] = weight[0][0] - weight[0][1]
 					    
 				    elif j.find('SingleMuonTrigger_LooseMuons_afterL2fix_Z_RunBCD_prompt80X_7p65') != -1:
 					    muTrigEffAftr1 = weight[0][0]
@@ -721,7 +751,6 @@ for job in info:
 					    muID_BCDEF = weight[0][0]*weight[1][0]  
 					    mIDSFWeightUp_BCDEF   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
 					    mIDSFWeightDown_BCDEF = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
-					    #print muID_BCDEF
 
 				    elif j.find('muon_ID_GH') != -1:
 					    muID_GH = weight[0][0]*weight[1][0]
@@ -743,33 +772,27 @@ for job in info:
 
 			    elif tree.Vtype_new == 1:
 				    				    	    
-				    if j.find('ScaleFactor_eMVAID_80x') != -1:
+				    if j.find('EIDISO_ZH_out') != -1:
 					    eId90SFWeight[0] = weight[0][0]*weight[1][0]
 					    eId90SFWeightUp[0] = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
 					    eId90SFWeightDown[0] = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
 					    
-				    elif j.find('WP90_BCD_withRelIso.json') != -1:
+				    elif j.find('DiEleLeg1AfterIDISO_out') != -1:
 					    eff1 = weight[0][0]
-					    eff2 = weight[1][0]
 					    eff1Up = (weight[0][0]+weight[0][1])
-					    eff2Up = (weight[1][0]+weight[1][1])
 					    eff1Down = (weight[0][0]-weight[0][1])
+
+				    elif j.find('DiEleLeg2AfterIDISO_out') != -1:
+                                            eff2 = weight[1][0]
+                                            eff2Up = (weight[1][0]+weight[1][1])
                                             eff2Down = (weight[1][0]-weight[1][1])
-					    eTrigSFWeight_ele27[0]     = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
-					    eTrigSFWeight_ele27Up[0]   = eff1Up*(1-eff2Up)*eff1Up + eff2Up*(1-eff1Up)*eff2Up + eff1Up*eff1Up*eff2Up*eff2Up 
-					    eTrigSFWeight_ele27Down[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
-					    
-					    
-				    elif j.find('ScaleFactor_doubleElectron76x') != -1:
-                                            eTrigSFWeight_doubleEle76x[0] = weight[0][0]
-                                            eTrigSFWeight_doubleEle76xUp[0] = weight[0][0] + weight[0][1]
-                                            eTrigSFWeight_doubleEle76xDown[0] = weight[0][0] - weight[0][1]
 
 				    elif j.find('ScaleFactor_etracker_80x') != -1:
 					    eTrackerSFWeight[0] = weight[0][0]*weight[1][0]
 					    eTrackerSFWeightUp[0]   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
                                             eTrackerSFWeightDown[0] = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
-
+					    
+					    
                     # End JSON loop ====================================
 
 		    if tree.Vtype_new == 0:
@@ -792,14 +815,25 @@ for job in info:
 			    #eff2 = 0.02772*muTrigEffBfr2 + 0.97227*muTrigEffAftr2
 			    #TrigSFWeight[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
 			    
-			    mIdSFWeight[0] = muID_BCDEF*(20.1/36.4) + muID_GH*(16.3/36.4)
-			    mIdSFWeightUp[0] = mIDSFWeightUp_BCDEF*(20.1/36.4) + mIDSFWeightUp_GH*(16.3/36.4)
+			    mIdSFWeight[0]     = muID_BCDEF*(20.1/36.4) + muID_GH*(16.3/36.4)
+			    mIdSFWeightUp[0]   = mIDSFWeightUp_BCDEF*(20.1/36.4) + mIDSFWeightUp_GH*(16.3/36.4)
 			    mIdSFWeightDown[0] = mIDSFWeightDown_BCDEF*(20.1/36.4) + mIDSFWeightDown_GH*(16.3/36.4)
 			    
-			    mIsoSFWeight[0] = muISO_BCDEF*(20.1/36.4) + muISO_GH*(16.3/36.4)
-                            mIsoSFWeightUp[0] = mISOSFWeightUp_BCDEF*(20.1/36.4) + mISOSFWeightUp_GH*(16.3/36.4)
+			    mIsoSFWeight[0]     = muISO_BCDEF*(20.1/36.4) + muISO_GH*(16.3/36.4)
+                            mIsoSFWeightUp[0]   = mISOSFWeightUp_BCDEF*(20.1/36.4) + mISOSFWeightUp_GH*(16.3/36.4)
                             mIsoSFWeightDown[0] = mISOSFWeightDown_BCDEF*(20.1/36.4) + mISOSFWeightDown_GH*(16.3/36.4)
- 
+			    
+			    mTrackerSFWeight[0]     = mTrk_BCDEF*(20.1/36.4) + mTrk_GH*(16.3/36.4)
+			    mTrackerSFWeightUp[0]   = mTrk_BCDEF_up*(20.1/36.4) + mTrk_GH_up*(16.3/36.4)
+			    mTrackerSFWeightDown[0] = mTrk_BCDEF_down*(20.1/36.4) + mTrk_GH_down*(16.3/36.4)
+
+		    if tree.Vtype_new == 1:
+			    eTrigSFWeight_doubleEle80x[0]     = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
+			    eTrigSFWeight_doubleEle80xUp[0]   = eff1Up*(1-eff2Up)*eff1Up + eff2Up*(1-eff1Up)*eff2Up + eff1Up*eff1Up*eff2Up*eff2Up 
+			    eTrigSFWeight_doubleEle80xDown[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
+			    
+
+
 		    '''
 		    # Now assign the lepton event weight based on vType
 		    pTcut = 22;

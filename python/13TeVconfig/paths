@@ -50,8 +50,8 @@ logpath: <!Directories|vhbbpath!>/LOG/
 # from which samples to plot and where to save the plots
 #plottingSamples: /exports/uftrig01a/dcurry/data/bbar/13TeV/heppy/regression/fromPier/
 #plottingSamples : <!Directories|SYSout!>
-plottingSamples : <!Directories|PREPout!>
-#plottingSamples : <!Directories|uftrig_storage!>/files/btag_out/
+#plottingSamples : <!Directories|PREPout!>
+plottingSamples : <!Directories|uftrig_storage!>/files/jec_out/
 #plottingSamples : <!Directories|MVAout!>
 plotpath        : <!Directories|vhbbpath!>/plots/basic_out/
 
@@ -69,9 +69,10 @@ limits: <!Directories|vhbbpath!>/limits/
 
 # Where to take the raw samples and where to put the prepared trees:
 #PREPin : <!Directories|samplepath!><!Directories|version!>
+#PREPout: <!Directories|uftrig_storage!>/files/prep_out_large/
 PREPin : <!Directories|uftrig_storage!>/files/vtype_out/
 PREPout: <!Directories|uftrig_storage!>/files/prep_out/
-#PREPout: <!Directories|uftrig_storage!>/files/prep_out_large/
+
 
 # Where Regression takes its input, and where to put the Regression output
 REGRin : <!Directories|PREPout!>
@@ -79,7 +80,7 @@ REGRout: <!Directories|uftrig_storage!>/files/regr_out
 
 # On which samples to apply the regression and write the sys and where to write the resulting trees:
 #SYSin : <!Directories|MVAout!>
-SYSin : <!Directories|uftrig_storage!>/files/btag_out/
+SYSin : <!Directories|uftrig_storage!>/files/jec_out/
 SYSout: <!Directories|uftrig_storage!>/files/sys_out
 
 # On which samples to evaluate the MVA on and where to write the resulting trees:

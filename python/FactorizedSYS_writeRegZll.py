@@ -64,10 +64,11 @@ ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3',
              'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
 
-temp_list = ['ZH125']
+temp_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3',
+             'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
 
-file_list = bkg_list + data_list + signal_list + ST_list + DY_list
-#file_list = temp_list
+#file_list = bkg_list + data_list + signal_list + ST_list + DY_list
+file_list = temp_list
 
 
 
@@ -368,7 +369,7 @@ def osSystem(file):
         Jet_leptonPtRel_0 = max(0.,tree.Jet_leptonPtRel[tree.hJCMVAV2idx[0]])
         Jet_leptonPtRel_1= max(0.,tree.Jet_leptonPtRel[tree.hJCMVAV2idx[1]])
         Jet_leptonDeltaR_0 = max(0.,tree.Jet_leptonDeltaR[tree.hJCMVAV2idx[0]])
-        Jet_leptonDeltaR_1 = max(0.,tree.Jet_leptonDeltaR[tree.hJCMVAV2idx[0]])
+        Jet_leptonDeltaR_1 = max(0.,tree.Jet_leptonDeltaR[tree.hJCMVAV2idx[1]])
         Jet_leptonPt_0 = max(0.,tree.Jet_leptonPt[tree.hJCMVAV2idx[0]])
         Jet_leptonPt_1= max(0.,tree.Jet_leptonPt[tree.hJCMVAV2idx[1]])
         rho_0=tree.rho
@@ -675,56 +676,6 @@ def osSystem(file):
                         print syst+sdir+' Jet2 pt reg:', pt2
                         print syst+sdir+'Hmass Reg:', JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0]
 
-        # for key in regVars:
-        #     for syst in JECsys:
-        #         for sdir in ["Up", "Down"]:
-        #             if 'Jet_pt' in key:
-        #                 if syst == "JER":
-        #                     formula1 = "Jet_rawPt_0*Jet_corr_0*Jet_corr_JER"+sdir+"_0"
-        #                     formula2 = "Jet_rawPt_1*Jet_corr_1*Jet_corr_JER"+sdir+"_1"
-        #                     theVarsJEC0[syst+sdir][key][0] = eval(formula1)
-        #                     theVarsJEC1[syst+sdir][key][0] = eval(formula2)
-        #                 else:
-        #                     formula1 = "Jet_rawPt_0*Jet_corr_"+syst+sdir+"_0*Jet_corr_JER_0"
-        #                     formula2 = "Jet_rawPt_1*Jet_corr_"+syst+sdir+"_1*Jet_corr_JER_1"
-        #                     theVarsJEC0[syst+sdir][key][0] = eval(formula1)
-        #                     theVarsJEC1[syst+sdir][key][0] = eval(formula2)
-        #             else:
-        #                 theVarsJEC0[syst+sdir][key][0] = eval("%s_0" %(key))
-        #                 theVarsJEC1[syst+sdir][key][0] = eval("%s_1" %(key))
-        
-        # for syst in JECsys:
-        #     for sdir in ["Up", "Down"]:
-                
-        #         print '\n CHeck witth unique BDT...'
-        
-        #         pt1 = max(0.0001, TMVA_reader['readerJet0_'+syst+sdir].EvaluateRegression("readerJet0_"+syst+sdir)[0])
-        #         pt2 = max(0.0001, TMVA_reader['readerJet1_'+syst+sdir].EvaluateRegression("readerJet1_"+syst+sdir)[0])
-        
-        #         rPt0 = Jet_pt_0*pt1
-        #         rPt1 = Jet_pt_1*pt2
-        
-        #         JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] = pt1
-        #         JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][1] = pt2
-        
-        #         Jet_regWeight1 = pt1/Jet_pt_0
-        #         Jet_regWeight2 = pt2/Jet_pt_1
-        
-        #         hJ0.SetPtEtaPhiM(pt1, Jet_eta_0, Jet_phi_0, Jet_m_0*Jet_regWeight1)
-        #         hJ1.SetPtEtaPhiM(pt2, Jet_eta_1, Jet_phi_1, Jet_m_1*Jet_regWeight2)
-                
-        #         JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] = (hJ0+hJ1).M()
-        #         JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] = (hJ0+hJ1).Pt()
-        #         JEC_systematics["HCMVAV2_reg_eta_corr"+syst+sdir][0] = (hJ0+hJ1).Eta()
-        #         JEC_systematics["HCMVAV2_reg_phi_corr"+syst+sdir][0] = (hJ0+hJ1).Phi()
-                
-        #         print syst+sdir+' Jet1 pt reg:', pt1
-        #         print syst+sdir+' Jet2 pt reg:', pt2
-        #         print syst+sdir+'Hmass Reg:', JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0]
-
-
-
-        
         # Fill Tree
         newtree.Fill()
                                                                              

@@ -270,7 +270,8 @@ DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650'
 
 DY_parton_list = ['DY0J', 'DY1J']
 
-temp_list = ['DY_inclusive']
+temp_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3',
+             'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
 file_list = temp_list

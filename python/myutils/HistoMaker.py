@@ -132,9 +132,12 @@ class HistoMaker:
             
             if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
                 weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
-                if '600to800' not in job.name: 
-                    weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
-                #weightF  = weightF+ '*('+job.specialweight+')'
+                weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
+                weightF = weightF+'*('+job.specialweight+')'
+            if 'ZZ_2L2Q' in job.name:
+                weightF = weightF+'*('+job.specialweight+')'
+       
+
 
             # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':

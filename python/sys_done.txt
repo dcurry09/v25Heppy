@@ -1,6 +1,8 @@
 13TeVconfig
 BTagCalibrationStandalone.o
 BTagCalibrationStandalone.so
+FactorizedSYS_writeRegZll.py
+FactorizedSYS_writeRegZll.py~
 Jet_sys_decorrelation.py
 Jet_sys_decorrelation.py~
 README
@@ -57,6 +59,7 @@ trainRegression.py
 tree_stack.py
 ttH_BTV_CSVv2_13TeV_2016All_36p5_2017_1_10.csv
 ttH_BTV_cMVAv2_13TeV_2016All_36p5_2017_1_26.csv
+ttbar-G25-500k-13d-300t.weights.xml
 weights
 workspace_datacard.py
 workspace_datacard.py~
