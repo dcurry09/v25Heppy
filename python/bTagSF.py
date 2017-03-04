@@ -182,14 +182,15 @@ inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
-bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ']
+bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
 
 data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
 DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter',
-           'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
+           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6'
+           #'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
            ]
 
 DY_parton_list = ['DY0J', 'DY1J']
@@ -199,8 +200,8 @@ ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
              'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
 
-temp_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3',
-             'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
+temp_list = ['ST_s']
+
 
 #file_list = bkg_list + data_list + signal_list + ST_list + DY_parton_list
 file_list = temp_list
@@ -343,8 +344,8 @@ def osSystem(file):
         bTagWeights["bTagWeightCMVAV2_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, "central", "CMVAV2", btag_calibrators)
         bTagWeights["bTagWeightCSV_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, "central", "CSV", btag_calibrators)
         
-        #print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
-        #print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
+        print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
+        print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
         
         for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
             for sdir in ["Up", "Down"]:
@@ -354,6 +355,10 @@ def osSystem(file):
                 
 
                 for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
+                    ptmin = 20.
+                    ptmax = 1000.
+                    etamin = 0.
+                    etamax = 2.4
                     if (systcat.find("High")!=-1):
                         ptmin = 100.
                     if (systcat.find("Low")!=-1):
@@ -367,6 +372,9 @@ def osSystem(file):
    
                     bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
                 
+                    print 'bTagWeights[bTagWeightCMVAV2_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0]
+                    print 'bTagWeights[bTagWeightCSV_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0]
+
         otree.Fill()
 
     
