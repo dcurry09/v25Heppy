@@ -178,7 +178,7 @@ class Jet :
 prefix = 'v25_'
 #prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
@@ -188,7 +188,7 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter',
+DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter',
            'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6'
            #'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
            ]
@@ -203,8 +203,9 @@ prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_
 temp_list = ['ST_s']
 
 
-#file_list = bkg_list + data_list + signal_list + ST_list + DY_parton_list
-file_list = temp_list
+file_list = bkg_list + data_list + signal_list + ST_list 
+#+ DY_list
+#file_list = temp_list
 
 
 
@@ -278,6 +279,18 @@ def osSystem(file):
 
     ofile.cd()
 
+
+    # Zero out any old batg branches
+    tree.SetBranchStatus('bTagWeightCSV_Moriond',0)
+    tree.SetBranchStatus('bTagWeightCMVAv2_Moriond',0)
+    for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
+        for sdir in ["Up", "Down"]:
+            tree.SetBranchStatus("bTagWeightCMVAV2_Moriond_"+syst+sdir,0)
+            tree.SetBranchStatus("bTagWeightCSV_Moriond_"+syst+sdir,0)
+            for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
+                tree.SetBranchStatus("bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir,0)
+                tree.SetBranchStatus("bTagWeightCSV_Moriond_"+syst+systcat+sdir,0)
+
     otree = tree.CloneTree(0)
 
     bTagWeights = {}
@@ -344,8 +357,8 @@ def osSystem(file):
         bTagWeights["bTagWeightCMVAV2_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, "central", "CMVAV2", btag_calibrators)
         bTagWeights["bTagWeightCSV_Moriond"][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, "central", "CSV", btag_calibrators)
         
-        print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
-        print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
+        #print 'btag CMVAV2 Event Weight:', bTagWeights["bTagWeightCMVAV2_Moriond"][0]
+        #print 'btag CSV Event Weight   :', bTagWeights["bTagWeightCSV_Moriond"][0]
         
         for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
             for sdir in ["Up", "Down"]:
@@ -353,7 +366,7 @@ def osSystem(file):
                 bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
                 bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
                 
-
+                
                 for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
                     ptmin = 20.
                     ptmax = 1000.
@@ -371,9 +384,9 @@ def osSystem(file):
                     bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
    
                     bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
-                
-                    print 'bTagWeights[bTagWeightCMVAV2_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0]
-                    print 'bTagWeights[bTagWeightCSV_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0]
+
+                    #print 'bTagWeights[bTagWeightCMVAV2_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0]
+                    #print 'bTagWeights[bTagWeightCSV_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0]
 
         otree.Fill()
 
@@ -387,7 +400,13 @@ def osSystem(file):
 
 
 # Done
+# p = multiprocessing.Pool()
+# results = p.imap(osSystem, file_list)
+# p.close()
+# p.join()
+
+
 p = multiprocessing.Pool()
-results = p.imap(osSystem, file_list)
+results = p.imap(osSystem, DY_list)
 p.close()
 p.join()

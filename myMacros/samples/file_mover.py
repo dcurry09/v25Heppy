@@ -375,8 +375,8 @@ file_names.append('ggZH125')
 # file_list.append(eos_path3+'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_130143/0000/')
 # file_names.append('DY_400to600_ext2')
 
-# #file_list.append(eos_path3+'DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151803/0000/')
-# #file_names.append('DY_600to800_ext1')
+file_list.append(eos_path3+'DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2/170128_151803/0000/')
+file_names.append('DY_600to800_ext1')
 
 #file_list.append(eos_path3+'DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_151850/0000/')
 #file_names.append('DY_800to1200_ext1')
@@ -475,11 +475,12 @@ file_names.append('ZZ')
 
 file_list.append(eos_path2+'WZ_TuneCUETP8M1_13TeV-pythia8/VHBB_HEPPY_V25_WZ_TuneCUETP8M1_13TeV-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_121302/0000/')
 file_names.append('WZ')
+'''
 
 file_list.append(eos_path2+'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/VHBB_HEPPY_V25_ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_140220/0000/')
-file_names.append('ZZ_2L2Q')
+file_names.append('ZZ_2L2Q_ext1')
 
-
+'''
 # ==== Single Top ===
 
 file_list.append(eos_path2+'ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/VHBB_HEPPY_V25_ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-Py8_TuneCUETP8M1__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_112035/0000/')
@@ -510,10 +511,10 @@ isLxplus = False
 #isLxplus = True
 
 isUftrig = False
-#isUftrig = True
+isUftrig = True
 
 
-eos2_list = ['ZZ', 'WZ', 'ST_s', 'ST_t_ext1', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top', 'ZZ_2L2Q']
+eos2_list = ['ZZ', 'WZ', 'ST_s', 'ST_t_ext1', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top', 'ZZ_2L2Q_ext1']
 eos3_list = ['ZH125_ext1', 'ZH125_ext2', 'ggZH125', 'DY_inclusive', 'DY_100to200_ext1','DY_100to200_ext2', 'DY_200to400_ext1','DY_200to400_ext2', 'DY_400to600_ext1','DY_400to600_ext2', 'DY_600to800_ext1', 'DY_800to1200_ext1', 'DY_1200to2500', 'DY_2500toInf', 'ttbar_ext1', 'ttbar_ext2' ,'DY_Bjets', 'DY_BgenFilter', 'DY_70to100',
              'DY_Pt100to250_ext1', 'DY_Pt100to250_ext2', 'DY_Pt50to100',
              'DY_Pt250to400_ext1', 'DY_Pt250to400_ext2','DY_Pt250to400_ext3',
@@ -606,7 +607,7 @@ def osSystem(file):
             
             print '-----> Copying file:', x
             
-            os.system('xrdcp -f '+x+' '+temp_dir)
+            #os.system('xrdcp -f '+x+' '+temp_dir)
             
 
     # Now merge the files
@@ -673,12 +674,29 @@ def osSystem(file):
 
             elif '600to800' in name:
                 #print '\n---> Splitting input files...'
-                if i < 50:
+                if i < 30:
                     input_file += x
-                if i >= 50 and i < 100:
+                if i >= 30 and i < 60:
                     input_file_ext += x
-                if i >= 100:
+                if i >= 60 and i < 90:
                     input_file_ext2 += x
+                if i >= 90 and i < 120:
+                    input_file_ext3 += x
+                if i >= 120 and i < 150:
+                    input_file_ext4 += x
+                if i >= 150 and i < 180:
+                    input_file_ext5 += x
+                if i >= 180 and i < 210:
+                    input_file_ext6 += x
+
+            elif 'ZZ_2L2Q' in name:
+                if i < 100:
+                    input_file += x
+                if i >= 100 and i < 200:
+                    input_file_ext += x
+                if i >= 200:
+                    input_file_ext2 += x
+
 
             else:
                 input_file += x
@@ -690,7 +708,7 @@ def osSystem(file):
     
     os.system(merge)
     
-    if '600to800' in name or 'ttbar' in name or 'ST_t_ext1' in name or 'DY_2J' in name:
+    if 'ttbar' in name or 'ST_t_ext1' in name or 'DY_2J' in name:
         # Now for really large ttbar files
         merge_ext = "hadd -f %s %s" % (uftrig_path+name+'_NewExt1.root', input_file_ext)
         print '----> Merging Files into', uftrig_path+name+'_NewExt1.root','.  This may take a while....'
@@ -727,6 +745,35 @@ def osSystem(file):
         merge_ext9 = "hadd -f %s %s" % (uftrig_path+name+'_NewExt9.root', input_file_ext9)
         print '----> Merging Files into', uftrig_path+name+'_NewExt9.root','.  This may take a while....'
         os.system(merge_ext9)
+
+    if 'ZZ_2L2Q' in name or '600to800' in name:
+        # Now for really large ttbar files
+        name = name.replace('ext1', 'ext2')
+        merge_ext2 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext)
+        print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+        os.system(merge_ext2)
+        
+        name = name.replace('ext2', 'ext3')
+        merge_ext3 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext2)
+        print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+        os.system(merge_ext3)
+        
+        if '600to800' in name:
+            name = name.replace('ext3', 'ext4')
+            merge_ext4 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext3)
+            print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+            os.system(merge_ext4)
+        
+            name = name.replace('ext4', 'ext5')
+            merge_ext5 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext4)
+            print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+            os.system(merge_ext5)
+            
+            name = name.replace('ext5', 'ext6')
+            merge_ext6 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext5)
+            print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+            os.system(merge_ext6)
+            
         
 
     print '\n----> Finished Merging: ', uftrig_path+name+'.root'
@@ -825,7 +872,7 @@ merge_list = [
     #['DY_400to600.root',DY_400to600_merge_list], 
     #['DY_800to1200.root',DY_800to1200_merge_list],
 
-    ['DY_600to800.root',DY_600to800_merge_list],
+    #['DY_600to800.root',DY_600to800_merge_list],
     #['ttbar.root',ttbar_merge_list]
     #['ZH125.root',ZH125_merge_list],
     #['ggZH125.root', ggZH125_merge_list],
@@ -855,10 +902,10 @@ def merge(list):
 
     for sample in list[1]:
         #input_file += ' '+uftrig_path+sample+'.root'
-        input_file += ' /exports/uftrig01a/dcurry/heppy/files/vtype_out/'+sample+'.root'
+        input_file += ' /exports/uftrig01a/dcurry/heppy/files/prep_out/'+sample+'.root'
 
     #merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
-    merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/vtype_out/v25_'+outfile_name, input_file)
+    merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_'+outfile_name, input_file)
     print '----> Merging Files into', uftrig_path+outfile_name,'.  This may take a while....'
     os.system(merge)
 

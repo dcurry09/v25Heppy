@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+qe my#!/usr/bin/env python
 import os, sys, ROOT, warnings, pickle
 ROOT.gROOT.SetBatch(True)
 from array import array
@@ -223,7 +223,7 @@ print '\treevar::', treevar
 
 # Use the rebinning:
 rebin_active=eval(config.get('LimitGeneral','rebin_active'))
-rebin_active = False
+#rebin_active = False
 
 if 'Jet' in treevar:
    if rebin_active:

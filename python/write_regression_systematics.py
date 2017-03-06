@@ -562,7 +562,7 @@ for job in info:
     for entry in range(0,nEntries):
 
 	    # for testing
-	    if entry > 10000: break
+	    if entry > 1000: break
 	    	    
             tree.GetEntry(entry)
 
@@ -711,12 +711,19 @@ for job in info:
 			    weight = []
 			    lepCorr = LeptonSF(j, name[0], name[1])
 			    
-			    if 'trk_SF_Run' not in j:
+			    if '_out' in j or 'ScaleFactor_etracker_80x' in j: 
+				    weight.append(lepCorr.get_2D( tree.vLeptons_new_eta[0], tree.vLeptons_new_pt[0]))
+                                    weight.append(lepCorr.get_2D( tree.vLeptons_new_eta[1], tree.vLeptons_new_pt[1]))
+				    
+			    elif 'trk_SF_Run' not in j:
 				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
 				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[1], tree.vLeptons_new_eta[1]))
-			    if 'trk_SF_Run' in j:	    
+			    elif 'trk_SF_Run' in j:	    
 				    weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[0]))
                                     weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[1]))
+
+
+
 
 			    if tree.Vtype_new == 0:
 				    

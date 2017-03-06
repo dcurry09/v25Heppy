@@ -74,7 +74,7 @@ class MvaEvaluator:
         for systematic in self.systematics:
             
             #print '\n-----> systematic: ', systematic
-            #print len(self.MVA_Vars['Nominal'])
+            
             
             for j in range(len(self.MVA_Vars['Nominal'])):
                 

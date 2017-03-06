@@ -96,14 +96,9 @@ Hpt_Zhf: <!ZHbb|H_sel!>_reg_pt > 0.
 
 # Jet cuts
 jet_pt_20: Jet_pt_reg[<!ZHbb|jet_index!>[0]] > 20. & Jet_pt_reg[<!ZHbb|jet_index!>[1]] > 20. 
-#jet_pt_20: Jet_pt[<!ZHbb|jet_index!>[0]] > 20. & Jet_pt[<!ZHbb|jet_index!>[1]] > 20.
-
-jet_pt_30: Jet_pt_reg[<!ZHbb|jet_index!>[0]] > 30. & Jet_pt_reg[<!ZHbb|jet_index!>[1]] > 30.
-jet_pt_30_noREG: Jet_pt[<!ZHbb|jet_index!>[0]] > 30. & Jet_pt[<!ZHbb|jet_index!>[1]] > 30.
+#jet_pt_20: hJetCMVAV2_pt_reg[0] > 20. & hJetCMVAV2_pt_reg[1] > 20.
 
 jet_pt_Zhf: <!ZHbb|jet_pt_20!>
-#jet_pt_Zhf: <!ZHbb|jet_pt_30_noREG!>
-
 
 # MET
 met_signal: met_pt < 60.

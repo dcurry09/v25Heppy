@@ -20,6 +20,9 @@ class TreeCache:
             print("\x1b[31;5;1m\n\t>>> %s: Please set your TMPDIR and try again... <<<\n\x1b[0m" %os.getlogin())
             #sys.exit(-1)
 
+        VHbbNameSpace=config.get('VHbbNameSpace','library')
+        ROOT.gSystem.Load(VHbbNameSpace)
+        
         self.__doCache = True
         if config.has_option('Directories','tmpSamples'):
             self.__tmpPath = config.get('Directories','tmpSamples')

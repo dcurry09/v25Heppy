@@ -54,8 +54,6 @@ SR_combine_list_high = ['vhbb_DC_TH_BDT_Zee_HighPt.txt', 'vhbb_DC_TH_BDT_Zuu_Hig
 # ======== Signal Split Regions ========
 bdt_list = ['BDT_Zee_high_Zpt', 'BDT_Zuu_high_Zpt', 'BDT_Zee_low_Zpt', 'BDT_Zuu_low_Zpt']
 
-#bdt_list = ['BDT_Zee_high_Zpt', 'BDT_Zuu_high_Zpt']
-
 
 control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu',
                 'Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
@@ -89,24 +87,28 @@ datacard_list = temp_list
 
 ##### Directory to save datacards ####
 
-#title = 'CMVA_LO_2_25'
-title = 'TEST1'
+#title = 'CMVA_LO_3_3'
+title = 'NoRebin'
 
 sig_dir = 'v25_SR_'+title
 
 cr_dir = 'v25_CR_'+title
 
 # final combined directory
-dir = 'v25_VH_'+title
+dir= 'bdt_param_optimize/BDT_bins30'
 
+
+
+
+print '\n\t ###### Making DC in', dir, cr_dir, sig_dir
 
 #Choose batch mode or sequential
 batch = False
-#batch = True
+batch = True
 
 # choose bdt, CR split
 isSplit = False
-isSplit = True
+#isSplit = True
  
 # For Control Region Scale Factors
 isCombine = False
@@ -192,19 +194,19 @@ if batch:
     print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
 
     # signal DCs
-    os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
+    os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
     
 
     # background
-    os.system('mv ../limits/*Zhf* ../limits/'+cr_dir+'/')
-    os.system('mv ../limits/*Zlf* ../limits/'+cr_dir+'/')
-    os.system('mv ../limits/*ttbar* ../limits/'+cr_dir+'/')
-
+    os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+    os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+    os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+    
     # move both to one dir
     #os.system('mv ../limits/*.root ../limits/*.txt ../limits/'+dir+'/')
     os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
     os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
-
+    
 
 if isSplit:
     
@@ -216,7 +218,6 @@ if isSplit:
 
         os.system('./runAll.sh '+datacard+' 13TeV dc')           
             
-    # define the multiprocessing object
     p = multiprocessing.Pool() 
     results = p.imap(osSystem, bdt_list)
     p.close()
@@ -224,9 +225,9 @@ if isSplit:
 
     if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
-    os.system('mv ../limits/*BDT* ../limits/'+sig_dir+'/')
+    os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
     
-
+    
     p1 = multiprocessing.Pool()
     results = p1.imap(osSystem, ttbar_list)
     p1.close()
@@ -260,8 +261,6 @@ if isSplit:
 
     if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
         os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
-
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
 
     if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
@@ -272,12 +271,11 @@ if isSplit:
 
 
     # background
-    os.system('mv ../limits/*Zhf* ../limits/'+cr_dir+'/')
-    os.system('mv ../limits/*Zlf* ../limits/'+cr_dir+'/')
-    os.system('mv ../limits/*ttbar* ../limits/'+cr_dir+'/')
+    os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+    os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+    os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
 
     # move both to one dir
-    #os.system('mv ../limits/*.root ../limits/*.txt ../limits/'+dir+'/')
     os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
     os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
 
@@ -343,7 +341,7 @@ if isCombine:
     
     print '\n\n ============= SIG + BKG Scale Facors =============='
     os.system(temp_string_combine)
-    t5 = 'combine -M MaxLikelihoodFit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt -v 3 --saveShapes --saveWithUncertainties --expectSignal=0 --minimizerTolerance=100.0'
+    t5 = 'combine -M MaxLikelihoodFit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt -v 3 --saveShapes --saveWithUncertainties --expectSignal=1 --minimizerTolerance=100.0'
     # | grep 'Best fit r' | awk '{print $5}'"
     os.system(t5)
 
@@ -391,6 +389,16 @@ if isFOM:
     
     #os.system(t3)
     
+
+
+
+
+#############################################################################################################
+## Split Vpt Regions
+##
+#############################################################################################################
+
+
 
 
 if splitRegionFOM:
@@ -686,7 +694,7 @@ if splitRegionFOM:
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt"
     os.system(t2)
-
+    
     print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     os.system(t2)
@@ -702,12 +710,12 @@ if splitRegionFOM:
     print '\t\n\n========= Signal Strength Uncertainty ========='
 
     #Uncertainty on Mu
-   
+    
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
     
-    t3 = "combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --expectSignal=1"
+    #t3 = "combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --expectSignal=1"
 
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --saveNorm --saveShapes --minimizerTolerance=100.0 -v 3 vhbb_Zll.txt"
     
@@ -715,7 +723,7 @@ if splitRegionFOM:
     
     #t3 = 'combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --stepSize=0.05 --rMin=-5 --rMax=5 --robustFit=1 --minimizerTolerance=100.0 --saveNorm --saveShapes --plots -v 3 vhbb_Zll.txt'
     
-    #os.system(t3)
+    os.system(t3)
     
 
 

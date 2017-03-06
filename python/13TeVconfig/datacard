@@ -17,9 +17,13 @@ addOverFlow: True
 BDTrange: 15,-1,1
 BDToutname: v1
 
-CRrange: 20,0.,1.
-CRVar: Jet_btagCSV[hJCidx[1]]
+## CSV ##
+#CRrange: 20,0.,1.
+#CRVar: Jet_btagCSV[hJCidx[1]]
 
+## CMVA ##
+CRrange: 20,-1.,1.
+CRVar: Jet_btagCMVAV2[hJCMVAV2idx[1]]
 
 # control region variables examples
 METrange: MET.et,10,0,100
@@ -56,25 +60,25 @@ sys_BDT: [
     #'JEC_PileUp',
     #'JEC_Relative',
     #'JEC_AbsoluteMisc',
-
+    
     "JEC_PileUpDataMC",
     "JEC_PileUpPtRef",
     "JEC_PileUpPtBB",
     "JEC_PileUpPtEC1",
-    "JEC_PileUpPtEC2",
-    "JEC_PileUpPtHF",
+    #"JEC_PileUpPtEC2",
+    #"JEC_PileUpPtHF",
     
     "JEC_RelativeJEREC1",
-    "JEC_RelativeJEREC2",
-    "JEC_RelativeJERHF",
+    #"JEC_RelativeJEREC2",
+    #"JEC_RelativeJERHF",
     "JEC_RelativeFSR",
     "JEC_RelativeStatFSR",
     "JEC_RelativeStatEC",
-    "JEC_RelativeStatHF",
+    #"JEC_RelativeStatHF",
     "JEC_RelativePtBB",
     "JEC_RelativePtEC1",
-    "JEC_RelativePtEC2",
-    "JEC_RelativePtHF",
+    #"JEC_RelativePtEC2",
+    #"JEC_RelativePtHF",
     
     "JEC_AbsoluteScale",
     "JEC_AbsoluteMPFBias",
@@ -486,14 +490,16 @@ VV_BKG: [<!Samples|VV_BKG!>]
 
 #Group: <!Samples|Group!>
 Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135':'ZH','ZH140':'ZH','ZH145':'ZH','ZH150':'ZH',\
-        'ggZH125': 'ggZH', \
+	'ggZH125': 'ggZH', \
 	#'ggZH125': 'ZH', \
-	'Zudsg':'DYlight', 'ZudsgHT100to200':'DYlight', 'ZudsgHT200to400':'DYlight', 'ZudsgHT400to600':'DYlight', 'ZudsgHT600toInf':'DYlight', 'Zudsg_Bjets':'DYlight', \
+        'Zudsg':'DYlight', 'ZudsgHT100to200':'DYlight', 'ZudsgHT200to400':'DYlight', 'ZudsgHT400to600':'DYlight', 'ZudsgHT600toInf':'DYlight', 'Zudsg_Bjets':'DYlight', \
 	'Zudsg_BgenFilter':'DYlight', 'Zudsg5to50':'DYlight', 'Zudsg5to50_100to200':'DYlight', 'Zudsg5to50_200to400':'DYlight','Zudsg5to50_400to600':'DYlight',\
         'Zudsg5to50_600toInf':'DYlight','ZudsgHT600to800':'DYlight', 'ZudsgHT800to1200':'DYlight', 'ZudsgHT1200to2500':'DYlight', 'ZudsgHT2500toInf':'DYlight',
 	'ZudsgHT70to100':'DYlight','ZudsgVpt50to100':'DYlight',
-        'Zudsg0J':'DYlight', 'Zudsg1J':'DYlight', 'Zudsg2Jext1':'DYlight','Zudsg2Jext2':'DYlight','Zudsg2Jext3':'DYlight','Zudsg2Jext4':'DYlight',
-	'Zcc':'DYlight', 'ZccHT100to200':'DYlight', 'ZccHT200to400':'DYlight', 'ZccHT400to600':'DYlight', 'ZccHT600toInf':'DYlight', 'Zcc_Bjets':'DYlight',\
+        'Zudsg0J':'DYlight', 'Zudsg1J':'DYlight', 'Zudsg2J':'DYlight','Zudsg2Jext2':'DYlight','Zudsg2Jext3':'DYlight','Zudsg2Jext4':'DYlight','Zudsg2Jext1':'DYlight',
+	'ZudsgHT600to800_ext1':'DYlight', 'ZudsgHT600to800_ext2':'DYlight','ZudsgHT600to800_ext3':'DYlight','ZudsgHT600to800_ext4':'DYlight','ZudsgHT600to800_ext5':'DYlight',
+	'ZudsgHT600to800_ext6':'DYlight',
+        'Zcc':'DYlight', 'ZccHT100to200':'DYlight', 'ZccHT200to400':'DYlight', 'ZccHT400to600':'DYlight', 'ZccHT600toInf':'DYlight', 'Zcc_Bjets':'DYlight',\
 	'Zcc_BgenFilter':'DYlight', 'Zcc5to50':'DYlight', 'Zcc5to50_100to200':'DYlight', 'Zcc5to50_200to400':'DYlight', 'Zcc5to50_400to600':'DYlight',
         'Zcc5to50_600toInf':'DYlight',\
 	'Zudsg_nlo':'DYlight', 'Zcc_nlo':'DYlight', 'ZudsgVpt100to250':'DYlight', 'ZccVpt100to250':'DYlight', 'ZudsgVpt250to400':'DYlight', 'ZccVpt250to400':'DYlight', \
@@ -502,23 +508,19 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
         'Z1b_BgenFilter':'DY1b', 'Z1b5to50':'DY1b', 'Z1b5to50_100to200':'DY1b', 'Z1b5to50_200to400':'DY1b', 'Z1b5to50_400to600':'DY1b', 'Z1b5to50_600toInf':'DY1b',\
 	'Z1b_nlo':'DY1b', 'Z1bVpt100to250':'DY1b', 'Z1bVpt250to400':'DY1b','Z1bVpt400to650':'DY1b','Z1bVpt650toInf':'DY1b',
         'Z1bHT600to800':'DY1b', 'Z1bHT800to1200':'DY1b', 'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b','Z1bVpt50to100':'DY1b',
-	'Z1b0J':'DY1b', 'Z1b1J':'DY1b', 'Z1b2Jext1':'DY1b','Z1b2Jext2':'DY1b','Z1b2Jext3':'DY1b','Z1b2Jext4':'DY1b',
+        'Z1b0J':'DY1b', 'Z1b1J':'DY1b', 'Z1b2J':'DY1b','Z1b2Jext2':'DY1b','Z1b2Jext3':'DY1b','Z1b2Jext4':'DY1b','Z1b2Jext1':'DY1b',
+	'Z1bHT600to800_ext1':'DY1b','Z1bHT600to800_ext2':'DY1b','Z1bHT600to800_ext3':'DY1b','Z1bHT600to800_ext4':'DY1b','Z1bHT600to800_ext5':'DY1b','Z1bHT600to800_ext6':'DY1b',
         'Z2b':'DY2b','Z2bHT100to200':'DY2b','Z2bHT200to400':'DY2b','Z2bHT400to600':'DY2b','Z2bHT600toInf':'DY2b', 'Z2b_Bjets':'DY2b', \
-        'Z2b_BgenFilter':'DY2b', 'Z2b5to50':'DY2b', 'Z2b5to50_100to200':'DY2b', 'Z2b5to50_200to400':'DY2b', 'Z2b5to50_400to600':'DY2b', 'Z2b5to50_600toInf':'DY2b',\
-	'Z2b_nlo':'DY2b', 'Z2bVpt100to250':'DY2b', 'Z2bVpt250to400':'DY2b','Z2bVpt400to650':'DY2b','Z2bVpt650toInf':'DY2b',
+	'Z2b_BgenFilter':'DY2b', 'Z2b5to50':'DY2b', 'Z2b5to50_100to200':'DY2b', 'Z2b5to50_200to400':'DY2b', 'Z2b5to50_400to600':'DY2b', 'Z2b5to50_600toInf':'DY2b',\
+        'Z2b_nlo':'DY2b', 'Z2bVpt100to250':'DY2b', 'Z2bVpt250to400':'DY2b','Z2bVpt400to650':'DY2b','Z2bVpt650toInf':'DY2b',
         'Z2bHT600to800':'DY2b', 'Z2bHT800to1200':'DY2b', 'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b','Z2bVpt50to100':'DY2b',
-	'Z2b0J':'DY2b', 'Z2b1J':'DY2b', 'Z2b2Jext1':'DY2b', 'Z2b2Jext2':'DY2b','Z2b2Jext3':'DY2b', 'Z2b2Jext4':'DY2b',
-        'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF',
-        'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF',
+	'Z2b0J':'DY2b', 'Z2b1J':'DY2b', 'Z2b2J':'DY2b', 'Z2b2Jext2':'DY2b', 'Z2b2Jext3':'DY2b', 'Z2b2Jext4':'DY2b', 'Z2b2Jext1':'DY2b',
+        'Z2bHT600to800_ext1':'DY2b','Z2bHT600to800_ext2':'DY2b','Z2bHT600to800_ext3':'DY2b','Z2bHT600to800_ext4':'DY2b','Z2bHT600to800_ext5':'DY2b','Z2bHT600to800_ext6':'DY2b',
+	'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF','ZZlight_2L2Q_ext1':'VVLF', 'ZZlight_2L2Q_ext2':'VVLF', 'ZZlight_2L2Q_ext3':'VVLF',
+        'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF','ZZb_2L2Q_ext1':'VVHF', 'ZZb_2L2Q_ext2':'VVHF', 'ZZb_2L2Q_ext3':'VVHF',
 	'ttbar':'TT','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT',\
         'ST_s':'ST','ST_t':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST', 'ST_t_antitop':'ST',
-	'Zee':'Data','Zuu':'Data',\
-        #'Zll':'ZH', 'Zll_regr':'ZH',\
-	'DY_sync':'DYlight',\
-        'gJets':'gJets', 'gJets_100to200':'gJets', 'gJets_200to400':'gJets', 'gJets_400to600':'gJets', 'gJets_600toInf':'gJets',\
-	'qcd':'qcd', 'qcd_100to200':'qcd', 'qcd_250to500':'qcd', 'qcd_500to1000':'qcd', 'qcd_1000toInf':'qcd',
-        'AltZZlight':'VVlight','AltZZb':'VVb','AltWZlight':'VVlight','AltWZb':'VVb'}
-
+	'Zee':'Data','Zuu':'Data'}
 
 # --------------------------------------
 # Naming
@@ -902,7 +904,7 @@ doBin     : True
 # ===== Vpt Bins ======
 
 [dc:Zlf_low]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low
@@ -915,7 +917,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_low]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low
@@ -928,7 +930,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_low]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low
@@ -942,7 +944,7 @@ doBin     : True
 
 
 [dc:Zlf_high]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high
@@ -955,7 +957,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_high]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high
@@ -968,7 +970,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_high]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high
@@ -982,7 +984,7 @@ doBin     : True
 
 
 [dc:Zlf_low_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low_Zuu
@@ -995,7 +997,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_low_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low_Zuu
@@ -1008,7 +1010,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_low_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low_Zuu
@@ -1022,7 +1024,7 @@ doBin     : True
 
 
 [dc:Zlf_low_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low_Zee
@@ -1035,7 +1037,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_low_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low_Zee
@@ -1048,7 +1050,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_low_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low_Zee
@@ -1062,7 +1064,7 @@ doBin     : True
 
 
 [dc:Zlf_high_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high_Zuu
@@ -1075,7 +1077,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_high_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high_Zuu
@@ -1088,7 +1090,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_high_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high_Zuu
@@ -1102,7 +1104,7 @@ doBin     : True
 
 
 [dc:Zlf_high_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high_Zee
@@ -1115,7 +1117,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_high_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high_Zee
@@ -1128,7 +1130,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_high_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high_Zee
@@ -1146,7 +1148,7 @@ doBin     : True
 
 
 [dc:ZH125]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ZH125
@@ -1161,7 +1163,7 @@ doBin     : True
 # ===================================================================
 
 [dc:Zlf_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_Zuu
@@ -1174,7 +1176,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zlf_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_Zee
@@ -1187,7 +1189,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_Zuu
@@ -1200,7 +1202,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_Zee
@@ -1213,7 +1215,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_Zuu
@@ -1226,7 +1228,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_Zee
@@ -1241,7 +1243,7 @@ doBin     : True
 
 
 [dc:Zlf_low_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low_Zuu
@@ -1254,7 +1256,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_low_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low_Zuu
@@ -1267,7 +1269,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_low_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low_Zuu
@@ -1281,7 +1283,7 @@ doBin     : True
 
 
 [dc:Zlf_low_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low_Zee
@@ -1294,7 +1296,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_low_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low_Zee
@@ -1307,7 +1309,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_low_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low_Zee
@@ -1321,7 +1323,7 @@ doBin     : True
 
 
 [dc:Zlf_high_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high_Zuu
@@ -1334,7 +1336,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_high_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high_Zuu
@@ -1347,7 +1349,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_high_Zuu_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high_Zuu
@@ -1361,7 +1363,7 @@ doBin     : True
 
 
 [dc:Zlf_high_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high_Zee
@@ -1374,7 +1376,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_high_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high_Zee
@@ -1387,7 +1389,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_high_Zee_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high_Zee
@@ -1401,7 +1403,7 @@ doBin     : True
 
 
 [dc:Zlf]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf
@@ -1415,7 +1417,7 @@ doBin     : True
 
 
 [dc:Zhf]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf
@@ -1428,7 +1430,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_VV]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf
@@ -1441,7 +1443,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar
@@ -1454,7 +1456,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ZH125]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ZH125
@@ -1469,7 +1471,7 @@ doBin     : True
 # Electron CR
 
 [dc:Zlf_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_Zee
@@ -1482,7 +1484,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_Zee
@@ -1495,7 +1497,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_Zee
@@ -1508,7 +1510,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ZH125_Zee]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ZH125_Zee
@@ -1522,7 +1524,7 @@ doBin     : True
 
 
 [dc:Zlf_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_Zuu
@@ -1535,7 +1537,7 @@ doSYS     : True
 doBin     : True
 
 [dc:Zhf_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_Zuu
@@ -1548,7 +1550,7 @@ doSYS     : True
 doBin     : True
 
 [dc:ttbar_Zuu]
-var       : Jet_btagCSV[hJCidx[1]]
+var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_Zuu

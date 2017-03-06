@@ -22,7 +22,7 @@ import multiprocessing
 # ===== Define the regions to be submitted to ./runAll.sh and plots made =====
 
 isSplit = False
-isSplit = True
+#isSplit = True
 
 # control regions
 
@@ -75,10 +75,10 @@ temp_list = ['Zlf_low_Zuu']
 
 # choose which lists to loop over                
 
-region_list = temp_list
+#region_list = temp_list
 #region_list = zlf_list
 #region_list = reg_list
-#region_list = control_list
+region_list = control_list
 #region_list = signal_list
 #region_list = control_list + signal_list
 

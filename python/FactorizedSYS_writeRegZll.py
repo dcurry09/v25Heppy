@@ -47,14 +47,14 @@ inpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
 
 # List of files to add btag weights to
-bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ']
+bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
 
 data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter',
-           #'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
+DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter',
+           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6'
            ]
 
 DY_parton_list = ['DY0J', 'DY1J']
@@ -67,8 +67,8 @@ prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_
 temp_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3',
              'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
 
-#file_list = bkg_list + data_list + signal_list + ST_list + DY_list
-file_list = temp_list
+file_list = bkg_list + data_list + signal_list + ST_list + DY_list
+#file_list = temp_list
 
 
 
@@ -163,20 +163,20 @@ def osSystem(file):
             "PileUpPtRef",
             "PileUpPtBB",
             "PileUpPtEC1",
-            "PileUpPtEC2",
-            "PileUpPtHF",
+            #"PileUpPtEC2",
+            #"PileUpPtHF",
             
             "RelativeJEREC1",
-            "RelativeJEREC2",
-            "RelativeJERHF",
+            #"RelativeJEREC2",
+            #"RelativeJERHF",
             "RelativeFSR",
             "RelativeStatFSR",
             "RelativeStatEC",
-            "RelativeStatHF",
+            #"RelativeStatHF",
             "RelativePtBB",
             "RelativePtEC1",
-            "RelativePtEC2",
-            "RelativePtHF",
+            #"RelativePtEC2",
+            #"RelativePtHF",
             
             "AbsoluteScale",
             "AbsoluteMPFBias",
@@ -221,10 +221,10 @@ def osSystem(file):
 
 
     # For new regresssion zerop the branches out before cloning new tree
-    tree.SetBranchStatus('HCMVAV2_reg_mass',0)
-    tree.SetBranchStatus('HCMVAV2_reg_pt',0)
-    tree.SetBranchStatus('HCMVAV2_reg_eta',0)
-    tree.SetBranchStatus('HCMVAV2_reg_phi',0)
+    # tree.SetBranchStatus('HCMVAV2_reg_mass',0)
+    # tree.SetBranchStatus('HCMVAV2_reg_pt',0)
+    # tree.SetBranchStatus('HCMVAV2_reg_eta',0)
+    # tree.SetBranchStatus('HCMVAV2_reg_phi',0)
     
     output.cd()
     
@@ -236,17 +236,17 @@ def osSystem(file):
     hJ1 = ROOT.TLorentzVector()
 
     # for the dijet mass/pt
-    JEC_systematics['HCMVAV2_reg_mass'] = np.zeros(1, dtype=float)
-    newtree.Branch('HCMVAV2_reg_mass', JEC_systematics['HCMVAV2_reg_mass'], 'HCMVAV2_reg_mass/D')
+    # JEC_systematics['HCMVAV2_reg_mass'] = np.zeros(1, dtype=float)
+    # newtree.Branch('HCMVAV2_reg_mass', JEC_systematics['HCMVAV2_reg_mass'], 'HCMVAV2_reg_mass/D')
     
-    JEC_systematics['HCMVAV2_reg_pt'] = np.zeros(1, dtype=float)
-    newtree.Branch('HCMVAV2_reg_pt', JEC_systematics['HCMVAV2_reg_pt'], 'HCMVAV2_reg_pt/D')
+    # JEC_systematics['HCMVAV2_reg_pt'] = np.zeros(1, dtype=float)
+    # newtree.Branch('HCMVAV2_reg_pt', JEC_systematics['HCMVAV2_reg_pt'], 'HCMVAV2_reg_pt/D')
     
-    JEC_systematics['HCMVAV2_reg_eta'] = np.zeros(1, dtype=float)
-    newtree.Branch('HCMVAV2_reg_eta', JEC_systematics['HCMVAV2_reg_eta'], 'HCMVAV2_reg_eta/D')
+    # JEC_systematics['HCMVAV2_reg_eta'] = np.zeros(1, dtype=float)
+    # newtree.Branch('HCMVAV2_reg_eta', JEC_systematics['HCMVAV2_reg_eta'], 'HCMVAV2_reg_eta/D')
 
-    JEC_systematics['HCMVAV2_reg_phi'] = np.zeros(1, dtype=float)
-    newtree.Branch('HCMVAV2_reg_phi', JEC_systematics['HCMVAV2_reg_phi'], 'HCMVAV2_reg_phi/D')
+    # JEC_systematics['HCMVAV2_reg_phi'] = np.zeros(1, dtype=float)
+    # newtree.Branch('HCMVAV2_reg_phi', JEC_systematics['HCMVAV2_reg_phi'], 'HCMVAV2_reg_phi/D')
 
     # For the dijet Jets
     JEC_systematics['hJetCMVAV2_pt_reg'] = np.zeros(2, dtype=float)
@@ -522,31 +522,32 @@ def osSystem(file):
             theVars0[key][0] = eval("%s_0" %(key))
             theVars1[key][0] = eval("%s_1" %(key))
 
-        ##### Evaluate the regression #####    
-        Pt0 = max(0.0001, TMVA_reader['readerJet0'].EvaluateRegression("readerJet0")[0])
-        Pt1 = max(0.0001, TMVA_reader['readerJet1'].EvaluateRegression("readerJet1")[0])
-        
-        rPt0 = Jet_pt_0*Pt0
-        rPt1 = Jet_pt_1*Pt1
-        
-        JEC_systematics["hJetCMVAV2_pt_reg"][0] = Pt0
-        JEC_systematics["hJetCMVAV2_pt_reg"][1] = Pt1
 
-        JetCMVAV2_regWeight[0] = Pt0/Jet_pt_0
-        JetCMVAV2_regWeight[1] = Pt1/Jet_pt_1
+        # ##### Evaluate the regression #####    
+        # Pt0 = max(0.0001, TMVA_reader['readerJet0'].EvaluateRegression("readerJet0")[0])
+        # Pt1 = max(0.0001, TMVA_reader['readerJet1'].EvaluateRegression("readerJet1")[0])
         
-        hJ0.SetPtEtaPhiM(Pt0, Jet_eta_0, Jet_phi_0, Jet_m_0*(Pt0/Jet_pt_0))
-        hJ1.SetPtEtaPhiM(Pt1, Jet_eta_1, Jet_phi_1, Jet_m_1*(Pt1/Jet_pt_1))
+        # rPt0 = Jet_pt_0*Pt0
+        # rPt1 = Jet_pt_1*Pt1
+        
+        # JEC_systematics["hJetCMVAV2_pt_reg"][0] = Pt0
+        # JEC_systematics["hJetCMVAV2_pt_reg"][1] = Pt1
+
+        # JetCMVAV2_regWeight[0] = Pt0/Jet_pt_0
+        # JetCMVAV2_regWeight[1] = Pt1/Jet_pt_1
+        
+        # hJ0.SetPtEtaPhiM(Pt0, Jet_eta_0, Jet_phi_0, Jet_m_0*(Pt0/Jet_pt_0))
+        # hJ1.SetPtEtaPhiM(Pt1, Jet_eta_1, Jet_phi_1, Jet_m_1*(Pt1/Jet_pt_1))
             
-        JEC_systematics["HCMVAV2_reg_mass"][0] = (hJ0+hJ1).M()
-        JEC_systematics["HCMVAV2_reg_pt"][0]   = (hJ0+hJ1).Pt()
-        JEC_systematics["HCMVAV2_reg_eta"][0]  = (hJ0+hJ1).Eta()
-        JEC_systematics["HCMVAV2_reg_phi"][0]  = (hJ0+hJ1).Phi()
+        # JEC_systematics["HCMVAV2_reg_mass"][0] = (hJ0+hJ1).M()
+        # JEC_systematics["HCMVAV2_reg_pt"][0]   = (hJ0+hJ1).Pt()
+        # JEC_systematics["HCMVAV2_reg_eta"][0]  = (hJ0+hJ1).Eta()
+        # JEC_systematics["HCMVAV2_reg_phi"][0]  = (hJ0+hJ1).Phi()
 
-        if isVerbose:
-            print '\n\n\nJet1 pt reg:', Pt0, Jet_pt_0
-            print 'Jet2 pt reg:', Pt1, Jet_pt_1
-            print 'Hmass Reg:', JEC_systematics["HCMVAV2_reg_mass"][0], tree.H_reg_mass
+        # if isVerbose:
+        #     print '\n\n\nJet1 pt reg:', Pt0, Jet_pt_0
+        #     print 'Jet2 pt reg:', Pt1, Jet_pt_1
+        #     print 'Hmass Reg:', JEC_systematics["HCMVAV2_reg_mass"][0], tree.H_reg_mass
         
 
         if 'Zee' in file or 'Zuu' in file: 
@@ -659,17 +660,17 @@ def osSystem(file):
                     JEC_systematics["HCMVAV2_reg_eta_corr"+syst+sdir][0] = (hJ0+hJ1).Eta()
                     JEC_systematics["HCMVAV2_reg_phi_corr"+syst+sdir][0] = (hJ0+hJ1).Phi()
 
-                    if doPlots:
-                        for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
-                            if 'mass' in var:
-                                #resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_mass"][0]))
-                                resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_mass"][0])/JEC_systematics["HCMVAV2_reg_mass"][0])
-                            if 'HCMVAV2_reg_pt' in var:
-                                #resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_pt"][0]))
-                                resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_pt"][0])/JEC_systematics["HCMVAV2_reg_pt"][0])
-                            if 'hJetCMVAV2_pt_reg' in var:
-                                #resolution_hists[var+syst+sdir].Fill((JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] - JEC_systematics["hJetCMVAV2_pt_reg"][0]))
-                                resolution_hists[var+syst+sdir].Fill((JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] - JEC_systematics["hJetCMVAV2_pt_reg"][0])/JEC_systematics["hJetCMVAV2_pt_reg"][0])
+                    # if doPlots:
+                    #     for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
+                    #         if 'mass' in var:
+                    #             #resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_mass"][0]))
+                    #             resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_mass_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_mass"][0])/JEC_systematics["HCMVAV2_reg_mass"][0])
+                    #         if 'HCMVAV2_reg_pt' in var:
+                    #             #resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_pt"][0]))
+                    #             resolution_hists[var+syst+sdir].Fill((JEC_systematics["HCMVAV2_reg_pt_corr"+syst+sdir][0] - JEC_systematics["HCMVAV2_reg_pt"][0])/JEC_systematics["HCMVAV2_reg_pt"][0])
+                    #         if 'hJetCMVAV2_pt_reg' in var:
+                    #             #resolution_hists[var+syst+sdir].Fill((JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] - JEC_systematics["hJetCMVAV2_pt_reg"][0]))
+                    #             resolution_hists[var+syst+sdir].Fill((JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] - JEC_systematics["hJetCMVAV2_pt_reg"][0])/JEC_systematics["hJetCMVAV2_pt_reg"][0])
                                     
                     if isVerbose:
                         print syst+sdir+' Jet1 pt reg:', pt1
@@ -681,38 +682,38 @@ def osSystem(file):
                                                                              
 
 
-    if doPlots:
-        PlotDir = plotpath
-        for syst in JECsys:
-            for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
-                for sdir in ["Up", "Down"]:
+    # if doPlots:
+    #     PlotDir = plotpath
+    #     for syst in JECsys:
+    #         for var in ['HCMVAV2_reg_mass', 'HCMVAV2_reg_pt', 'hJetCMVAV2_pt_reg']:
+    #             for sdir in ["Up", "Down"]:
                     
-                    if sdir is 'Up':
-                        c = ROOT.TCanvas(var+syst+sdir,'', 600, 600)
-                        c.SetFillStyle(4000)
-                        c.SetFrameFillStyle(1000)
-                        c.SetFrameFillColor(0)
-                        c.SetLogy()
-                        name = '%s/%s' %(PlotDir, var+syst+'.pdf')
-                        resolution_hists[var+syst+sdir].GetXaxis().SetTitle('(JEC Shifted - Nominal)/Nominal')
-                        resolution_hists[var+syst+sdir].SetLineColor(kRed)
-                        resolution_hists[var+syst+sdir].SetStats(0)
-                        resolution_hists[var+syst+sdir].Draw()
+    #                 if sdir is 'Up':
+    #                     c = ROOT.TCanvas(var+syst+sdir,'', 600, 600)
+    #                     c.SetFillStyle(4000)
+    #                     c.SetFrameFillStyle(1000)
+    #                     c.SetFrameFillColor(0)
+    #                     c.SetLogy()
+    #                     name = '%s/%s' %(PlotDir, var+syst+'.pdf')
+    #                     resolution_hists[var+syst+sdir].GetXaxis().SetTitle('(JEC Shifted - Nominal)/Nominal')
+    #                     resolution_hists[var+syst+sdir].SetLineColor(kRed)
+    #                     resolution_hists[var+syst+sdir].SetStats(0)
+    #                     resolution_hists[var+syst+sdir].Draw()
                         
-                        leg = TLegend(0.7,0.7,0.9,0.9)
-                        leg.SetFillStyle(0)
-                        leg.SetBorderSize(0)
-                        leg.AddEntry(resolution_hists[var+syst+sdir], 'Up', 'l')
+    #                     leg = TLegend(0.7,0.7,0.9,0.9)
+    #                     leg.SetFillStyle(0)
+    #                     leg.SetBorderSize(0)
+    #                     leg.AddEntry(resolution_hists[var+syst+sdir], 'Up', 'l')
 
-                    else:
-                        resolution_hists[var+syst+sdir].Draw('same')
-                        leg.AddEntry(resolution_hists[var+syst+sdir], 'Down', 'l')
-                        leg.Draw('same')
+    #                 else:
+    #                     resolution_hists[var+syst+sdir].Draw('same')
+    #                     leg.AddEntry(resolution_hists[var+syst+sdir], 'Down', 'l')
+    #                     leg.Draw('same')
 
-                        c.Print(name)
-                        name2 = name.replace('.pdf', '.png', 2)
-                        c.Print(name2)
-                        c.Delete()
+    #                     c.Print(name)
+    #                     name2 = name.replace('.pdf', '.png', 2)
+    #                     c.Print(name2)
+    #                     c.Delete()
                     
                                                                              
     newtree.AutoSave()

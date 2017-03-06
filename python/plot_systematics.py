@@ -24,8 +24,8 @@ mode = 'BDT'
 xMin=-1
 xMax=1
 masses = ['125']
-Abins = ['HighPt']#,'HighPt']
-channels = ['Zee']#, 'Zee']
+Abins = ['LowPt']#,'HighPt']
+channels = ['Zuu']#, 'Zee']
 
 #------------------------------------------------------
 
@@ -43,9 +43,9 @@ channels= ['Zll']
 #path = config.get('Directories','limits')
 #outpath = config.get('Directories','plotpath')
 
-path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/v25_SR_TEST1/'
+path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/bdt_param_optimize/BDT_bins15/'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics2/'
 
 # Make the dir and copy the website ini files
 try:
@@ -223,13 +223,15 @@ for mass in masses:
                     ksScoreD = Ntotal.KolmogorovTest( Dtotal )
                     chiScoreD = Ntotal.Chi2Test( Dtotal , "WWCHI2/NDF")
 
+                    yUp   = 1.1
+                    yDown = 0.9
 
 
                     ratioU.SetStats(0)
-                    ratioU.GetYaxis().SetRangeUser(0.9,1.1)
+                    ratioU.GetYaxis().SetRangeUser(yDown, yUp)
                     ratioU.GetYaxis().SetNdivisions(502,0)
                     ratioD.SetStats(0)
-                    ratioD.GetYaxis().SetRangeUser(0.9,1.1)
+                    ratioD.GetYaxis().SetRangeUser(yDown, yUp)
                     ratioD.GetYaxis().SetNdivisions(502,0)
                     ratioD.GetYaxis().SetLabelSize(0.05)
                     ratioD.SetLineColor(2)

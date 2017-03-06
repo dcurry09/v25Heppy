@@ -7,38 +7,29 @@
 import ROOT
 import numpy as np
 
-path = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/v25_' 
+path = '/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_' 
 
 
 def getWeight(fileInc, fileB, region):
 
     countInc=0
-    #print 'region',region,'\n'
-    #for file in fileInc:
-    f = ROOT.TFile.Open(path+fileInc+".root")
-    tree = f.Get("tree")
-    #print tree
-    #countInc    = countInc + 1.* tree.Draw("",region)
-    countInc    = 1.* tree.GetEntries(region)
-    print 'Count Inc', countInc
-
-    f.Close()
+    for file in fileInc:
+        f = ROOT.TFile.Open(path+file+".root")
+        print 'adding',file
+        tree = f.Get("tree")
+        countInc    = countInc + 1.* tree.Draw("",region)
+        #countInc    = 1.* tree.GetEntries(region)
+        print 'countInc', countInc
+        f.Close()
     
     countB=0
-    #for file in fileB:
-    f = ROOT.TFile.Open(path+fileB+".root")
-    tree = f.Get("tree")
-    #countB      = countB + 1.* tree.Draw("",region)
-    countB      = 1.* tree.GetEntries(region)
-    #print 'countB',countB,'\n'
-    f.Close()
+    for file in fileB:
+        f = ROOT.TFile.Open(path+file+".root")
+        tree = f.Get("tree")
+        countB = countB + 1.* tree.Draw("",region)
+        f.Close()
 
-    # for DY b jet stitching
     weight = countInc/(countB+countInc)
-
-    # for norm sample splitting
-    #weight = countB/countInc
-
     return weight
 
 
@@ -61,7 +52,8 @@ def getWeight_nom(file_list):
         f = ROOT.TFile.Open(path+file+".root")
         tree = f.Get("tree")
         countB = 1.* tree.GetEntries()
-        weight = 1-countInc/(countB+countInc)
+        #weight = countInc/(countB+countInc)
+        weight = countB/countInc
 
         print 'Weight for File:', file
         print weight
@@ -69,18 +61,23 @@ def getWeight_nom(file_list):
 
 
 
-ZLLjetsHT0       = "DY_inclusive"
-ZLLjetsHT70      = "DY_70to100"
-ZLLjetsHT100     = "DY_100to200"
-ZLLjetsHT200     = "DY_200to400"
-ZLLjetsHT400     = "DY_400to600"
-ZLLjetsHT600     = "DY_600to800"
-ZLLjetsHT600     = "DY_800to1200"
-ZLLjetsHT600     = "DY_1200to2500"
-ZLLjetsHT600     = "DY_2500toInf"
+ZLLjetsHT0       = ["DY_inclusive"]
+ZLLjetsHT70      = ["DY_70to100"]
+ZLLjetsHT100     = ["DY_100to200"]
+ZLLjetsHT200     = ["DY_200to400"]
+ZLLjetsHT400     = ["DY_400to600"]
+ZLLjetsHT600     = ["DY_600to800_ext1","DY_600to800_ext2", "DY_600to800_ext3","DY_600to800_ext4","DY_600to800_ext5","DY_600to800_ext6"]
+#ZLLjetsHT600_ext2     = "DY_600to800_ext2"
+#ZLLjetsHT600_ext3     = "DY_600to800_ext3"
+#ZLLjetsHT600_ext4     = "DY_600to800_ext4"
+#ZLLjetsHT600_ext5     = "DY_600to800_ext5"
+#ZLLjetsHT600_ext6     = "DY_600to800_ext6"
+ZLLjetsHT800     = ["DY_800to1200"]
+ZLLjetsHT1200    = ["DY_1200to2500"]
+ZLLjetsHT2500    = ["DY_2500toInf"]
 
-ZLLBjets         = "DY_Bjets"
-ZLLjetsBGenFilter= "DY_BgenFilter"
+ZLLBjets         = ["DY_Bjets"]
+ZLLjetsBGenFilter= ["DY_BgenFilter"]
 
 DYBJets          = "(lheNb>0)"
 DYJetsBGenFilter = "(lheNb==0 && nGenStatus2bHad>0)"
@@ -115,33 +112,45 @@ Pt650            = "(lheV_pt>650)"
 
 
 
-#print "weightZBjetsHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLBjets, HT0+"&&"+DYBJets)
-# print "weightZBjetsHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLBjets, HT70+"&&"+DYBJets)
-# print "weightZBjetsHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLBjets, HT100+"&&"+DYBJets)
-# print "weightZBjetsHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLBjets, HT200+"&&"+DYBJets)
-# print "weightZBjetsHT400=\t%.2f\n" %getWeight(ZLLjetsHT400,   ZLLBjets, HT400+"&&"+DYBJets)
-# print "weightZBjetsHT600=\t%.2f\n" %getWeight(ZLLjetsHT600,   ZLLBjets, HT600+"&&"+DYBJets)
-# print "weightZBjetsHT800=\t%.2f\n" %getWeight(ZLLjetsHT800,   ZLLBjets, HT800+"&&"+DYBJets)
-# print "weightZBjetsHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLBjets, HT1200+"&&"+DYBJets)
-# print "weightZBjetsHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLBjets, HT2500+"&&"+DYBJets)
+print "weightZBjetsHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLBjets, HT0+"&&"+DYBJets)
+print "weightZBjetsHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLBjets, HT70+"&&"+DYBJets)
+print "weightZBjetsHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLBjets, HT100+"&&"+DYBJets)
+print "weightZBjetsHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLBjets, HT200+"&&"+DYBJets)
+print "weightZBjetsHT400=\t%.2f\n" %getWeight(ZLLjetsHT400,   ZLLBjets, HT400+"&&"+DYBJets)
+print "weightZBjetsHT600=\t%.2f\n" %getWeight(ZLLjetsHT600,   ZLLBjets, HT600+"&&"+DYBJets)
+#print "weightZBjetsHT600_ext2=\t%.2f\n" %getWeight(ZLLjetsHT600_ext2,   ZLLBjets, HT600+"&&"+DYBJets)
+#print "weightZBjetsHT600_ext3=\t%.2f\n" %getWeight(ZLLjetsHT600_ext3,   ZLLBjets, HT600+"&&"+DYBJets)
+#print "weightZBjetsHT600_ext4=\t%.2f\n" %getWeight(ZLLjetsHT600_ext4,   ZLLBjets, HT600+"&&"+DYBJets)
+#print "weightZBjetsHT600_ext5=\t%.2f\n" %getWeight(ZLLjetsHT600_ext5,   ZLLBjets, HT600+"&&"+DYBJets)
+#print "weightZBjetsHT600_ext6=\t%.2f\n" %getWeight(ZLLjetsHT600_ext6,   ZLLBjets, HT600+"&&"+DYBJets)
+print "weightZBjetsHT800=\t%.2f\n" %getWeight(ZLLjetsHT800,   ZLLBjets, HT800+"&&"+DYBJets)
+print "weightZBjetsHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLBjets, HT1200+"&&"+DYBJets)
+print "weightZBjetsHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLBjets, HT2500+"&&"+DYBJets)
 
-# #print "weightZBGenFilterHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLjetsBGenFilter, HT0+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLjetsBGenFilter, HT70+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLjetsBGenFilter, HT100+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLjetsBGenFilter, HT200+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT400=\t%.2f\n" %getWeight(ZLLjetsHT400,   ZLLjetsBGenFilter, HT400+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT600=\t%.2f\n" %getWeight(ZLLjetsHT600,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT800=\t%.2f\n" %getWeight(ZLLjetsHT800,   ZLLjetsBGenFilter, HT800+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLjetsBGenFilter, HT1200+"&&"+DYJetsBGenFilter)
-# print "weightZBGenFilterHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLjetsBGenFilter, HT2500+"&&"+DYJetsBGenFilter)
-
-
+print "weightZBGenFilterHT0=\t%.2f\n"   %getWeight(ZLLjetsHT0,     ZLLjetsBGenFilter, HT0+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT70=\t%.2f\n" %getWeight(ZLLjetsHT70,   ZLLjetsBGenFilter, HT70+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT100=\t%.2f\n" %getWeight(ZLLjetsHT100,   ZLLjetsBGenFilter, HT100+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT200=\t%.2f\n" %getWeight(ZLLjetsHT200,   ZLLjetsBGenFilter, HT200+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT400=\t%.2f\n" %getWeight(ZLLjetsHT400,   ZLLjetsBGenFilter, HT400+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT600=\t%.2f\n" %getWeight(ZLLjetsHT600,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
+#print "weightZBGenFilterHT600_ext2=\t%.2f\n" %getWeight(ZLLjetsHT600_ext2,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
+#print "weightZBGenFilterHT600_ext3=\t%.2f\n" %getWeight(ZLLjetsHT600_ext3,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
+#prOBint "weightZBGenFilterHT600_ext4=\t%.2f\n" %getWeight(ZLLjetsHT600_ext4,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
+#OAprint "weightZBGenFilterHT600_ext5=\t%.2f\n" %getWeight(ZLLjetsHT600_ext5,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
+#print "weightZBGenFilterHT600_ext6=\t%.2f\n" %getWeight(ZLLjetsHT600_ext6,   ZLLjetsBGenFilter, HT600+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT800=\t%.2f\n" %getWeight(ZLLjetsHT800,   ZLLjetsBGenFilter, HT800+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT1200=\t%.2f\n" %getWeight(ZLLjetsHT1200,   ZLLjetsBGenFilter, HT1200+"&&"+DYJetsBGenFilter)
+print "weightZBGenFilterHT2500=\t%.2f\n" %getWeight(ZLLjetsHT2500,   ZLLjetsBGenFilter, HT2500+"&&"+DYJetsBGenFilter)
 
 dy2b_file_list = ['DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3','DY2J_ext4']
 
+dy_600to880_list = ['DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
+
+ZZ_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3']
+
 #getWeight_nom(dy2b_file_list)
-
-
+#getWeight_nom(dy_600to880_list)
+#getWeight_nom(ZZ_list)
 
 zee_list = ['prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3', 
             'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
@@ -158,6 +167,7 @@ path = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 count_B, count_D, count_G, count_H2, count_H3 = 0,0,0,0,0
 
 for sample in sample_list:
+    break
     
     print '\n Sample:', sample
     

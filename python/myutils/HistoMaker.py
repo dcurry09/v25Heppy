@@ -10,6 +10,7 @@ from copy import copy
 import numpy as np
 #from array import *
 import array as ar
+#from builtins import any as b_any
 
 class HistoMaker:
     def __init__(self, samples, path, config, optionsList,GroupDict=None):
@@ -105,7 +106,7 @@ class HistoMaker:
                 
             treeVar = options['var']
             name    = options['name']
-            print 'Options:', options
+            #print 'Options:', options
             #print 'Type: ', job.type
             #print 'Name: ', name
             
@@ -123,7 +124,9 @@ class HistoMaker:
                 treeCut='%s'%(options['cut'])
                 
             # Add the JEC/JER sys cuts by hand
-            if 'JER' in treeVar or 'JEC' in treeVar:
+            #if 'gg_plus_' in treeVar or 'VV' in treeVar:
+            #    if '_up' in treeVar or '_down' in treeVar:
+            if options['sys_cut']:
                 treeCut='%s'%(options['sys_cut'])
                 print treeVar
                 print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
@@ -134,32 +137,28 @@ class HistoMaker:
                 weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
                 weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
                 weightF = weightF+'*('+job.specialweight+')'
-            if 'ZZ_2L2Q' in job.name:
+            if '2L2Q' in job.name:
                 weightF = weightF+'*('+job.specialweight+')'
        
-
-
+            
+                
             # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':
                 
                 print '\n\t !!! Adding RateParam !!!'
                 print self.config.get('Plot_general', 'doSF')
                 
-                if 'V_new_pt > 50' in treeCut and 'Vtype_new == 1' in treeCut:
-                    print 'HERE1'
-                    #if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.10)'
+                if 'V_new_pt > 50' in treeCut:
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.10)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.50)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.15)'
                     
-                    #if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
-                    #if 'Z2b' in job.name: weightF = weightF+'*(1.50)'
-                    #if 'ttbar' in job.name: weightF = weightF+'*(1.15)'
-                    
-                if 'V_new_pt > 150' in treeCut and 'Vtype_new ==1' in treeCut:
-                    print 'HERE2'
-                    #if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.25)'
-                    
-                    #if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
-                    #if 'Z2b' in job.name: weightF = weightF+'*(1.89)'
-                    #if 'ttbar' in job.name: weightF = weightF+'*(1.10)'
+                if 'V_new_pt > 150' in treeCut:
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.25)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.89)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.10)'
 
                         
             print '\n-----> Making histograms for variable:', treeVar
@@ -386,7 +385,7 @@ class HistoMaker:
         elif not self._rebin and not self.value:
             return False
 
-    def calc_rebin(self, bg_list, nBins_start=1000, tolerance=0.10):
+    def calc_rebin(self, bg_list, nBins_start=1000, tolerance=0.35):
         self.calc_rebin_flag = True
         self.norebin_nBins = copy(self.nBins)
         self.rebin_nBins = nBins_start
@@ -398,10 +397,10 @@ class HistoMaker:
         
         for job in bg_list:
 
-            print 'Rebinner BKG_sample:', job.name
+            #print 'Rebinner BKG_sample:', job.name
 
             htree = self.get_histos_from_tree(job)[0].values()[0]
-            print 'Rebinner htree:', htree
+            #print 'Rebinner htree:', htree
             
             if not i:
                 totalBG = copy(htree)
@@ -423,10 +422,12 @@ class HistoMaker:
             TotR+=totalBG.GetBinContent(binR)
             ErrorR=sqrt(ErrorR**2+totalBG.GetBinError(binR)**2)
             binR-=1
-            if not TotR == 0 and not ErrorR == 0:
+            if binR < 0: break
+            if TotR < 1.: continue
+            if not TotR <= 0 and not ErrorR == 0:
                 rel=ErrorR/TotR
                 #print rel
-        print 'upper bin is %s'%binR
+        #print 'upper bin is %s'%binR
 
         #---- from left
         rel=1.0
@@ -434,26 +435,28 @@ class HistoMaker:
             TotL+=totalBG.GetBinContent(binL)
             ErrorL=sqrt(ErrorL**2+totalBG.GetBinError(binL)**2)
             binL+=1
-            if not TotL == 0 and not ErrorL == 0:
+            if binL > nBins_start: break
+            if TotL < 1.: continue
+            if not TotL <= 0 and not ErrorL == 0:
                 rel=ErrorL/TotL
                 #print rel
         #it's the lower edge
         binL+=1
-        print 'lower bin is %s'%binL
+        #print 'lower bin is %s'%binL
 
         inbetween=binR-binL
         stepsize=int(inbetween)/(int(self.norebin_nBins)-2)
         modulo = int(inbetween)%(int(self.norebin_nBins)-2)
 
-        print 'stepsize %s'% stepsize
-        print 'modulo %s'%modulo
+        #print 'stepsize %s'% stepsize
+        #print 'modulo %s'%modulo
         binlist=[binL]
         for i in range(0,int(self.norebin_nBins)-3):
             binlist.append(binlist[-1]+stepsize)
         binlist[-1]+=modulo
         binlist.append(binR)
         binlist.append(self.rebin_nBins+1)
-        print 'binning set to %s'%binlist
+       # print 'binning set to %s'%binlist
         self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
         self._rebin = True
         print '\t > rebinning is set <\n'
@@ -485,7 +488,7 @@ class Rebinner:
         self.active=active
     def rebin(self, histo):
         if not self.active: return histo
-        print histo.Integral()
+        #print histo.Integral()
         print '!!!!! Rebinning FInal Step !!!!!'
         ROOT.gDirectory.Delete('hnew')
         histo.Rebin(self.nBins,'hnew',self.lowedgearray)

@@ -21,10 +21,11 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q']
+bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3']
 
 DY_list = ['DY_70to100', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_Bjets', 'DY_BgenFilter',
-           'DY_600to800', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_70to100'
+           'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_70to100',
+           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6'
            #'DY0J', 'DY1J', 'DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3', 'DY2J_ext4',
            ]
 
@@ -34,10 +35,10 @@ ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
 temp_list = ['ZH125']
 
-#sample_list = temp_list
+sample_list = temp_list
 #sample_list = DY_list + signal_list
 #sample_list = data_list
-sample_list = signal_list + data_list + bkg_list + DY_list + ST_list + DY_nlo_list
+#sample_list = signal_list + data_list + bkg_list + DY_list + ST_list
 
 
 os.system('rm sys_done.txt')

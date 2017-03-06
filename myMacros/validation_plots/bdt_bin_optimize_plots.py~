@@ -1,0 +1,109 @@
+import sys
+import os
+import re
+from ROOT import *
+from matplotlib import interactive
+from ROOT import gROOT
+gROOT.SetBatch(True)
+
+## Store the plots on website ##
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_BDT_binOptimize/'
+try: os.system('mkdir '+outpath)
+except: print outpath+' already exists...'
+temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/.htaccess '+outpath
+temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/index.php '+outpath
+os.system(temp_string2)
+os.system(temp_string3)
+###################################
+
+inpath = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/v25_VH_CSV_2_16_newTraining/'
+
+#bdt_bin_list = ['10','15','20','25','30','35','40']
+bdt_bin_list = ['1']
+
+binDict = {}
+
+for bin in bdt_bin_list:
+    
+    print '\n # of BDT Bins:', bin
+    
+    file = TFile.Open(inpath+'vhbb_TH_BDT_Zuu_HighPt.root', 'read')
+    file.cd('ZuuHighPt_13TeV')
+    
+    binDict[bin+'_BKG'] = gDirectory.Get('Zj2b')
+    Z1b     = gDirectory.Get('Zj1b')
+    Zlight  = gDirectory.Get('Zj0b')
+    ttbar   = gDirectory.Get('TT')
+    
+    binDict[bin+'_SIG']   = gDirectory.Get('ZH')
+    ggZH125 = gDirectory.Get('ggZH')
+    
+    stack  = THStack('stack', '')
+    canvas = TCanvas('canvas')
+    
+    # Add the backgrounds
+    binDict[bin+'_BKG'].Add(Z1b)
+    binDict[bin+'_BKG'].Add(Zlight)
+    binDict[bin+'_BKG'].Add(ttbar)
+    binDict[bin+'_BKG'].SetLineColor(kBlue)
+    binDict[bin+'_BKG'].SetLineStyle(1)
+    
+    # Add the signals
+    binDict[bin+'_SIG'].Add(ggZH125)
+    binDict[bin+'_SIG'].SetLineColor(kRed)
+    binDict[bin+'_SIG'].SetLineStyle(1)
+    
+    leg = TLegend(0.1,0.4,0.3,0.6)
+    leg.SetFillStyle(0)
+    leg.SetBorderSize(0)
+    leg.AddEntry(binDict[bin+'_BKG'], 'BKG', 'l')
+    leg.AddEntry(binDict[bin+'_SIG'], 'SIG', 'l')
+
+    canvas.cd()
+    canvas.SetLogy()
+    stack.Add(binDict[bin+'_BKG'])
+    stack.Add(binDict[bin+'_SIG'])
+    stack.Draw('nostackHIST')
+    leg.Draw('same')
+    
+    canvas.SaveAs(outpath+'bdt_'+bin+'bins_SR.pdf')
+    canvas.SaveAs(outpath+'bdt_'+bin+'bins_SR.png')
+
+    canvas.Close()
+    stack.Delete()
+    file.Close()
+
+
+# Now all bins on one plot
+
+stack_SIG  = THStack('stack_SIG', '')
+canvas_SIG = TCanvas('canvas_SIG')
+
+stack_SIG  = THStack('stack_SIG', '')
+canvas_SIG = TCanvas('canvas_SIG')
+
+leg = TLegend(0.1,0.4,0.3,0.6)
+leg.SetFillStyle(0)
+leg.SetBorderSize(0)
+
+#['10','15','20','25','30','35','40']
+color_list = [5,41,596,840,922,18,416]#,2,3,46,402]
+
+for i,bin in enumerate(bdt_bin_list):
+    
+    binDict[bin+'_SIG'].SetLineColor(i)
+    binDict[bin+'_BKG'].SetLineColor(i)
+    
+    # Divide the hists
+    binDict[bin+'_SIG'].Divide(binDict[bin+'_BKG'])
+    
+    stack_SIG.Add(binDict[bin+'_SIG'])
+    
+    leg.AddEntry(binDict[bin+'_SIG'], bin+' bins', 'l')
+    
+    
+stack_SIG.Draw('nostackHIST')
+leg.Draw('same')
+    
+canvas.SaveAs(outpath+'bdt_'+bin+'bins_SR.pdf')
+canvas.SaveAs(outpath+'bdt_'+bin+'bins_SR.png')

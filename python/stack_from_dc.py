@@ -479,7 +479,7 @@ def drawFromDC():
 
     print 'ws_var:', ws_var
     
-    if opts.var == 'BDT':
+    if opts.var == 'BDT' or opts.var == 'minCMVA':
         ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
     else:
         ws_var = ROOT.RooRealVar(ws_var,ws_var, 0, 1.)
@@ -531,7 +531,7 @@ def drawFromDC():
     log = eval(config.get('Plot:%s'%region,'log'))
     
 
-    if 'Zll' in opts.bin or 'Zee' in opts.bin or 'Zuu' in opts.bin or 'minCSV' in opts.var or 'Zmm' in opts.bin:
+    if 'Zll' in opts.bin or 'Zee' in opts.bin or 'Zuu' in opts.bin or 'minCSV' in opts.var or 'Zmm' in opts.bin or 'minCMVA' in opts.var:
         #setup = config.get('Plot_general','setup').split(',')
         setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST']
         signalList = ['ZH']

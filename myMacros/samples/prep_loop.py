@@ -22,7 +22,7 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q', 'DY_inclusive']
+bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_inclusive']
 
 
 DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600','DY_Bjets', 'DY_BgenFilter',
@@ -33,7 +33,8 @@ DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600','DY_Bjets', 'DY_BgenFilte
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
-temp_list = ['DY_inclusive']
+temp_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 
+             'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
 
 # final list
 #sample_list = data_list

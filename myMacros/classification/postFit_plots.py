@@ -40,8 +40,8 @@ isFromDC = True
 #in_dir = 'v24_ICHEP_VV_11_22_noRP'
 
 # VH
-in_dir = 'v25_SR_CSV_NLO_2_21'
-#in_dir = 'v25_VH_CSV_2_14'
+#in_dir = 'v25_SR_CSV_NLO_2_21'
+in_dir = 'v25_SR_NoRebin'
 
 # Gael
 #in_dir = 'DC_v23_VH_v2_25_11_2016'
@@ -49,9 +49,7 @@ in_dir = 'v25_SR_CSV_NLO_2_21'
 # CR
 #in_dir = 'v24_ICHEP_CR_11_22_SRplusCR'
 
-#out_dir = '~/www/v25_VH_CSV_NLO_2_21_preFit_12bins/'
-out_dir = '~/www/v25_VH_CSV_NLO_2_21_preFit_12bins_noRebin/'
-#out_dir = '~/www/TEST4/'
+out_dir = '~/www/v25_VH_CMVA_LO_3_3_NoRebin_preFit/'
 
 
 cr_list = {
@@ -76,6 +74,13 @@ cr_list = {
     #'ttbar_high_Zee': 'ttbar_high_Zee',
     'ttbar_low_Zuu': 'ttbar_low_Zuu',
     #'ttbar_high_Zuu': 'ttbar_high_Zuu'
+
+
+    'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
+    'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
+    'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
+    'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
+
     
     ####  Wlv ####
     #'vhbb_ttWen_13TeV': 'ttWen',
@@ -94,10 +99,10 @@ cr_list = {
 
 sr_list = { 
     
-    'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
+    #'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
     'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
-    'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
-    'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
+    #'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
+    #'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
     
     #'ZeeBDT_lowpt': 'ZeeBDT_lowpt',
     #'ZeeBDT_highpt':'ZeeBDT_highpt',
@@ -190,6 +195,10 @@ for region in final_list:
     if isFromDC:
         s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
+        if 'Zlf' in region or 'Zhf' in region or 'ttbar' in region:
+            s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        
+        
     print 'Plot Command:', s1
     
     os.system(s1)
@@ -255,8 +264,8 @@ for region in final_list:
 
 
     if 'Zlf' in region or 'Zhf' in region or 'ttbar' in region:
-        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*minCSV_'+final_list[region]+'_PostFit_b* '+out_dir
-    
+        s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*min* '+out_dir
+        
 
 
     os.system(s2)
