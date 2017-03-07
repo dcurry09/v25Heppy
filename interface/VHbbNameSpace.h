@@ -47,8 +47,107 @@ namespace VHbb {
       }
     return SF>0?SF:0;
   }
+
+
+  double ptWeightEWK_Zll_v25(int nGenVbosons,double GenVbosons_pt,int VtypeSim, int nGenTop, int nGenHiggsBoson){
+    double SF = 1.;
+    
+    double EWK[25]={0.932072955817,
+		    0.924376254386,
+		    0.916552449249,
+		    0.909654343838,
+		    0.90479110736,
+		    0.902244634267,
+		    0.89957486928,
+		    0.902899199569,
+		    0.899314861082,
+		    0.89204902646,
+		    0.886663993587,
+		    0.878915415638,
+		    0.870241565009,
+		    0.863239359219,
+		    0.85727925851,
+		    0.849770804948,
+		    0.83762562793,
+		    0.829982098864,
+		    0.81108451152,
+		    0.821942287438,
+		    0.796485091295,
+		    0.800127513022,
+		    0.790708718585,
+		    0.779446429438,
+		    0.777869490396
+    };
+    
+    if (nGenVbosons ==1 && nGenTop == 0 && nGenHiggsBoson == 0)
+      {
+        if (VtypeSim == 0 || VtypeSim == 1 || VtypeSim == 4 || VtypeSim == 5)
+          {
+            {
+              //for Z options
+              if (GenVbosons_pt > 0. && GenVbosons_pt < 3000.){
+		
+		if (GenVbosons_pt > 0 && GenVbosons_pt <= 20)
+		  SF = EWK[0];
+		if (GenVbosons_pt > 20 && GenVbosons_pt <= 40)
+                  SF = EWK[1];
+		if (GenVbosons_pt > 40 && GenVbosons_pt <= 60)
+                  SF = EWK[2];
+		if (GenVbosons_pt > 60 && GenVbosons_pt <= 80)
+                  SF = EWK[3];
+		if (GenVbosons_pt > 80 && GenVbosons_pt <= 100)
+                  SF = EWK[4];
+		if (GenVbosons_pt > 100 && GenVbosons_pt <= 120)
+                  SF = EWK[5];
+		if (GenVbosons_pt > 120 && GenVbosons_pt <= 140)
+                  SF = EWK[6];
+		if (GenVbosons_pt > 140 && GenVbosons_pt <= 160)
+                  SF = EWK[7];
+		if (GenVbosons_pt > 160 && GenVbosons_pt <= 180)
+                  SF = EWK[8];
+		if (GenVbosons_pt > 180 && GenVbosons_pt <= 200)
+                  SF = EWK[9];
+		if (GenVbosons_pt > 200 && GenVbosons_pt <= 220)
+                  SF = EWK[10];
+		if (GenVbosons_pt > 220 && GenVbosons_pt <= 240)
+                  SF = EWK[11];
+		if (GenVbosons_pt > 240 && GenVbosons_pt <= 260)
+                  SF = EWK[12];
+		if (GenVbosons_pt > 260 && GenVbosons_pt <= 280)
+                  SF = EWK[13];
+		if (GenVbosons_pt > 280 && GenVbosons_pt <= 300)
+                  SF = EWK[14];
+		if (GenVbosons_pt > 300 && GenVbosons_pt <= 320)
+                  SF = EWK[15];
+		if (GenVbosons_pt > 320 && GenVbosons_pt <= 340)
+                  SF = EWK[16];
+		if (GenVbosons_pt > 340 && GenVbosons_pt <= 360)
+                  SF = EWK[17];
+		if (GenVbosons_pt > 360 && GenVbosons_pt <= 380)
+                  SF = EWK[18];
+		if (GenVbosons_pt > 380 && GenVbosons_pt <= 400)
+                  SF = EWK[19];
+		if (GenVbosons_pt > 400 && GenVbosons_pt <= 420)
+                  SF = EWK[20];
+		if (GenVbosons_pt > 420 && GenVbosons_pt <= 440)
+                  SF = EWK[21];
+		if (GenVbosons_pt > 440 && GenVbosons_pt <= 460)
+                  SF = EWK[22];
+		if (GenVbosons_pt > 460 && GenVbosons_pt <= 480)
+                  SF = EWK[23];
+		if (GenVbosons_pt > 480)
+                  SF = EWK[24];
+		
+	      }
+	      
+            }
+          }
+      }
+    return SF>0?SF:0;
+  }
+
   
-  float puWeight_ichep(double x){
+  float puWeGenVbosons_ptght_ichep(double x){
 
     //int i = nearbyint(x);
     int i = (int) x;
