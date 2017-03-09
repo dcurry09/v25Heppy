@@ -521,7 +521,7 @@ for job in info:
 
 		    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
 
-		    DY_ewkWeight = ROOT.TTreeFormula('ewkWeight', 'VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)')
+		    DY_ewkWeight = ROOT.TTreeFormula('ewkWeight', 'VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)', tree)
 	    
 
     # For 2016E+F HIP mitigation
@@ -562,7 +562,7 @@ for job in info:
     for entry in range(0,nEntries):
 
 	    # for testing
-	    if entry > 1000: break
+	    #if entry > 1000: break
 	    	    
             tree.GetEntry(entry)
 
@@ -895,6 +895,7 @@ for job in info:
     newtree.AutoSave()
     print 'Save'
     output.Close()
+    input.Close()
     print 'Close'
     
     #t3 specific

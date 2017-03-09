@@ -178,7 +178,7 @@ class Jet :
 prefix = 'v25_'
 #prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
@@ -188,8 +188,9 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets', 'DY_BgenFilter',
-           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6'
+DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets',
+           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6',
+           'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf'
            #'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
            ]
 
@@ -200,11 +201,10 @@ ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
              'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
 
-temp_list = ['ST_s']
+temp_list = ['DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
 
 
-file_list = bkg_list + data_list + signal_list + ST_list 
-#+ DY_list
+file_list = bkg_list + signal_list + ST_list + DY_list
 #file_list = temp_list
 
 
@@ -334,7 +334,7 @@ def osSystem(file):
         MakeSysRefMap()
 
         if 'Zee' in file or 'Zuu' in file:
-            bTagWeights["bTagWeightCMVAV2_Moriond"][0] = 1.0
+            bTagWeights["bTagWeightCMVAv2_Moriond"][0] = 1.0
             bTagWeights["bTagWeightCSV_Moriond"][0] = 1.0
             otree.Fill()
             continue
@@ -400,13 +400,13 @@ def osSystem(file):
 
 
 # Done
-# p = multiprocessing.Pool()
-# results = p.imap(osSystem, file_list)
-# p.close()
-# p.join()
-
-
 p = multiprocessing.Pool()
-results = p.imap(osSystem, DY_list)
+results = p.imap(osSystem, file_list)
 p.close()
 p.join()
+
+
+# p = multiprocessing.Pool()
+# results = p.imap(osSystem, DY_list)
+# p.close()
+# p.join()

@@ -126,16 +126,16 @@ class HistoMaker:
             # Add the JEC/JER sys cuts by hand
             #if 'gg_plus_' in treeVar or 'VV' in treeVar:
             #    if '_up' in treeVar or '_down' in treeVar:
-            if options['sys_cut']:
-                treeCut='%s'%(options['sys_cut'])
-                print treeVar
-                print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
+            # if options['sys_cut']:
+            #     treeCut='%s'%(options['sys_cut'])
+            #     print treeVar
+            #     print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
 
             weightF = '%s'%(options['weight'])    
             
             if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
                 weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
-                weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
+                weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
                 weightF = weightF+'*('+job.specialweight+')'
             if '2L2Q' in job.name:
                 weightF = weightF+'*('+job.specialweight+')'

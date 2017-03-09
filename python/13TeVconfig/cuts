@@ -21,13 +21,13 @@ CSVM: 0.185
 CSVL: -0.715
 
 #### choose vtype after fix
-vtype: Vtype_new
-V_pt: V_new
-vLeptons: vLeptons_new
+# vtype: Vtype_new
+# V_pt: V_new
+# vLeptons: vLeptons_new
 
-#vtype: Vtype
-#V_pt: V
-#vLeptons: vLeptons
+vtype: Vtype
+V_pt: V
+vLeptons: vLeptons
 
 #######################3
 
