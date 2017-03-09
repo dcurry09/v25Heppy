@@ -220,20 +220,6 @@ def osSystem(file):
     tree = input.Get('tree')
     nEntries = tree.GetEntries()
 
-
-
-    # # For new regresssion zerop the branches out before cloning new tree
-    # for syst in JECsys:
-    #     for sdir in ["Up", "Down"]:
-    #         tree.SetBranchStatus("HCMVAV2_reg_mass_corr"+syst+sdir,0)
-    #         tree.SetBranchStatus("HCMVAV2_reg_pt_corr"+syst+sdir,0)
-    #         tree.SetBranchStatus("HCMVAV2_reg_eta_corr"+syst+sdir,0)
-    #         tree.SetBranchStatus("HCMVAV2_reg_phi_corr"+syst+sdir,0)
-    #         tree.SetBranchStatus("hJetCMVAV2_pt_reg"+syst+sdir,0)
-    # tree.SetBranchStatus('HCMVAV2_reg_mass',0)
-    # tree.SetBranchStatus('HCMVAV2_reg_pt',0)
-    # tree.SetBranchStatus('HCMVAV2_reg_eta',0)
-    # tree.SetBranchStatus('HCMVAV2_reg_phi',0)
     
     output.cd()
     
@@ -243,7 +229,7 @@ def osSystem(file):
 
     hJ0 = ROOT.TLorentzVector()
     hJ1 = ROOT.TLorentzVector()
-
+    
     # # for the dijet mass/pt
     # JEC_systematics['HCMVAV2_reg_mass'] = np.zeros(1, dtype=float)
     # newtree.Branch('HCMVAV2_reg_mass', JEC_systematics['HCMVAV2_reg_mass'], 'HCMVAV2_reg_mass/D')
