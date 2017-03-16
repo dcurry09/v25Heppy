@@ -429,9 +429,56 @@ for job in info:
     #tree.SetBranchStatus('HCSV_reg_pt',0)
     #tree.SetBranchStatus('HCSV_reg_mass',0)
     #tree.SetBranchStatus('HCSV_reg_pt',0)
-        
-    newtree = tree.CloneTree(0)
+
+    if job.type != 'DATA':
+        # For new Vtype Zero out the old Vtype and recreat
+        tree.SetBranchStatus('Vtype',0)
+    	tree.SetBranchStatus('V_pt',0)
+    	tree.SetBranchStatus('V_mass',0)
+    	tree.SetBranchStatus('V_eta',0)
+    	tree.SetBranchStatus('V_phi',0)
+	
+    	tree.SetBranchStatus('vLeptons_pt',0)
+    	tree.SetBranchStatus('vLeptons_eta',0)
+    	tree.SetBranchStatus('vLeptons_phi',0)
+    	tree.SetBranchStatus('vLeptons_relIso04',0)
+    	tree.SetBranchStatus('vLeptons_relIso03',0)
+	
     
+    newtree = tree.CloneTree(0)
+
+    
+    if job.type != 'DATA':
+        Vtype = array('f',[0]*1)
+    	newtree.Branch('Vtype', Vtype, 'Vtype/F')
+    
+    	V_pt = array('f',[0]*1)
+    	newtree.Branch('V_pt', V_pt, 'V_pt/F')
+    
+    	V_eta = array('f',[0]*1)
+    	newtree.Branch('V_eta', V_eta, 'V_eta/F')
+	
+    	V_phi = array('f',[0]*1)
+    	newtree.Branch('V_phi', V_phi, 'V_phi/F')
+    
+    	V_mass = array('f',[0]*1)
+    	newtree.Branch('V_mass', V_mass, 'V_mass/F')
+    
+    	vLeptons_pt = array('f',[0]*2)
+        newtree.Branch('vLeptons_pt', vLeptons_pt, 'vLeptons_pt[2]/F')
+
+    	vLeptons_eta = array('f',[0]*2)
+        newtree.Branch('vLeptons_eta', vLeptons_eta, 'vLeptons_eta[2]/F')
+
+    	vLeptons_phi = array('f',[0]*2)
+        newtree.Branch('vLeptons_phi', vLeptons_phi, 'vLeptons_phi[2]/F')
+
+    	vLeptons_relIso04 = array('f',[0]*2)
+        newtree.Branch('vLeptons_relIso04', vLeptons_relIso04, 'vLeptons_relIso04[2]/F')
+	
+    	vLeptons_relIso03 = array('f',[0]*2)
+        newtree.Branch('vLeptons_relIso03', vLeptons_relIso03, 'vLeptons_relIso03[2]/F')
+
     #regWeight = config.get("TrainRegression","regWeight")
     #regDict = eval(config.get("TrainRegression","regDict"))
     #regVars = eval(config.get("TrainRegression","regVars"))
@@ -507,16 +554,16 @@ for job in info:
 
     # Recerate the jet pt and CMVA in their own branches
     hJetCMVA_pt_0 = array('f',[0]*1)
-    newtree.Branch('hJetCMVA_pt_0', hJetCMVA_pt_0, 'hJetCMVA_pt_0[1]/F')
+    newtree.Branch('hJetCMVA_pt_0', hJetCMVA_pt_0, 'hJetCMVA_pt_0/F')
     
     hJetCMVA_pt_1 = array('f',[0]*1)
-    newtree.Branch('hJetCMVA_pt_1', hJetCMVA_pt_1, 'hJetCMVA_pt_1[1]/F')
+    newtree.Branch('hJetCMVA_pt_1', hJetCMVA_pt_1, 'hJetCMVA_pt_1/F')
 
     hJetCMVA_btag_0 = array('f',[0]*1)
-    newtree.Branch('hJetCMVA_btag_0', hJetCMVA_btag_0, 'hJetCMVA_btag_0[1]/F')
+    newtree.Branch('hJetCMVA_btag_0', hJetCMVA_btag_0, 'hJetCMVA_btag_0/F')
 
     hJetCMVA_btag_1 = array('f',[0]*1)
-    newtree.Branch('hJetCMVA_btag_1', hJetCMVA_btag_1, 'hJetCMVA_btag_1[1]/F')
+    newtree.Branch('hJetCMVA_btag_1', hJetCMVA_btag_1, 'hJetCMVA_btag_1/F')
     
     # ========== Lepton SF branches ============
 
@@ -671,12 +718,12 @@ for job in info:
 	    
 
 	    # Set the jet branches
-	    hJetCMVA_pt_0 = tree.Jet_pt_reg[tree.hJCMVAV2idx[0]]
-	    hJetCMVA_pt_1 = tree.Jet_pt_reg[tree.hJCMVAV2idx[1]]
+	    hJetCMVA_pt_0[0] = tree.Jet_pt_reg[tree.hJCMVAV2idx[0]]
+	    hJetCMVA_pt_1[0] = tree.Jet_pt_reg[tree.hJCMVAV2idx[1]]
 	    
-	    hJetCMVA_btag_0 = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[0]]
-            hJetCMVA_btag_1 = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[1]]
-
+	    hJetCMVA_btag_0[0] = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[0]]
+            hJetCMVA_btag_1[0] = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[1]]
+	    
 	    	    
 		    #print ptWeightEWK_Zll(tree.nGenVbosons[0], tree.GenVbosons_pt[0], tree.VtypeSim, tree.nGenTop, tree.nGenHiggsBoson)
 
@@ -695,6 +742,27 @@ for job in info:
 			    
 	    if job.type != 'DATA':
 
+		    # # Set the fixed Vtype
+		    # Vtype[0]   = tree.Vtype_new
+		    # V_pt[0]    = tree.V_new_pt
+		    # V_eta[0]   = tree.V_new_eta
+		    # V_phi[0]   = tree.V_new_phi
+		    # V_mass[0]  = tree.V_new_eta
+
+		    # vLeptons_pt[0] = tree.vLeptons_new_pt[0]
+		    # vLeptons_pt[1] = tree.vLeptons_new_pt[1]
+
+		    # vLeptons_eta[0] = tree.vLeptons_new_eta[0]
+                    # vLeptons_eta[1] = tree.vLeptons_new_eta[1]
+		    
+		    # vLeptons_phi[0] = tree.vLeptons_new_phi[0]
+                    # vLeptons_phi[1] = tree.vLeptons_new_phi[1]
+
+		    # vLeptons_relIso03[0] = tree.vLeptons_new_relIso03[0]
+                    # vLeptons_relIso03[1] = tree.vLeptons_new_relIso03[1]
+
+		    # vLeptons_relIso04[0] = tree.vLeptons_new_relIso04[0]
+                    # vLeptons_relIso04[1] = tree.vLeptons_new_relIso04[1]
 
 		    # Set the special Weight
 		    if 'ZZ_2L2Q' in job.name:
