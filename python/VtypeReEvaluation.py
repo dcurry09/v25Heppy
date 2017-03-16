@@ -247,16 +247,18 @@ prep_list = [
     #'prep_Zee_G_ext1', 'prep_Zee_G_ext2','prep_Zee_G_ext3', 'prep_Zee_G_ext4',
     #'prep_Zee_H_ext1', 'prep_Zee_H_ext2', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
     
-    #'prep_ttbar_ext1', 'prep_ttbar_ext2',
-    #'prep_ttbar_ext1_NewExt', 'prep_ttbar_ext2_NewExt',
-    #'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
-    #'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
-    #'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4']
-
+    'prep_ttbar_ext1', 'prep_ttbar_ext2',
+    'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
+    'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
+    'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
+    'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
+    'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
+    'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
+    
     #'prep_DY_600to800_ext1', 'prep_DY_600to800_ext1_NewExt', 'prep_DY_600to800_ext1_NewExt2',
 
-    'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 'prep_DY_2J_NewExt4', 
-    'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8'
+    #'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 'prep_DY_2J_NewExt4', 
+    #'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8'
     ]
 
 
@@ -273,7 +275,8 @@ DY_parton_list = ['DY0J', 'DY1J']
 temp_list = ['DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
-file_list = temp_list
+#file_list = temp_list
+file_list = prep_list
 
 #for file in file_list:
 def osSystem(file):

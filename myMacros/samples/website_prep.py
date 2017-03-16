@@ -12,8 +12,8 @@ import multiprocessing
 
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
-#main_dir  = 'TEST'
-main_dir = 'v25_CR_CMVA_LO_3_1'
+#main_dir  = 'TEST_WithEleSF'
+main_dir = 'v25_CR_CMVA_LO_newSF_3_15'
 
 
 

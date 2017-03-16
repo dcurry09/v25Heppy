@@ -12,8 +12,8 @@ def copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,Acut):
     print "Output File : %s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file)
     
     
-    #input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
-    input = ROOT.TFile.Open("%s/%s%s%s.root" %(pathIN,newprefix,Aprefix,file),'read')
+    input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
+    #input = ROOT.TFile.Open("%s/%s%s%s.root" %(pathIN,newprefix,Aprefix,file),'read')
     output = ROOT.TFile.Open("%s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file),'recreate')
     
     

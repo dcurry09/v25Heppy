@@ -57,6 +57,44 @@ class LeptonSF:
         # if nothing was found, return 1 +/- 0
         return [1.0, 0.0]
 
+    
+    def get_2D_eta_pt(self, eta, pt):
+
+        stripForEta = 5
+        if self.lep_binning not in self.res.keys():
+            return [1.0, 0.0]
+
+        #print '\nLepton Eta:', eta
+        #print 'Lepton Pt:', pt
+
+        for etaKey, values in sorted(self.res[self.lep_binning].iteritems()) :
+            #print etaKey
+            etaL = float(((etaKey[stripForEta:]).rstrip(']').split(',')[0]))
+            etaH = float(((etaKey[stripForEta:]).rstrip(']').split(',')[1]))
+            #print 'EtaL:', etaL
+            #print 'EtaH:', etaH
+
+            if not (eta>etaL and eta<etaH):
+                continue
+
+            for ptKey, result in sorted(values.iteritems()) :
+                #print ptKey
+                ptL = float(((ptKey[4:]).rstrip(']').split(',')[0]))
+                ptH = float(((ptKey[4:]).rstrip(']').split(',')[1]))
+                #print 'PtL:', ptL
+                #print 'PtH:', ptH
+                
+                if not (pt>ptL and pt<ptH):
+                    continue
+                
+                #print 'SF:', result["value"]
+                return [result["value"], result["error"]]
+
+            
+
+        # if nothing was found, return 1 +/- 0
+        return [1.0, 0.0]
+
 
     def get_1D(self, eta):
 

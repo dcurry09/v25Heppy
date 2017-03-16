@@ -9,9 +9,10 @@ BDTbins = 15
 CSVbins = 20
 
 #################################
-# Vtype <!General|V_pt!>
+#Vtype <!General|V_pt!>
 #V_pt: V
 #vLeptons: vLeptons
+
 V_pt: V_new
 vLeptons: vLeptons_new
 
@@ -28,11 +29,18 @@ H_sel: HCMVAV2
 
 
 [plotDef:HT]
-xAxis   : HT
+xAxis   : LHE HT
 relPath : lheHT
 nBins   : 40
 min     : 0
 max     : 800
+
+[plotDef:LHE_Vpt]
+xAxis   : LHE V p_{t}
+relPath : lheV_pt
+nBins   : 40
+min     : 0
+max     : 200
 
 [plotDef:nPVs]
 relPath: nPVs
@@ -655,7 +663,7 @@ max = 150
 [plotDef:vLeptons_ptMin]
 relPath = min(<!General|vLeptons!>_pt[0],<!General|vLeptons!>_pt[1])
 xAxis = Leading lepton P_{t}
-nBins = 20
+nBins = 15
 min = 0
 max = 150
 
@@ -734,14 +742,14 @@ max = 3.14
 [plotDef:vLeptons0_RelIso04]
 relPath = <!General|vLeptons!>_relIso04[0]
 xAxis = leading lepton RelIso04
-nBins = 30
+nBins = 25
 min = 0
 max = 0.30
 
 [plotDef:vLeptons1_RelIso04]
 relPath = <!General|vLeptons!>_relIso04[1]
 xAxis = second lepton RelIso04
-nBins = 30
+nBins = 25
 min = 0
 max = 0.30
 
@@ -749,16 +757,16 @@ max = 0.30
 [plotDef:vLeptons0_RelIso03]
 relPath = <!General|vLeptons!>_relIso03[0]
 xAxis = leading lepton RelIso03
-nBins = 30
+nBins = 25
 min = 0
-max = 0.25
+max = 0.15
 
 [plotDef:vLeptons1_RelIso03]
 relPath = <!General|vLeptons!>_relIso03[1]
 xAxis = second lepton RelIso03
-nBins = 50
+nBins = 25
 min = 0
-max = 0.5
+max = 0.15
 
 
 # =============================

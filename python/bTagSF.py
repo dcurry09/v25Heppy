@@ -175,8 +175,8 @@ class Jet :
 ################################################################
 
 # sample prefix
-prefix = 'v25_'
-#prefix = ''
+#prefix = 'v25_'
+prefix = ''
 
 inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
@@ -198,14 +198,24 @@ DY_parton_list = ['DY0J', 'DY1J']
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
-prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
-             'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
+prep_list = [
+    #'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
+    #'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
+    'prep_ttbar_ext1', 'prep_ttbar_ext2',
+    'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
+    'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
+    'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
+    'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
+    'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
+    'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
+    ]
 
-temp_list = ['DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
+
+temp_list = ['ttbar']
 
 
-file_list = bkg_list + signal_list + ST_list + DY_list
-#file_list = temp_list
+#file_list = bkg_list + signal_list + ST_list + DY_list
+file_list = prep_list
 
 
 
@@ -281,15 +291,15 @@ def osSystem(file):
 
 
     # Zero out any old batg branches
-    tree.SetBranchStatus('bTagWeightCSV_Moriond',0)
-    tree.SetBranchStatus('bTagWeightCMVAv2_Moriond',0)
-    for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
-        for sdir in ["Up", "Down"]:
-            tree.SetBranchStatus("bTagWeightCMVAV2_Moriond_"+syst+sdir,0)
-            tree.SetBranchStatus("bTagWeightCSV_Moriond_"+syst+sdir,0)
-            for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-                tree.SetBranchStatus("bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir,0)
-                tree.SetBranchStatus("bTagWeightCSV_Moriond_"+syst+systcat+sdir,0)
+    # tree.SetBranchStatus('bTagWeightCSV_Moriond',0)
+    # tree.SetBranchStatus('bTagWeightCMVAv2_Moriond',0)
+    # for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
+    #     for sdir in ["Up", "Down"]:
+    #         tree.SetBranchStatus("bTagWeightCMVAV2_Moriond_"+syst+sdir,0)
+    #         tree.SetBranchStatus("bTagWeightCSV_Moriond_"+syst+sdir,0)
+    #         for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
+    #             tree.SetBranchStatus("bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir,0)
+    #             tree.SetBranchStatus("bTagWeightCSV_Moriond_"+syst+systcat+sdir,0)
 
     otree = tree.CloneTree(0)
 

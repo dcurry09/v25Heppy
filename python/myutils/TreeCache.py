@@ -208,9 +208,9 @@ class TreeCache:
         print ('xsec:', sample.xsec)
         print ('lumi:', sample.lumi)
         print ('SF:', sample.sf)
-        #print ('posWeight:', posWeight.GetBinContent(1))
-        #print ('negWeight:', negWeight.GetBinContent(1))
-        theScale = lumi*sample.xsec*sample.sf/(posWeight.GetBinContent(1)-negWeight.GetBinContent(1))
+        print ('posWeight:', posWeight.GetBinContent(1))
+        print ('negWeight:', negWeight.GetBinContent(1))
+        theScale = lumi*sample.xsec/(posWeight.GetBinContent(1)-negWeight.GetBinContent(1))
         
         return theScale
 

@@ -41,6 +41,7 @@ samplesinfo=config.get('Directories','samplesinfo')
 
 VHbbNameSpace=config.get('VHbbNameSpace','library')
 ROOT.gSystem.Load(VHbbNameSpace)
+
 AngLikeBkgs=eval(config.get('AngularLike','backgrounds'))
 ang_yield=eval(config.get('AngularLike','yields'))
 
@@ -75,6 +76,99 @@ def deltaR(phi1, eta1, phi2, eta2):
     result = math.sqrt(deta*deta + dphi*dphi)
     return result
 
+
+def signal_ewk(GenVbosons_pt):
+	
+	SF = 1.
+	#print 'Vpt:', GenVbosons_pt
+	EWK = [0.932072955817,
+	       0.924376254386,
+	       0.916552449249,
+	       0.909654343838,
+	       0.90479110736,
+	       0.902244634267,
+	       0.89957486928,
+	       0.902899199569,
+	       0.899314861082,
+	       0.89204902646,
+	       0.886663993587,
+	       0.878915415638,
+	       0.870241565009,
+	       0.863239359219,
+	       0.85727925851,
+	       0.849770804948,
+	       0.83762562793,
+	       0.829982098864,
+	       0.81108451152,
+	       0.821942287438,
+	       0.796485091295,
+	       0.800127513022,
+	       0.790708718585,
+	       0.779446429438,
+	       0.777869490396]
+	
+	#print EWK[0]
+	#print EWK[1]
+
+	if GenVbosons_pt > 0. and GenVbosons_pt < 3000:
+
+		if GenVbosons_pt > 0 and GenVbosons_pt <= 20:
+			SF = EWK[0]
+		if GenVbosons_pt > 20 and GenVbosons_pt <= 40:
+			SF = EWK[1]
+		if GenVbosons_pt > 40 and GenVbosons_pt <= 60:
+			SF = EWK[2]
+		if GenVbosons_pt > 60 and GenVbosons_pt <= 80:
+			SF = EWK[3]
+		if GenVbosons_pt > 80 and GenVbosons_pt <= 100:
+			SF = EWK[4]
+		if GenVbosons_pt > 100 and GenVbosons_pt <= 120:
+			SF = EWK[5]
+		if GenVbosons_pt > 120 and GenVbosons_pt <= 140:
+			SF = EWK[6]
+		if GenVbosons_pt > 140 and GenVbosons_pt <= 160:
+			SF = EWK[7]
+		if GenVbosons_pt > 160 and GenVbosons_pt <= 180:
+			SF = EWK[8]
+		if GenVbosons_pt > 180 and GenVbosons_pt <= 200:
+			SF = EWK[9]
+		if GenVbosons_pt > 200 and GenVbosons_pt <= 220:
+			SF = EWK[10]
+		if GenVbosons_pt > 220 and GenVbosons_pt <= 240:
+			SF = EWK[11]
+		if GenVbosons_pt > 240 and GenVbosons_pt <= 260:
+			SF = EWK[12]
+		if GenVbosons_pt > 260 and GenVbosons_pt <= 280:
+			SF = EWK[13]
+		if GenVbosons_pt > 280 and GenVbosons_pt <= 300:
+			SF = EWK[14]
+		if GenVbosons_pt > 300 and GenVbosons_pt <= 320:
+			SF = EWK[15]
+		if GenVbosons_pt > 320 and GenVbosons_pt <= 340:
+			SF = EWK[16]
+		if GenVbosons_pt > 340 and GenVbosons_pt <= 360:
+			SF = EWK[17]
+		if GenVbosons_pt > 360 and GenVbosons_pt <= 380:
+			SF = EWK[18]
+		if GenVbosons_pt > 380 and GenVbosons_pt <= 400:
+			SF = EWK[19]
+		if GenVbosons_pt > 400 and GenVbosons_pt <= 420:
+			SF = EWK[20]
+		if GenVbosons_pt > 420 and GenVbosons_pt <= 440:
+			SF = EWK[21]
+		if GenVbosons_pt > 440 and GenVbosons_pt <= 460:
+			SF = EWK[22]
+		if GenVbosons_pt > 460 and GenVbosons_pt <= 480:
+			SF = EWK[23]
+		if GenVbosons_pt > 480:
+			SF = EWK[24]
+		if GenVbosons_pt <= 0:
+			SF = 1
+
+
+	return SF
+
+					
 
 def resolutionBias(eta):
     if(eta< 0.5): return 0.052
@@ -410,7 +504,19 @@ for job in info:
     # Hreg_semiL_bias = array('f',[0]*1)
     # newtree.Branch('Hreg_semiL_bias', Hreg_semiL_bias, 'Hreg_semiL_bias[1]/F')
 
+
+    # Recerate the jet pt and CMVA in their own branches
+    hJetCMVA_pt_0 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_pt_0', hJetCMVA_pt_0, 'hJetCMVA_pt_0[1]/F')
     
+    hJetCMVA_pt_1 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_pt_1', hJetCMVA_pt_1, 'hJetCMVA_pt_1[1]/F')
+
+    hJetCMVA_btag_0 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_btag_0', hJetCMVA_btag_0, 'hJetCMVA_btag_0[1]/F')
+
+    hJetCMVA_btag_1 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_btag_1', hJetCMVA_btag_1, 'hJetCMVA_btag_1[1]/F')
     
     # ========== Lepton SF branches ============
 
@@ -513,17 +619,12 @@ for job in info:
     newtree.Branch('DY_ewkWeight',DY_ewkWeight,'DY_ewkWeight/F')
 
     if 'DY' in job.name or 'ZZ_2L2Q' in job.name:
+	    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
 	    
-	    if 'ZZ_2L2Q' in job.name:
-		    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
-	    else:
-		    nloweight = ROOT.TTreeFormula('nloweight', "VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4&&GenJet_numBHadrons))", tree)
-
-		    specialWeight = ROOT.TTreeFormula('specialWeight',job.specialweight, tree)
-
-		    DY_ewkWeight = ROOT.TTreeFormula('ewkWeight', 'VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)', tree)
+    # for signal reweighting
+    Signal_ewkWeight = array('f',[0]*1)
+    newtree.Branch('Signal_ewkWeight',Signal_ewkWeight,'Signal_ewkWeight/F')
 	    
-
     # For 2016E+F HIP mitigation
     #bTagWeightEF = array('f',[0]*1)
     #newtree.Branch('bTagWeightEF',bTagWeightEF,'bTagWeightEF/F')
@@ -560,7 +661,7 @@ for job in info:
     print '\n\n======== Filling New Branches/ Applying Regression ========'
         
     for entry in range(0,nEntries):
-
+	    
 	    # for testing
 	    #if entry > 1000: break
 	    	    
@@ -568,32 +669,17 @@ for job in info:
 
 	    if entry % 10000 is 0: print 'Event #', entry
 	    
-            #if tree.nJet < 2: continue
-	    #if tree.nhJCidx == 0 : continue
+
+	    # Set the jet branches
+	    hJetCMVA_pt_0 = tree.Jet_pt_reg[tree.hJCMVAV2idx[0]]
+	    hJetCMVA_pt_1 = tree.Jet_pt_reg[tree.hJCMVAV2idx[1]]
 	    
-	    # Set the special Weight
-	    # Init the weight string
-	    if 'DY' not in job.name:
-		    if 'ZZ_2L2Q' in job.name:
-			    specialWeight_ = specialWeight.EvalInstance()
-			    DY_specialWeight[0] = specialWeight_
-			    NLO_Weight[0] = 1		    
-			    DY_ewkWeight[0] = 1
-		    else:
-			    NLO_Weight[0] = 1
-			    DY_ewkWeight[0] = 1
-			    DY_specialWeight[0] = 1
-	    else:
-	    	    specialWeight_ = specialWeight.EvalInstance()
-	    	    DY_specialWeight[0] = specialWeight_
-		    
-	    	    nlo_weight_ = nlo_weight.EvalInstance()
-	    	    NLO_Weight[0] = nlo_weight_ 
-		    
-		    ewkWeight_ = ewkWeight.EvalInstance()
-		    DY_ewkWeight[0] = ewkWeight_
-		    
-	    
+	    hJetCMVA_btag_0 = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[0]]
+            hJetCMVA_btag_1 = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[1]]
+
+	    	    
+		    #print ptWeightEWK_Zll(tree.nGenVbosons[0], tree.GenVbosons_pt[0], tree.VtypeSim, tree.nGenTop, tree.nGenHiggsBoson)
+
 	    # if tree.Vtype_new == 0 and (tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v==1 or tree.HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v==1):  
 	    # 	    zuu_trigger[0] = 1
 	    # else:
@@ -609,6 +695,53 @@ for job in info:
 			    
 	    if job.type != 'DATA':
 
+
+		    # Set the special Weight
+		    if 'ZZ_2L2Q' in job.name:
+			    specialWeight_ = specialWeight.EvalInstance()
+			    DY_specialWeight[0] = specialWeight_
+			    NLO_Weight[0] = 1		    
+			    DY_ewkWeight[0] = 1
+			    Signal_ewkWeight[0] = 1
+
+		    elif 'DY' in job.name:
+			    Signal_ewkWeight[0] = 1
+			    
+			    specialWeight_ = specialWeight.EvalInstance()
+			    DY_specialWeight[0] = specialWeight_
+		    
+			    # NLO weight
+			    etabb = abs(tree.Jet_eta[tree.hJCidx[0]] - tree.Jet_eta[tree.hJCidx[1]])
+			    if etabb < 5: 
+				    NLO_Weight[0] = 1.153*(0.940679 + 0.0306119*etabb -0.0134403*etabb*etabb + 0.0132179*etabb*etabb*etabb -0.00143832*etabb*etabb*etabb*etabb)
+
+			    # EWK weight
+			    if len(tree.GenVbosons_pt) > 0 and tree.GenVbosons_pt[0] > 100. and  tree.GenVbosons_pt[0] < 3000:
+				    DY_ewkWeight[0] = -0.1808051+6.04146*(pow((tree.GenVbosons_pt[0]+759.098),-0.242556))
+
+		    elif 'ZH' in job.name:
+			    if tree.nGenVbosons > 0:
+				     Signal_ewkWeight[0] = signal_ewk(tree.GenVbosons_pt[0])
+			    else:
+				    Signal_ewkWeight[0] = 1
+
+			    DY_specialWeight[0] = 1
+			    NLO_Weight[0] = 1
+                            DY_ewkWeight[0] = 1
+					    
+		    else:		    
+			    Signal_ewkWeight[0] = 1
+			    NLO_Weight[0] = 1
+			    DY_ewkWeight[0] = 1
+			    DY_specialWeight[0] = 1
+
+			    
+		    #print '\nDY Weight:', DY_specialWeight[0]
+		    #print 'NLO weight:', NLO_Weight[0]
+		    #print 'EWK weight:', DY_ewkWeight[0]
+		    #print 'Signal EWK:', Signal_ewkWeight[0]
+		    #print signal_ewk(tree.GenVbosons_pt[0])
+		    
 		    # ================ Lepton Scale Factors =================
 		    # For custom made form own JSON files
 
@@ -656,7 +789,7 @@ for job in info:
 		    mTrigSFWeight_doubleMu80x[0] = 1
 		    mTrigSFWeight_doubleMu80xUp[0] = 1
 		    mTrigSFWeight_doubleMu80xDown[0] = 1
-
+		    
 		    muTrigEffBfr1 = 1
 		    muTrigEffBfr2 = 1
 		    
@@ -673,11 +806,13 @@ for job in info:
 		    mTrk_BCDEF= 1
                     mTrk_GH = 1
 		    
-
+		    eff1 = 1
+		    eff2 = 1
+		    
 		    jsons = {
 			    #### Muon trigger ISO, and ID ####
 			    
-			    # ID
+			    # # ID
 			    'myutils/jsons/80x/muon_ID_BCDEF.json' : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
 			    'myutils/jsons/80x/muon_ID_GH.json'    : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
 			    
@@ -693,7 +828,7 @@ for job in info:
 			    
 			    # tracker
 			    '../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_tracker_80x', 'eta_pt_ratio'],
-
+			    
 			    # MVAID
 			    'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
 
@@ -707,13 +842,13 @@ for job in info:
 			    #print '\n New Json Iteration...'
 			    #print j
 			    #print name[0], name[1]
-			    			    
+			    
 			    weight = []
 			    lepCorr = LeptonSF(j, name[0], name[1])
 			    
 			    if '_out' in j or 'ScaleFactor_etracker_80x' in j: 
-				    weight.append(lepCorr.get_2D( tree.vLeptons_new_eta[0], tree.vLeptons_new_pt[0]))
-                                    weight.append(lepCorr.get_2D( tree.vLeptons_new_eta[1], tree.vLeptons_new_pt[1]))
+				    weight.append(lepCorr.get_2D_eta_pt(tree.vLeptons_new_eta[0], tree.vLeptons_new_pt[0]))
+                                    weight.append(lepCorr.get_2D_eta_pt(tree.vLeptons_new_eta[1], tree.vLeptons_new_pt[1]))
 				    
 			    elif 'trk_SF_Run' not in j:
 				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
@@ -721,8 +856,6 @@ for job in info:
 			    elif 'trk_SF_Run' in j:	    
 				    weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[0]))
                                     weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[1]))
-
-
 
 
 			    if tree.Vtype_new == 0:
@@ -801,21 +934,8 @@ for job in info:
 					    
 					    
                     # End JSON loop ====================================
-
+		    
 		    if tree.Vtype_new == 0:
-			    
-			    #for ICHEP dataset
-			    #eff1 = 0.04854*muTrigEffBfr1 + 0.95145*muTrigEffAftr1
-			    #eff2 = 0.04854*muTrigEffBfr2 + 0.95145*muTrigEffAftr2
-			    #mTrigSFWeight_ICHEP[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
-			    
-			    #eff1Up = 0.04854*muEffUpBfr1 +  0.95145*muEffUpAftr1
-			    #eff2Up = 0.04854*muEffUpBfr2 +  0.95145*muEffUpAftr2
-			    #mTrigSFWeightUp[0] = eff1Up*(1-eff2Up)*eff1Up + eff2Up*(1-eff1Up)*eff2Up + eff1Up*eff1Up*eff2Up*eff2Up
-			    
-			    #eff1Down = 0.04854*muEffDownBfr1 +  0.95145*muEffDownAftr1
-			    #eff2Down = 0.04854*muEffDownBfr2 +  0.95145*muEffDownAftr2
-                            #mTrigSFWeightDown[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
 			    
 			    # for 35.9/fb
 			    #eff1 = 0.02772*muTrigEffBfr1 + 0.97227*muTrigEffAftr1
@@ -835,9 +955,15 @@ for job in info:
 			    mTrackerSFWeightDown[0] = mTrk_BCDEF_down*(20.1/36.4) + mTrk_GH_down*(16.3/36.4)
 
 		    if tree.Vtype_new == 1:
-			    eTrigSFWeight_doubleEle80x[0]     = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
-			    eTrigSFWeight_doubleEle80xUp[0]   = eff1Up*(1-eff2Up)*eff1Up + eff2Up*(1-eff1Up)*eff2Up + eff1Up*eff1Up*eff2Up*eff2Up 
-			    eTrigSFWeight_doubleEle80xDown[0] = eff1Down*(1-eff2Down)*eff1Down + eff2Down*(1-eff1Down)*eff2Down + eff1Down*eff1Down*eff2Down*eff2Down
+			    
+			    eTrigSFWeight_doubleEle80x[0]     = eff1*eff2
+			    eTrigSFWeight_doubleEle80xUp[0]   = eff1Up*eff2Up 
+			    eTrigSFWeight_doubleEle80xDown[0] = eff1Down*eff2Down
+
+			    #print '\nEle Trigger SF Leg 1:', eff1
+			    #print 'Ele Trigger SF Leg 2:', eff2
+			    #print 'Final Ele SF:', eTrigSFWeight_doubleEle80x[0]
+			    
 			    
 
 

@@ -62,24 +62,36 @@ DY_parton_list = ['DY0J', 'DY1J']
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
-prep_list = ['prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3',
-             'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
+prep_list = [
+    #'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3',
+    #'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
 
-temp_list = ['ST_s']
+    'prep_ttbar_ext1', 'prep_ttbar_ext2',
+    'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
+    'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
+    'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
+    'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
+    'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
+    'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
+    ]
 
-file_list = bkg_list + signal_list + ST_list + DY_list
-#file_list  = temp_list
+temp_list = ['prep_ttbar_ext2_NewExt4']
 
-file_list1 = ST_list + ['ttbar', 'WZ', 'DY_inclusive']
-file_list2 = signal_list + DY_list + ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3']
+#file_list = bkg_list + signal_list + ST_list + DY_list
+file_list  = temp_list
+
+file_list1 = ST_list + ['WZ', 'DY_inclusive']
+file_list2 = signal_list + DY_list + ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'ttbar']
 
 
-#for file in file_list:
-def osSystem(file):
+for file in file_list:
+#def osSystem(file):
     
-    input  = TFile.Open(inpath+'/v25_'+file+'.root', 'read')
-    
-    output = TFile.Open(outpath+'/v25_'+file+'.root', 'recreate')
+    #input  = TFile.Open(inpath+'/v25_'+file+'.root', 'read')
+    #output = TFile.Open(outpath+'/v25_'+file+'.root', 'recreate')
+
+    input  = TFile.Open(inpath+'/'+file+'.root', 'read')
+    output = TFile.Open(outpath+'/'+file+'.root', 'recreate')
 
     regWeight = 'ttbar-G25-500k-13d-300t.weights.xml'
 
@@ -263,9 +275,11 @@ def osSystem(file):
                 JEC_systematics["HCMVAV2_reg_phi_corr"+syst+sdir] = np.zeros(1, dtype=float)
                 newtree.Branch("HCMVAV2_reg_phi_corr"+syst+sdir, JEC_systematics["HCMVAV2_reg_phi_corr"+syst+sdir], "HCMVAV2_reg_phi_corr"+syst+sdir+"/D")
 
-                JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir] = np.zeros(2, dtype=float)
-                newtree.Branch("hJetCMVAV2_pt_reg"+syst+sdir, JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir], "hJetCMVAV2_pt_reg"+syst+sdir+"[2]/D")
+                JEC_systematics["hJetCMVAV2_pt_reg_0"+syst+sdir] = np.zeros(1, dtype=float)
+                newtree.Branch("hJetCMVAV2_pt_reg_0"+syst+sdir, JEC_systematics["hJetCMVAV2_pt_reg_0"+syst+sdir], "hJetCMVAV2_pt_reg_0"+syst+sdir+"/D")
 
+                JEC_systematics["hJetCMVAV2_pt_reg_1"+syst+sdir] = np.zeros(1, dtype=float)
+                newtree.Branch("hJetCMVAV2_pt_reg_1"+syst+sdir, JEC_systematics["hJetCMVAV2_pt_reg_1"+syst+sdir], "hJetCMVAV2_pt_reg_1"+syst+sdir+"/D")
 
     # jet reg weights
     JetCMVAV2_regWeight = array('f',[0]*2)
@@ -309,17 +323,25 @@ def osSystem(file):
     
 
     print '\n\t ----> Evaluating Regression on sample....'
-
+    
     print tree
-
+    
     for entry in range(0,nEntries):
         
         tree.GetEntry(entry)
         
         if entry % 1000 is 0: print '-----> Event # ', entry
         
+        #if entry < 9000: continue
         #if entry > 10000: break
         
+        #if tree.nhJCMVAV2idx < 2: continue
+       # print entry
+        
+        if 'ttbar' in file:
+            if entry == 9015: continue
+
+
         Jet_pt_0 = tree.Jet_pt[tree.hJCMVAV2idx[0]]
         Jet_pt_1 = tree.Jet_pt[tree.hJCMVAV2idx[1]]
         Jet_eta_0 = tree.Jet_eta[tree.hJCMVAV2idx[0]]
@@ -574,8 +596,8 @@ def osSystem(file):
                         rPt0 = Jet_pt_0*pt1
                         rPt1 = Jet_pt_1*pt2
                         
-                        JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] = pt1
-                        JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][1] = pt2
+                        JEC_systematics["hJetCMVAV2_pt_reg_0"+syst+sdir][0] = pt1
+                        JEC_systematics["hJetCMVAV2_pt_reg_1"+syst+sdir][0] = pt2
                         
                         Jet_regWeight1 = pt1/Jet_pt_0
                         Jet_regWeight2 = pt2/Jet_pt_1
@@ -620,8 +642,8 @@ def osSystem(file):
                             rPt0 = Jet_pt_0*pt1
                             rPt1 = Jet_pt_1*pt2
                 
-                            JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] = pt1
-                            JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][1] = pt2
+                            JEC_systematics["hJetCMVAV2_pt_reg_0"+syst+sdir][0] = pt1
+                            JEC_systematics["hJetCMVAV2_pt_reg_1"+syst+sdir][0] = pt2
                 
                             Jet_regWeight1 = pt1/Jet_pt_0
                             Jet_regWeight2 = pt2/Jet_pt_1
@@ -648,8 +670,8 @@ def osSystem(file):
                     rPt0 = Jet_pt_0*pt1
                     rPt1 = Jet_pt_1*pt2
                     
-                    JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][0] = pt1
-                    JEC_systematics["hJetCMVAV2_pt_reg"+syst+sdir][1] = pt2
+                    JEC_systematics["hJetCMVAV2_pt_reg_0"+syst+sdir][0] = pt1
+                    JEC_systematics["hJetCMVAV2_pt_reg_1"+syst+sdir][0] = pt2
                     
                     Jet_regWeight1 = pt1/Jet_pt_0
                     Jet_regWeight2 = pt2/Jet_pt_1

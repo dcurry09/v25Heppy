@@ -27,14 +27,15 @@ bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_i
 
 DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600','DY_Bjets', 'DY_BgenFilter',
            'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_70to100',
-           'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf'
+           'DY1J_10to50', 'DY2J_10to50', 'DY3J_10to50'
+           #'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf'
            #'DY0J', 'DY1J', 'DY2J_ext1', 'DY2J_ext2', 'DY2J_ext3', 'DY2J_ext4'
            ]
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
-temp_list = ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 
-             'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
+temp_list = ['DY1J_10to50', 'DY2J_10to50', 'DY3J_10to50']
+
 
 # final list
 #sample_list = data_list

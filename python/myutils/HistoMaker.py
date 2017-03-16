@@ -135,30 +135,34 @@ class HistoMaker:
             
             if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
                 weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
-                weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
+                weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
                 weightF = weightF+'*('+job.specialweight+')'
             if '2L2Q' in job.name:
                 weightF = weightF+'*('+job.specialweight+')'
-       
+                
+            #if 'ttbar' in job.name:
+            #    weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
+
             
                 
+                
             # For high/low SF
-            if str(self.config.get('Plot_general', 'doSF')) == 'True':
+            # if str(self.config.get('Plot_general', 'doSF')) == 'True':
                 
-                print '\n\t !!! Adding RateParam !!!'
-                print self.config.get('Plot_general', 'doSF')
+            #     print '\n\t !!! Adding RateParam !!!'
+            #     print self.config.get('Plot_general', 'doSF')
                 
-                if 'V_new_pt > 50' in treeCut:
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.10)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.50)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.15)'
+            #     if 'V_new_pt > 50' in treeCut:
+            #         if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.0)'
+            #         if 'Z1b' in job.name: weightF = weightF+'*(1.14)'
+            #         if 'Z2b' in job.name: weightF = weightF+'*(0.89)'
+            #         if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
                     
-                if 'V_new_pt > 150' in treeCut:
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.25)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.95)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.89)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.10)'
+            #     if 'V_new_pt > 150' in treeCut:
+            #         if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.20)'
+            #         if 'Z1b' in job.name: weightF = weightF+'*(1.08)'
+            #         if 'Z2b' in job.name: weightF = weightF+'*(1.23)'
+            #         if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
 
                         
             print '\n-----> Making histograms for variable:', treeVar
@@ -209,12 +213,6 @@ class HistoMaker:
                 print '\n----> Job Type: Data...'
                 print '            Name: ', job.name
                 
-                
-                #if 'Zee' in job.name:
-                #    treeCut = treeCu'
-                #if 'Zuu' in job.name:
-                #    treeCut = treeCut + ' & (HLT_BIT_HLT_IsoMu22_v==1 || HLT_BIT_HLT_IsoTkMu22_v== 1) & json == 1'    
-             
                 print '\n---->Drawing Tree for variable: ',treeVar
                 print '  with Cuts: ', treeCut
                 
@@ -229,15 +227,6 @@ class HistoMaker:
                         CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
                     else:
                         CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
-
-                #elif 'HCSV_reg_mass' in treeVar:
-                #    if options['blind']:
-                #        treeCut = treeCut + ' & HCSV_reg_mass < 90. & HCSV_reg_mass > 145.'
-                #        print '\n\n====== BLINDED ======'
-                #        print treeCut
-                #        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
-                #    else:
-                #        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
 
                         
                 elif '_corr' in treeVar:
@@ -257,6 +246,11 @@ class HistoMaker:
                 #    if options['blind']:
                 #        print '!!!!BLINDING!!!'
                 #        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s & V_pt < 50.' %treeCut, "goff,e")
+
+                elif 'LHE' in treeVar or 'HT' in treeVar:
+                    print treeVar
+
+
                 else:
                     print '!!!!NOT BLINDING!!!'
                     CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")

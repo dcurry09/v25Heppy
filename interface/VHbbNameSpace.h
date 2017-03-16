@@ -9,6 +9,21 @@
 
 namespace VHbb {
 
+
+  double ttbar_reweight(double GenTop_pt1, double GenTop_pt2, int nGenTop) {
+
+    // Top pT reweighting applied to TTbar sample.
+    if (nGenTop == 2){
+      double sf_top1 = exp(0.0615 - 0.0005*GenTop_pt1);
+      double sf_top2 = exp(0.0615 - 0.0005*GenTop_pt2);
+      return sqrt(sf_top1 * sf_top2);
+    }
+    
+    else
+      return 1.0;
+
+  }
+
   double LOtoNLOWeightBjetSplitEtabb(double etabb,int njets){
 
     double SF = 1.;
