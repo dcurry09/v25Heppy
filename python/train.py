@@ -12,9 +12,7 @@ from array import array
 
 ######## Turn of Eval #######
 isEval = False
-#isEval = True
-
-
+isEval = True
 
 #CONFIGURE
 argv = sys.argv

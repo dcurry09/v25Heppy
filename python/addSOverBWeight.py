@@ -1,3 +1,6 @@
+
+#!/usr/bin/env python
+
 from ROOT import *
 from optparse import OptionParser
 import sys
@@ -44,10 +47,10 @@ ROOT.gSystem.Load('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VH
 # =========================================
 
 # sample prefix
-prefix = 'v24_9_15_'
+prefix = 'v25_'
 
 inpath = '/exports/uftrig01a/dcurry/heppy/files/MVA_out/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/test/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/SoverB_out/'
 
 config = BetterConfigParser()
 config.read('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/python/13TeVconfig/general')
@@ -92,13 +95,13 @@ tree_weight_SIG.Add(inpath+prefix+'ggZH125.root')
 #for i in range(len(binedges)):
 #    binedge_array[i] = binedges[i]
 
-hSig = TH1F("hSig","hSig", 15, -1, 1)
-hBkg = TH1F("hBkg","hBkg", 15, -1, 1)
-
 print '\nDrawing Weight Histograms...'
-#tree_weight_SIG.Draw("%s>>hSig" %var,"((%s)*(%s))" % (signal_region_cut,event_weight))
-#tree_weight_BKG.Draw("%s>>hBkg" %var,"((%s)*(%s))" % (signal_region_cut,event_weight))
+tree_weight_SIG.Draw("%s>>hSig" %var,"((%s)*(%s))" % (signal_region_cut,event_weight))
+tree_weight_BKG.Draw("%s>>hBkg" %var,"((%s)*(%s))" % (signal_region_cut,event_weight))
 '''
+#hSig1 = TH1F("hSig","hSig", 15, -1, 1)
+#hBkg1 = TH1F("hBkg","hBkg", 15, -1, 1)
+
 
 # List of files to add btag weights to
 bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q', 'WZ', 'ZZ']
@@ -121,8 +124,8 @@ file_list = ['ZH125']
 for file in file_list:
 #def osSystem(file):
 
-    print '\n Adding S/S+B weights to sample:', inpath+prefix+file+'.root'
-    print '\n Output File                  :', outpath+prefix+file+'.root'
+    print '\nAdding S/S+B weights to sample:', inpath+prefix+file+'.root'
+    print 'Output File                  :', outpath+prefix+file+'.root'
 
     ifile = ROOT.TFile.Open(inpath+prefix+file+'.root', 'read')
     ofile = ROOT.TFile(outpath+prefix+file+'.root', 'recreate')
@@ -130,7 +133,7 @@ for file in file_list:
     ifile.cd()
 
     tree = ifile.Get('tree')
-    '''
+
     obj = ROOT.TObject
     for key in ROOT.gDirectory.GetListOfKeys():
         ifile.cd()
@@ -139,7 +142,7 @@ for file in file_list:
             continue
         ofile.cd()
         obj.Write(key.GetName())
-    '''
+
     ofile.cd()
 
     otree = tree.CloneTree(0)
@@ -150,7 +153,10 @@ for file in file_list:
     #tree.SetBranchAddress.('gg_plus_ZH125_highZpt', gg_plus_ZH125_highZpt, 'Nominal:JER_up:JER_down:JES_up:JES_down:JER_up_high:JER_down_high:JER_up_low:JER_down_low:JER_up_central:JER_down_central:JER_up_forward:JER_down_forward:JEC_up_high:JEC_down_high:JEC_up_low:JEC_down_low:JEC_up_central:JEC_down_central:JEC_up_forward:JEC_down_forward/F')
 
 
-
+    #for entry in tree:
+    #    print entry.gg_plus_ZH125_highZpt.Nominal
+        
+    
     nentries = tree.GetEntries()
     print "total entries: %i " % nentries
     for ientry in range(nentries):
@@ -161,6 +167,8 @@ for file in file_list:
         if ientry > 1000: continue
 
         tree.GetEntry(ientry)
+        
+        tree.Print()
         
         for p in tree.gg_plus_ZH125_highZpt:
             val = p.Nominal
@@ -173,6 +181,8 @@ for file in file_list:
         print val,sb_weight[0]
         
         otree.Fill()
+        
+
 
     #otree.Write()
     otree.AutoSave()

@@ -430,54 +430,54 @@ for job in info:
     #tree.SetBranchStatus('HCSV_reg_mass',0)
     #tree.SetBranchStatus('HCSV_reg_pt',0)
 
-    if job.type != 'DATA':
-        # For new Vtype Zero out the old Vtype and recreat
-        tree.SetBranchStatus('Vtype',0)
-    	tree.SetBranchStatus('V_pt',0)
-    	tree.SetBranchStatus('V_mass',0)
-    	tree.SetBranchStatus('V_eta',0)
-    	tree.SetBranchStatus('V_phi',0)
+    # if job.type != 'DATA':
+    #     # For new Vtype Zero out the old Vtype and recreat
+    #     tree.SetBranchStatus('Vtype',0)
+    # 	tree.SetBranchStatus('V_pt',0)
+    # 	tree.SetBranchStatus('V_mass',0)
+    # 	tree.SetBranchStatus('V_eta',0)
+    # 	tree.SetBranchStatus('V_phi',0)
 	
-    	tree.SetBranchStatus('vLeptons_pt',0)
-    	tree.SetBranchStatus('vLeptons_eta',0)
-    	tree.SetBranchStatus('vLeptons_phi',0)
-    	tree.SetBranchStatus('vLeptons_relIso04',0)
-    	tree.SetBranchStatus('vLeptons_relIso03',0)
+    # 	tree.SetBranchStatus('vLeptons_pt',0)
+    # 	tree.SetBranchStatus('vLeptons_eta',0)
+    # 	tree.SetBranchStatus('vLeptons_phi',0)
+    # 	tree.SetBranchStatus('vLeptons_relIso04',0)
+    # 	tree.SetBranchStatus('vLeptons_relIso03',0)
 	
     
     newtree = tree.CloneTree(0)
 
     
-    if job.type != 'DATA':
-        Vtype = array('f',[0]*1)
-    	newtree.Branch('Vtype', Vtype, 'Vtype/F')
+    # if job.type != 'DATA':
+    #     Vtype = array('f',[0]*1)
+    # 	newtree.Branch('Vtype', Vtype, 'Vtype/F')
     
-    	V_pt = array('f',[0]*1)
-    	newtree.Branch('V_pt', V_pt, 'V_pt/F')
+    # 	V_pt = array('f',[0]*1)
+    # 	newtree.Branch('V_pt', V_pt, 'V_pt/F')
     
-    	V_eta = array('f',[0]*1)
-    	newtree.Branch('V_eta', V_eta, 'V_eta/F')
+    # 	V_eta = array('f',[0]*1)
+    # 	newtree.Branch('V_eta', V_eta, 'V_eta/F')
 	
-    	V_phi = array('f',[0]*1)
-    	newtree.Branch('V_phi', V_phi, 'V_phi/F')
+    # 	V_phi = array('f',[0]*1)
+    # 	newtree.Branch('V_phi', V_phi, 'V_phi/F')
     
-    	V_mass = array('f',[0]*1)
-    	newtree.Branch('V_mass', V_mass, 'V_mass/F')
+    # 	V_mass = array('f',[0]*1)
+    # 	newtree.Branch('V_mass', V_mass, 'V_mass/F')
     
-    	vLeptons_pt = array('f',[0]*2)
-        newtree.Branch('vLeptons_pt', vLeptons_pt, 'vLeptons_pt[2]/F')
+    # 	vLeptons_pt = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_pt', vLeptons_pt, 'vLeptons_pt[2]/F')
 
-    	vLeptons_eta = array('f',[0]*2)
-        newtree.Branch('vLeptons_eta', vLeptons_eta, 'vLeptons_eta[2]/F')
+    # 	vLeptons_eta = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_eta', vLeptons_eta, 'vLeptons_eta[2]/F')
 
-    	vLeptons_phi = array('f',[0]*2)
-        newtree.Branch('vLeptons_phi', vLeptons_phi, 'vLeptons_phi[2]/F')
+    # 	vLeptons_phi = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_phi', vLeptons_phi, 'vLeptons_phi[2]/F')
 
-    	vLeptons_relIso04 = array('f',[0]*2)
-        newtree.Branch('vLeptons_relIso04', vLeptons_relIso04, 'vLeptons_relIso04[2]/F')
+    # 	vLeptons_relIso04 = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_relIso04', vLeptons_relIso04, 'vLeptons_relIso04[2]/F')
 	
-    	vLeptons_relIso03 = array('f',[0]*2)
-        newtree.Branch('vLeptons_relIso03', vLeptons_relIso03, 'vLeptons_relIso03[2]/F')
+    # 	vLeptons_relIso03 = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_relIso03', vLeptons_relIso03, 'vLeptons_relIso03[2]/F')
 
     #regWeight = config.get("TrainRegression","regWeight")
     #regDict = eval(config.get("TrainRegression","regDict"))
@@ -564,6 +564,18 @@ for job in info:
 
     hJetCMVA_btag_1 = array('f',[0]*1)
     newtree.Branch('hJetCMVA_btag_1', hJetCMVA_btag_1, 'hJetCMVA_btag_1/F')
+
+    hJetCMVA_eta_0 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_eta_0', hJetCMVA_eta_0, 'hJetCMVA_eta_0/F')
+
+    hJetCMVA_eta_1 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_eta_1', hJetCMVA_eta_1, 'hJetCMVA_eta_1/F')
+    
+    hJetCMVA_index_0 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_index_0', hJetCMVA_index_0, 'hJetCMVA_index_0/F')
+
+    hJetCMVA_index_1 = array('f',[0]*1)
+    newtree.Branch('hJetCMVA_index_1', hJetCMVA_index_1, 'hJetCMVA_index_1/F')
     
     # ========== Lepton SF branches ============
 
@@ -724,6 +736,12 @@ for job in info:
 	    hJetCMVA_btag_0[0] = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[0]]
             hJetCMVA_btag_1[0] = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[1]]
 	    
+	    hJetCMVA_eta_0[0] = tree.Jet_eta[tree.hJCMVAV2idx[0]]
+            hJetCMVA_eta_1[0] = tree.Jet_eta[tree.hJCMVAV2idx[1]]
+	    
+	    hJetCMVA_index_0[0] = tree.hJCMVAV2idx[0]
+            hJetCMVA_index_1[0] = tree.hJCMVAV2idx[1]
+
 	    	    
 		    #print ptWeightEWK_Zll(tree.nGenVbosons[0], tree.GenVbosons_pt[0], tree.VtypeSim, tree.nGenTop, tree.nGenHiggsBoson)
 
@@ -742,7 +760,7 @@ for job in info:
 			    
 	    if job.type != 'DATA':
 
-		    # # Set the fixed Vtype
+		    # Set the fixed Vtype
 		    # Vtype[0]   = tree.Vtype_new
 		    # V_pt[0]    = tree.V_new_pt
 		    # V_eta[0]   = tree.V_new_eta
@@ -787,7 +805,7 @@ for job in info:
 			    if len(tree.GenVbosons_pt) > 0 and tree.GenVbosons_pt[0] > 100. and  tree.GenVbosons_pt[0] < 3000:
 				    DY_ewkWeight[0] = -0.1808051+6.04146*(pow((tree.GenVbosons_pt[0]+759.098),-0.242556))
 
-		    elif 'ZH' in job.name:
+		    elif 'ZH' in job.name and not 'ggZH' in job.name:
 			    if tree.nGenVbosons > 0:
 				     Signal_ewkWeight[0] = signal_ewk(tree.GenVbosons_pt[0])
 			    else:
@@ -898,11 +916,18 @@ for job in info:
 			    '../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_tracker_80x', 'eta_pt_ratio'],
 			    
 			    # MVAID
-			    'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
+			    #'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
+
+			    # coare Binning
+			    'myutils/jsons/80x/coarse_bin/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
 
 			    # trigger
-			    'myutils/jsons/80x/DiEleLeg1AfterIDISO_out.json' : ['DiEleLeg1AfterIDISO', 'eta_pt_ratio'],
-			    'myutils/jsons/80x/DiEleLeg2AfterIDISO_out.json' : ['DiEleLeg2AfterIDISO', 'eta_pt_ratio']
+			    #'myutils/jsons/80x/DiEleLeg1AfterIDISO_out.json' : ['DiEleLeg1AfterIDISO', 'eta_pt_ratio'],
+			    #'myutils/jsons/80x/DiEleLeg2AfterIDISO_out.json' : ['DiEleLeg2AfterIDISO', 'eta_pt_ratio']
+			    
+			    'myutils/jsons/80x/coarse_bin/DiEleLeg1AfterIDISO_out.json' : ['DiEleLeg1AfterIDISO', 'eta_pt_ratio'],
+                            'myutils/jsons/80x/coarse_bin/DiEleLeg2AfterIDISO_out.json' : ['DiEleLeg2AfterIDISO', 'eta_pt_ratio']
+			    
 			    }
 
 		    for j, name in jsons.iteritems():

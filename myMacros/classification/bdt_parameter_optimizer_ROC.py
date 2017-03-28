@@ -63,7 +63,7 @@ print '=========================================================================
 # ====== For 3 pt Regions we need to train BDTS for each region and each opt point  =========
 
 #pt_region_list = ['low','med','high']
-pt_region_list = ['med', 'high']
+pt_region_list = ['low', 'high']
 
 for region in pt_region_list:
 

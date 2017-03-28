@@ -12,8 +12,8 @@ def copytree(pathIN,pathOUT,prefix,newprefix,file,Aprefix,Acut):
     print "Output File : %s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file)
     
     
-    input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
-    #input = ROOT.TFile.Open("%s/%s%s%s.root" %(pathIN,newprefix,Aprefix,file),'read')
+    #input = ROOT.TFile.Open("%s/%s%s.root" %(pathIN,prefix,file),'read')
+    input = ROOT.TFile.Open("%s/%s%s%s.root" %(pathIN,newprefix,Aprefix,file),'read')
     output = ROOT.TFile.Open("%s/%s%s%s.root" %(pathOUT,newprefix,Aprefix,file),'recreate')
     
     
@@ -63,9 +63,13 @@ def branch_reduce(tree):
 
     print '\n     ----> Reducing Branches...'
 
-    #tree.SetBranchStatus('Flag*', 0)
+    tree.SetBranchStatus('gg_plus*', 0)
+
+    tree.SetBranchStatus('Flag*', 0)
 
     #tree.SetBranchStatus('HLT*', 0)
+
+    tree.SetBranchStatus('bTagWeightCSV*', 0)
 
     tree.SetBranchStatus('met_shifted*', 0)
 
@@ -81,7 +85,7 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('aLeptons*', 0)
 
-    #tree.SetBranchStatus('GenNu*', 0)
+    tree.SetBranchStatus('GenNu*', 0)
 
     #tree.SetBranchStatus('selLeptons*', 0)
 
@@ -89,13 +93,13 @@ def branch_reduce(tree):
 
     #tree.SetBranchStatus('GenHad*', 0)
 
-    #tree.SetBranchStatus('GenGluon*', 0)
+    tree.SetBranchStatus('GenGluon*', 0)
 
     tree.SetBranchStatus('htt*', 0)
 
     #tree.SetBranchStatus('GenWZ*', 0)
 
-    #tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
+    tree.SetBranchStatus('GenBQuarkFromHafter*', 0)
 
     tree.SetBranchStatus('trimmedFat*', 0)
 

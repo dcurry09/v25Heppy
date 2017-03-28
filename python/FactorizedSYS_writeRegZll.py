@@ -43,7 +43,7 @@ os.system(temp_string3)
 
 
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
 
 # List of files to add btag weights to
@@ -75,7 +75,7 @@ prep_list = [
     'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
     ]
 
-temp_list = ['prep_ttbar_ext2_NewExt4']
+temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
 file_list  = temp_list
@@ -84,14 +84,14 @@ file_list1 = ST_list + ['WZ', 'DY_inclusive']
 file_list2 = signal_list + DY_list + ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'ttbar']
 
 
-for file in file_list:
-#def osSystem(file):
+#for file in file_list:
+def osSystem(file):
     
-    #input  = TFile.Open(inpath+'/v25_'+file+'.root', 'read')
-    #output = TFile.Open(outpath+'/v25_'+file+'.root', 'recreate')
+    input  = TFile.Open(inpath+'/v25_'+file+'.root', 'read')
+    output = TFile.Open(outpath+'/v25_'+file+'.root', 'recreate')
 
-    input  = TFile.Open(inpath+'/'+file+'.root', 'read')
-    output = TFile.Open(outpath+'/'+file+'.root', 'recreate')
+    #input  = TFile.Open(inpath+'/'+file+'.root', 'read')
+    #output = TFile.Open(outpath+'/'+file+'.root', 'recreate')
 
     regWeight = 'ttbar-G25-500k-13d-300t.weights.xml'
 

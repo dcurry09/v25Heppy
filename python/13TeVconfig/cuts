@@ -16,9 +16,9 @@
 jet_btag: Jet_btagCMVAV2
 jet_index: hJCMVAV2idx
 H_sel: HCMVAV2
-CSVT: 0.875
-CSVM: 0.185
-CSVL: -0.715
+CSVT: 0.9432
+CSVM: 0.4432
+CSVL: -0.5884
 
 #### choose vtype after fix
 vtype: Vtype_new
@@ -136,7 +136,7 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 # Preselections (combination of single cuts)
 # -------------------------------------------
 
-jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4 
+jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4
 #& <!ZHbb|minCSV_peakCut!>
 
 lepton_Iso_uu: <!ZHbb|vLeptons!>_relIso04[0] < 0.25 & <!ZHbb|vLeptons!>_relIso04[1] < 0.25
@@ -144,11 +144,16 @@ lepton_Iso_ee: <!ZHbb|vLeptons!>_relIso03[0] < 0.15 & <!ZHbb|vLeptons!>_relIso03
 
 lepton_eta_gap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57 || abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44) & (abs(<!ZHbb|vLeptons!>_eta[1])>=1.57 || abs(<!ZHbb|vLeptons!>_eta[1])<=1.44)
 
+lepton_endcap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57)
+
+lepton_barrel: (abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44)
+
 lepton_preselection: (((<!ZHbb|vtype!>==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!>) || ((<!ZHbb|vtype!>==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>)) & <!ZHbb|vLeptons!>_pt[0] > 20 & <!ZHbb|vLeptons!>_pt[1] > 20 & <!ZHbb|lepton_eta_gap!>
  
 # Full Set (36/fb)
 preselection: <!ZHbb|jet_preselection!> & <!ZHbb|lepton_preselection!> & <!ZHbb|V_pt!>_pt > -25.0 
-#& H_pt > 0. & H_pt < 2000. & H_mass < 2000. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
+# & <!ZHbb|lepton_endcap!>
+# & <!ZHbb|lepton_barrel!>
 
 ######################################
 
@@ -392,25 +397,18 @@ bdt_Zuu: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|
 
 bdt_Zee: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
+bdt_low_Zpt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
+
 bdt_high_Zpt:<!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
 bdt_Zuu_high_Zpt:<!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
 bdt_Zee_high_Zpt:<!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & V_pt < 2000. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
 
-bdt_low_Zpt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
 
 bdt_Zuu_low_Zpt: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
 
 bdt_Zee_low_Zpt: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> & & V_pt < 2000. & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0.
-
-bdt_med_Zpt: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!> 
-
-bdt_Zuu_med_Zpt: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
-
-bdt_Zee_med_Zpt: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_med_window!> & <!ZHbb|preselection!> & <!ZHbb|looseHMass!> & <!ZHbb|jet_pt_20!>
-
-bdt_pt30: <!ZHbb|trigger_combined!> & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|bdt_Btag!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|bdt_Vpt_100!> & <!ZHbb|preselection!> & <!ZHbb|H_sel!>_reg_mass > 40 & <!ZHbb|H_sel!>_reg_mass < 250 & <!ZHbb|met_signal!> & <!ZHbb|jet_pt_30!>
 
 
 # For custom stack maker
@@ -454,10 +452,10 @@ VV_bdt_Zee: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZH
 
 VV_bdt_Zuu: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50.
 
-VV_bdt_Zee_low: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50. & V_pt < 150.
+VV_bdt_Zee_low: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|V_pt!>_pt > 50. 
 
 VV_bdt_Zee_high: <!ZHbb|trigger_ee!> & <!ZHbb|vtype!> == 1 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!>
-
+    
 VV_bdt_Zuu_low: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_low_window!>
 
 VV_bdt_Zuu_high: <!ZHbb|trigger_uu!> & <!ZHbb|vtype!> == 0 & <!ZHbb|bdt_Btag!> & <!ZHbb|preselection!> & <!ZHbb|jet_pt_20!> & <!ZHbb|VV_HMass!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Vpt_high_window!>

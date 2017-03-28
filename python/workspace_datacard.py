@@ -8,9 +8,9 @@ from copy import copy, deepcopy
 warnings.filterwarnings( action='ignore', category=RuntimeWarning, message='creating converter.*' )
 from optparse import OptionParser
 from myutils import BetterConfigParser, Sample, progbar, printc, ParseInfo, Rebinner, HistoMaker
-
-btag = 'CSV'
-#batg = 'CMVAV2'
+ 
+#btag = 'CSV'
+batg = 'CMVAV2'
 
 def useSpacesInDC(fileName):
     file_ = open(fileName,"r+")
@@ -223,7 +223,7 @@ print '\treevar::', treevar
 
 # Use the rebinning:
 rebin_active=eval(config.get('LimitGeneral','rebin_active'))
-rebin_active = False
+#rebin_active = False
 
 if 'Jet' in treevar:
    if rebin_active:
@@ -330,10 +330,10 @@ for syst in systematics:
         # Lepton Efficiency
         if '_eff_' in syst:
             _weight = _weight.replace('eId90SFWeight', 'eId90SFWeight'+Q)
-            _weight = _weight.replace('eTrigSFWeight_ele27', 'eTrigSFWeight_ele27'+Q)
+            _weight = _weight.replace('eTrigSFWeight_doubleEle80x', 'eTrigSFWeight_doubleEle80x'+Q)
             _weight = _weight.replace('mIsoSFWeight', 'mIsoSFWeight'+Q)
-            _weight = _weight.replace('vLeptons_SF_IdCutLoose[0]*vLeptons_SF_IdCutLoose[1]', 'mIdSFWeight'+Q+'[0]')
-            _weight = _weight.replace('mTrigSFWeight_ICHEP', 'mTrigSFWeight'+Q)
+            _weight = _weight.replace('mIdSFWeight', 'mIdSFWeight'+Q)
+            _weight = _weight.replace('mTrigSFWeight_doubleMu80x', 'mTrigSFWeight_doubleMu80x'+Q)
         
         # Pu weight
         if 'weight_pileUp' in syst:
@@ -351,14 +351,20 @@ for syst in systematics:
             if Q is 'Down':
                 _weight = _weight + '*(LHE_weights_scale_wgt[3])'
                     
-        #if 'btag' in syst:
-        #    sys_temp = syst.replace('btagWeightCSV', 'btagWeightCSV_%s'%(Q.lower()))
-        #    _weight = _weight.replace('*btagWeightCSV', '*%s'%(sys_temp))            
-                
-        # for NEW 2016 weights
-        # if 'JER' not in syst and 'JEC' not in syst and syst != 'weight_pileUp' and '_eff_' not in syst:
 
         if 'btag' in syst:    
+            
+            if 'JES' in syst:
+                if 'LowCentral' in syst:
+                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESLowCentral%s'%(Q))
+                if 'HighCentral' in syst:
+                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESHighCentral%s'%(Q))
+                if 'LowForward' in syst:
+                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESLowForward%s'%(Q))
+                if 'HighForward' in syst:
+                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESHighForward%s'%(Q))
+
+
             if '_lf_' in syst:
                 if 'LowCentral' in syst:
                     _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFLowCentral%s'%(Q))
@@ -439,19 +445,6 @@ for syst in systematics:
                 if 'HighForward' in syst:
                     _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2HighForward%s'%(Q))
 
-
-        '''            
-        if 'JEC' in syst:    
-                
-            if 'low' in syst:
-                _weight = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAv2_Moriond_JEC%s_low'%(Q))
-            if 'high' in syst:
-                _weight = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAv2_Moriond_JEC%s_high'%(Q))
-            if 'central' in syst:
-                _weight = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAv2_Moriond_JEC%s_central'%(Q))
-            if 'forward' in syst:
-                _weight = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAv2_Moriond_JEC%s_forward'%(Q))
-        '''
         
         if 'JER' in syst or 'JEC' in syst:
             JECsys = {"JER",
@@ -483,10 +476,17 @@ for syst in systematics:
                 new_Hcut90  = 'HCMVAV2_reg_mass>90.'
                 new_Hcut150 = 'HCMVAV2_reg_mass<150.'
                 new_Jcut    = 'Jet_pt_reg[hJCMVAV2idx[0]]>15&Jet_pt_reg[hJCMVAV2idx[1]]>15'
+                
+                # for VV
+                new_Hcut60  = 'HCMVAV2_reg_mass>60.'
+                new_Hcut160 = 'HCMVAV2_reg_mass<160.'
+
                 for sys in JECsys:
                     for q in ['Up', 'Down']:
                         new_Hcut150 = new_Hcut150+'||HCMVAV2_reg_mass_corr'+sys+q+'<150'
                         new_Hcut90  = new_Hcut90+'||HCMVAV2_reg_mass_corr'+sys+q+'>90'
+                        new_Hcut160 = new_Hcut160+'||HCMVAV2_reg_mass_corr'+sys+q+'<160'
+                        new_Hcut60  = new_Hcut60+'||HCMVAV2_reg_mass_corr'+sys+q+'>60'
                 print '\n New Hcut', new_Hcut150
         
 
@@ -495,23 +495,32 @@ for syst in systematics:
                     _cut = _cut.replace('HCMVAV2_reg_mass > 90.', '('+new_Hcut90+')')
                     _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.',new_Jcut)
                     
-                _sys_cut = _sys_cut.replace('HCMVAV2_reg_mass', 'HCMVAV2_reg_mass_corr%s%s'%(syst_temp,Q))
-                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[0]]', 'hJetCMVAV2_pt_reg%s%s[0]'%(syst_temp,Q))
-                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[1]]', 'hJetCMVAV2_pt_reg%s%s[1]'%(syst_temp,Q))
+                elif 'VV' in anType:
+                    _cut = _cut.replace('HCMVAV2_reg_mass < 160.', '('+new_Hcut160+')')
+                    _cut = _cut.replace('HCMVAV2_reg_mass > 60.', '('+new_Hcut60+')')
+                    _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.',new_Jcut)
 
-                # if 'VV' in anType:
-                #     _cut = _cut.replace('HCSV_reg_mass < 160.', '(HCSV_reg_mass<160.||HCSV_reg_corrJERUp_mass_low<160.||HCSV_reg_corrJERDown_mass_low<160.||HCSV_reg_corrJECDown_mass_low<160.||HCSV_reg_corrJECUp_mass_low<160.|| HCSV_reg_corrJERUp_mass_high<160.||HCSV_reg_corrJERDown_mass_high<160.||HCSV_reg_corrJECDown_mass_high<160.||HCSV_reg_corrJECUp_mass_high<160. || HCSV_reg_corrJERUp_mass_central<160.||HCSV_reg_corrJERDown_mass_central<160.||HCSV_reg_corrJECDown_mass_central<160.||HCSV_reg_corrJECUp_mass_central<160. || HCSV_reg_corrJERUp_mass_forward<160.||HCSV_reg_corrJERDown_mass_forward<160.||HCSV_reg_corrJECDown_mass_forward<160.||HCSV_reg_corrJECUp_mass_forward<160.)')
+                _sys_cut = _sys_cut.replace('HCMVAV2_reg_mass', 'HCMVAV2_reg_mass_corr%s%s'%(syst_temp,Q))
+                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[0]]', 'hJetCMVAV2_pt_reg_0%s%s'%(syst_temp,Q))
+                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[1]]', 'hJetCMVAV2_pt_reg_1%s%s'%(syst_temp,Q))
+
+
+
 
             # Now for CR
             else:
                 new_Hcut90  = 'HCMVAV2_reg_mass<90.'
                 new_Hcut150 = 'HCMVAV2_reg_mass>150.'
+                new_Hcut60  = 'HCMVAV2_reg_mass>60.'
+                new_Hcut160 = 'HCMVAV2_reg_mass<160.'
                 new_Jcut    = 'Jet_pt_reg[hJCMVAV2idx[0]]>15&Jet_pt_reg[hJCMVAV2idx[1]]>15'
                 for sys in JECsys:
                     for q in ['Up', 'Down']:
                         new_Hcut150 = new_Hcut150+'||HCMVAV2_reg_mass_corr'+sys+q+'>150'
                         new_Hcut90  = new_Hcut90+'||HCMVAV2_reg_mass_corr'+sys+q+'<90'
-
+                        new_Hcut160 = new_Hcut160+'||HCMVAV2_reg_mass_corr'+sys+q+'<160'
+                        new_Hcut60  = new_Hcut60+'||HCMVAV2_reg_mass_corr'+sys+q+'>60'
+                        
                 if 'VV' not in anType:
                     if 'Zhf' in name: ## (<!ZHbb|H_sel!>_reg_mass < 90. || <!ZHbb|H_sel!>_reg_mass > 150.)
                         _cut = _cut.replace('HCMVAV2_reg_mass > 150.', '('+new_Hcut150+')')
@@ -520,10 +529,18 @@ for syst in systematics:
                     else:
                         _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
 
-
+                elif 'VV' in anType:
+                    if 'Zhf' in name: ## (<!ZHbb|H_sel!>_reg_mass < 60. || <!ZHbb|H_sel!>_reg_mass > 160.)
+                        _cut = _cut.replace('HCMVAV2_reg_mass > 160.', '('+new_Hcut160+')')
+                        _cut = _cut.replace('HCMVAV2_reg_mass < 60.', '('+new_Hcut60+')')
+                        _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
+                    else:
+                        _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
+                    
+                
                 _sys_cut = _sys_cut.replace('HCMVAV2_reg_mass', 'HCMVAV2_reg_mass_corr%s%s'%(syst_temp,Q))
-                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[0]]', 'hJetCMVAV2_pt_reg%s%s[0]'%(syst_temp,Q))
-                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[1]]', 'hJetCMVAV2_pt_reg%s%s[1]'%(syst_temp,Q))
+                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[0]]', 'hJetCMVAV2_pt_reg_0%s%s'%(syst_temp,Q))
+                _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[1]]', 'hJetCMVAV2_pt_reg_1%s%s'%(syst_temp,Q))
 
             
         else:
@@ -578,7 +595,7 @@ data_hMaker.lumi = lumi
 #    for i in range(len(data_hMaker.optionsList)):
 #        data_hMaker.optionsList[i]['cut'] += ' & %s' %addBlindingCut
 
-print 'BKG Samples:', background_samples
+#print 'BKG Samples:', background_samples
 if rebin_active:
     mc_hMaker.calc_rebin(background_samples)
     #transfer rebinning info to data maker
@@ -629,24 +646,6 @@ for job in background_samples:
     i+=1
 
 
-'''
-if signal_inject:
-    print '!!! Signal Inject !!!'
-    signal_inject = info.get_samples([signal_inject])
-    sig_hMaker = HistoMaker(signal_inject,path,config,optionsList,GroupDict)
-    sig_hMaker.lumi = lumi
-    if rebin_active:
-        sig_hMaker.norebin_nBins = copy(mc_hMaker.norebin_nBins)
-        sig_hMaker.rebin_nBins = copy(mc_hMaker.rebin_nBins)
-        sig_hMaker.nBins = copy(mc_hMaker.nBins)
-        sig_hMaker._rebin = copy(mc_hMaker._rebin)
-        sig_hMaker.mybinning = deepcopy(mc_hMaker.mybinning)
-
-for job in signal_inject: 
-    htree = sig_hMaker.get_histos_from_tree(job)
-    hDummy.Add(htree[0].values()[0],1) 
-    del htree 
-'''
 
 print '\n\t The Data Histos:', data_histos
 
@@ -788,7 +787,7 @@ if not ignore_stats:
         
         print "==== Running Statistical uncertainty ===="
 
-        threshold =  0.60 #stat error / sqrt(value). It was 0.5
+        threshold =  0.50 #stat error / sqrt(value). It was 0.5
         
         print "threshold", threshold
 
@@ -798,6 +797,11 @@ if not ignore_stats:
             
             # Turn off Bin Stat if selected
             if doBin == 'False': continue
+            
+            if not bdt:
+                print '\n----> No Bin-by-Bin for CR...'
+                continue
+
             
             for Q in UD:
                 final_histos['%s_bin%s_%s'%(systematicsnaming['stats'],bin,Q)] = {}
@@ -965,6 +969,7 @@ for DCtype in ['TH']:
         InUse = eval(config.get('Datacard','InUse'))
     else:
        InUse = eval(config.get('Datacard','InUse_%s'%pt_region))
+    
         
     # Turn of SYS if selected
     if doSYS == 'False':
@@ -1009,6 +1014,10 @@ for DCtype in ['TH']:
                 #continue
                 
                 for bin in range(0,nBins):
+                    
+                    if not bdt:
+                        continue
+
                     if bin in binsBelowThreshold[c]:
                         
                         print '\n\t\t-----> Writing shape for:', c

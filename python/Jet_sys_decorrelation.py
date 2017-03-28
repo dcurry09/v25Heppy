@@ -20,8 +20,8 @@ from myutils.leptonSF import *
 # sample prefix
 prefix = 'v24_9_15_'
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/sys_out/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/temp_sys/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
 
 #inpath = 'root://eoscms//eos/cms/store/user/dcurry/heppy/files/sys_out/'
 #outpath = 'root://eoscms//eos/cms/store/user/dcurry/heppy/files/sys_out_btag/'

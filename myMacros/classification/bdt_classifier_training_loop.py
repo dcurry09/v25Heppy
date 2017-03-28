@@ -26,6 +26,8 @@ import multiprocessing
 
 #training_list = ['gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_highZpt']
 
+training_list = ['gg_plus_ZH125_highZpt']
+
 
 # for tree Opt
 training_list_trees = ['gg_plus_trees100','gg_plus_trees150','gg_plus_trees200','gg_plus_trees250','gg_plus_trees300','gg_plus_trees350','gg_plus_trees400','gg_plus_trees450','gg_plus_trees500','gg_plus_trees550','gg_plus_trees600','gg_plus_trees700','gg_plus_trees800', 'gg_plus_trees1000']
@@ -40,7 +42,7 @@ train_list_cuts = ['gg_plus_nCuts5','gg_plus_nCuts10','gg_plus_nCuts25','gg_plus
 
 #training_list = training_list_trees + training_list_nEvt + train_list_depth + train_list_cuts
 
-training_list = ['gg_plus_ZH125_highZpt']
+#training_list = ['gg_plus_ZH125_highZpt']
 
 
 # for non batch.  Must be done if making cuts fir first time. Errors occur when opening same file at same time

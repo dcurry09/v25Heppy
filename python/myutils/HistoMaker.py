@@ -124,45 +124,52 @@ class HistoMaker:
                 treeCut='%s'%(options['cut'])
                 
             # Add the JEC/JER sys cuts by hand
-            #if 'gg_plus_' in treeVar or 'VV' in treeVar:
-            #    if '_up' in treeVar or '_down' in treeVar:
-            # if options['sys_cut']:
-            #     treeCut='%s'%(options['sys_cut'])
-            #     print treeVar
-            #     print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
+            if 'gg_plus_' in treeVar or 'VV' in treeVar:
+                if '_up' in treeVar or '_down' in treeVar:
+                    if options['sys_cut']:
+                        treeCut='%s'%(options['sys_cut'])
+                        print treeVar
+                        print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
+
+            if 'minCMVA' in treeVar:
+                if options['sys_cut']:
+                     treeCut='%s'%(options['sys_cut'])
+                     print treeVar
+                     print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
+
 
             weightF = '%s'%(options['weight'])    
             
-            if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
-                weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
-                weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
-                weightF = weightF+'*('+job.specialweight+')'
-            if '2L2Q' in job.name:
-                weightF = weightF+'*('+job.specialweight+')'
-                
+            ##############################
+            # Add any special weights here
+            # if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
+            #     weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
+            #     weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
+            #     weightF = weightF+'*('+job.specialweight+')'
+            #if '2L2Q' in job.name:
+            #    weightF = weightF+'*('+job.specialweight+')'
             #if 'ttbar' in job.name:
             #    weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
-
+            #if 'ZH' in job.name and not 'ggZH' in job.name:
+            #    weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
             
-                
-                
+
             # For high/low SF
-            # if str(self.config.get('Plot_general', 'doSF')) == 'True':
+            if str(self.config.get('Plot_general', 'doSF')) == 'True':
                 
-            #     print '\n\t !!! Adding RateParam !!!'
-            #     print self.config.get('Plot_general', 'doSF')
-                
-            #     if 'V_new_pt > 50' in treeCut:
-            #         if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.0)'
-            #         if 'Z1b' in job.name: weightF = weightF+'*(1.14)'
-            #         if 'Z2b' in job.name: weightF = weightF+'*(0.89)'
-            #         if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
+                print '\n\t !!! Adding RateParam !!!'
+                              
+                if 'V_new_pt > 50' in treeCut:
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.0)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(1.14)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(0.89)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
                     
-            #     if 'V_new_pt > 150' in treeCut:
-            #         if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.20)'
-            #         if 'Z1b' in job.name: weightF = weightF+'*(1.08)'
-            #         if 'Z2b' in job.name: weightF = weightF+'*(1.23)'
-            #         if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
+                if 'V_new_pt > 150' in treeCut:
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.20)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(1.08)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.23)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
 
                         
             print '\n-----> Making histograms for variable:', treeVar

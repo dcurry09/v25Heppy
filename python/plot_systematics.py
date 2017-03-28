@@ -25,7 +25,7 @@ xMin=-1
 xMax=1
 masses = ['125']
 Abins = ['LowPt']#,'HighPt']
-channels = ['Zuu']#, 'Zee']
+channels = ['Zee']#, 'Zee']
 
 #------------------------------------------------------
 
@@ -43,9 +43,9 @@ channels= ['Zll']
 #path = config.get('Directories','limits')
 #outpath = config.get('Directories','plotpath')
 
-path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/bdt_param_optimize/BDT_bins15/'
+path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/v25_SR_CMVA_LO_3_16/'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics2/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics/'
 
 # Make the dir and copy the website ini files
 try:

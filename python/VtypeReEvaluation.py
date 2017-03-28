@@ -230,30 +230,31 @@ bkg_list = ['DY_inclusive', 'ZZ_2L2Q', 'WZ']
 data_list = ['Zuu', 'Zee']
 
 prep_list = [
-    #'prep_Zuu_B_ext1', 'prep_Zuu_B_ext2', 'prep_Zuu_B_ext3','prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3',
-    #'prep_Zuu_C_ext1', 'prep_Zee_C_ext1',
-    #'prep_Zuu_D_ext1', 'prep_Zuu_D_ext2', 'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
-    #'prep_Zuu_E_ext1', 'prep_Zee_E_ext1',
-    #'prep_Zuu_F_ext1', 'prep_Zee_F_ext1',
-    #'prep_Zuu_G_ext1', 'prep_Zuu_G_ext2', 'prep_Zee_G_ext1', 'prep_Zee_G_ext2',
-    #'prep_Zuu_H_ext1', 'prep_Zuu_H_ext2', 'prep_Zee_H_ext1', 'prep_Zee_H_ext2',
-    #'prep_Zuu_H_ext3', 'prep_Zuu_H_ext4', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
+    # 'prep_Zuu_B_ext1', 'prep_Zuu_B_ext2', 'prep_Zuu_B_ext3',
+    # 'prep_Zuu_C_ext1',
+    # 'prep_Zuu_D_ext1',
+    # 'prep_Zuu_E_ext1',
+    # 'prep_Zuu_F_ext1',
+    # 'prep_Zuu_G_ext1',
+    # 'prep_Zuu_H_ext1', 'prep_Zuu_H_ext2',
     
-    #'prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3',
-    #'prep_Zee_C_ext1',
-    #'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
-    #'prep_Zee_E_ext1',
-    #'prep_Zee_F_ext1',
-    #'prep_Zee_G_ext1', 'prep_Zee_G_ext2','prep_Zee_G_ext3', 'prep_Zee_G_ext4',
-    #'prep_Zee_H_ext1', 'prep_Zee_H_ext2', 'prep_Zee_H_ext3', 'prep_Zee_H_ext4']
+    # 'prep_Zee_B_ext1', 'prep_Zee_B_ext2', 'prep_Zee_B_ext3', 'prep_Zee_B_ext4',
+    # 'prep_Zee_C_ext1',
+    # 'prep_Zee_D_ext1', 'prep_Zee_D_ext2',
+    # 'prep_Zee_E_ext1', 'prep_Zee_E_ext2',
+    # 'prep_Zee_F_ext1',
+    # 'prep_Zee_G_ext1', 'prep_Zee_G_ext2',
+    #'prep_Zee_H_ext1', 
+    'prep_Zee_H_ext2', 'prep_Zee_H_ext3'
+
     
-    'prep_ttbar_ext1', 'prep_ttbar_ext2',
-    'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
-    'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
-    'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
-    'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
-    'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
-    'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
+    # 'prep_ttbar_ext1', 'prep_ttbar_ext2',
+    # 'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
+    # 'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
+    # 'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
+    # 'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
+    # 'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
+    # 'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
     
     #'prep_DY_600to800_ext1', 'prep_DY_600to800_ext1_NewExt', 'prep_DY_600to800_ext1_NewExt2',
 
@@ -272,7 +273,7 @@ DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650'
 
 DY_parton_list = ['DY0J', 'DY1J']
 
-temp_list = ['DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf']
+temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
 #file_list = temp_list

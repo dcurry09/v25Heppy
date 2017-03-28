@@ -12,8 +12,8 @@ import multiprocessing
 
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
-#main_dir  = 'TEST_WithEleSF'
-main_dir = 'v25_CR_CMVA_LO_newSF_3_15'
+main_dir  = 'TEST_SYSweightCheck_noNLO'
+#main_dir = 'v25_CR_CMVA_LO_newSF_3_15'
 
 
 
@@ -38,7 +38,8 @@ control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu',
                 'Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee',
                 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee',
                 'Zlf_high', 'Zhf_high', 'ttbar_high',
-                'Zlf_low', 'Zhf_low', 'ttbar_low'
+                'Zlf_low', 'Zhf_low', 'ttbar_low',
+                'Zlf_Zee'
                 ]
 
 regr_list = ['jet_regression_Zhf']
@@ -258,6 +259,13 @@ for dir in region_list:
          temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
          temp_string5 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
 
+    if 'Zlf_Zee' == dir:
+         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_Zee'
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_Zee'
+         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_Zee/'+dir
+         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/Zlf_Zee/'+dir
+         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string5 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
 
 
     if 'signal_all_Zpt' == dir:

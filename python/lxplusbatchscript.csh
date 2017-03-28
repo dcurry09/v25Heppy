@@ -7,3 +7,4 @@ set TOP="$PWD"
 cd /afs/cern.ch/work/d/dcurry/public/cmva_heppy/CMSSW_7_1_5/src/VHbb/python/
 eval `scramv1 runtime -csh`
 python ../myMacros/classification/bdt_classifier_training_loop.py
+

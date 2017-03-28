@@ -11,7 +11,7 @@ from HiggsAnalysis.CombinedLimit.ShapeTools     import *
 from collections import Counter
 
 isVV = False
-#isVV = True
+isVV = True
 
 # import ROOT with a fix to get batch mode (http://root.cern.ch/phpBB3/viewtopic.php?t=3198)
 hasHelp = False
@@ -61,7 +61,7 @@ def rebinHist(hist,nbin, xmin, xmax):
 
     for b in range(1,nbin+1):
 
-        print 'Bin:', b, hist.GetBinContent(b), hist.GetBinError(b)
+        #print 'Bin:', b, hist.GetBinContent(b), hist.GetBinError(b)
         
         h_new.SetBinContent(b, hist.GetBinContent(b))
         h_new.SetBinError(b, hist.GetBinError(b))
@@ -175,36 +175,42 @@ def drawFromDC():
     print '\n-----> Fit Type(opts.fit)  : ', opts.fit
     print '               (opts.mlfit): ', opts.mlfit
     print '               preFit      : ', preFit
-    
+    print '               opts.bin    : ', opts.bin
     
     Stack.options['pdfName'] = '%s_%s_%s.pdf'  %(var,opts.bin,addName)
     
     log = eval(config.get('Plot:%s'%region,'log'))
     
 
-    if 'Zll' in opts.bin or 'Zee' in opts.bin or 'Zuu' in opts.bin or 'minCSV' in opts.var or 'Zmm' in opts.bin:
+    if 'Zll' in opts.bin or 'Zee' in opts.bin or 'Zuu' in opts.bin or 'minCMVA' in opts.var or 'Zmm' in opts.bin:
         #setup = config.get('Plot_general','setup').split(',')
         setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST']
         signalList = ['ZH']
         
         #channel = 'ZllHbb'
 
-
         # For my own fits
         channel = ''
-        
 
         if 'Zee' in opts.bin: lep_channel = 'Zee'
         elif 'Zuu' in opts.bin: lep_channel = 'Zmm'
         
-        region_dic = {'BDT':'SIG','CRZlight':'Zlf','CRZb':'Zhf','CRttbar':'TT', '13TeV':'SIG'}
+        region_dic = {'BDT':'SIG',' Zlf':'Zlf','Zhf':'Zhf','TT':'TT', '13TeV':'SIG'}
         region_name =  [region_dic[key] for key in region_dic if (key in opts.bin)]
-        region_name = region_name[0]
         
+        if 'minCMVA' not in opts.var:
+            region_name = region_name[0]
+        else:
+            if 'Zlf' in opts.bin: region_name = 'Zlf'
+            if 'Zhf' in opts.bin: region_name = 'Zhf'
+            if 'ttbar' in opts.bin: region_name = 'TT'
 
         pt_region_dic = {'lowpt':'low','highpt':'high', 'LowPt':'low', 'HighPt':'high'}
         pt_region_name =  [pt_region_dic[key] for key in pt_region_dic if (key in opts.bin)]
-        pt_region_name = pt_region_name[0]
+        #pt_region_name = pt_region_name[0]
+        if 'low' in opts.bin: pt_region_name  = 'low'
+        if 'high' in opts.bin: pt_region_name = 'high'
+
         print 'region_name is', region_name
         print 'pt region_name is', pt_region_name
         
@@ -398,18 +404,21 @@ def drawFromDC():
     #    typs.append('ZH')
 
     if 'VVb' in signalList or 'VVHF' in signalList:
-        typs.append('WH')
+        #typs.append('WH')
         typs.append('ZH')
         typs.append('VVHF')
 
-        if 'VVHF' in Stack.setup: Stack.setup.remove('VVHF')
-        Stack.setup.insert(0,'VVHF')
+        if 'VVHF' in Stack.setup: 
+            Stack.setup.remove('VVHF')
+            Stack.setup.insert(0,'VVHF')
         
-        if 'ZH' in Stack.setup: Stack.setup.remove('ZH')
-        Stack.setup.insert(-1,'ZH')
+        if 'ZH' in Stack.setup: 
+            Stack.setup.remove('ZH')
+            Stack.setup.insert(-1,'ZH')
 
-        if 'WH' in Stack.setup: Stack.setup.remove('WH')
-        Stack.setup.insert(-1,'WH')
+        if 'WH' in Stack.setup: 
+            Stack.setup.remove('WH')
+            Stack.setup.insert(-1,'WH')
 
         if 'ggZH' in Stack.setup: 
             Stack.setup.remove('ggZH')

@@ -360,7 +360,7 @@ class StackMaker:
                 _overlay.SetFillStyle(4000)
                 
                 if isVV:
-                    _overlay.SetLineColor(int(self.colorDict['VVlight']))
+                    _overlay.SetLineColor(int(self.colorDict['VVHF']))
                 
 
         # PREfit overlay
@@ -415,7 +415,8 @@ class StackMaker:
                 _overlay.Scale(overScale)
                 print '\n\tOverScale:', overScale
                 
-                if 'ZH' in _overlay.GetName() or 'log' in _overlay.GetName() and not isVV:
+                #if 'ZH' in _overlay.GetName() or 'log' in _overlay.GetName() and not isVV:
+                if not isVV:
                     l_2.AddEntry(_overlay,self.typLegendDict['VH']+" x"+str(overScale),'L')
                     #if 'ZH'in _overlay.GetName():
                     #l_2.AddEntry(_overlay,self.typLegendDict['ZH'],'L')

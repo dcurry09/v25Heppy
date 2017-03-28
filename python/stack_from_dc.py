@@ -11,7 +11,7 @@ from HiggsAnalysis.CombinedLimit.ShapeTools     import *
 from collections import Counter
 
 isVV = False
-#isVV = True
+isVV = True
 
 # import ROOT with a fix to get batch mode (http://root.cern.ch/phpBB3/viewtopic.php?t=3198)
 hasHelp = False
@@ -134,7 +134,6 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     print '\n\n-----> Fit File: ',file
         
     b = opts.bin
-    
     
     # We can also track the counts in the most sensitive BDT bins
     total_sig_count, total_bkg_count = 0,0
@@ -311,7 +310,7 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
         for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
             if errline[b][p] == 0: continue
             if ("shape" in pdf):
-                print 'Systematic:', p+lsyst, shapeNui[p+lsyst]
+                #print 'Systematic:', p+lsyst, shapeNui[p+lsyst]
                 if shapeNui[p+lsyst] > 0.:
                     theVari = 'Up'
                 else:
@@ -372,7 +371,7 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
         for bin in range(1,nBins+1):
             nom.SetBinError(bin,theShapes[p].GetBinError(bin))
         
-        print 'Setting the nominal shape:', '%s_%s'%(opts.fit,p)
+        #print 'Setting the nominal shape:', '%s_%s'%(opts.fit,p)
         theShapes['%s_%s'%(opts.fit,p)] = nom.Clone()
 
     histos = []
@@ -403,7 +402,7 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
                 Overlay.Add(theShapes[Dict[s]])
             sigCount += 1
         #else:
-        print 'Appending Histos with:', opts.fit, Dict[s]
+        #print 'Appending Histos with:', opts.fit, Dict[s]
         histos.append(theShapes['%s_%s'%(opts.fit,Dict[s])])
         typs.append(s)
 
@@ -1023,23 +1022,26 @@ def drawFromDC():
         typs.append('ZH')
 
     if 'VVb' in signalList or 'VVHF' in signalList:
-        typs.append('WH')
+        #typs.append('WH')
         typs.append('ZH')
         typs.append('VVHF')
 
-        if 'VVHF' in Stack.setup: Stack.setup.remove('VVHF')
-        Stack.setup.insert(0,'VVHF')
+        if 'VVHF' in Stack.setup: 
+            Stack.setup.remove('VVHF')
+            Stack.setup.insert(0,'VVHF')
         
-        if 'ZH' in Stack.setup: Stack.setup.remove('ZH')
-        Stack.setup.insert(-1,'ZH')
+        if 'ZH' in Stack.setup: 
+            Stack.setup.remove('ZH')
+            Stack.setup.insert(-1,'ZH')
 
-        if 'WH' in Stack.setup: Stack.setup.remove('WH')
-        Stack.setup.insert(-1,'WH')
+        if 'WH' in Stack.setup: 
+            Stack.setup.remove('WH')
+            Stack.setup.insert(-1,'WH')
 
         if 'ggZH' in Stack.setup: 
             Stack.setup.remove('ggZH')
             Stack.setup.insert(-1,'ggZH')
-
+            
         
 
     print '\n-----> Stack.setup(double check)...', Stack

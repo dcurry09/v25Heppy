@@ -41,45 +41,22 @@ rebin_active: True
 
 sys_BDT: [
     'weight_pileUp',
-    #'CMS_vhbb_eff_e_13TeV', 
-    #'CMS_vhbb_eff_m_13TeV',
+    'CMS_vhbb_eff_e_13TeV', 
+    'CMS_vhbb_eff_m_13TeV',
     'CMS_vhbb_LHE_weights_scaleMuR',
     'CMS_vhbb_LHE_weights_scaleMuF',
-    
-    #'JER_low',
-    #'JEC_low',
-    #'JER_high',
-    #'JEC_high',
-    #'JER_central',
-    #'JEC_central',
-    #'JER_forward',
-    #'JEC_forward',
         
     'JER',
-    
-    #'JEC_PileUp',
-    #'JEC_Relative',
-    #'JEC_AbsoluteMisc',
-    
     "JEC_PileUpDataMC",
     "JEC_PileUpPtRef",
     "JEC_PileUpPtBB",
     "JEC_PileUpPtEC1",
-    #"JEC_PileUpPtEC2",
-    #"JEC_PileUpPtHF",
-    
     "JEC_RelativeJEREC1",
-    #"JEC_RelativeJEREC2",
-    #"JEC_RelativeJERHF",
     "JEC_RelativeFSR",
     "JEC_RelativeStatFSR",
     "JEC_RelativeStatEC",
-    #"JEC_RelativeStatHF",
     "JEC_RelativePtBB",
     "JEC_RelativePtEC1",
-    #"JEC_RelativePtEC2",
-    #"JEC_RelativePtHF",
-    
     "JEC_AbsoluteScale",
     "JEC_AbsoluteMPFBias",
     "JEC_AbsoluteStat",
@@ -89,7 +66,10 @@ sys_BDT: [
     "JEC_TimePtEta",
     "JEC_FlavorQCD",
     
-
+    'btagWeightCSV_JES_HighCentral',
+    'btagWeightCSV_JES_LowCentral',
+    'btagWeightCSV_JES_HighForward',
+    'btagWeightCSV_JES_LowForward',
     'btagWeightCSV_lf_HighCentral',
     'btagWeightCSV_lf_LowCentral',
     'btagWeightCSV_lf_HighForward',
@@ -176,6 +156,11 @@ sys_factor: {'CMS_vhbb_eff_e_13TeV':1.0,
 	     'JEC_central':1.0,
 	     'JER_forward':1.0,
 	     'JEC_forward':1.0,
+
+	     'btagWeightCSV_JES_HighCentral':1.0,
+	     'btagWeightCSV_JES_LowCentral':1.0,
+	     'btagWeightCSV_JES_HighForward':1.0,
+	     'btagWeightCSV_JES_LowForward':1.0,
 	     'btagWeightCSV_hf':1.0,
 	     'btagWeightCSV_lf':1.0,
              'btagWeightCSV_lfstats1':1.0,
@@ -267,6 +252,11 @@ sys_affecting: {'weight_pileUp':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','T
 		'JEC_central':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		'JER_forward':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		'JEC_forward':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		
+		'btagWeightCSV_JES_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		'btagWeightCSV_lfstats1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		'btagWeightCSV_lfstats2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		'btagWeightCSV_hfstats1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
@@ -363,6 +353,12 @@ systematicsnaming: {
     'JEC_central':'CMS_vhbb_scale_j_13TeV_central',
     'JER_forward':'CMS_vhbb_res_j_13TeV_forward',
     'JEC_forward':'CMS_vhbb_scale_j_13TeV_forward',
+
+    
+    'btagWeightCSV_JES_HighCentral':'CMS_vhbb_btagWeightJES_HighCentral',
+    'btagWeightCSV_JES_LowCentral':'CMS_vhbb_btagWeightJES_LowCentral',
+    'btagWeightCSV_JES_HighForward':'CMS_vhbb_btagWeightJES_HighForward',
+    'btagWeightCSV_JES_LowForward':'CMS_vhbb_btagWeightJES_LowForward',
     'btagWeightCSV_lf':'CMS_vhbb_btagWeightLF',
     'btagWeightCSV_hf':'CMS_vhbb_btagWeightHF',
     'btagWeightCSV_lfstats1':'CMS_vhbb_btagWeightLFStats1',
@@ -491,46 +487,53 @@ VV_BKG: [<!Samples|VV_BKG!>]
 #Group: <!Samples|Group!>
 Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135':'ZH','ZH140':'ZH','ZH145':'ZH','ZH150':'ZH',\
 	'ggZH125': 'ggZH', \
-	#'ggZH125': 'ZH', \
+        #'ggZH125': 'ZH', \
         'Zudsg':'DYlight', 'ZudsgHT100to200':'DYlight', 'ZudsgHT200to400':'DYlight', 'ZudsgHT400to600':'DYlight', 'ZudsgHT600toInf':'DYlight', 'Zudsg_Bjets':'DYlight', \
-	'Zudsg_BgenFilter':'DYlight', 'Zudsg5to50':'DYlight', 'Zudsg5to50_100to200':'DYlight', 'Zudsg5to50_200to400':'DYlight','Zudsg5to50_400to600':'DYlight',\
-        'Zudsg5to50_600toInf':'DYlight','ZudsgHT600to800':'DYlight', 'ZudsgHT800to1200':'DYlight', 'ZudsgHT1200to2500':'DYlight', 'ZudsgHT2500toInf':'DYlight',
-	'ZudsgHT70to100':'DYlight','ZudsgVpt50to100':'DYlight',
+        'Zudsg_BgenFilter':'DYlight', 'Zudsg5to50':'DYlight', 'Zudsg5to50_100to200':'DYlight', 'Zudsg5to50_200to400':'DYlight','Zudsg5to50_400to600':'DYlight',\
+        'Zudsg5to50_600toInf':'DYlight','ZudsgHT600to800':'DYlight', 'ZudsgHT800to1200_ext1':'DYlight', 'ZudsgHT800to1200_ext2':'DYlight',
+        'ZudsgHT1200to2500':'DYlight', 'ZudsgHT2500toInf':'DYlight', \
+        'ZudsgHT70to100':'DYlight','ZudsgVpt50to100':'DYlight',
         'Zudsg0J':'DYlight', 'Zudsg1J':'DYlight', 'Zudsg2J':'DYlight','Zudsg2Jext2':'DYlight','Zudsg2Jext3':'DYlight','Zudsg2Jext4':'DYlight','Zudsg2Jext1':'DYlight',
-	'ZudsgHT600to800_ext1':'DYlight', 'ZudsgHT600to800_ext2':'DYlight','ZudsgHT600to800_ext3':'DYlight','ZudsgHT600to800_ext4':'DYlight','ZudsgHT600to800_ext5':'DYlight',
-	'ZudsgHT600to800_ext6':'DYlight',
-	'Zudsg_Bjets_Vpt100to200':'DYlight','Zudsg_Bjets_Vpt200toInf':'DYlight',
-	'Zcc':'DYlight', 'ZccHT100to200':'DYlight', 'ZccHT200to400':'DYlight', 'ZccHT400to600':'DYlight', 'ZccHT600toInf':'DYlight', 'Zcc_Bjets':'DYlight',\
-	'Zcc_BgenFilter':'DYlight', 'Zcc5to50':'DYlight', 'Zcc5to50_100to200':'DYlight', 'Zcc5to50_200to400':'DYlight', 'Zcc5to50_400to600':'DYlight',
+        'ZudsgHT600to800_ext1':'DYlight', 'ZudsgHT600to800_ext2':'DYlight','ZudsgHT600to800_ext3':'DYlight','ZudsgHT600to800_ext4':'DYlight','ZudsgHT600to800_ext5':'DYlight',
+        'ZudsgHT600to800_ext6':'DYlight',
+        'Zudsg_Bjets_Vpt100to200':'DYlight','Zudsg_Bjets_Vpt200toInf':'DYlight',
+        'Zudsg_DY1J_10to50':'DYlight', 'Zudsg_DY2J_10to50':'DYlight', 'Zudsg_DY3J_10to50':'DYlight',
+        'Zcc':'DYlight', 'ZccHT100to200':'DYlight', 'ZccHT200to400':'DYlight', 'ZccHT400to600':'DYlight', 'ZccHT600toInf':'DYlight', 'Zcc_Bjets':'DYlight',\
+        'Zcc_BgenFilter':'DYlight', 'Zcc5to50':'DYlight', 'Zcc5to50_100to200':'DYlight', 'Zcc5to50_200to400':'DYlight', 'Zcc5to50_400to600':'DYlight',
         'Zcc5to50_600toInf':'DYlight',\
-	'Zudsg_nlo':'DYlight', 'Zcc_nlo':'DYlight', 'ZudsgVpt100to250':'DYlight', 'ZccVpt100to250':'DYlight', 'ZudsgVpt250to400':'DYlight', 'ZccVpt250to400':'DYlight', \
+        'Zudsg_nlo':'DYlight', 'Zcc_nlo':'DYlight', 'ZudsgVpt100to250':'DYlight', 'ZccVpt100to250':'DYlight', 'ZudsgVpt250to400':'DYlight', 'ZccVpt250to400':'DYlight', \
         'ZudsgVpt400to650':'DYlight', 'ZccVpt400to650':'DYlight','ZudsgVpt650toInf':'DYlight', 'ZccVpt650toInf':'DYlight',
-	'Z1b':'DY1b','Z1bHT100to200':'DY1b', 'Z1bHT200to400':'DY1b', 'Z1bHT400to600':'DY1b', 'Z1bHT600toInf':'DY1b', 'Z1b_Bjets':'DY1b', \
+        'Z1b':'DY1b','Z1bHT100to200':'DY1b', 'Z1bHT200to400':'DY1b', 'Z1bHT400to600':'DY1b', 'Z1bHT600toInf':'DY1b', 'Z1b_Bjets':'DY1b', \
         'Z1b_BgenFilter':'DY1b', 'Z1b5to50':'DY1b', 'Z1b5to50_100to200':'DY1b', 'Z1b5to50_200to400':'DY1b', 'Z1b5to50_400to600':'DY1b', 'Z1b5to50_600toInf':'DY1b',\
-	'Z1b_nlo':'DY1b', 'Z1bVpt100to250':'DY1b', 'Z1bVpt250to400':'DY1b','Z1bVpt400to650':'DY1b','Z1bVpt650toInf':'DY1b',
-        'Z1bHT600to800':'DY1b', 'Z1bHT800to1200':'DY1b', 'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b','Z1bVpt50to100':'DY1b',
-        'Z1b0J':'DY1b', 'Z1b1J':'DY1b', 'Z1b2J':'DY1b','Z1b2Jext2':'DY1b','Z1b2Jext3':'DY1b','Z1b2Jext4':'DY1b','Z1b2Jext1':'DY1b',
-	'Z1bHT600to800_ext1':'DY1b','Z1bHT600to800_ext2':'DY1b','Z1bHT600to800_ext3':'DY1b','Z1bHT600to800_ext4':'DY1b','Z1bHT600to800_ext5':'DY1b','Z1bHT600to800_ext6':'DY1b',
+        'Z1b_nlo':'DY1b', 'Z1bVpt100to250':'DY1b', 'Z1bVpt250to400':'DY1b','Z1bVpt400to650':'DY1b','Z1bVpt650toInf':'DY1b',
+        'Z1bHT600to800':'DY1b', 'Z1bHT800to1200_ext1':'DY1b', 'Z1bHT800to1200_ext2':'DY1b',\
+        'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b','Z1bVpt50to100':'DY1b',
+	'Z1b0J':'DY1b', 'Z1b1J':'DY1b', 'Z1b2J':'DY1b','Z1b2Jext2':'DY1b','Z1b2Jext3':'DY1b','Z1b2Jext4':'DY1b','Z1b2Jext1':'DY1b',
+        'Z1bHT600to800_ext1':'DY1b','Z1bHT600to800_ext2':'DY1b','Z1bHT600to800_ext3':'DY1b','Z1bHT600to800_ext4':'DY1b','Z1bHT600to800_ext5':'DY1b','Z1bHT600to800_ext6':'DY1b',
         'Z1b_Bjets_Vpt100to200':'DY1b','Z1b_Bjets_Vpt200toInf':'DY1b',
-	'Z2b':'DY2b','Z2bHT100to200':'DY2b','Z2bHT200to400':'DY2b','Z2bHT400to600':'DY2b','Z2bHT600toInf':'DY2b', 'Z2b_Bjets':'DY2b', \
+	'Z1b_DY1J_10to50':'DY1b', 'Z1b_DY2J_10to50':'DY1b', 'Z1b_DY3J_10to50':'DY1b',
+        'Z2b':'DY2b','Z2bHT100to200':'DY2b','Z2bHT200to400':'DY2b','Z2bHT400to600':'DY2b','Z2bHT600toInf':'DY2b', 'Z2b_Bjets':'DY2b', \
 	'Z2b_BgenFilter':'DY2b', 'Z2b5to50':'DY2b', 'Z2b5to50_100to200':'DY2b', 'Z2b5to50_200to400':'DY2b', 'Z2b5to50_400to600':'DY2b', 'Z2b5to50_600toInf':'DY2b',\
         'Z2b_nlo':'DY2b', 'Z2bVpt100to250':'DY2b', 'Z2bVpt250to400':'DY2b','Z2bVpt400to650':'DY2b','Z2bVpt650toInf':'DY2b',
-        'Z2bHT600to800':'DY2b', 'Z2bHT800to1200':'DY2b', 'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b','Z2bVpt50to100':'DY2b',
+	'Z2bHT600to800':'DY2b', 'Z2bHT800to1200_ext1':'DY2b', 'Z2bHT800to1200_ext2':'DY2b',
+        'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b','Z2bVpt50to100':'DY2b',
 	'Z2b0J':'DY2b', 'Z2b1J':'DY2b', 'Z2b2J':'DY2b', 'Z2b2Jext2':'DY2b', 'Z2b2Jext3':'DY2b', 'Z2b2Jext4':'DY2b', 'Z2b2Jext1':'DY2b',
         'Z2bHT600to800_ext1':'DY2b','Z2bHT600to800_ext2':'DY2b','Z2bHT600to800_ext3':'DY2b','Z2bHT600to800_ext4':'DY2b','Z2bHT600to800_ext5':'DY2b','Z2bHT600to800_ext6':'DY2b',
 	'Z2b_Bjets_Vpt100to200':'DY2b','Z2b_Bjets_Vpt200toInf':'DY2b',
-	'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF','ZZlight_2L2Q_ext1':'VVLF', 'ZZlight_2L2Q_ext2':'VVLF', 'ZZlight_2L2Q_ext3':'VVLF',
-        'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF','ZZb_2L2Q_ext1':'VVHF', 'ZZb_2L2Q_ext2':'VVHF', 'ZZb_2L2Q_ext3':'VVHF',
+	'Z2b_DY1J_10to50':'DY2b', 'Z2b_DY2J_10to50':'DY2b', 'Z2b_DY3J_10to50':'DY2b',
+        'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF','ZZlight_2L2Q_ext1':'VVLF', 'ZZlight_2L2Q_ext2':'VVLF', 'ZZlight_2L2Q_ext3':'VVLF',
+	'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF','ZZb_2L2Q_ext1':'VVHF', 'ZZb_2L2Q_ext2':'VVHF', 'ZZb_2L2Q_ext3':'VVHF',
 	'ttbar':'TT','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT',\
         'ST_s':'ST','ST_t':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST', 'ST_t_antitop':'ST',
 	'Zee':'Data','Zuu':'Data'}
+
 
 # --------------------------------------
 # Naming
 # --------------------------------------
 
 # naming of processes
-Dict: {'ZH':'ZH','ggZH':'ggZH','DYlight':'Zj0b','DY1b':'Zj1b','DY2b':'Zj2b','TT':'TT','ST':'s_Top','VVb':'VVb','VVlight':'VVlight','Data':'data_obs','ZH125':'ZH125', 'qcd':'QCD','VVHF':'VVHF', 'VVLF':'VVLF', 'WH':'WH', 'Wj0b':'Wj0b', 'Wj1b':'Wj1b', 'Wj2b':'Wj2b', 'VZbb':'VZbb', 'ggZH125':'ggZH125'}
+Dict: {'ZH':'ZH_hbb','ggZH':'ggZH_hbb','DYlight':'Zj0b','DY1b':'Zj1b','DY2b':'Zj2b','TT':'TT','ST':'s_Top','VVb':'VVb','VVlight':'VVlight','Data':'data_obs','ZH125':'ZH125', 'qcd':'QCD','VVHF':'VVHF', 'VVLF':'VVLF', 'WH':'WH', 'Wj0b':'Wj0b', 'Wj1b':'Wj1b', 'Wj2b':'Wj2b', 'VZbb':'VZbb', 'ggZH125':'ggZH125'}
 
 #Dict: {'ZH':'ZH_hbb','ggZH':'ggZH_hbb', 'DYlight':'Zj0b','DY1b':'Zj1b','DY2b':'Zj2b','TT':'TT','ST':'s_Top','VVb':'VVb','VVlight':'VVlight','Data':'data_obs','ZH125':'ZH125', 'qcd':'QCD', 'VVHF':'VVHF', 'VVLF':'VVLF', 'WH':'WH_hbb', 'Wj0b':'Wj0b', 'Wj1b':'Wj1b', 'Wj2b':'Wj2b', 'VZbb':'VZbb'}
 
@@ -541,13 +544,10 @@ Dict: {'ZH':'ZH','ggZH':'ggZH','DYlight':'Zj0b','DY1b':'Zj1b','DY2b':'Zj2b','TT'
 [Datacard]
 
 InUse: ['lumi_13TeV', 'pdf_qqbar', 'pdf_gg', 'QCDscale_VH', 'QCDscale_ttbar','QCDscale_VV', 'QCDscale_VH_ggZHacceptance_lowPt', 'QCDscale_VH_ggZHacceptance_highPt', 'CMS_vhbb_boost_EWK_13TeV', 'CMS_vhbb_boost_QCD_13TeV','CMS_vhbb_ST','CMS_vhbb_VV', 'CMS_vhbb_ST', 'CMS_vhbb_LHE_weights_pdf_ZH', 'CMS_vhbb_LHE_weights_pdf_TT', 'CMS_vhbb_LHE_weights_pdf_Zj0b', 'CMS_vhbb_LHE_weights_pdf_Zj1b', 'CMS_vhbb_LHE_weights_pdf_Zj2b', 'CMS_vhbb_LHE_weights_pdf_VVHF', 'CMS_vhbb_LHE_weights_pdf_VVLF']
-#'CMS_vhbb_eff_e_13TeV', 'CMS_vhbb_eff_m_13TeV']
 
-InUse_HighPt: ['lumi_13TeV', 'pdf_qqbar', 'pdf_gg', 'QCDscale_VH', 'QCDscale_ttbar','QCDscale_VV', 'QCDscale_VH_ggZHacceptance_highPt', 'CMS_vhbb_boost_EWK_13TeV', 'CMS_vhbb_boost_QCD_13TeV','CMS_vhbb_ST','CMS_vhbb_VV', 'CMS_vhbb_ST', 'CMS_vhbb_LHE_weights_pdf_ZH', 'CMS_vhbb_LHE_weights_pdf_TT', 'CMS_vhbb_LHE_weights_pdf_Zj0b', 'CMS_vhbb_LHE_weights_pdf_Zj1b', 'CMS_vhbb_LHE_weights_pdf_Zj2b', 'CMS_vhbb_LHE_weights_pdf_VVHF', 'CMS_vhbb_LHE_weights_pdf_VVLF']
-
-InUse_LowPt: ['lumi_13TeV', 'pdf_qqbar', 'pdf_gg', 'QCDscale_VH', 'QCDscale_ttbar','QCDscale_VV', 'QCDscale_VH_ggZHacceptance_lowPt', 'CMS_vhbb_boost_EWK_13TeV', 'CMS_vhbb_boost_QCD_13TeV','CMS_vhbb_ST','CMS_vhbb_VV', 'CMS_vhbb_ST', 'CMS_vhbb_LHE_weights_pdf_ZH', 'CMS_vhbb_LHE_weights_pdf_TT', 'CMS_vhbb_LHE_weights_pdf_Zj0b', 'CMS_vhbb_LHE_weights_pdf_Zj1b', 'CMS_vhbb_LHE_weights_pdf_Zj2b', 'CMS_vhbb_LHE_weights_pdf_VVHF', 'CMS_vhbb_LHE_weights_pdf_VVLF']
-
-InUse_cr: <!Datacard|InUse!>
+InUse_HighPt: <!Datacard|InUse!>
+InUse_LowPt : <!Datacard|InUse!>
+InUse_cr    : <!Datacard|InUse!>
 
 #InUse_cr: []
 
@@ -741,7 +741,6 @@ doBin     : True
 
 [dc:BDT_Zee_high_Zpt]
 var       : gg_plus_ZH125_highZpt.nominal
-#var       : gg_plus_ZH125_lowZpt.nominal
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_HighPt
@@ -756,7 +755,6 @@ doBin     : True
 
 [dc:BDT_Zuu_high_Zpt]
 var       : gg_plus_ZH125_highZpt.nominal
-#var       : gg_plus_ZH125_lowZpt.nominal
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_HighPt
@@ -851,7 +849,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_LowPt
 cut       : VV_bdt_Zee_low
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ZeeLowPt_13TeV
 data      : Zee
 type      : VV_BDT
@@ -865,7 +863,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_HighPt
 cut       : VV_bdt_Zee_high
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ZeeHighPt_13TeV
 data      : Zee
 type      : VV_BDT
@@ -879,7 +877,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_LowPt
 cut       : VV_bdt_Zuu_low
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ZuuLowPt_13TeV
 data      : Zuu
 type      : VV_BDT
@@ -893,7 +891,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_HighPt
 cut       : VV_bdt_Zuu_high
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ZuuHighPt_13TeV
 data      : Zuu
 type      : VV_BDT
@@ -1171,7 +1169,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_Zuu
 cut       : Zlf_Zuu
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zlf_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1184,7 +1182,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_Zee
 cut       : Zlf_Zee
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zlf_Zee
 data      : Zee
 type      : VV_cr
@@ -1251,7 +1249,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low_Zuu
 cut       : Zlf_low_Zuu
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zlf_low_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1264,7 +1262,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low_Zuu
 cut       : Zhf_low_Zuu_VV
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zhf_low_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1277,7 +1275,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low_Zuu
 cut       : ttbar_low_Zuu
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ttbar_low_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1291,7 +1289,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_low_Zee
 cut       : Zlf_low_Zee
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zlf_low_Zee
 data      : Zee
 type      : VV_cr
@@ -1304,7 +1302,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_low_Zee
 cut       : Zhf_low_Zee_VV
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zhf_low_Zee
 data      : Zee
 type      : VV_cr
@@ -1317,7 +1315,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_low_Zee
 cut       : ttbar_low_Zee
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ttbar_low_Zee
 data      : Zee
 type      : VV_cr
@@ -1331,7 +1329,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high_Zuu
 cut       : Zlf_high_Zuu
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zlf_high_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1344,7 +1342,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high_Zuu
 cut       : Zhf_high_Zuu_VV
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zhf_high_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1357,7 +1355,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high_Zuu
 cut       : ttbar_high_Zuu
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ttbar_high_Zuu
 data      : Zuu
 type      : VV_cr
@@ -1371,7 +1369,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zlf_high_Zee
 cut       : Zlf_high_Zee
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zlf_high_Zee
 data      : Zee
 type      : VV_cr
@@ -1384,7 +1382,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : Zhf_high_Zee
 cut       : Zhf_high_Zee_VV
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zhf_high_Zee
 data      : Zee
 type      : VV_cr
@@ -1397,7 +1395,7 @@ wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|CRrange!>
 dcName    : ttbar_high_Zee
 cut       : ttbar_high_Zee
-signal    : ZZb_2L2Q
+signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : ttbar_high_Zee
 data      : Zee
 type      : VV_cr

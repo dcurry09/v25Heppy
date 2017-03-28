@@ -58,10 +58,6 @@ bdt_list = ['BDT_Zee_high_Zpt', 'BDT_Zuu_high_Zpt', 'BDT_Zee_low_Zpt', 'BDT_Zuu_
 control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu',
                 'Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
 
-mu_control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu']
-
-ele_control_list = ['Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
-
 zhf_list = ['Zhf_low_Zee', 'Zhf_high_Zuu', 'Zhf_low_Zuu', 'Zhf_high_Zee']
 
 zlf_list = ['Zlf_low_Zee', 'Zlf_high_Zuu', 'Zlf_low_Zuu', 'Zlf_high_Zee']
@@ -70,49 +66,75 @@ ttbar_list = ['ttbar_low_Zee', 'ttbar_high_Zuu', 'ttbar_low_Zuu', 'ttbar_high_Ze
 
 
 # ======== Diboson Analysis =========
-#bdt_list = ['VV_BDT_Zee_lowZpt', 'VV_BDT_Zee_highZpt', 'VV_BDT_Zuu_lowZpt', 'VV_BDT_Zuu_highZpt']
+vv_bdt_list = ['VV_BDT_Zee_lowZpt', 'VV_BDT_Zee_highZpt', 'VV_BDT_Zuu_lowZpt', 'VV_BDT_Zuu_highZpt']
 
-#control_list = ['Zlf_high_Zuu_VV', 'Zhf_high_Zuu_VV', 'ttbar_high_Zuu_VV', 'Zlf_low_Zuu_VV', 'Zhf_low_Zuu_VV','ttbar_low_Zuu_VV',
-#                'Zlf_high_Zee_VV', 'Zhf_high_Zee_VV', 'ttbar_high_Zee_VV', 'Zlf_low_Zee_VV', 'Zhf_low_Zee_VV','ttbar_low_Zee_VV']
+vv_control_list = ['Zlf_high_Zuu_VV', 'Zhf_high_Zuu_VV', 'ttbar_high_Zuu_VV', 'Zlf_low_Zuu_VV', 'Zhf_low_Zuu_VV','ttbar_low_Zuu_VV',
+                   'Zlf_high_Zee_VV', 'Zhf_high_Zee_VV', 'ttbar_high_Zee_VV', 'Zlf_low_Zee_VV', 'Zhf_low_Zee_VV','ttbar_low_Zee_VV']
 
+vv_zhf_list = ['Zhf_high_Zuu_VV', 'Zhf_high_Zee_VV', 'Zhf_low_Zuu_VV', 'Zhf_low_Zee_VV']
+
+vv_zlf_list = ['Zlf_low_Zee_VV', 'Zlf_high_Zuu_VV', 'Zlf_low_Zuu_VV', 'Zlf_high_Zee_VV']
+
+vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 'ttbar_high_Zee_VV']
+
+# bdt_list = vv_bdt_list
+# zhf_list = vv_zhf_list
+# zlf_list = vv_zlf_list
+# ttbar_list = vv_ttbar_list
 # ====================================
 
-temp_list = ['BDT_Zee_high_Zpt']
+temp_list = ['ttbar_high_Zee']
+#temp_list = zlf_list
 
 # ==============================================
+
+#### Chose VH or VV ####
 #datacard_list = bdt_list
 #datacard_list = control_list + bdt_list
 #datacard_list = control_list
+
+#datacard_list = vv_bdt_list
+#datacard_list = vv_control_list + vv_bdt_list
+#datacard_list = vv_control_list
+
 datacard_list = temp_list
+
 
 ##### Directory to save datacards ####
 
-#title = 'CMVA_LO_3_3'
-title = 'NoRebin'
+title = 'CMVA_LO_3_28'
+#title = 'TEST'
 
 sig_dir = 'v25_SR_'+title
 
 cr_dir = 'v25_CR_'+title
 
 # final combined directory
-dir= 'bdt_param_optimize/BDT_bins30'
+dir = 'v25_VH_'+title
 
-
-
+# Final VV combined Dir
+#dir = 'v25_VV_'+title
 
 print '\n\t ###### Making DC in', dir, cr_dir, sig_dir
 
 #Choose batch mode or sequential
 batch = False
-batch = True
+#batch = True
 
 # choose bdt, CR split
 isSplit = False
-#isSplit = True
+isSplit = True
+
+isVV = False
+#isVV = True
  
 # For Control Region Scale Factors
 isCombine = False
 #isCombine = True
+
+# BDT final fit(split Pt Categories)
+splitRegionFOM = False
+#splitRegionFOM = True
 
 # Old Test
 isFinalFit = False
@@ -121,10 +143,6 @@ isFinalFit = False
 # For BDT final fit(One Category)
 isFOM = False
 #isFOM = True
-
-# BDT final fit(split Pt Categories)
-splitRegionFOM = False
-#splitRegionFOM = True
 
 # For Diboson Analysis
 isDiboson = False
@@ -166,11 +184,10 @@ if batch:
         os.system('./runAll.sh '+datacard+' 13TeV dc')           
             
     # define the multiprocessing object
-    p = multiprocessing.Pool() 
-    results = p.imap(osSystem, datacard_list)
-    p.close()
-    p.join()
-
+    #p = multiprocessing.Pool()
+    #results = p.imap(osSystem, datacard_list)
+    #p.close()
+    #p.join()
     
     # Move all datacards to unique directory
     #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
@@ -178,35 +195,104 @@ if batch:
 
     #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
     #    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+    
+    if not isVV:
 
-    if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
-        os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        # define the multiprocessing object
+        p = multiprocessing.Pool() 
+        results = p.imap(osSystem, datacard_list)
+        p.close()
+        p.join()
+    
 
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
-        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
 
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
-        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
         
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        
+        print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+
+        # signal DCs
+        os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
+    
+
+        # background
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+    
+        # move both to one dir
+        #os.system('mv ../limits/*.root ../limits/*.txt ../limits/'+dir+'/')
+        os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+        os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+    
+    if isVV:
+        
+        print '\n###### Making Diboson Cards ######'
+        
+        os.system('rm ../limits/*.txt ../limits/*.root')
+        
+        dir     = 'v25_VV_'+title
+        sig_dir = 'v25_SR_VV_'+title
+        cr_dir  = 'v25_CR_VV_'+title
+        
+        # define the multiprocessing object
+        p = multiprocessing.Pool()
+        results = p.imap(osSystem, datacard_list)
+        p.close()
+        p.join()
+
+        # p = multiprocessing.Pool()
+        # results = p.imap(osSystem, vv_bdt_list)
+        # p.close()
+        # p.join()
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+        os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
+
+        # p1 = multiprocessing.Pool()
+        # results = p1.imap(osSystem, vv_ttbar_list)
+        # p1.close()
+        # p1.join()
+        
+        # p1 = multiprocessing.Pool()
+        # results = p1.imap(osSystem, vv_zhf_list)
+        # p1.close()
+        # p1.join()
+        
+        # p1 = multiprocessing.Pool()
+        # results = p1.imap(osSystem, vv_zlf_list)
+        # p1.close()
+        # p1.join()
+
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+             
+        print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+
+
+        # background
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+
+        # move both to one dir
+        os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+        os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+
         
-    print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
-
-    # signal DCs
-    os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
-    
-
-    # background
-    os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
-    os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
-    os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
-    
-    # move both to one dir
-    #os.system('mv ../limits/*.root ../limits/*.txt ../limits/'+dir+'/')
-    os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
-    os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
-    
 
 if isSplit:
     
@@ -217,67 +303,109 @@ if isSplit:
         print '\n------> Making DataCard for ', datacard,'...'
 
         os.system('./runAll.sh '+datacard+' 13TeV dc')           
-            
-    p = multiprocessing.Pool() 
-    results = p.imap(osSystem, bdt_list)
-    p.close()
-    p.join()
 
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
-        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
-    os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
-    
-    
-    p1 = multiprocessing.Pool()
-    results = p1.imap(osSystem, ttbar_list)
-    p1.close()
-    p1.join()
 
-    p1 = multiprocessing.Pool()
-    results = p1.imap(osSystem, zhf_list)
-    p1.close()
-    p1.join()
+    if not isVV:
+        
+        p = multiprocessing.Pool() 
+        results = p.imap(osSystem, bdt_list)
+        p.close()
+        p.join()
+        
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+        os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, ttbar_list)
+        p1.close()
+        p1.join()
 
-    p1 = multiprocessing.Pool()
-    results = p1.imap(osSystem, zlf_list)
-    p1.close()
-    p1.join()
-    
-    #p1 = multiprocessing.Pool()
-    #results = p1.imap(osSystem, control_list)
-    #p1.close()
-    #p1.join()
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, zhf_list)
+        p1.close()
+        p1.join()
 
-    #p1 = multiprocessing.Pool()
-    #results = p1.imap(osSystem, mu_control_list)
-    #p1.close()
-    #p1.join()
-    
-    #p1 = multiprocessing.Pool()
-    #results = p1.imap(osSystem, ele_control_list)
-    #p1.close()
-    #p1.join()
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, zlf_list)
+        p1.close()
+        p1.join()
     
 
-    if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
-        os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
 
-    if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
-        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
         
         
-    print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+        print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
 
 
-    # background
-    os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
-    os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
-    os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+        # background
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+        
+        # move both to one dir
+        os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+        os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+    
+    
+    if isVV:
 
-    # move both to one dir
-    os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
-    os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+        print '\n\t###### Making Diboson Cards ######'
+
+        os.system('rm ../limits/*.txt ../limits/*.root')
+        
+        dir     = 'v25_VV_'+title
+        sig_dir = 'v25_VV_SR_'+title
+        cr_dir  = 'v25_VV_CR_'+title
+        
+        p = multiprocessing.Pool()
+        results = p.imap(osSystem, vv_bdt_list)
+        p.close()
+        p.join()
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+        os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
+
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, vv_ttbar_list)
+        p1.close()
+        p1.join()
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, vv_zhf_list)
+        p1.close()
+        p1.join()
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, vv_zlf_list)
+        p1.close()
+        p1.join()
+
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+             
+        print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+
+
+         # background
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+
+         # move both to one dir
+        os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+        os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+        
 
 
 
@@ -700,273 +828,32 @@ if splitRegionFOM:
     os.system(t2)
 
     print '\n==== Post Fit ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
     
     print '\n==== Post Fit NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
 
     print '\t\n\n========= Signal Strength Uncertainty ========='
 
     #Uncertainty on Mu
     
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
+    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
     
+    #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
+
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
     
-    #t3 = "combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --expectSignal=1"
+    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=0 vhbb_Zll.txt"
 
-    #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --saveNorm --saveShapes --minimizerTolerance=100.0 -v 3 vhbb_Zll.txt"
+    t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 vhbb_Zll.txt"
     
     #t3 = 'combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --saveShapes --saveWithUncertainties -v 3 --expectSignal=0'
     
-    #t3 = 'combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --stepSize=0.05 --rMin=-5 --rMax=5 --robustFit=1 --minimizerTolerance=100.0 --saveNorm --saveShapes --plots -v 3 vhbb_Zll.txt'
+    #os.system(t3)
     
-    os.system(t3)
-    
-
-
 
 
 #############################################################################################################
-
-
-    
-if semiLepton:
-
-    
-    os.chdir('../limits/'+dir)
-
-    
-    print '\t\n\n ================ Combined NO SemiLepton and Control Region Datacard =================='
-    print '==================================================================================='
-
-    t_ele = 'combineCards.py Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt Zee_SIG=vhbb_DC_TH_BDT_Zee_NOsemiLepton.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_NOsemiLepton.txt'
-    os.system(t_ele)
-    
-    t_mu = 'combineCards.py Zmm_TT=vhbb_DC_TH_ttbar_Zuu.txt Zmm_Zhf=vhbb_DC_TH_Zhf_Zuu.txt Zmm_Zlf=vhbb_DC_TH_Zlf_Zuu.txt Zmm_SIG=vhbb_DC_TH_BDT_Zuu_NOsemiLepton.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_NOsemiLepton.txt'
-    os.system(t_mu)
-    
-    temp_string = 'combineCards.py vhbb_DC_TH_Electron_ControlRegion_Combined_NOsemiLepton.txt vhbb_DC_TH_Muon_ControlRegion_Combined_NOsemiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt'
-
-    os.system(temp_string)
-     
-    print '\t\n\n========= CLS Limit ========='
-    t1 = "combine -M Asymptotic -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\n==== NO SYS ===='
-    t1 = "combine -M Asymptotic -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\t\n\n========= Significance ========='
-    # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\n==== NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\t\n\n========= Signal Strength Uncertainty ========='
-    #Uncertainty on Mu
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt | grep 'Best fit r' | awk '{print $5}'"
-    t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt"
-    os.system(t3)
-
-
-    
-    
-    print '\t\n\n ================ Combined 1 SemiLepton and Control Region Datacard =================='
-    print '==================================================================================='
-
-
-    t_ele = 'combineCards.py Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt Zee_SIG=vhbb_DC_TH_BDT_Zee_1semiLepton.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_1semiLepton.txt'
-    os.system(t_ele)
-
-    t_mu = 'combineCards.py Zmm_TT=vhbb_DC_TH_ttbar_Zuu.txt Zmm_Zhf=vhbb_DC_TH_Zhf_Zuu.txt Zmm_Zlf=vhbb_DC_TH_Zlf_Zuu.txt Zmm_SIG=vhbb_DC_TH_BDT_Zuu_1semiLepton.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_1semiLepton.txt'
-    os.system(t_mu)
-
-    temp_string = 'combineCards.py vhbb_DC_TH_Electron_ControlRegion_Combined_1semiLepton.txt vhbb_DC_TH_Muon_ControlRegion_Combined_1semiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt'
-
-    
-    os.system(temp_string)
-     
-    print '\t\n\n========= CLS Limit ========='
-    t1 = "combine -M Asymptotic -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\n==== NO SYS ===='
-    t1 = "combine -M Asymptotic -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\t\n\n========= Significance ========='
-    # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\n==== NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\t\n\n========= Signal Strength Uncertainty ========='
-    #Uncertainty on Mu
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt | grep 'Best fit r' | awk '{print $5}'"
-    t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt"
-    os.system(t3)
-
-
-    
-
-
-    print '\t\n\n ================ Combined Both SemiLepton and Control Region Datacard =================='
-    print '==================================================================================='
-
- 
-    t_ele = 'combineCards.py Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt Zee_SIG=vhbb_DC_TH_BDT_Zee_semiLepton.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_semiLepton.txt'
-    os.system(t_ele)
-
-    t_mu = 'combineCards.py Zmm_TT=vhbb_DC_TH_ttbar_Zuu.txt Zmm_Zhf=vhbb_DC_TH_Zhf_Zuu.txt Zmm_Zlf=vhbb_DC_TH_Zlf_Zuu.txt Zmm_SIG=vhbb_DC_TH_BDT_Zuu_semiLepton.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_semiLepton.txt'
-    os.system(t_mu)
-
-    temp_string = 'combineCards.py vhbb_DC_TH_Electron_ControlRegion_Combined_semiLepton.txt vhbb_DC_TH_Muon_ControlRegion_Combined_semiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt'
-
-    
-    os.system(temp_string)
-     
-    print '\t\n\n========= CLS Limit ========='
-    t1 = "combine -M Asymptotic -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\n==== NO SYS ===='
-    t1 = "combine -M Asymptotic -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\t\n\n========= Significance ========='
-    # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\n==== NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\t\n\n========= Signal Strength Uncertainty ========='
-    #Uncertainty on Mu
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt | grep 'Best fit r' | awk '{print $5}'"
-    t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt"
-    os.system(t3)
-
-
-
-
-
-    print '\t\n\n ================ Combined SemiLepton and NO SemiLpton and Control Region Datacard =================='
-    print '==================================================================================='
-
-    #t_ele = 'combineCards.py Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt Zee_SIG=vhbb_DC_TH_BDT_Zee_semiLepton.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_semiLepton.txt'
-    
-    temp_string = 'combineCards.py vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt'
-    
-    #temp_string = 'combineCards.py Zmm_TT=vhbb_DC_TH_ttbar_Zuu.txt Zmm_Zhf=vhbb_DC_TH_Zhf_Zuu.txt Zmm_Zlf=vhbb_DC_TH_Zlf_Zuu.txt vhbb_DC_TH_BDT_Zuu_semiLepton.txt Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt vhbb_DC_TH_BDT_Zee_semiLepton.txt vhbb_DC_TH_BDT_Zee_NOsemiLepton.txt vhbb_DC_TH_BDT_Zuu_NOsemiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt'
-    
-    os.system(temp_string)
-     
-    print '\t\n\n========= CLS Limit ========='
-    t1 = "combine -M Asymptotic -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\n==== NO SYS ===='
-    t1 = "combine -M Asymptotic -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\t\n\n========= Significance ========='
-    # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\n==== NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\t\n\n========= Signal Strength Uncertainty ========='
-    #Uncertainty on Mu
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep 'Best fit r' | awk '{print $5}'"
-    t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt"
-    os.system(t3)
-
-
-    
-    print '\t\n\n ================ Combined 1 SemiLepton and NO SemiLpton and Control Region Datacard =================='
-    print '==================================================================================='
-
-     
-    temp_string = 'combineCards.py vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt'
-    
-    #temp_string = 'combineCards.py Zmm_TT=vhbb_DC_TH_ttbar_Zuu.txt Zmm_Zhf=vhbb_DC_TH_Zhf_Zuu.txt Zmm_Zlf=vhbb_DC_TH_Zlf_Zuu.txt vhbb_DC_TH_BDT_Zuu_1semiLepton.txt Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt vhbb_DC_TH_BDT_Zee_1semiLepton.txt vhbb_DC_TH_BDT_Zee_NOsemiLepton.txt vhbb_DC_TH_BDT_Zuu_NOsemiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt'
-    
-    os.system(temp_string)
-     
-    print '\t\n\n========= CLS Limit ========='
-    t1 = "combine -M Asymptotic -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\n==== NO SYS ===='
-    t1 = "combine -M Asymptotic -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\t\n\n========= Significance ========='
-    # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\n==== NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\t\n\n========= Signal Strength Uncertainty ========='
-    #Uncertainty on Mu
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep 'Best fit r' | awk '{print $5}'"
-    t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLeptonandNO.txt"
-    os.system(t3)
-    
-
-
-
-    print '\t\n\n ================ Combined SemiLepton and NO SemiLpton and 1 SemiLpton Control Region Datacard =================='
-    print '==================================================================================='
-
-    temp_string = 'combineCards.py vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLepton.txt vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_NOsemiLepton.txt vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_1semiLepton.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt'
-    
-    
-    #temp_string = 'combineCards.py Zmm_TT=vhbb_DC_TH_ttbar_Zuu.txt Zmm_Zhf=vhbb_DC_TH_Zhf_Zuu.txt Zmm_Zlf=vhbb_DC_TH_Zlf_Zuu.txt vhbb_DC_TH_BDT_Zuu_semiLepton.txt Zee_TT=vhbb_DC_TH_ttbar_Zee.txt Zee_Zhf=vhbb_DC_TH_Zhf_Zee.txt Zee_Zlf=vhbb_DC_TH_Zlf_Zee.txt vhbb_DC_TH_BDT_Zee_semiLepton.txt vhbb_DC_TH_BDT_Zee_NOsemiLepton.txt vhbb_DC_TH_BDT_Zuu_NOsemiLepton.txt vhbb_DC_TH_BDT_Zee_1semiLepton.txt vhbb_DC_TH_BDT_Zuu_1semiLepton.txt  > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt'
-    
-    os.system(temp_string)
-     
-    print '\t\n\n========= CLS Limit ========='
-    t1 = "combine -M Asymptotic -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\n==== NO SYS ===='
-    t1 = "combine -M Asymptotic -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
-    os.system(t1)
-    
-    print '\t\n\n========= Significance ========='
-    # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\n==== NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
-
-    print '\t\n\n========= Signal Strength Uncertainty ========='
-    #Uncertainty on Mu
-    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNO.txt | grep 'Best fit r' | awk '{print $5}'"
-    t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_semiLeptonandNOand1.txt"
-    os.system(t3)
-
-
-
 
