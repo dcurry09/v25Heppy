@@ -86,7 +86,7 @@ DY_inclusive: 'Zudsg','Zcc','Z1b','Z2b'
 DY_inclusive_nlo: 'Zudsg_nlo','Zcc_nlo','Z1b_nlo','Z2b_nlo'
 
 #Diboson: 'ZZb','WZb', 'ZZlight', 'WZlight'
-Diboson: 'WZb','WZlight','ZZb_2L2Q','ZZlight_2L2Q', 'ZZb_2L2Q_ext1','ZZlight_2L2Q_ext1', 'ZZb_2L2Q_ext2','ZZlight_2L2Q_ext2', 'ZZb_2L2Q_ext3','ZZlight_2L2Q_ext3'
+Diboson: 'WZb','WZlight', 'ZZb_2L2Q_ext1','ZZlight_2L2Q_ext1', 'ZZb_2L2Q_ext2','ZZlight_2L2Q_ext2', 'ZZb_2L2Q_ext3','ZZlight_2L2Q_ext3'
 
 Top: 'ttbar' 
 
@@ -222,7 +222,8 @@ PUWeight: puWeight
 
 # =================
 
-weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_ewkWeight[0]*DY_specialWeight[0]*NLO_Weight[0]*Signal_ewkWeight[0]
+weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>
+#*DY_ewkWeight[0]*DY_specialWeight[0]*NLO_Weight[0]*Signal_ewkWeight[0]
 #weightF: <!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>
 
 weightF_bdt: sign(genWeight)*<!Weights|PUWeight!>*<!Weights|btagWeight!>*<!Weights|weightF_SF!>*DY_specialWeight[0]*DY_ewkWeight[0]*NLO_Weight[0]*Signal_ewkWeight[0]

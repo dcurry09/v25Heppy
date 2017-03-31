@@ -100,10 +100,7 @@ class HistoMaker:
             else:
                 group=self.GroupDict[job.name]
                 
-            # Temp hack to make datacrads with MC
-            #if job.name == 'Zee' or job.name == 'Zuu' or job.name == 'Zll':
-            #    job.type = 'DATA'
-                
+                    
             treeVar = options['var']
             name    = options['name']
             #print 'Options:', options
@@ -142,12 +139,13 @@ class HistoMaker:
             
             ##############################
             # Add any special weights here
-            # if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
-            #     weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
-            #     weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
-            #     weightF = weightF+'*('+job.specialweight+')'
-            #if '2L2Q' in job.name:
-            #    weightF = weightF+'*('+job.specialweight+')'
+            if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
+                weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
+                weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
+                weightF = weightF+'*('+job.specialweight+')'
+            if '2L2Q' in job.name:
+                print '\n\t----> Adding ZZ_2L2Q special weights...'
+                weightF = weightF+'*('+job.specialweight+')'
             #if 'ttbar' in job.name:
             #    weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
             #if 'ZH' in job.name and not 'ggZH' in job.name:
@@ -160,16 +158,16 @@ class HistoMaker:
                 print '\n\t !!! Adding RateParam !!!'
                               
                 if 'V_new_pt > 50' in treeCut:
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.0)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(1.14)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(0.89)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(0.921)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.86)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.0)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.0037)'
                     
                 if 'V_new_pt > 150' in treeCut:
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.20)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(1.08)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.23)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(0.95)'
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.0037)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.985)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.27)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(0.959)'
 
                         
             print '\n-----> Making histograms for variable:', treeVar
@@ -254,10 +252,10 @@ class HistoMaker:
                 #        print '!!!!BLINDING!!!'
                 #        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s & V_pt < 50.' %treeCut, "goff,e")
 
-                elif 'LHE' in treeVar or 'HT' in treeVar:
-                    print treeVar
-
-
+                elif 'LHE' in treeVar or 'HT' in treeVar or 'lhe' in treeVar:
+                    CuttedTree.Draw('%s>>%s(%s,%s,%s)' %('Jet_pt[hJCidx[1]]',job.name,nBins,xMin,xMax), '%s' %treeCut+' && Jet_pt[hJCidx[1]] < 0.0', "goff,e")
+                    
+                    
                 else:
                     print '!!!!NOT BLINDING!!!'
                     CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")

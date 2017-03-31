@@ -37,7 +37,7 @@ if opts.task == "":
     sys.exit(123)
 
 
-en = opts.tag
+en = '13TeV'
 
 #create the list with the samples to run over
 samplesList=opts.samples.split(",")
@@ -45,6 +45,7 @@ timestamp = time.asctime().replace(' ','_').replace(':','-')
 
 # the list of the config is taken from the path config
 pathconfig = BetterConfigParser()
+#pathconfig.read(opts.config)
 pathconfig.read('%sconfig/paths'%(en))
 _configs = pathconfig.get('Configuration','List').split(" ")
 configs = [ '%sconfig/'%(en) + c for c in _configs  ]
@@ -147,7 +148,8 @@ def submit(job,repDict):
         repDict['name'] = '"%s"' %logo[nJob].strip()
     else:
         repDict['name'] = '%(job)s_%(en)s%(task)s' %repDict
-    command = 'qsub -V -cwd -q %(queue)s -l h_vmem=6G -N %(name)s -o %(logpath)s/%(timestamp)s_%(job)s_%(en)s_%(task)s.out -e %(logpath)s/%(timestamp)s_%(job)s_%(en)s_%(task)s.err runAll.sh %(job)s %(en)s ' %(repDict) + opts.task + ' ' + repDict['job_id'] + ' ' + repDict['additional']
+    #command = 'bsub -V -cwd -q %(queue)s -l h_vmem=6G -N %(name)s -o %(logpath)s/%(timestamp)s_%(job)s_%(en)s_%(task)s.out -e %(logpath)s/%(timestamp)s_%(job)s_%(en)s_%(task)s.err runAll.sh %(job)s %(en)s ' %(repDict) + opts.task + ' ' + repDict['job_id'] + ' ' + repDict['additional']
+        command  = 'bsub -R "pool>30000" -J %(name)s < runAll.sh %(job)s %(en)s ' %(repDict) + opts.task + ' ' + repDict['job_id'] + ' ' + repDict['additional']
     print command
     dump_config(configs,"%(logpath)s/%(timestamp)s_%(job)s_%(en)s_%(task)s.config" %(repDict))
     subprocess.call([command], shell=True)
@@ -166,6 +168,8 @@ if opts.task == 'dc':
 
 if opts.task == 'plot':
     Plot_vars= (config.get('Plot_general','List')).split(',')
+    print '\n\t========== Plotting Regions ==========='
+    print Plot_vars
 
 if not opts.task == 'prep':
     path = config.get("Directories","samplepath")
@@ -279,6 +283,6 @@ elif opts.task == 'mva_opt':
                 print setting
 
 
-os.system('qstat')
-if (opts.philipp_love_progress_bars):
-    os.system('./qstat.py') 
+#os.system('qstat')
+#if (opts.philipp_love_progress_bars):
+#    os.system('./qstat.py') 

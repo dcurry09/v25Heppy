@@ -194,7 +194,7 @@ def drawFromDC():
 
         if 'Zee' in opts.bin: lep_channel = 'Zee'
         elif 'Zuu' in opts.bin: lep_channel = 'Zmm'
-        
+
         region_dic = {'BDT':'SIG',' Zlf':'Zlf','Zhf':'Zhf','TT':'TT', '13TeV':'SIG'}
         region_name =  [region_dic[key] for key in region_dic if (key in opts.bin)]
         
@@ -204,7 +204,7 @@ def drawFromDC():
             if 'Zlf' in opts.bin: region_name = 'Zlf'
             if 'Zhf' in opts.bin: region_name = 'Zhf'
             if 'ttbar' in opts.bin: region_name = 'TT'
-
+        
         pt_region_dic = {'lowpt':'low','highpt':'high', 'LowPt':'low', 'HighPt':'high'}
         pt_region_name =  [pt_region_dic[key] for key in pt_region_dic if (key in opts.bin)]
         #pt_region_name = pt_region_name[0]
@@ -222,7 +222,18 @@ def drawFromDC():
     if 'Znn' in opts.bin:
         setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'ST', 'WH', 'Wj0b', 'Wj1b', 'Wj2b']
         signalList = ['ZH']
-
+    
+        lep_channel = 'Znn'
+        pt_region_name = 'HighPt'
+        if opts.var == 'BDT': 
+            region_name = ''
+            region_type = 'SR' 
+        
+        print 'region_name is', region_name
+        print 'region_type is', region_type
+        print 'pt region_name is', pt_region_name
+        print 'Lepton channel:', lep_channel
+        
 
     if dataname == 'Zmm' or dataname == 'Zee': 
         try:
@@ -304,13 +315,17 @@ def drawFromDC():
 
         print 'dirinfo:', dirinfo
 
-
-        if len(dirinfo) == 5:
+        if 'Znn' in opts.bin and 'BDT' in opts.var:
+            print 'lepton channel, pt_region_name, region_type:', dirinfo[0], dirinfo[1], dirinfo[2]
+            if not (dirinfo[0] == lep_channel and dirinfo[1] == pt_region_name  and dirinfo[2] == region_type):
+                continue
+            
+        elif len(dirinfo) == 5:
             print 'channel, lepton channel, region_name, pt_region_name:', dirinfo[0], dirinfo[1], dirinfo[2], dirinfo[3], dirinfo[4]  
             if not (dirinfo[0] == channel and dirinfo[2] == lep_channel and dirinfo[3] == region_name and dirinfo[4] == pt_region_name):
                 continue
 
-        if len(dirinfo)== 4:
+        elif len(dirinfo)== 4:
             print 'channel, lepton channel, region_name, pt_region_name:', dirinfo[0], dirinfo[1], dirinfo[2], dirinfo[3]
             if not (dirinfo[1] == lep_channel and dirinfo[2] == region_name and dirinfo[3] == pt_region_name):
                 continue
