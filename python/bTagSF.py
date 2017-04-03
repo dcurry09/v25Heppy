@@ -179,10 +179,10 @@ class Jet :
 ################################################################
 
 # sample prefix
-prefix = 'v25_'
-#prefix = ''
+#prefix = 'v25_'
+prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
@@ -205,13 +205,16 @@ ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 prep_list = [
     #'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
     #'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
-    'prep_ttbar_ext1', 'prep_ttbar_ext2',
-    'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
-    'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
-    'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
-    'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
-    'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
-    'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
+    # 'prep_ttbar_ext1', 'prep_ttbar_ext2',
+    # 'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
+    # 'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
+    # 'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
+    # 'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
+    # 'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
+    # 'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
+    
+    'prep_DY_inclusive_ext1', 'prep_DY_inclusive_ext2'
+    
     ]
 
 
@@ -219,8 +222,8 @@ temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
 
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
-file_list = temp_list
-
+#file_list = temp_list
+file_list = prep_list
 
 
 #for file in file_list:

@@ -341,7 +341,7 @@ treeCut     : bdt_high_Zpt
 # For opt
 [gg_plus_trees100]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=100:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=100:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -349,7 +349,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees150]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=150:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=150:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -358,7 +358,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees200]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -367,7 +367,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees250]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=250:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=250:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -376,7 +376,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees300]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=300:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=300:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -385,7 +385,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees350]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=350:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=350:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -394,7 +394,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees400]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -402,7 +402,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees450]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=450:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=450:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -410,7 +410,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees500]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=500:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=500:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -418,7 +418,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees550]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=550:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=550:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -426,7 +426,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees600]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=600:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=600:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -434,7 +434,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees700]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=700:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=700:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -442,7 +442,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees800]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -450,7 +450,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees900]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=900:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=900:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -458,7 +458,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_trees1000]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=1000:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings: !H:!V:NTrees=1000:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -467,7 +467,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt0.1]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=0.1
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.1
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -475,7 +475,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt0.5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=0.5
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.5
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -483,7 +483,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt1]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=1
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=1
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -491,7 +491,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt2]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=2
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=2
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -499,7 +499,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt3]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=3
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=3
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -507,7 +507,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt4]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=4
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=4
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -515,7 +515,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=5
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=5
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -523,7 +523,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt10]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=10
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=10
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -531,7 +531,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt15]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=15
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=15
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -539,15 +539,17 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt20]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=20
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=20
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
 treeCut     : <!MVALists|opt_tree_cut!>
 
+####################################################3
+
 [gg_plus_depth1]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=1:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=20
+MVAsettings: !H:!V:NTrees=400:MaxDepth=1:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -555,7 +557,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth2]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=400:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -563,7 +565,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth3]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -571,7 +573,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth4]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -579,32 +581,17 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=400:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
 treeCut     : <!MVALists|opt_tree_cut!>
 
-[gg_plus_depth6]
-MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=6:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
-signals     : <!MVAGeneral|signals!>
-backgrounds : <!MVAGeneral|backgrounds!>
-treeVarSet  : treeVars
-treeCut     : <!MVALists|opt_tree_cut!>
-
-[gg_plus_depth7]
-MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=200:MaxDepth=7:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
-signals     : <!MVAGeneral|signals!>
-backgrounds : <!MVAGeneral|backgrounds!>
-treeVarSet  : treeVars
-treeCut     : <!MVALists|opt_tree_cut!>
-
+########################################################
 
 [gg_plus_nCuts5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=5:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=5
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -612,7 +599,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts10]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=10:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=10
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -620,7 +607,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts25]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -628,7 +615,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts50]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=50:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=50
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -636,7 +623,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts100]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=100:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=100
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -644,7 +631,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts250]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=250:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=250
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -652,7 +639,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts500]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=500:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=500
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -660,7 +647,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts1000]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=200:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=1000:MinNodeSize=2
+MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=1000
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars

@@ -62,8 +62,11 @@ max1AddJet: Sum$(aJet_pt > 20 & abs(aJet_eta) < 2.4) < 2.
 pullAngle: deltaPullAngle < 10. & deltaPullAngle2 < 10.
 
 #### V pt cuts ####
-Vpt_low_window: <!ZHbb|V_pt!>_pt >= 50. & <!ZHbb|V_pt!>_pt < 100.
-Vpt_high_window: <!ZHbb|V_pt!>_pt >= 100.
+#Vpt_low_window: <!ZHbb|V_pt!>_pt >= 50 & <!ZHbb|V_pt!>_pt < 100
+#Vpt_high_window: <!ZHbb|V_pt!>_pt >= 100
+
+Vpt_low_window: <!ZHbb|V_pt!>_pt >= 50 & <!ZHbb|V_pt!>_pt < 150
+Vpt_high_window: <!ZHbb|V_pt!>_pt >= 150
 
 Vpt_120: <!ZHbb|V_pt!>_pt > 120.
 Vpt_150: <!ZHbb|V_pt!>_pt > 150.
@@ -142,13 +145,12 @@ jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_ind
 lepton_Iso_uu: <!ZHbb|vLeptons!>_relIso04[0] < 0.25 & <!ZHbb|vLeptons!>_relIso04[1] < 0.25
 lepton_Iso_ee: <!ZHbb|vLeptons!>_relIso03[0] < 0.15 & <!ZHbb|vLeptons!>_relIso03[1] < 0.15
 
+lepton_endcap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57 & abs(<!ZHbb|vLeptons!>_eta[1]) >= 1.57)
+lepton_barrel: (abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44 & abs(<!ZHbb|vLeptons!>_eta[1]) <= 1.44)
+
 lepton_eta_gap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57 || abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44) & (abs(<!ZHbb|vLeptons!>_eta[1])>=1.57 || abs(<!ZHbb|vLeptons!>_eta[1])<=1.44) 
 #& <!ZHbb|lepton_endcap!>
 #& <!ZHbb|lepton_barrel!>
-
-lepton_endcap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57 & abs(<!ZHbb|vLeptons!>_eta[1]) >= 1.57)
-
-lepton_barrel: (abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44 & abs(<!ZHbb|vLeptons!>_eta[1]) <= 1.44)
 
 lepton_preselection: (((<!ZHbb|vtype!>==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!>) || ((<!ZHbb|vtype!>==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>)) & <!ZHbb|vLeptons!>_pt[0] > 20 & <!ZHbb|vLeptons!>_pt[1] > 20 & <!ZHbb|lepton_eta_gap!>
  

@@ -221,7 +221,7 @@ theTreeCopier = TreeCopierWithCorrectionFromFile()
 # sample prefix
 prefix = 'v25_'
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out_large/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 
 # List of files to add btag weights to
@@ -245,8 +245,7 @@ prep_list = [
     # 'prep_Zee_F_ext1',
     # 'prep_Zee_G_ext1', 'prep_Zee_G_ext2',
     #'prep_Zee_H_ext1', 
-    'prep_Zee_H_ext2', 'prep_Zee_H_ext3'
-
+    #'prep_Zee_H_ext2', 'prep_Zee_H_ext3'
     
     # 'prep_ttbar_ext1', 'prep_ttbar_ext2',
     # 'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
@@ -260,6 +259,9 @@ prep_list = [
 
     #'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 'prep_DY_2J_NewExt4', 
     #'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8'
+    
+    'prep_DY_inclusive_ext1', 'prep_DY_inclusive_ext2'
+
     ]
 
 
@@ -273,7 +275,7 @@ DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650'
 
 DY_parton_list = ['DY0J', 'DY1J']
 
-temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
+temp_list = ['DY_inclusive']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
 #file_list = temp_list

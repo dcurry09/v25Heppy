@@ -430,8 +430,8 @@ for job in info:
     #tree.SetBranchStatus('HCSV_reg_mass',0)
     #tree.SetBranchStatus('HCSV_reg_pt',0)
 
-    # if job.type != 'DATA':
-    #     # For new Vtype Zero out the old Vtype and recreat
+    #if job.type != 'DATA':
+    #For new Vtype Zero out the old Vtype and recreat
     #     tree.SetBranchStatus('Vtype',0)
     # 	tree.SetBranchStatus('V_pt',0)
     # 	tree.SetBranchStatus('V_mass',0)
@@ -448,40 +448,40 @@ for job in info:
     newtree = tree.CloneTree(0)
 
     
-    # if job.type != 'DATA':
-    #     Vtype = array('f',[0]*1)
-    # 	newtree.Branch('Vtype', Vtype, 'Vtype/F')
+    # if 'DY_inclusive' in job.name:
+    #     Vtype_new = array('f',[0]*1)
+    # 	newtree.Branch('Vtype_new', Vtype_new, 'Vtype_new/F')
     
-    # 	V_pt = array('f',[0]*1)
-    # 	newtree.Branch('V_pt', V_pt, 'V_pt/F')
+    # 	V_new_pt = array('f',[0]*1)
+    # 	newtree.Branch('V_new_pt', V_pt, 'V_new_pt/F')
     
-    # 	V_eta = array('f',[0]*1)
-    # 	newtree.Branch('V_eta', V_eta, 'V_eta/F')
+    # 	V_new_eta = array('f',[0]*1)
+    # 	newtree.Branch('V_new_eta', V_new_eta, 'V_new_eta/F')
 	
-    # 	V_phi = array('f',[0]*1)
-    # 	newtree.Branch('V_phi', V_phi, 'V_phi/F')
+    # 	V_new_phi = array('f',[0]*1)
+    # 	newtree.Branch('V_new_phi', V_new_phi, 'V_new_phi/F')
     
-    # 	V_mass = array('f',[0]*1)
-    # 	newtree.Branch('V_mass', V_mass, 'V_mass/F')
+    # 	V_new_mass = array('f',[0]*1)
+    # 	newtree.Branch('V_new_mass', V_new_mass, 'V_new_mass/F')
     
-    # 	vLeptons_pt = array('f',[0]*2)
-    #     newtree.Branch('vLeptons_pt', vLeptons_pt, 'vLeptons_pt[2]/F')
+    # 	vLeptons_new_pt = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_new_pt', vLeptons_new_pt, 'vLeptons_new_pt[2]/F')
 
-    # 	vLeptons_eta = array('f',[0]*2)
-    #     newtree.Branch('vLeptons_eta', vLeptons_eta, 'vLeptons_eta[2]/F')
+    # 	vLeptons_new_eta = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_new_eta', vLeptons_new_eta, 'vLeptons_new_eta[2]/F')
 
-    # 	vLeptons_phi = array('f',[0]*2)
-    #     newtree.Branch('vLeptons_phi', vLeptons_phi, 'vLeptons_phi[2]/F')
+    # 	vLeptons_new_phi = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_new_phi', vLeptons_new_phi, 'vLeptons_new_phi[2]/F')
 
-    # 	vLeptons_relIso04 = array('f',[0]*2)
-    #     newtree.Branch('vLeptons_relIso04', vLeptons_relIso04, 'vLeptons_relIso04[2]/F')
+    # 	vLeptons_new_relIso04 = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_new_relIso04', vLeptons_new_relIso04, 'vLeptons_new_relIso04[2]/F')
 	
-    # 	vLeptons_relIso03 = array('f',[0]*2)
-    #     newtree.Branch('vLeptons_relIso03', vLeptons_relIso03, 'vLeptons_relIso03[2]/F')
+    # 	vLeptons_new_relIso03 = array('f',[0]*2)
+    #     newtree.Branch('vLeptons_new_relIso03', vLeptons_new_relIso03, 'vLeptons_new_relIso03[2]/F')
 
     #regWeight = config.get("TrainRegression","regWeight")
     #regDict = eval(config.get("TrainRegression","regDict"))
-    #regVars = eval(config.get("TrainRegression","regVars"))
+    #regV_newars = eval(config.get("TrainRegression","regVars"))
 
     
     # hJ0 = ROOT.TLorentzVector()
@@ -730,8 +730,8 @@ for job in info:
 	    
 
 	    # Set the jet branches
-	    hJetCMVA_pt_0[0] = tree.Jet_pt_reg[tree.hJCMVAV2idx[0]]
-	    hJetCMVA_pt_1[0] = tree.Jet_pt_reg[tree.hJCMVAV2idx[1]]
+	    hJetCMVA_pt_0[0] = tree.hJetCMVAV2_pt_reg_0
+	    hJetCMVA_pt_1[0] = tree.hJetCMVAV2_pt_reg_1
 	    
 	    hJetCMVA_btag_0[0] = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[0]]
             hJetCMVA_btag_1[0] = tree.Jet_btagCMVAV2[tree.hJCMVAV2idx[1]]
@@ -917,10 +917,10 @@ for job in info:
 			    
 			    # MVAID
 			    #'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
-
-			    # coare Binning
+			    
+			    # coarse Binning
 			    'myutils/jsons/80x/coarse_bin/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
-
+			    
 			    # trigger
 			    #'myutils/jsons/80x/DiEleLeg1AfterIDISO_out.json' : ['DiEleLeg1AfterIDISO', 'eta_pt_ratio'],
 			    #'myutils/jsons/80x/DiEleLeg2AfterIDISO_out.json' : ['DiEleLeg2AfterIDISO', 'eta_pt_ratio']

@@ -148,10 +148,15 @@ class HistoMaker:
                 weightF = weightF+'*('+job.specialweight+')'
             #if 'ttbar' in job.name:
             #    weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
-            #if 'ZH' in job.name and not 'ggZH' in job.name:
-            #    weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
+            if 'ZH' in job.name and not 'ggZH' in job.name:
+                weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
             
 
+            ### For temp Inclusive testing ###
+            #if 'Zudsg' == job.name or 'Z1b' == job.name or 'Z2b' == job.name:
+            #    print '\n\t----> Adding Inclusive lheHT cut...'
+            #    treeCut = treeCut+' & lheHT < 100'
+                
             # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':
                 

@@ -16,6 +16,7 @@ parser.add_option("-C", "--config", dest="config", default=[], action="append",
 config = BetterConfigParser()
 config.read(opts.config)
 
+print config
 
 
 #---------- yes, this is not in the config yet---------
@@ -43,9 +44,9 @@ channels= ['Zll']
 #path = config.get('Directories','limits')
 #outpath = config.get('Directories','plotpath')
 
-path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/v25_SR_CMVA_LO_3_16/'
+path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_4_3/'
 
 # Make the dir and copy the website ini files
 try:

@@ -373,14 +373,14 @@ min    : -1
 max    : 1
 
 [plotDef:VV_bdt_lowZpt]
-relPath: VV_bdt.VV_bdt_lowZpt
+relPath: VV_bdt_lowZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
 min    : -1
 max    : 1
 
 [plotDef:VV_bdt_highZpt]
-relPath: VV_bdt.VV_bdt_highZpt
+relPath: VV_bdt_highZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
 min    : -1

@@ -786,8 +786,8 @@ if not ignore_stats:
     else:
         
         print "==== Running Statistical uncertainty ===="
-
-        threshold =  0.50 #stat error / sqrt(value). It was 0.5
+        
+        threshold =  0.75 #stat error / sqrt(value). It was 0.5
         
         print "threshold", threshold
 
