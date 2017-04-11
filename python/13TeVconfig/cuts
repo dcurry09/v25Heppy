@@ -139,7 +139,7 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 # Preselections (combination of single cuts)
 # -------------------------------------------
 
-jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4
+jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4.0
 #& <!ZHbb|minCSV_peakCut!>
 
 lepton_Iso_uu: <!ZHbb|vLeptons!>_relIso04[0] < 0.25 & <!ZHbb|vLeptons!>_relIso04[1] < 0.25
@@ -149,8 +149,9 @@ lepton_endcap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57 & abs(<!ZHbb|vLeptons!>_et
 lepton_barrel: (abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44 & abs(<!ZHbb|vLeptons!>_eta[1]) <= 1.44)
 
 lepton_eta_gap: (abs(<!ZHbb|vLeptons!>_eta[0]) >= 1.57 || abs(<!ZHbb|vLeptons!>_eta[0]) <= 1.44) & (abs(<!ZHbb|vLeptons!>_eta[1])>=1.57 || abs(<!ZHbb|vLeptons!>_eta[1])<=1.44) 
-#& <!ZHbb|lepton_endcap!>
-#& <!ZHbb|lepton_barrel!>
+
+
+#lepton_preselection: (((<!ZHbb|vtype!>==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!> & <!ZHbb|lepton_eta_gap!>) || ((<!ZHbb|vtype!>==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>)) & <!ZHbb|vLeptons!>_pt[0] > 20 & <!ZHbb|vLeptons!>_pt[1] > 20
 
 lepton_preselection: (((<!ZHbb|vtype!>==1) & <!ZHbb|lepton_Iso_ee!> & <!ZHbb|trigger_ee!>) || ((<!ZHbb|vtype!>==0) & <!ZHbb|lepton_Iso_uu!> & <!ZHbb|trigger_uu!>)) & <!ZHbb|vLeptons!>_pt[0] > 20 & <!ZHbb|vLeptons!>_pt[1] > 20 & <!ZHbb|lepton_eta_gap!>
  
@@ -184,10 +185,6 @@ addCuts: <!ZHbb|vtype!>==0
 [Cuts]
 
 #Zll: <!ZHbb|preselection!>
-
-
-
-
 
 Vpt_100: <!ZHbb|V_pt!>_pt > 100.
 

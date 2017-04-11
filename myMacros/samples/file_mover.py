@@ -385,20 +385,25 @@ file_names.append('Zee_H_ext4')
 
 # ==== ZH ====
 
-'''
+
 #file_list.append(eos_path3+'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/VHBB_HEPPY_V25_ZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_125104/0000/')
-#file_names.append('ZH125_ext1')
 
-#file_list.append(eos_path3+'ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/VHBB_HEPPY_V25_ZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_125152/0000/')
-#file_names.append('ZH125_ext2')
+# file_list.append('/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/arizzi-VHBB_HEPPY_V25_ZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1-1ef9dd068ca79eddc751521abcbfc1c7/USER')
+# file_names.append('ZH125_ext1')
 
-ZH125_merge_list = ['ZH125_ext1', 'ZH125_ext2']
+# file_list.append('/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/arizzi-VHBB_HEPPY_V25_ZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1-82914adb01aceac311c0d48a9f27ad2b/USER')
+# file_names.append('ZH125_ext2')
 
+# file_list.append('/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/arizzi-VHBB_HEPPY_V25_ggZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1-883961fcd91c0205bda252aaa0c6b0b7/USER')
+# file_names.append('ggZH125_ext1')
 
-file_list.append(eos_path3+'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/VHBB_HEPPY_V25_ggZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1/170128_154839/0000/')
-file_names.append('ggZH125')
+file_list.append('/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/arizzi-VHBB_HEPPY_V25_ggZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1-a4422b154e5656f5a47c5d63e9fe38e9/USER')
+file_names.append('ggZH125_ext2')
 
+#file_list.append('/ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/arizzi-VHBB_HEPPY_V25_ggZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext2-v1-a3d8cea045a6a515d3a0b73330125964/USER')
+#file_names.append('ggZH125_ext3')
 
+'''
 #file_list.append(eos_path+'ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/VHBB_HEPPY_V24_ggZH_HToBB_ZToLL_M125_13TeV_powheg_Py8__spr16MAv2-puspr16_HLT_80r2as_v14_ext1-v1/160909_073813/0000')
 #file_names.append('ggZH125_ext1')
 
@@ -418,8 +423,16 @@ file_names.append('ggZH125')
 
 # ==== Drell-Yan ====
 
+# From CERN
 #file_list.append(eos_path3+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v2/170128_125729/0000/')
 #file_names.append('DY_inclusive')
+
+#From Andrea
+#file_list.append(eos_path+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25b_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext2-v1/170310_161315/0000/')
+#file_names.append('DY_inclusive_ext1')
+
+#file_list.append(eos_path+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25b_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext2-v1/170310_161315/0001/')
+#file_names.append('DY_inclusive_ext2')
 
 #file_list.append(eos_path+'DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V23_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__spr16MAv2-puspr16_80r2as_2016_MAv2_v0_ext1-v1/160717_081716/0001/')
 #file_names.append('DY_inclusive_ext2')
@@ -613,14 +626,15 @@ file_names.append('ST_tW_top')
 # initiate voms
 #os.system('voms-proxy-init --voms cms')
 
-isLxplus = False
-#isLxplus = True
+#isLxplus = False
+isLxplus = True
 
 isUftrig = False
-isUftrig = True
+#isUftrig = True
 
 eos2_list = ['ZZ', 'WZ', 'ST_s', 'ST_t_ext1', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top', 'ZZ_2L2Q_ext1']
-eos3_list = ['ZH125_ext1', 'ZH125_ext2', 'ggZH125', 'DY_inclusive', 'DY_100to200_ext1','DY_100to200_ext2', 'DY_200to400_ext1','DY_200to400_ext2', 'DY_400to600_ext1','DY_400to600_ext2', 'DY_600to800_ext1', 'DY_800to1200_ext1', 'DY_1200to2500', 'DY_2500toInf', 'ttbar_ext1', 'ttbar_ext2' ,'DY_Bjets', 'DY_BgenFilter', 'DY_70to100',
+
+eos3_list = ['ZH125_ext1', 'ZH125_ext2', 'ggZH125_ext1','ggZH125_ext2','ggZH125_ext3', 'DY_inclusive', 'DY_100to200_ext1','DY_100to200_ext2', 'DY_200to400_ext1','DY_200to400_ext2', 'DY_400to600_ext1','DY_400to600_ext2', 'DY_600to800_ext1', 'DY_800to1200_ext1', 'DY_1200to2500', 'DY_2500toInf', 'ttbar_ext1', 'ttbar_ext2' ,'DY_Bjets', 'DY_BgenFilter', 'DY_70to100',
              'DY_Pt100to250_ext1', 'DY_Pt100to250_ext2', 'DY_Pt50to100',
              'DY_Pt250to400_ext1', 'DY_Pt250to400_ext2','DY_Pt250to400_ext3',
              'DY_Pt400to650_ext1', 'DY_Pt400to650_ext2','DY_Pt400to650_ext3',
@@ -647,7 +661,7 @@ eos4_list = ['Zee_B_ext1', 'Zee_B_ext2', 'Zee_B_ext3', #'Zee_B_ext4',
              'Zuu_H_ext1', 'Zuu_H_ext2', 'Zuu_H_ext3', 'Zuu_H_ext4'
              ]
 
-eos_list = []
+eos_list = ['DY_inclusive_ext1', 'DY_inclusive_ext2']
 
 
 
@@ -674,7 +688,9 @@ def print_fileNames(file):
         temp_string = "xrdfs stormgf1.pi.infn.it ls -l -u "+file+" | grep tree | awk '{print ""$5""}' >> "+temp_name
         
     elif name in eos3_list:
-        temp_string = "xrdfs 188.184.38.46 ls -l -u "+file+" | grep tree | awk '{print ""$5""}' >> "+temp_name
+        #temp_string = "xrdfs 188.184.38.46 ls -l -u "+file+" | grep tree | awk '{print ""$5""}' >> "+temp_name
+        temp_string = "das_client.py --query='file dataset="+file+" instance=prod/phys03' --limit=0 >> "+temp_name
+        
 
     elif name in eos4_list:
         temp_string = "xrdfs storage01.lcg.cscs.ch ls -l -u "+file+" | grep tree | awk '{print ""$5""}' >> "+temp_name
@@ -721,9 +737,9 @@ def osSystem(file):
             local_filename = 'tree'+y.split("tree")[1]
             t1 = local_filename.replace(" ", "")
             print t1
-            if t1 not in os.listdir(temp_dir):
-                os.system('xrdcp -f '+x+' '+temp_dir)
-            else: print '\n ---> File already exists...'
+            #if t1 not in os.listdir(temp_dir):
+            #    os.system('xrdcp -f root://cms-xrd-global.cern.ch/'+x+' '+temp_dir)
+            #else: print '\n ---> File already exists...'
                 
 
     # Now merge the files
@@ -948,6 +964,8 @@ ttbar_merge_list = [
 
 ST_t_merge_list = ['prep_ST_t_ext1', 'prep_ST_t_ext1_NewExt', 'prep_ST_t_ext1_NewExt2']
 
+DY_inclusive_merge_list = ['prep_DY_inclusive_ext1', 'prep_DY_inclusive_ext2']
+
 DY_600to800_merge_list = ['prep_DY_600to800_ext1', 'prep_DY_600to800_ext1_NewExt', 'prep_DY_600to800_ext1_NewExt2']
 
 DY_100to200_merge_list = ['DY_100to200_ext1', 'DY_100to200_ext2']
@@ -959,6 +977,8 @@ DY_400to600_merge_list = ['DY_400to600_ext1', 'DY_400to600_ext2']
 DY_800to1200_merge_list = ['DY_800to1200_ext1']
 
 ZH125_merge_list = ['ZH125_ext1', 'ZH125_ext2']
+
+ggZH125_merge_list = ['ggZH125_ext1', 'ggZH125_ext2', 'ggZH125_ext3']
 
 DY_Pt100to250_list = ['DY_Pt100to250_ext1']
 
@@ -991,7 +1011,7 @@ merge_list = [
     #['Zuu.root', Zuu_merge_list],
     #['Zee.root', Zee_merge_list]
     #['DY_inclusive.root', DY_inclusive_merge_list],
-
+    
     #['DY_100to200.root',DY_100to200_merge_list], 
     #['DY_200to400.root',DY_200to400_merge_list], 
     #['DY_400to600.root',DY_400to600_merge_list], 
@@ -999,8 +1019,8 @@ merge_list = [
 
     #['DY_600to800.root',DY_600to800_merge_list],
     #['ttbar.root',ttbar_merge_list]
-    #['ZH125.root',ZH125_merge_list],
-    #['ggZH125.root', ggZH125_merge_list],
+    ['ZH125.root',ZH125_merge_list],
+    ['ggZH125.root', ggZH125_merge_list],
     #['ST_t',ST_t_merge_list],
 
     #['DY_Pt100to250.root',DY_Pt100to250_list],
@@ -1026,11 +1046,11 @@ def merge(list):
     input_file = ''
 
     for sample in list[1]:
-        #input_file += ' '+uftrig_path+sample+'.root'
-        input_file += ' /exports/uftrig01a/dcurry/heppy/files/prep_out/'+sample+'.root'
+        input_file += ' '+uftrig_path+sample+'.root'
+        #input_file += ' /exports/uftrig01a/dcurry/heppy/files/btag_out/'+sample+'.root'
 
-    #merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
-    merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_'+outfile_name, input_file)
+    merge = "hadd -f %s %s" % (uftrig_path+outfile_name, input_file)
+    #merge = "hadd -f %s %s" % ('/exports/uftrig01a/dcurry/heppy/files/btag_out/v25_'+outfile_name, input_file)
     print '----> Merging Files into', uftrig_path+outfile_name,'.  This may take a while....'
     os.system(merge)
 
@@ -1198,41 +1218,45 @@ for index, file in enumerate(file_list):
 
 
 # Misc Fucntions
-'''
+
 # If using DAS to move oto EOS
 
 # initiate voms
-os.system('voms-proxy-init --voms cms')
+#os.system('voms-proxy-init --voms cms')
 
 eos_path = '/store/user/dcurry/heppy/files/sys_out/'
 
 uftrig_path = '/exports/uftrig01a/dcurry/heppy/files/sys_out/'
 
-prefix = 'v24_9_15_'
+prefix = 'v25_'
 
 data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q']
+bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_inclusive']
 
-DY_list = [ 'DY_inclusive', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_600toInf', 'DY_Bjets', 'DY_BgenFilter',
-            'DY_inclusive_nlo', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf'
-            ]
+DY_list = ['DY_70to100', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_Bjets',
+           'DY_1200to2500', 'DY_2500toInf','DY_800to1200_ext1','DY_800to1200_ext2',
+           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6',
+           'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf'
+           ]
 
-ST_list = ['ST_t', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
+DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf']
 
-#file_list = signal_list + bkg_list + data_list + DY_list + ST_list
-file_list = DY_list + ST_list
+ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
+
+file_list = signal_list + bkg_list + data_list + DY_list + ST_list
+#file_list = DY_list + ST_list
 
 # xrdcp the files
 #for name, file in zip(file_names, file_list):
-for name in file_list:
+# for name in file_list:
 
-    print '\n-----> Copying file: ', uftrig_path+prefix+name+'.root'
-    print '-----> EOS Destination: ', eos_path+prefix+name+'.root\n'
+#     print '\n-----> Copying file: ', uftrig_path+prefix+name+'.root'
+#     print '-----> EOS Destination: ', eos_path+prefix+name+'.root\n'
 
-    os.system('xrdcp '+uftrig_path+prefix+name+'.root'+' root://eoscms//eos/cms'+eos_path+prefix+name+'.root')
+#     os.system('xrdcp '+uftrig_path+prefix+name+'.root'+' root://eoscms//eos/cms'+eos_path+prefix+name+'.root')
 
 
 # Now login into uftrig
@@ -1240,7 +1264,7 @@ for name in file_list:
 
 #os.system('bbar6_heppy && cmsenv')
 
-'''
+
 
 
 

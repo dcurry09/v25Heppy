@@ -80,18 +80,18 @@ ROOT.gROOT.ProcessLine(
 
 
 
-varx = '50t-13d-1000k'
+
 
 #input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/v23/DY_inclusive.root', 'read')
-input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/v23_7_18_ZH125.root', 'read')
+input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/sys_out/v25_ZH125.root', 'read')
 
-output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_'+varx+'.root', 'recreate')
+output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_noMET.root', 'recreate')
 
-#regWeight = '/afs/cern.ch/user/c/cvernier//public/ttbar-quark-v21/TMVARegression_BDTG.weights.xml'
-#regWeight = '/afs/cern.ch/user/c/cvernier/public/ttbar-david-500k-depth5/TMVARegression_BDTG.weights.xml'  
+#with MET
+#regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
 
-regWeight = '/afs/cern.ch/user/c/cvernier/public/forDavid-'+varx+'/TMVARegression_BDTG.weights.xml'
-
+# no MET
+regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/fordavid_nomet/TMVARegression_BDTG.weights.xml'
 
 regVars = ["Jet_pt",
            "nPVs",
@@ -108,7 +108,9 @@ regVars = ["Jet_pt",
            "Jet_vtx3dL",
            "Jet_vtxNtrk",
            "Jet_vtx3deL",
-            ]      	
+           #"met_pt",
+           #"Jet_met_proj"
+           ]      	
 
 
    
@@ -154,8 +156,8 @@ regDict = {"Jet_pt":"Jet_pt[0]",
            "Jet_vtx3dL":"Jet_vtx3dl[0]",
            "Jet_vtxNtrk":"Jet_vtxNtrk[0]",
            "Jet_vtx3deL":"Jet_vtx3deL[0]",
-           #"met_pt":"met_pt[0]",
-           #"Jet_met_proj":"Jet_met_proj[0]"
+           #"met_pt":"met_pt",
+           #"Jet_met_proj":"Jet_met_proj"
            } 
 
 
@@ -306,7 +308,7 @@ for entry in range(0,nEntries):
             
             if entry % 10000 is 0: print '-----> Event # ', entry
             
-            if entry > 50000: break
+            if entry > 100000: break
             
             if tree.nJet < 2: continue
             if tree.nhJCidx != 2: continue
@@ -386,7 +388,7 @@ for entry in range(0,nEntries):
             nPVs_0=tree.nPVs
             nPVs_1=tree.nPVs
 
-            '''
+
             # for matched genJets
             minDr0 = 0.4;
             minDr1 = 0.4;
@@ -418,7 +420,7 @@ for entry in range(0,nEntries):
                     if tree.Jet_btagCSV[tree.hJCidx[1]] < 0.8:
                         count['num_allMatched_jets_0.46'] += 1
                     
-               '''
+
             #if sample == 'Zuu' or sample == 'Zee':
             #    Jet_corr_0 = Jet_pt_0/Jet_rawPt_0
             #    Jet_corr_1 = Jet_pt_1/Jet_rawPt_1
@@ -578,8 +580,9 @@ for entry in range(0,nEntries):
                     Jet_vtx3deL.Fill(Jet_vtx3deL_0, (Pt0 - gen_pt)/gen_pt)
                     Jet_vtx3deL_noReg.Fill(Jet_vtx3deL_0, (Jet_pt_0 - gen_pt)/gen_pt)
 
-                        
-
+                    
+                '''
+    
                 # FSR DiJet
 		HRegwithFSR = ROOT.TLorentzVector()
                 HRegwithFSR.SetPtEtaPhiM(H.pt,H.eta,H.phi,H.mass)
@@ -600,8 +603,7 @@ for entry in range(0,nEntries):
                 
                 #HRegwithMwithFSR = addAdditionalJets(HRegwithMwithFSR,tree)
 		#H.masswithFSR = HRegwithMwithFSR.M()
-                '''
-                
+                             
                 '''
                 if (Jet_regWeight[0] > 5. or Jet_regWeight[1] > 5. ) :
                     print 'Event %.0f' %(Event[0])

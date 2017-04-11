@@ -26,17 +26,19 @@ gROOT.SetBatch(True)
 # ZH125
 #file = TFile.Open('root://eoscms//eos/cms/store/group/phys_higgs/hbb/ntuples/80X_test_v2/ZH_HToBB_ZToLL_M125_13TeV_powheg_herwigpp/VHBB_HEPPY_80X_TEST_V2_ZH_HToBB_ZToLL_M125_13TeV_powheg_herwigpp__spring16MAv2-PUSpring16RAWAODSIM_80X_r2as_2016_miniAODv2_v0-v1/160621_150125/0000/tree_1.root')
 
-file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_ZH125.root')
-#file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_50t-13d-1000k.root')
+#file = TFile('/exports/uftrig01a/dcurry/heppy/files/sys_out/v25_ZH125.root')
+file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_withMET.root')
 
-file_ttbar = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ttbar.root')
+file_noMET = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_noMET.root')
 
-file_DY = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_DY_inclusive_nlo.root')
+# file_ttbar = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ttbar.root')
 
-file_ZZ = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ZZ_2L2Q.root')
+# file_DY = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_DY_inclusive_nlo.root')
 
-# Previous MC signal Ntuple:  
-file_old = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v21_5_22_ZH125.root')
+# file_ZZ = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ZZ_2L2Q.root')
+
+# # Previous MC signal Ntuple:  
+# file_old = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/v21_5_22_ZH125.root')
 
 # Recent data ntuples
 
@@ -48,7 +50,7 @@ title = 'ZH125'
 
 # Outpath:
 #outdir = 'Zll_validation_plots/'+new_version+'/'
-outdir = '~/www/v25_Regression_Vars/'
+outdir = '~/www/v25_Regression_withMET/'
 
 try:
     os.system('mkdir '+outdir)
@@ -66,13 +68,14 @@ os.system(temp_string3)
 
 # Get the trees
 tree = file.Get('tree')
+tree_noMET = file_noMET.Get('tree')
 tree_old = file_old.Get('tree')
 #tree_zuu = file_zuu.Get('tree')
 #tree_zee = file_zee.Get('tree')
 #tree_gg  = file_gg.Get('tree')
-tree_dy  = file_DY.Get('tree')
-tree_zz  = file_ZZ.Get('tree')
-tree_ttbar = file_ttbar.Get('tree')
+#tree_dy  = file_DY.Get('tree')
+#tree_zz  = file_ZZ.Get('tree')
+#tree_ttbar = file_ttbar.Get('tree')
 
 
 header = '#sqrt{s}=13TeV,  ZH125: Z(l^{-}l^{+})H(b#bar{b})'
@@ -151,13 +154,10 @@ regression_variable_list = [ #['Jet_mcPt', 50, 0, 150],
 
 
 # ==== Cuts ==================
-cut = 'Vtype > -1 & Vtype < 2 & Jet_pt[hJCidx[0]] > 20. & Jet_pt[hJCidx[1]] > 20. & abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4'
+cut = 'Vtype_new > -1 & Vtype_new < 2 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4'
     
-cut = cut + ' & vLeptons_pt[0] > 20 & vLeptons_pt[1] > 20 & vLeptons_eta[0] < 2.4 & vLeptons_eta[1] < 2.4'
-
 # btag cut.. experimental
-cut = cut + ' & Jet_btagCSV[hJCidx[0]] > 0.8 & Jet_btagCSV[hJCidx[1]] > 0.8'
-
+cut = cut + ' & Jet_btagCMVAV2[hJCMVAV2idx[0]] > 0.8 & Jet_btagCMVAV2[hJCMVAV2idx[1]] > 0.8'
 
 # Semi Leptonic Cut
 #cut = cut + ' & Jet_leptonPt[hJCidx[0]] > 0 || Jet_leptonPt[hJCidx[1]] > 0'
@@ -373,18 +373,18 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
 
     print '\n----> Making regression comparative plot for...', myTitle
 
-    #if ptRegion == 'high': myTitle = myTitle+'_highPt'
+    if ptRegion == 'high': myTitle = myTitle+'_highPt'
 
-    #eta_cut = ' & abs(HCSV_eta < 0.9)'
-    #myTitle = 'NOsemiL_Heta<0.9'
+    eta_cut = ' & abs(HCSV_eta < 0.9)'
+    myTitle = 'NOsemiL_Heta<0.9'
     
-    #eta_cut = ' & abs(HCSV_eta > 0.9) &&  abs(HCSV_eta < 1.6)'
-    #myTitle = 'NOsemiL_Heta0.9to1.6'
+    eta_cut = ' & abs(HCSV_eta > 0.9) &&  abs(HCSV_eta < 1.6)'
+    myTitle = 'NOsemiL_Heta0.9to1.6'
     
-    #eta_cut = ' & abs(HCSV_eta > 1.6) && abs(HCSV_eta < 2.4)'
-    #myTitle = 'NOsemiL_Heta1.6to2.4'
+    eta_cut = ' & abs(HCSV_eta > 1.6) && abs(HCSV_eta < 2.4)'
+    myTitle = 'NOsemiL_Heta1.6to2.4'
 
-    #myCut = myCut + eta_cut
+    myCut = myCut + eta_cut
 
 
 
@@ -395,6 +395,7 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     hReg = TH1F('hReg', '' , 50, 20, 220)
     hNom = TH1F('hNom', '' , 50, 20, 220)
     hFsr = TH1F('hFsr', '' , 50, 20, 220)
+    hnoM = TH1F('hnoM', '' , 50, 20, 220)
 
     
     # For Diboson
@@ -403,15 +404,18 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     
 
     if ptRegion == 'all':
-        myTree.Project('hReg', 'HCSV_reg_mass', myCut)
-        myTree.Project('hNom', 'HCSV_mass', myCut)
-	#tree_zz.Project('hReg_zz', 'HCSV_reg_mass', myCut)
+        myTree.Project('hReg', 'HCMVAV2_reg_mass', myCut)
+        #tree_zz.Project('hReg_zz', 'HCSV_reg_mass', myCut)
+        #myTree.Project('hReg', 'H.mass', myCut)
+        myTree.Project('hNom', 'HCMVAV2_mass', myCut)
+        myTree.Project('hFsr', 'H.mass', myCut)
+        tree_noMET.Project('hnoM', 'H.mass', myCut)
 
         #tree_zz.Project('hNom_zz', 'HCSV_mass', myCut)
         #myTree.Project('hFsr', 'HCSV_reg_mass_FSR', myCut)
-	#myTree.Project('hFsr', 'HCSV_reg_mass_met', myCut)
-	#myTree.Project('hFsr', 'HCSV_reg_mass_met_FSR', myCut)
-	#myTree.Project('hFsr', 'HCSV_reg_mass_met_FSR_wSemiL', myCut)
+        #myTree.Project('hFsr', 'HCSV_reg_mass_met', myCut)
+        #myTree.Project('hFsr', 'HCSV_reg_mass_met_FSR', myCut)
+        #myTree.Project('hFsr', 'HCSV_reg_mass_met_FSR_wSemiL', myCut)
     
     if ptRegion == 'low':
         myTree.Project('hReg', 'HCSV_reg_mass', myCut+' && V_pt > 50 && V_pt < 100')
@@ -434,10 +438,6 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     hReg_zz.Scale(1 / hReg_zz.Integral())
     hNom_zz.Scale(1 / hNom_zz.Integral())
 
-    hReg.SetStats(0)
-    hReg.SetLineColor(kRed)
-    hNom.SetLineColor(kBlack)
-    
     hReg_zz.SetLineColor(kRed)
     hNom_zz.SetLineColor(kBlack)
 
@@ -445,10 +445,18 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     hNom_zz.SetLineStyle(2)
     '''
 
+    hReg.SetStats(0)
+    hReg.SetLineColor(kRed)
+    hNom.SetLineColor(kBlack)
+    hFsr.SetLineColor(kGreen)
+    hnoM.SetLineColor(kBlue)
+
     canvas.cd()
     stack.Add(hReg)
     stack.Add(hNom)
-    
+    stack.Add(hFsr)
+    stack.Add(hnoM)
+
     # For Zz
     #stack.Add(hReg_zz)
     #stack.Add(hNom_zz)
@@ -557,10 +565,10 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     plot.Draw("sames")
     '''
 
-    '''
+
     # FSR
     mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, 220, "GeV")
-    bC_p0=RooRealVar("bC_p0", "bC_p0", 90., 130.)
+    bC_p0=RooRealVar("bC_p0", "bC_p0", 110., 150.)
     bC_p1=RooRealVar("bC_p1", "bC_p1", 0., 40.0)
     bC_p2=RooRealVar("bC_p2", "bC_p2", -100, 100.)
     bC_p3=RooRealVar("bC_p3", "bC_p3", -100., 100.)
@@ -581,7 +589,31 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     hFsr_std=str(round(hFsr_std,4))
     hFsr_mu=str(round(hFsr_mu,4))
     hFsr_metric_str = str(round(hFsr_metric,3))
-    '''
+
+
+    # No MET
+    mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, 220, "GeV")
+    bC_p0=RooRealVar("bC_p0", "bC_p0", 110., 150.)
+    bC_p1=RooRealVar("bC_p1", "bC_p1", 0., 40.0)
+    bC_p2=RooRealVar("bC_p2", "bC_p2", -100, 100.)
+    bC_p3=RooRealVar("bC_p3", "bC_p3", -100., 100.)
+    bC_p4=RooRealVar("bC_p4", "bC_p4", -100., 100.)
+    bukin_ = RooBukinPdf("bukin_", "Bukin function",mjj13TeV, bC_p0,bC_p1,bC_p2,bC_p3,bC_p4)
+
+    signalHistogram3 = RooDataHist("signalHistogram3", "Signal Histogram", RooArgList(mjj13TeV), hnoM)
+    bukin_.fitTo(signalHistogram3, RooFit.Range(20, high), RooFit.Save())
+
+    plot=mjj13TeV.frame();
+    signalHistogram3.plotOn(plot, RooFit.MarkerColor(kBlue));
+    bukin_.plotOn(plot, RooFit.LineColor(kGreen), RooFit.LineWidth(0));
+    plot.Draw("sames")
+
+    hnoM_std = bC_p1.getVal()
+    hnoM_mu = bC_p0.getVal()
+    hnoM_metric = hnoM_std/hnoM_mu
+    hnoM_std=str(round(hnoM_std,4))
+    hnoM_mu=str(round(hnoM_mu,4))
+    hnoM_metric_str = str(round(hnoM_metric,3))
 
     # Percent Improvemnt
     #percent_improvement = 100*(1 - (hReg_metric/mass_metric1))
@@ -594,19 +626,24 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
  
     leg = TLegend(0.62,0.6,0.9,0.9)
     leg.SetFillStyle(0)
-    leg.SetBorderSize(0)
-    leg.AddEntry(hNom, 'ZH Nominal', 'l')
+    leg.SetBorderSize(0) 
+    leg.AddEntry(hNom, 'Nominal ('+str(hNom.GetEntries())+')', 'l')
     leg.AddEntry(0, '#sigma='+hNom_std, '')
     leg.AddEntry(0, '#mu='+hNom_mu, '')
     leg.AddEntry(0, '#sigma/#mu='+hNom_metric_str, '')
-    leg.AddEntry(hReg, 'ZH Regressed', 'l')
+    leg.AddEntry(hReg, 'ttbar Regressed ('+str(hReg.GetEntries())+')', 'l')
     leg.AddEntry(0, '#sigma='+hReg_std, '')
     leg.AddEntry(0, '#mu='+hReg_mu, '')
     leg.AddEntry(0, '#sigma/#mu='+hReg_metric_str, '')
-    #leg.AddEntry(hFsr, 'Regressed+FSR', 'l')
-    #leg.AddEntry(0, '#sigma='+hFsr_std, '')
-    #leg.AddEntry(0, '#mu='+hFsr_mu, '')
-    #leg.AddEntry(0, '#sigma/#mu='+mass_metric1_str, '')
+    leg.AddEntry(hFsr, 'ZH Regressed + MET ('+str(hFsr.GetEntries())+')', 'l')
+    leg.AddEntry(0, '#sigma='+hFsr_std, '')
+    leg.AddEntry(0, '#mu='+hFsr_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hFsr_metric_str, '')
+    leg.AddEntry(hnoM, 'ZH Regressed NO MET ('+str(hnoM.GetEntries())+')', 'l')
+    leg.AddEntry(0, '#sigma='+hnoM_std, '')
+    leg.AddEntry(0, '#mu='+hnoM_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hnoM_metric_str, '')
+    
     #leg.AddEntry(hNom, 'ZZ Nominal', 'l')
     #leg.AddEntry(hReg, 'ZZ Regressed', 'l')
 
@@ -624,9 +661,210 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     canvas.IsA().Destructor(canvas)
     hReg.IsA().Destructor(hReg)
     hNom.IsA().Destructor(hNom)
+    hFsr.IsA().Destructor(hFsr)
+    hnoM.IsA().Destructor(hnoM)
 
+
+
+    ########## Compare with FSR #########
+
+    stack  = THStack('stack', '')
+    canvas = TCanvas('canvas')
+
+    # make the histogram and project into it
+    hReg = TH1F('hReg', '' , 50, 20, 220)
+    hNom = TH1F('hNom', '' , 50, 20, 220)
+    hFsr = TH1F('hFsr', '' , 50, 20, 220)
+    hnoM = TH1F('hnoM', '' , 50, 20, 220)
+
+    
+    myTree.Project('hReg', 'H.mass', myCut)
+    myTree.Project('hNom', 'HCMVAV2_mass', myCut)
+    myTree.Project('hFsr', 'H.masswithFSR', myCut)
+    
+
+    hReg.SetStats(0)
+    hReg.SetLineColor(kRed)
+    hNom.SetLineColor(kBlack)
+    hFsr.SetLineColor(kGreen)
+    
+    canvas.cd()
+    stack.Add(hReg)
+    stack.Add(hNom)
+    stack.Add(hFsr)
+    stack.Draw('nostack')
+    stack.GetXaxis().SetTitle('m(jj) [GeV]')
+ 
+    low = 95
+    high = 220
+
+    low_nom = 40
+    high_nom = 180
+
+
+    # ==== Bukin Fit ====
+    mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, high, "GeV")
+    bC_p0=RooRealVar("bC_p0", "bC_p0", 90., 130.)
+    bC_p1=RooRealVar("bC_p1", "bC_p1", 0., 40.0)
+    bC_p2=RooRealVar("bC_p2", "bC_p2", -100, 100.)
+    bC_p3=RooRealVar("bC_p3", "bC_p3", -100., 100.)
+    bC_p4=RooRealVar("bC_p4", "bC_p4", -100., 100.)
+    bukin_ = RooBukinPdf("bukin_", "Bukin function",mjj13TeV, bC_p0,bC_p1,bC_p2,bC_p3,bC_p4)
+    
+    # regressed
+    signalHistogram= RooDataHist("signalHistogram", "Signal Histogram", RooArgList(mjj13TeV), hReg)
+    bukin_.fitTo(signalHistogram, RooFit.Range(20, high), RooFit.Save())
+    
+    plot=mjj13TeV.frame();
+    signalHistogram.plotOn(plot, RooFit.MarkerColor(2));
+    bukin_.plotOn(plot, RooFit.LineColor(2), RooFit.LineWidth(0));
+    plot.Draw("sames")
+    
+    hReg_std = bC_p1.getVal()
+    hReg_mu = bC_p0.getVal()
+    hReg_metric = hReg_std/hReg_mu
+    hReg_std=str(round(hReg_std,4))
+    hReg_mu=str(round(hReg_mu,4))
+    hReg_metric_str = str(round(hReg_metric,3))
+
+    # nominal
+    mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, 220, "GeV")
+    bC_p0=RooRealVar("bC_p0", "bC_p0", 50., 140.)
+    bC_p1=RooRealVar("bC_p1", "bC_p1", 0., 60.0)
+    bC_p2=RooRealVar("bC_p2", "bC_p2", -100, 100.)
+    bC_p3=RooRealVar("bC_p3", "bC_p3", -100., 100.)
+    bC_p4=RooRealVar("bC_p4", "bC_p4", -100., 100.)
+    bukin_ = RooBukinPdf("bukin_", "Bukin function",mjj13TeV, bC_p0,bC_p1,bC_p2,bC_p3,bC_p4)
+
+    
+    signalHistogram2= RooDataHist("signalHistogram2", "Signal Histogram", RooArgList(mjj13TeV), hNom)
+    signalHistogram2.plotOn(plot, RooFit.MarkerColor(1));
+    
+    bukin_.fitTo(signalHistogram2, RooFit.Range(20, 140), RooFit.Save())
+    bukin_.plotOn(plot, RooFit.LineColor(1), RooFit.LineWidth(0));
+    plot.Draw("sames")
+
+    hNom_std=bC_p1.getVal()
+    hNom_mu=bC_p0.getVal()
+    mass_metric1 = hNom_std/hNom_mu
+    hNom_std=str(round(hNom_std,4))
+    hNom_mu=str(round(hNom_mu,4))
+    hNom_metric_str = str(round(mass_metric1,3))
+
+
+
+    # FSR
+    mjj13TeV=RooRealVar("mjj13TeV","M(jet-jet)", 20, 220, "GeV")
+    bC_p0=RooRealVar("bC_p0", "bC_p0", 110., 150.)
+    bC_p1=RooRealVar("bC_p1", "bC_p1", 0., 40.0)
+    bC_p2=RooRealVar("bC_p2", "bC_p2", -100, 100.)
+    bC_p3=RooRealVar("bC_p3", "bC_p3", -100., 100.)
+    bC_p4=RooRealVar("bC_p4", "bC_p4", -100., 100.)
+    bukin_ = RooBukinPdf("bukin_", "Bukin function",mjj13TeV, bC_p0,bC_p1,bC_p2,bC_p3,bC_p4)
+
+    signalHistogram3 = RooDataHist("signalHistogram3", "Signal Histogram", RooArgList(mjj13TeV), hFsr)
+    bukin_.fitTo(signalHistogram3, RooFit.Range(20, high), RooFit.Save())
+    
+    plot=mjj13TeV.frame();
+    signalHistogram3.plotOn(plot, RooFit.MarkerColor(kGreen));
+    bukin_.plotOn(plot, RooFit.LineColor(kGreen), RooFit.LineWidth(0));
+    plot.Draw("sames")
+    
+    hFsr_std = bC_p1.getVal()
+    hFsr_mu = bC_p0.getVal()
+    hFsr_metric = hFsr_std/hFsr_mu
+    hFsr_std=str(round(hFsr_std,4))
+    hFsr_mu=str(round(hFsr_mu,4))
+    hFsr_metric_str = str(round(hFsr_metric,3))
+
+    
+    l = TLatex()
+    l.SetNDC()
+    l.SetTextSize(0.03)
+    l.DrawLatex(0.1, 0.93, myHeader)
+    l.Draw('same')
+ 
+    leg = TLegend(0.62,0.6,0.9,0.9)
+    leg.SetFillStyle(0)
+    leg.SetBorderSize(0) 
+    leg.AddEntry(hNom, 'Nominal', 'l')
+    leg.AddEntry(0, '#sigma='+hNom_std, '')
+    leg.AddEntry(0, '#mu='+hNom_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hNom_metric_str, '')
+    leg.AddEntry(hReg, 'Regressed', 'l')
+    leg.AddEntry(0, '#sigma='+hReg_std, '')
+    leg.AddEntry(0, '#mu='+hReg_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hReg_metric_str, '')
+    leg.AddEntry(hFsr, 'Regressed + FSR', 'l')
+    leg.AddEntry(0, '#sigma='+hFsr_std, '')
+    leg.AddEntry(0, '#mu='+hFsr_mu, '')
+    leg.AddEntry(0, '#sigma/#mu='+hFsr_metric_str, '')
+    leg.Draw('same')
+    
+
+    canvas.SaveAs(outdir+'regressed_FSR_Mass_'+myTitle+'.pdf')
+    canvas.SaveAs(outdir+'regressed_FSR_Mass_'+myTitle+'.png')
+    
+    # Delete objects.
+    canvas.IsA().Destructor(canvas)
+    hReg.IsA().Destructor(hReg)
+    hNom.IsA().Destructor(hNom)
+    hFsr.IsA().Destructor(hFsr)
+    
 
     '''
+    # ==== Now Higgs pt balance =====
+    stack  = THStack('stack', '')
+    canvas = TCanvas('canvas')
+    canvas.SetLogy()
+
+    # make the histogram and project into it
+    hReg = TH1F('hReg', '' , 50, 0, 600)
+    hNom = TH1F('hNom', '' , 50, 0, 600)
+    hOld = TH1F('hOld', '' , 50, 0, 600)
+
+    myTree.Project('hReg', 'H.pt', myCut)
+    myTree.Project('hNom', 'HCSV_pt', myCut)
+    myTree.Project('hOld', 'HCSV_reg_pt', myCut)
+        
+    hReg.SetStats(1)
+    hReg.SetLineColor(kRed)
+    hOld.SetLineColor(kGreen)
+    
+    canvas.cd()
+    stack.Add(hReg)
+    stack.Add(hNom)
+    stack.Add(hOld)
+    stack.Draw('nostack')
+    stack.GetXaxis().SetTitle('p_{T}(jj)')
+    stack.GetYaxis().SetTitle('Entries/0.13')
+   
+
+
+    l = TLatex()
+    l.SetNDC()
+    l.SetTextSize(0.03)
+    l.DrawLatex(0.1, 0.93, myHeader)
+    l.Draw('same')
+
+    leg = TLegend(0.62,0.6,0.9,0.9)
+    leg.SetFillStyle(0)
+    leg.SetBorderSize(0)
+    leg.AddEntry(hReg, 'Regressed', 'l')
+    leg.AddEntry(hNom, 'Nominal', 'l')
+    leg.AddEntry(hOld, 'Old Regressed', 'l')
+    leg.Draw('same')
+    
+    canvas.SaveAs(outdir+'Hpt_'+myTitle+'.pdf')
+    canvas.SaveAs(outdir+'Hpt_'+myTitle+'.png')
+    
+    # Delete objects.
+    canvas.IsA().Destructor(canvas)
+    hReg.IsA().Destructor(hReg)
+    hNom.IsA().Destructor(hNom)
+
+
+
     # ==== Now the pt balance =====
     stack  = THStack('stack', '')
     canvas = TCanvas('canvas')
@@ -749,187 +987,58 @@ def regression_plot(myTree, myHeader, myTitle, ptRegion, myCut, myPtBalance_cut)
     canvas.SaveAs(outdir+'pt_balance_'+myTitle+'.pdf')
     '''
 
-    # Jet_corr compare plots
-    #stack  = THStack('stack', '')
-    #canvas = TCanvas('canvas')
-    
-    # make the histogram and project into it
-    #hMC = TH1F('hMC', '' , 35, 0, 2)
-    #hdata = TH1F('hdata', '' , 35, 0, 2)
-    
-    #myTree.Project('hMC', 'Jet_corr', ttbar_cut)
-    #myTree.Project('hMC', 'Jet_pt/Jet_rawPt', mc_cut)
-    #tree_zuu.Project('hdata', 'Jet_pt/Jet_rawPt', zuu_cut)
-
-    #hMC.Scale(1 / hMC.Integral())
-    #hdata.Scale(1 / hdata.Integral())
-    
-    #hMC.SetStats(0)
-    #hMC.SetLineColor(kRed)
-    
-    #canvas.cd()
-    #stack.Add(hMC)
-    #stack.Add(hdata)
-    #stack.Draw('nostack')
-    #stack.GetXaxis().SetTitle('Jet_corr')
-    
-    #leg = TLegend(0.62,0.6,0.9,0.9)
-    #leg.SetFillStyle(0)
-    #leg.SetBorderSize(0)
-    #leg.AddEntry(hMC, 'MC', 'l')
-    #leg.AddEntry(hdata, 'Data', 'l')
-    #leg.Draw('same')
-    
-    #canvas.SaveAs(outdir+'jet_corr_'+myTitle+'.pdf')
-
-    '''
-    # Resoltuion for B, and light Jets
-    stack_b  = THStack('stack_b', '')
-    canvas_b = TCanvas('canvas_b')
-    
-    # make the histogram and project into it
-    low  = -1 
-    high = 1
-    nbins = 35
-    
-    hReg_b = TH1F('hReg_b', '' , nbins, low, high)
-    hNom_b = TH1F('hNom_b', '' , nbins, low, high)
-    
-    temp_cut = res_cut+' & Jet_mcIdx > -1 & Jet_mcIdx < 15 & hJCidx > -1'
-    #& abs(Jet_hadronFlavour[Jet_mcIdx[hJCidx[1]]]) != 4 & abs(Jet_hadronFlavour[Jet_mcIdx[hJCidx[1]]]) != 5'
-    
-    
-    if ptRegion == 'all':
-	    myTree.Project('hReg_b', '(hJet_pt_REG[0]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]', temp_cut)
-	    myTree.Project('hNom_b', '(hJet_pt[0]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]', temp_cut)
-	    #myTree.Project('hReg_b', '(hJet_pt_REG[1]-Jet_mcPt[1])/Jet_mcPt[1]', temp_cut)
-	    #myTree.Project('hNom_b', '(hJet_pt[0]-Jet_mcPt[0])/Jet_mcPt[0]', temp_cut)
-	    
-
-    if ptRegion == 'high':
-	    myTree.Project('hReg_b', '(Jet_pt_REG[0]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]', temp_cut+' & H.pt > 100')
-	    myTree.Project('hNom_b', '(Jet_pt[hJCidx[0]]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]', temp_cut+' & HNoReg.pt > 100')
-	    #myTree.Project('hReg_b', '(hJet_pt_REG-Jet_mcPt)/Jet_mcPt', res_cut +' & H.pt > 100')
-	    #myTree.Project('hNom_b', '(hJet_pt-Jet_mcPt)/Jet_mcPt', res_cut+' & HNoReg.pt > 100')
-	    
-
-    #hReg_b.Scale(1 / hReg_b.Integral())
-    #hNom_b.Scale(1 / hNom_b.Integral())
-
-    canvas_b.cd()
-    hReg_b.SetStats(0)
-    hReg_b.SetLineColor(kRed)
-    stack_b.Add(hReg_b)
-    stack_b.Add(hNom_b)
-    stack_b.Draw('nostack')
-    stack_b.GetXaxis().SetTitle(' (Jet_pt-gen_pt)/gen_pt')
+    # Jet variables
         
-    res = RooRealVar("res","res",-1,1,"GeV")
-    bC_p0=RooRealVar("bC_p0", "bC_p0", -0.5, 0.5)
-    bC_p1=RooRealVar("bC_p1", "bC_p1", 0., 0.5)
-    bC_p2=RooRealVar("bC_p2", "bC_p2", -1, 1.)
-    bC_p3=RooRealVar("bC_p3", "bC_p3", -1., 1.)
-    bC_p4=RooRealVar("bC_p4", "bC_p4", -1., 1.)
-    bukin_ = RooBukinPdf("bukin_", "Bukin function", res, bC_p0,bC_p1,bC_p2,bC_p3,bC_p4)
-
-    signalHistogram= RooDataHist("signalHistogram", "Signal Histogram", RooArgList(res), hReg_b)
-    bukin_.fitTo(signalHistogram, RooFit.Range(-1, 1), RooFit.Save())
+    stack  = THStack('stack', '')
+    canvas = TCanvas('canvas')
         
-    plot = res.frame();
-    signalHistogram.plotOn(plot, RooFit.MarkerColor(2));
-    bukin_.plotOn(plot, RooFit.LineColor(2), RooFit.LineWidth(0));
-    plot.Draw("sames")
-       
-    hReg_std = bC_p1.getVal()
-    hReg_mu = bC_p0.getVal()
-    hReg_metric = hReg_std/hReg_mu
-    hReg_std=str(round(hReg_std,4))
-    hReg_mu=str(round(hReg_mu,4))
-    hReg_metric_str = str(round(hReg_metric,3))
-    
-    signalHistogram2= RooDataHist("signalHistogram2", "Signal Histogram", RooArgList(res), hNom_b)
-    signalHistogram2.plotOn(plot, RooFit.MarkerColor(1));
-    
-    bukin_.fitTo(signalHistogram2, RooFit.Range(-1, 1), RooFit.Save())
-    bukin_.plotOn(plot, RooFit.LineColor(1), RooFit.LineWidth(0));
-    plot.Draw("sames")
+    # make the histogram and project into it
+    hReg = TH1F('hReg', '' , 50, 0, 600)
+    hNom = TH1F('hNom', '' , 50, 0, 600)
+    hOld = TH1F('hOld', '' , 50, 0, 600)
 
-    hNom_std=bC_p1.getVal()
-    hNom_mu=bC_p0.getVal()
-    mass_metric1 = hNom_std/hNom_mu
-    hNom_std=str(round(hNom_std,4))
-    hNom_mu=str(round(hNom_mu,4))
-    mass_metric1_str = str(round(mass_metric1,3))
+    myTree.Project('hReg', 'hJet_pt_REG[0]', myCut)
+    myTree.Project('hNom', 'Jet_pt[tree.hJCidx[0]]', myCut)
+    myTree.Project('hOld', 'Jet_mcPt[1]', myCut)
+        
+    hReg.SetStats(1)
+    hReg.SetLineColor(kRed)
+    hOld.SetLineColor(kGreen)
+    
+    canvas.cd()
+    stack.Add(hReg)
+    stack.Add(hNom)
+    stack.Add(hOld)
+    stack.Draw('nostackHist')
+    stack.GetXaxis().SetTitle('p_{T}(jj)')
+    stack.GetYaxis().SetTitle('Entries/0.13')
 
     l = TLatex()
     l.SetNDC()
     l.SetTextSize(0.03)
     l.DrawLatex(0.1, 0.93, myHeader)
     l.Draw('same')
-
+    
     leg = TLegend(0.62,0.6,0.9,0.9)
     leg.SetFillStyle(0)
     leg.SetBorderSize(0)
-    leg.AddEntry(hReg, 'Regressed', 'l')
-    leg.AddEntry(0, 'RMS='+hReg_std, '')
-    leg.AddEntry(0, 'Mean='+hReg_mu, '')
-    #leg.AddEntry(0, '#sigma/#mu='+hReg_metric_str, '')
-    leg.AddEntry(hNom, 'Nominal', 'l')
-    leg.AddEntry(0, 'RMS='+hNom_std, '')
-    leg.AddEntry(0, 'Mean='+hNom_mu, '')
-    #leg.AddEntry(0, '#sigma/#mu='+mass_metric1_str, '')
-    leg.AddEntry(0, '', '')
-    #x = leg.AddEntry(0, 'Improvement='+str(round(percent_improvement,1))+'%', '')
-    #x.SetTextColor(kRed)
-    #x.SetTextSize(0.03)
+    leg.AddEntry(hReg, 'Reco Regressed', 'l')
+    leg.AddEntry(hNom, 'Reco Nominal', 'l')
+    leg.AddEntry(hOld, 'Generator Level', 'l')
     leg.Draw('same')
-
-    canvas_b.SaveAs(outdir+'jet_res_bJets_'+myTitle+'.pdf')
-    '''
-
-    '''
-    # 2D Resoultion Plot 
-    canvas_nom = TCanvas('canvas_nom')
-    canvas_reg = TCanvas('canvas_reg')
     
-    hNom = TH2F('hNom', '' , 20, 0.96, 1, 20, -0.1, 0.1)
-    hReg = TH2F('hReg', '' , 20, 0.96, 1, 20, -0.1, 0.1)
-
-
-    #temp_cut = res_cut+' & Jet_mcIdx > -1 & Jet_mcIdx < 15 & hJCidx > -1'
-    #& abs(Jet_hadronFlavour[Jet_mcIdx[hJCidx[0]]]) == 5'
-    #& abs(Jet_hadronFlavour[Jet_mcIdx[hJCidx[1]]]) != 4 & abs(Jet_hadronFlavour[Jet_mcIdx[hJCidx[1]]]) != 5'
+    canvas.SaveAs(outdir+'JetPt_'+myTitle+'.pdf')
+    canvas.SaveAs(outdir+'JetPt_'+myTitle+'.png')
     
-    myTree.Project('hNom', '(Jet_pt_REG[0]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]:Jet_btagCSV[hJCidx[0]]', myCut)
-    myTree.Project('hReg', '(Jet_pt[hJCidx[0]]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]:Jet_btagCSV[hJCidx[0]]', myCut)
+    # Delete objects.
+    canvas.IsA().Destructor(canvas)
+    hReg.IsA().Destructor(hReg)
+    hNom.IsA().Destructor(hNom)
+    hOld.IsA().Destructor(hOld)
 
-    #myTree.Project('hNom', '(Jet_pt_REG[0]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]:Jet_btagCSV[hJCidx[0]]', temp_cut)
-    #myTree.Project('hReg', '(Jet_pt[hJCidx[0]]-GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]])/GenJet_wNuPt[Jet_mcIdx[hJCidx[0]]]:Jet_btagCSV[hJCidx[0]]',temp_cut)
-    
-    # get the profiles
-    prof_reg = hReg.ProfileX()
-    prof_reg.SetLineColor(kBlack)
-    prof_nom = hNom.ProfileX()
-    prof_nom.SetLineColor(kBlack)
-    
-    canvas_reg.cd()
-    hReg.SetStats(0)
-    hReg.Draw('COLZ')
-    prof_reg.Draw('same')
-    hReg.GetXaxis().SetTitle('Jet CSV, regressed')
-    hReg.GetYaxis().SetTitle('(Jet_pt_reg-Jet_mcPt)/Jet_mcPt')
-    canvas_reg.SaveAs(outdir+'2d_jet_regressed_resolution_'+myTitle+'.pdf')
-
-    canvas_nom.cd()
-    hNom.SetStats(0)
-    hNom.Draw('COLZ')
-    prof_nom.Draw('same')
-    hNom.GetXaxis().SetTitle('Jet CSV, nominal')
-    hNom.GetYaxis().SetTitle('(Jet_pt-Jet_mcPt)/Jet_mcPt')
-    canvas_nom.SaveAs(outdir+'2d_jet_nominal_resolution_'+myTitle+'.pdf')
-    '''
     
     
+
 # ===== End regression plots ======
 
 

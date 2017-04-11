@@ -22,7 +22,7 @@ import multiprocessing
 # ===== Define the regions to be submitted to ./runAll.sh and plots made =====
 
 isSplit = False
-isSplit = True
+#isSplit = True
 
 # control regions
 
@@ -71,7 +71,7 @@ vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
 # Jet Regression Regions
 #reg_list = ['jet_regression_Zhf']
 
-temp_list = ['ttbar_low_Zee']
+temp_list = ['Zhf_low_Zee', 'Zhf_low_Zuu']
 
 #temp_list = ['Zlf_low_Zee', 'Zlf_high_Zee']
 
@@ -130,10 +130,10 @@ if isSplit:
      p3.close()
      p3.join()
      
-     # p3 = multiprocessing.Pool()
-     # results = p3.imap(osSystem, zlf_mu_list)
-     # p3.close()
-     # p3.join()
+     #p3 = multiprocessing.Pool()
+     #results = p3.imap(osSystem, zhf_list+zlf_list)
+     #p3.close()
+     #p3.join()
      
      # p3 = multiprocessing.Pool()
      # results = p3.imap(osSystem, zlf_ele_list)

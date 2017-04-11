@@ -138,7 +138,7 @@ class HistoMaker:
             weightF = '%s'%(options['weight'])    
             
             ##############################
-            # Add any special weights here
+            #Add any special weights here
             if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
                 weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
                 weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
@@ -146,11 +146,10 @@ class HistoMaker:
             if '2L2Q' in job.name:
                 print '\n\t----> Adding ZZ_2L2Q special weights...'
                 weightF = weightF+'*('+job.specialweight+')'
-            #if 'ttbar' in job.name:
-            #    weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
-            if 'ZH' in job.name and not 'ggZH' in job.name:
-                weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
-            
+            if 'ttbar' in job.name:
+                weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
+            #if 'ZH' in job.name and not 'ggZH' in job.name:
+            #    weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
 
             ### For temp Inclusive testing ###
             #if 'Zudsg' == job.name or 'Z1b' == job.name or 'Z2b' == job.name:

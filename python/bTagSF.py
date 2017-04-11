@@ -179,10 +179,10 @@ class Jet :
 ################################################################
 
 # sample prefix
-#prefix = 'v25_'
-prefix = ''
+prefix = 'v25_'
+#prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
@@ -223,7 +223,7 @@ temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
 #file_list = temp_list
-file_list = prep_list
+file_list = signal_list
 
 
 #for file in file_list:

@@ -21,7 +21,7 @@ isVV = False
 #isVV = True
 
 isFromDC = False
-isFromDC = True
+#isFromDC = True
 
 # Wlv: WH
 #in_dir = 'WlnHbb_Datacards_Nov8_noRateParamsApplied_withSplitNuisances'
@@ -30,21 +30,22 @@ isFromDC = True
 #in_dir = 'WlnZbb_Datacards_Nov24_withNuisancesSplit'
 
 # Zvv: ZH
-#in_dir = 'ZnnHbb_LimitDatacards_withoutScaleFactors'
+#in_dir = 'ZnnHbb_Datacards_FinalLimit_NoScaleFactorsApplied'
 
 #Zvv: VV
 #in_dir = 'Diboson_Datacards_FinalLimit_withoutScaleFactors_new'
 
 # VV
-in_dir = 'v25_VH_CMVA_LO_noVHewk_3_25/'
+#in_dir = 'v25_VV_CMVA_LO_withBjets_4_9'
 
 # VH
-#in_dir = 'v25_VH_CMVA_LO_3_16'
+in_dir = 'v25_VH_CMVA_LO_withBjets_4_9'
+#in_dir = 'v25_SR_CMVA_LO_4_9'
 
 # Gael
 #in_dir = 'DC_v23_VH_v2_25_11_2016'
 
-out_dir = '~/www/v25_VH_CMVA_LO_3_27_preFit/'
+out_dir = '~/www/v25_VH_CMVA_LO_4_9_postFit/'
 
 
 cr_list = {
@@ -88,7 +89,8 @@ cr_list = {
     #'vhbb_DC_TH_Znn_13TeV_HighPt_QCD':'Znn_13TeV',
     #'vhbb_DC_TH_Znn_13TeV_HighPt_TT':'Znn_13TeV',
     #'vhbb_DC_TH_Znn_13TeV_HighPt_Zbb':'Znn_13TeV',
-    #'vhbb_DC_TH_Znn_13TeV_HighPt_Zlight':'Znn_13TeV'
+    #'vhbb_DC_TH_Znn_13TeV_HighPt_Zlight':'Znn_13TeV',
+    #'Znn_13TeV_HighPt_Signal':'Znn_13TeV'
     }
 
 sr_list = { 

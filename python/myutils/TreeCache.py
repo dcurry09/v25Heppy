@@ -201,7 +201,7 @@ class TreeCache:
         
         anaTag=config.get('Analysis','tag')
         
-        theScale = 0.
+        theScale = 1.
         
         lumi = float(sample.lumi)
         print ('sample:', sample)
@@ -225,7 +225,6 @@ class TreeCache:
         negWeight = input.Get('CountNegWeight')
         Weight = input.Get('CountWeighted')
         lumi = float(sample.lumi)
-        count = (posWeight.GetBinContent(1) - negWeight.GetBinContent(1))
         
         # for LHE weights
         countWeightedLHEWeightScale = input.Get('CountWeightedLHEWeightScale')
@@ -247,12 +246,22 @@ class TreeCache:
         elif lhe_scale == 3:
             scaled_count = countWeightedLHEWeightScale.GetBinContent(3+1)
 
-        if scaled_count > 0:
-            countWeightNoPU = (posWeight.GetBinContent(1) + negWeight.GetBinContent(1))
-            countWeightPU = Weight.GetBinContent(1)
-            return lumi*sample.xsec*sample.sf/(scaled_count*(countWeightNoPU/countWeightPU))
+        count = (posWeight.GetBinContent(1) - negWeight.GetBinContent(1))
+        countWeightNoPU = (posWeight.GetBinContent(1) + negWeight.GetBinContent(1))
+        countWeightPU = Weight.GetBinContent(1)
+
+        #if scaled_count > 0:
+        #    countWeightNoPU = (posWeight.GetBinContent(1) + negWeight.GetBinContent(1))
+        #    countWeightPU = Weight.GetBinContent(1)
+        #    return lumi*sample.xsec*sample.sf/(scaled_count*(countWeightNoPU/countWeightPU))
+        #else:
+        #    return lumi*sample.xsec*sample.sf/count
+        
+        if scaled_count == 0:
+            return 0.
         else:
-            return lumi*sample.xsec*sample.sf/count
+            return (countWeightNoPU/count)*lumi*sample.xsec*sample.sf/(scaled_count*(countWeightNoPU/countWeightPU))
+
 
 
     @staticmethod

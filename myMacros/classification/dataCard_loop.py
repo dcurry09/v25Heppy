@@ -83,8 +83,8 @@ vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 't
 # ttbar_list = vv_ttbar_list
 # ====================================
 
-temp_list = ['ttbar_high_Zee']
-#temp_list = zlf_list
+#temp_list = ['VV_BDT_Zuu_highZpt']
+temp_list = bdt_list
 
 # ==============================================
 
@@ -102,7 +102,7 @@ datacard_list = temp_list
 
 ##### Directory to save datacards ####
 
-title = 'CMVA_LO_3_28'
+title = 'CMVA_LO_withBjets_4_9'
 #title = 'TEST'
 
 sig_dir = 'v25_SR_'+title
@@ -119,11 +119,11 @@ print '\n\t ###### Making DC in', dir, cr_dir, sig_dir
 
 #Choose batch mode or sequential
 batch = False
-#batch = True
+batch = True
 
 # choose bdt, CR split
 isSplit = False
-isSplit = True
+#isSplit = True
 
 isVV = False
 #isVV = True
@@ -134,7 +134,7 @@ isCombine = False
 
 # BDT final fit(split Pt Categories)
 splitRegionFOM = False
-#splitRegionFOM = True
+splitRegionFOM = True
 
 # Old Test
 isFinalFit = False
@@ -437,7 +437,7 @@ if isCombine:
 
     temp_string_combine_SIGonly = temp_string_combine_SIGonly + ' ' + ' > vhbb_DC_TH_CR_SIG_Combined.txt'
     print 'SIG combine string:', temp_string_combine_SIGonly
-
+    
     # BKG only    
     for dc_low,dc_high in zip(control_combine_list_low,control_combine_list_high):
         #print 'DC Low:', dc_low, 'dc High:', dc_high
@@ -457,23 +457,35 @@ if isCombine:
     #t4 = 'combine -M MaxLikelihoodFit vhbb_DC_TH_CR_Combined_high.txt --saveShapes --saveWithUncertainties -v 3 --expectSignal=0'
     #os.system(t4)
 
+
+    # TExt files to store output
+    os.system('rm sig_only_RP.txt')
+    os.system('rm bkg_only_RP.txt')
+    os.system('rm sigPlusBkg_RP.txt')
+    
+    
     print '\n\n ============= SIG Only Scale Facors =============='
     os.system(temp_string_combine_SIGonly)
-    t5 = 'combine -M MaxLikelihoodFit vhbb_DC_TH_CR_SIG_Combined.txt -v 3 --saveShapes --saveWithUncertainties --expectSignal=1 --minimizerTolerance=100.0'
+    #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_SIG_Combined.txt >> sig_only_RP.txt'
+    t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --minimizerAlgo=Minuit -v 3 vhbb_DC_TH_CR_SIG_Combined.txt'
     #os.system(t5)
     
     print '\n\n ============= BKG Scale Facors =============='
     os.system(temp_string_combine_BKGonly)
-    t5 = 'combine -M MaxLikelihoodFit vhbb_DC_TH_CR_BKG_Combined.txt -v 3 --saveShapes --saveWithUncertainties --expectSignal=0 --minimizerTolerance=100.0'
+    #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_BKG_Combined.txt >> bkg_only_RP.txt'
+    t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_BKG_Combined.txt'
     #os.system(t5)
     
     print '\n\n ============= SIG + BKG Scale Facors =============='
     os.system(temp_string_combine)
-    t5 = 'combine -M MaxLikelihoodFit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt -v 3 --saveShapes --saveWithUncertainties --expectSignal=1 --minimizerTolerance=100.0'
-    # | grep 'Best fit r' | awk '{print $5}'"
+    #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt >> sigPlusBkg_RP.txt'
+    t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt'
     os.system(t5)
+    
+    #--minimizerAlgo=Minuit --minimizerTolerance=100.0
+    
+    
 
-       
 ###################################################################################
 #### End Control Regions
 
@@ -818,9 +830,8 @@ if splitRegionFOM:
 
 
     print '\t\n\n========= Significance ========='
-
+    
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt"
     os.system(t2)
     
     print '\n==== NO SYS ===='
@@ -828,12 +839,12 @@ if splitRegionFOM:
     os.system(t2)
 
     print '\n==== Post Fit ===='
-    #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    #os.system(t2)
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    os.system(t2)
     
     print '\n==== Post Fit NO SYS ===='
-    #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    #os.system(t2)
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    os.system(t2)
 
     print '\t\n\n========= Signal Strength Uncertainty ========='
 
@@ -842,12 +853,14 @@ if splitRegionFOM:
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
+    
+    t3 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 --saveShapes vhbb_Zll.txt'
 
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=0 vhbb_Zll.txt"
 
-    t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 vhbb_Zll.txt"
+    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 vhbb_Zll.txt"
     
     #t3 = 'combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --saveShapes --saveWithUncertainties -v 3 --expectSignal=0'
     

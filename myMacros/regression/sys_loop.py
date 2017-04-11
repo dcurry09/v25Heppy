@@ -21,7 +21,7 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_inclusive']
+bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_inclusive']
 
 DY_list = ['DY_70to100', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_Bjets',
            'DY_1200to2500', 'DY_2500toInf','DY_800to1200_ext1','DY_800to1200_ext2',
@@ -34,13 +34,13 @@ DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650'
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
-temp_list = ['DY_800to1200_ext1','DY_800to1200_ext2']
+temp_list = ['ST_s']
 
 
 sample_list = temp_list
 #sample_list = DY_list + signal_list
 #sample_list = data_list
-#sample_list = signal_list + bkg_list + DY_list + ST_list + data_list
+#sample_list = signal_list + ST_list + data_list + bkg_list + DY_list
 
 #sample_list1 = signal_list + data_list + ST_list
 

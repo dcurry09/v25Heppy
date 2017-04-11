@@ -109,10 +109,9 @@ plot_mass: ZH125,ggZH125
 Normalize: False
 #Normalize: True
 
-#standard_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt
-#,<!Plot_general|BDTs!>
+#standard_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,<!Plot_general|BDTs!>
 
-standard_vars: Vpt,hJet1pt_reg,hJet0pt_reg,HT,HCMVAV2_reg_pt
+standard_vars: Vpt,hJet1pt_reg,hJet0pt_reg,HT,HCMVAV2_reg_pt,HCMVAV2_reg_mass
 
 #standard_vars: HCMVAV2_reg_mass,HCMVAV2_reg_pt,Vpt,HT,LHE_Vpt
 

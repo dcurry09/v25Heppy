@@ -221,7 +221,7 @@ theTreeCopier = TreeCopierWithCorrectionFromFile()
 # sample prefix
 prefix = 'v25_'
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out_large/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/vtype_out/'
 
 # List of files to add btag weights to
@@ -279,7 +279,8 @@ temp_list = ['DY_inclusive']
 
 #file_list = bkg_list + signal_list + DY_list + ST_list
 #file_list = temp_list
-file_list = prep_list
+
+file_list = signal_list
 
 #for file in file_list:
 def osSystem(file):

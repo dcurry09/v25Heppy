@@ -46,7 +46,7 @@ channels= ['Zll']
 
 path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_4_3/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_4_9/'
 
 # Make the dir and copy the website ini files
 try:

@@ -12,8 +12,8 @@ import multiprocessing
 
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
-main_dir  = 'TEST_SYSweightCheck_noNLO'
-#main_dir = 'v25_CR_CMVA_LO_newSF_3_15'
+#main_dir  = 'TEST4'
+main_dir = 'v25_CR_LO_WithBjets2_4_9'
 
 
 

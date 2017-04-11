@@ -63,6 +63,65 @@ info = ParseInfo(samplesinfo,pathIN)
 # counter object
 count = Counter()
 
+def computeSF_leg(leg):
+    #leg is the leg index, can be 0 or 1
+    eff_leg = [1.,0.,0.]
+    eff_leg[0] = (weight[leg][0])
+    eff_leg[1] = weight[leg][0]-weight[leg][1]
+    eff_leg[2] = weight[leg][0]+weight[leg][1]
+    return eff_leg
+
+def computeEventSF_fromleg(effleg1, effleg2):
+    #returns event efficiency and relative uncertainty
+    eff_event = [1.,0.]
+    eff_event[0] = ((effleg1[0][0]**2*effleg2[1][0] + effleg1[1][0]**2*effleg2[0][0])/(effleg1[0][0] + effleg1[1][0]))
+    #relative uncertainty down
+    uncert_down = (abs(((effleg1[0][1]**2*effleg2[1][1] + effleg1[1][1]**2*effleg2[0][1])/(effleg1[0][1] + effleg1[1][1])) - eff_event[0])/eff_event[0])
+    #relative uncertainty up
+    uncert_up = (abs(((effleg1[0][2]**2*effleg2[1][2] + effleg1[1][2]**2*effleg2[0][2])/(effleg1[0][2] + effleg1[1][2])) - eff_event[0])/eff_event[0])
+    eff_event[1]  = (uncert_down+uncert_up)/2.
+    return eff_event
+
+def computeEvenSF_DZ(eff):
+    eff_event = [1.,0.]
+    eff_event[0] = ((eff[0][0]**2 + eff[1][0]**2)/(eff[0][0] + eff[1][0]))
+    #relative uncertainty down
+    uncert_down = (((eff[0][1]**2 + eff[1][1]**2)/(eff[0][1] + eff[1][1])) - eff_event[0])/eff_event[0]
+    #relative uncertainty up
+    uncert_up = (((eff[0][2]**2 + eff[1][2]**2)/(eff[0][2] + eff[1][2])) - eff_event[0])/eff_event[0]
+    eff_event[1]  = (uncert_down+uncert_up)/2.
+    return eff_event
+
+def getLumiAvrgSF(weightLum1, lum1, weightLum2, lum2, weight_SF):
+    weight_SF[0] = weightLum1[0]*lum1+weightLum2[0]*lum2
+    weight_SF[1] = weightLum1[1]*lum1+weightLum2[1]*lum2
+    weight_SF[2] = weightLum1[2]*lum1+weightLum2[2]*lum2
+
+def computeEff(weight_Eff):
+    eff1 = []
+    eff2 = []
+    eff1.append(weight[0][0])
+    eff1.append(weight[0][0]-weight[0][1])
+    eff1.append(weight[0][0]+weight[0][1])
+    eff2.append(weight[1][0])
+    eff2.append(weight[1][0]-weight[1][1])
+    eff2.append(weight[1][0]+weight[1][1])
+    weight_Eff[0] = (eff1[0]*(1-eff2[0])*eff1[0] + eff2[0]*(1-eff1[0])*eff2[0] + eff1[0]*eff1[0]*eff2[0]*eff2[0])
+    weight_Eff[1] = (eff1[1]*(1-eff2[1])*eff1[1] + eff2[1]*(1-eff1[1])*eff2[1] + eff1[1]*eff1[1]*eff2[1]*eff2[1])
+    weight_Eff[2] = (eff1[2]*(1-eff2[2])*eff1[2] + eff2[2]*(1-eff1[2])*eff2[2] + eff1[2]*eff1[2]*eff2[2]*eff2[2])
+    return weight_Eff
+
+def computeWeight(a, b):
+    weight = []
+    weight.append([])
+    weight.append([])
+    for i in range(2):
+        weight[i].append(a*muTrigEffBfr[i][0] + b*muTrigEffAftr[i][0])
+        weight[i].append(math.sqrt((a*muTrigEffBfr[i][1])**2 + (b*muTrigEffAftr[i][1])**2))
+    return weight
+
+
+
 def deltaPhi(phi1, phi2): 
     result = phi1 - phi2
     while (result > math.pi): result -= 2*math.pi
@@ -101,15 +160,193 @@ def signal_ewk(GenVbosons_pt):
 	       0.829982098864,
 	       0.81108451152,
 	       0.821942287438,
-	       0.796485091295,
-	       0.800127513022,
-	       0.790708718585,
-	       0.779446429438,
-	       0.777869490396]
+	       0.79,
+	       0.79,
+	       0.79,
+	       0.79,
+	       0.79]
 	
 	#print EWK[0]
 	#print EWK[1]
 
+	if GenVbosons_pt > 0. and GenVbosons_pt < 3000:
+
+		if GenVbosons_pt > 0 and GenVbosons_pt <= 20:
+			SF = EWK[0]
+		if GenVbosons_pt > 20 and GenVbosons_pt <= 40:
+			SF = EWK[1]
+		if GenVbosons_pt > 40 and GenVbosons_pt <= 60:
+			SF = EWK[2]
+		if GenVbosons_pt > 60 and GenVbosons_pt <= 80:
+			SF = EWK[3]
+		if GenVbosons_pt > 80 and GenVbosons_pt <= 100:
+			SF = EWK[4]
+		if GenVbosons_pt > 100 and GenVbosons_pt <= 120:
+			SF = EWK[5]
+		if GenVbosons_pt > 120 and GenVbosons_pt <= 140:
+			SF = EWK[6]
+		if GenVbosons_pt > 140 and GenVbosons_pt <= 160:
+			SF = EWK[7]
+		if GenVbosons_pt > 160 and GenVbosons_pt <= 180:
+			SF = EWK[8]
+		if GenVbosons_pt > 180 and GenVbosons_pt <= 200:
+			SF = EWK[9]
+		if GenVbosons_pt > 200 and GenVbosons_pt <= 220:
+			SF = EWK[10]
+		if GenVbosons_pt > 220 and GenVbosons_pt <= 240:
+			SF = EWK[11]
+		if GenVbosons_pt > 240 and GenVbosons_pt <= 260:
+			SF = EWK[12]
+		if GenVbosons_pt > 260 and GenVbosons_pt <= 280:
+			SF = EWK[13]
+		if GenVbosons_pt > 280 and GenVbosons_pt <= 300:
+			SF = EWK[14]
+		if GenVbosons_pt > 300 and GenVbosons_pt <= 320:
+			SF = EWK[15]
+		if GenVbosons_pt > 320 and GenVbosons_pt <= 340:
+			SF = EWK[16]
+		if GenVbosons_pt > 340 and GenVbosons_pt <= 360:
+			SF = EWK[17]
+		if GenVbosons_pt > 360 and GenVbosons_pt <= 380:
+			SF = EWK[18]
+		if GenVbosons_pt > 380 and GenVbosons_pt <= 400:
+			SF = EWK[19]
+		if GenVbosons_pt > 400 and GenVbosons_pt <= 420:
+			SF = EWK[20]
+		if GenVbosons_pt > 420 and GenVbosons_pt <= 440:
+			SF = EWK[21]
+		if GenVbosons_pt > 440 and GenVbosons_pt <= 460:
+			SF = EWK[22]
+		if GenVbosons_pt > 460 and GenVbosons_pt <= 480:
+			SF = EWK[23]
+		if GenVbosons_pt > 480:
+			SF = EWK[24]
+		if GenVbosons_pt <= 0:
+			SF = 1
+
+
+	return SF
+
+def signal_ewk_up(GenVbosons_pt):
+	
+	SF = 1.
+	#print 'Vpt:', GenVbosons_pt
+	EWK = [0.933479852292,
+	       0.925298220882,
+	       0.917622981133,
+	       0.91102286158,
+	       0.90718076681,
+	       0.905350232844,
+	       0.90336604675,
+	       0.903947932682,
+	       0.903377015003,
+	       0.897282669087,
+	       0.892978480734,
+	       0.885729935121,
+	       0.878913596976,
+	       0.872505666469,
+	       0.866859512888,
+	       0.860942354659,
+	       0.850346790893,
+	       0.844431351897,
+	       0.829520542725,
+	       0.837419206895,
+	       0.81,
+	       0.81,
+	       0.81,
+	       0.81,
+	       0.81
+	       ]
+	
+	if GenVbosons_pt > 0. and GenVbosons_pt < 3000:
+
+		if GenVbosons_pt > 0 and GenVbosons_pt <= 20:
+			SF = EWK[0]
+		if GenVbosons_pt > 20 and GenVbosons_pt <= 40:
+			SF = EWK[1]
+		if GenVbosons_pt > 40 and GenVbosons_pt <= 60:
+			SF = EWK[2]
+		if GenVbosons_pt > 60 and GenVbosons_pt <= 80:
+			SF = EWK[3]
+		if GenVbosons_pt > 80 and GenVbosons_pt <= 100:
+			SF = EWK[4]
+		if GenVbosons_pt > 100 and GenVbosons_pt <= 120:
+			SF = EWK[5]
+		if GenVbosons_pt > 120 and GenVbosons_pt <= 140:
+			SF = EWK[6]
+		if GenVbosons_pt > 140 and GenVbosons_pt <= 160:
+			SF = EWK[7]
+		if GenVbosons_pt > 160 and GenVbosons_pt <= 180:
+			SF = EWK[8]
+		if GenVbosons_pt > 180 and GenVbosons_pt <= 200:
+			SF = EWK[9]
+		if GenVbosons_pt > 200 and GenVbosons_pt <= 220:
+			SF = EWK[10]
+		if GenVbosons_pt > 220 and GenVbosons_pt <= 240:
+			SF = EWK[11]
+		if GenVbosons_pt > 240 and GenVbosons_pt <= 260:
+			SF = EWK[12]
+		if GenVbosons_pt > 260 and GenVbosons_pt <= 280:
+			SF = EWK[13]
+		if GenVbosons_pt > 280 and GenVbosons_pt <= 300:
+			SF = EWK[14]
+		if GenVbosons_pt > 300 and GenVbosons_pt <= 320:
+			SF = EWK[15]
+		if GenVbosons_pt > 320 and GenVbosons_pt <= 340:
+			SF = EWK[16]
+		if GenVbosons_pt > 340 and GenVbosons_pt <= 360:
+			SF = EWK[17]
+		if GenVbosons_pt > 360 and GenVbosons_pt <= 380:
+			SF = EWK[18]
+		if GenVbosons_pt > 380 and GenVbosons_pt <= 400:
+			SF = EWK[19]
+		if GenVbosons_pt > 400 and GenVbosons_pt <= 420:
+			SF = EWK[20]
+		if GenVbosons_pt > 420 and GenVbosons_pt <= 440:
+			SF = EWK[21]
+		if GenVbosons_pt > 440 and GenVbosons_pt <= 460:
+			SF = EWK[22]
+		if GenVbosons_pt > 460 and GenVbosons_pt <= 480:
+			SF = EWK[23]
+		if GenVbosons_pt > 480:
+			SF = EWK[24]
+		if GenVbosons_pt <= 0:
+			SF = 1
+
+
+	return SF
+
+def signal_ewk_down(GenVbosons_pt):
+	
+	SF = 1.
+	#print 'Vpt:', GenVbosons_pt
+	EWK = [0.930666059342,
+	       0.923454287889,
+	       0.915481917365,
+	       0.908285826095,
+	       0.90240144791,
+	       0.89913903569,
+	       0.895783691809,
+	       0.895150466456,
+	       0.895252707162,
+	       0.886815383834,
+	       0.88034950644,
+	       0.872100896154,
+	       0.861569533042,
+	       0.853973051969,
+	       0.847699004132,
+	       0.838599255237,
+	       0.824904464966,
+	       0.815532845831,
+	       0.792648480316,
+	       0.806465367982,
+	       0.79,
+	       0.79,
+	       0.79,
+	       0.79,
+	       0.79
+	       ]
+	
 	if GenVbosons_pt > 0. and GenVbosons_pt < 3000:
 
 		if GenVbosons_pt > 0 and GenVbosons_pt <= 20:
@@ -683,10 +920,13 @@ for job in info:
     # for signal reweighting
     Signal_ewkWeight = array('f',[0]*1)
     newtree.Branch('Signal_ewkWeight',Signal_ewkWeight,'Signal_ewkWeight/F')
-	    
-    # For 2016E+F HIP mitigation
-    #bTagWeightEF = array('f',[0]*1)
-    #newtree.Branch('bTagWeightEF',bTagWeightEF,'bTagWeightEF/F')
+    
+    Signal_ewkWeight_Up = array('f',[0]*1)
+    newtree.Branch('Signal_ewkWeight_Up',Signal_ewkWeight_Up,'Signal_ewkWeight_Up/F')
+
+    Signal_ewkWeight_Down = array('f',[0]*1)
+    newtree.Branch('Signal_ewkWeight_Down',Signal_ewkWeight_Down,'Signal_ewkWeight_Down/F')
+    
     
     mTrigSFWeightUp   = array('f',[0]*1)
     mTrigSFWeightDown = array('f',[0]*1)
@@ -789,13 +1029,17 @@ for job in info:
 			    NLO_Weight[0] = 1		    
 			    DY_ewkWeight[0] = 1
 			    Signal_ewkWeight[0] = 1
+			    Signal_ewkWeight_Up[0] = 1
+			    Signal_ewkWeight_Down[0] = 1
 
 		    elif 'DY' in job.name:
 			    Signal_ewkWeight[0] = 1
-			    
+			    Signal_ewkWeight_Up[0] = 1
+			    Signal_ewkWeight_Down[0] = 1
+
 			    specialWeight_ = specialWeight.EvalInstance()
 			    DY_specialWeight[0] = specialWeight_
-		    
+			    
 			    # NLO weight
 			    etabb = abs(tree.Jet_eta[tree.hJCidx[0]] - tree.Jet_eta[tree.hJCidx[1]])
 			    if etabb < 5: 
@@ -808,15 +1052,21 @@ for job in info:
 		    elif 'ZH' in job.name and not 'ggZH' in job.name:
 			    if tree.nGenVbosons > 0:
 				     Signal_ewkWeight[0] = signal_ewk(tree.GenVbosons_pt[0])
+				     Signal_ewkWeight_Up[0] = signal_ewk_up(tree.GenVbosons_pt[0])
+				     Signal_ewkWeight_Down[0] = signal_ewk_down(tree.GenVbosons_pt[0])
 			    else:
 				    Signal_ewkWeight[0] = 1
-
+				    Signal_ewkWeight_Up[0] = 1
+				    Signal_ewkWeight_Down[0] = 1
+				    
 			    DY_specialWeight[0] = 1
 			    NLO_Weight[0] = 1
                             DY_ewkWeight[0] = 1
 					    
 		    else:		    
 			    Signal_ewkWeight[0] = 1
+			    Signal_ewkWeight_Up[0] = 1
+			    Signal_ewkWeight_Down[0] = 1
 			    NLO_Weight[0] = 1
 			    DY_ewkWeight[0] = 1
 			    DY_specialWeight[0] = 1
@@ -895,20 +1145,59 @@ for job in info:
 		    eff1 = 1
 		    eff2 = 1
 		    
+		    muID_BCDEF = [1.,0.,0.]
+                    muID_GH = [1.,0.,0.]
+                    muISO_BCDEF = [1.,0.,0.]
+                    muISO_GH = [1.,0.,0.]
+                    muTRK_BCDEF= [1.0,0.,0.]
+                    muTRK_GH = [1.0,0.,0.]
+                    btagSF = [1.,0.,0.]
+                    #for muon trigger
+                     #Run BCDEFG
+                    effDataBCDEFG_leg8 = []
+                    effDataBCDEFG_leg17= []
+                    effMCBCDEFG_leg8= []
+                    effMCBCDEFG_leg17 = []
+                     #Run H
+                    effDataH_leg8 = []
+                    effDataH_leg17 = []
+                    effMCH_leg8 = []
+                    effMCH_leg17 = []
+                     #Run H dZ
+                    effDataH_DZ= []
+                    effMCH_DZ= []
+
 		    jsons = {
 			    #### Muon trigger ISO, and ID ####
 			    
 			    # # ID
-			    'myutils/jsons/80x/muon_ID_BCDEF.json' : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
-			    'myutils/jsons/80x/muon_ID_GH.json'    : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'pt_abseta_ratio'],
+			    'myutils/jsons/80x/muon_ID_BCDEF.json' : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'abseta_pt_ratio'],
+			    'myutils/jsons/80x/muon_ID_GH.json'    : ['MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta', 'abseta_pt_ratio'],
 			    
 			    # ISO
-			    'myutils/jsons/80x/muon_ISO_BCDEF.json' : ['LooseISO_LooseID_pt_eta', 'pt_abseta_ratio'],
-			    'myutils/jsons/80x/muon_ISO_GH.json'    : ['LooseISO_LooseID_pt_eta', 'pt_abseta_ratio'],
+			    'myutils/jsons/80x/muon_ISO_BCDEF.json' : ['LooseISO_LooseID_pt_eta', 'abseta_pt_ratio'],
+			    'myutils/jsons/80x/muon_ISO_GH.json'    : ['LooseISO_LooseID_pt_eta', 'abseta_pt_ratio'],
 
 			    # tracker
 			    'myutils/jsons/80x/trk_SF_RunBCDEF.json' : ['Graph', 'ratio_eff_eta3_dr030e030_corr'],
 			    'myutils/jsons/80x/trk_SF_RunGH.json'    : ['Graph', 'ratio_eff_eta3_dr030e030_corr'],
+
+			    # trigger
+			    #BCDEFG
+			    'myutils/jsons/80x/Data_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg8.json' : ['MC_NUM_hlt_Mu17_Mu8_OR_TkMu8_leg8_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_DATA'],
+			    'myutils/jsons/80x/Data_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg17.json' : ['MC_NUM_hlt_Mu17Mu8_leg17_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_DATA'],
+			    'myutils/jsons/80x/MC_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg8.json' : ['MC_NUM_hlt_Mu17_Mu8_OR_TkMu8_leg8_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_MC'],
+			    'myutils/jsons/80x/MC_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg17.json' : ['MC_NUM_hlt_Mu17Mu8_leg17_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_MC'],
+                            #H
+			    #no DZ
+			    'myutils/jsons/80x/Data_EfficienciesAndSF_doublehlt_perleg_RunH_leg8.json' : ['MC_NUM_hlt_Mu17_Mu8_OR_TkMu8_leg8_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_DATA'],
+			    'myutils/jsons/80x/Data_EfficienciesAndSF_doublehlt_perleg_RunH_leg17.json' : ['MC_NUM_hlt_Mu17Mu8_leg17_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_DATA'],
+			    'myutils/jsons/80x/MC_EfficienciesAndSF_doublehlt_perleg_RunH_leg8.json' : ['MC_NUM_hlt_Mu17_Mu8_OR_TkMu8_leg8_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_MC'],
+			    'myutils/jsons/80x/MC_EfficienciesAndSF_doublehlt_perleg_RunH_leg17.json' : ['MC_NUM_hlt_Mu17Mu8_leg17_DEN_LooseIDnISO_PAR_pt_eta', 'abseta_pt_MC'],
+			    #with DZ
+			    'myutils/jsons/80x/DATA_EfficienciesAndSF_dZ_numH.json' : ['MC_NUM_dZ_DEN_hlt_Mu17_Mu8_OR_TkMu8_loose_PAR_eta1_eta2', 'tag_abseta_abseta_DATA'],
+			    'myutils/jsons/80x/MC_EfficienciesAndSF_dZ_numH.json' : ['MC_NUM_dZ_DEN_hlt_Mu17_Mu8_OR_TkMu8_loose_PAR_eta1_eta2', 'tag_abseta_abseta_MC'],
+
 
 			    #### Electron trigger and ID ####
 			    
@@ -916,7 +1205,7 @@ for job in info:
 			    '../myMacros/scale_factors/80x/ScaleFactor_etracker_80x.json' : ['ScaleFactor_tracker_80x', 'eta_pt_ratio'],
 			    
 			    # MVAID
-			    #'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
+			    'myutils/jsons/80x/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
 			    
 			    # coarse Binning
 			    'myutils/jsons/80x/coarse_bin/EIDISO_ZH_out.json' : ['EIDISO_ZH', 'eta_pt_ratio'],
@@ -940,12 +1229,20 @@ for job in info:
 			    lepCorr = LeptonSF(j, name[0], name[1])
 			    
 			    if '_out' in j or 'ScaleFactor_etracker_80x' in j: 
-				    weight.append(lepCorr.get_2D_eta_pt(tree.vLeptons_new_eta[0], tree.vLeptons_new_pt[0]))
-                                    weight.append(lepCorr.get_2D_eta_pt(tree.vLeptons_new_eta[1], tree.vLeptons_new_pt[1]))
+				    #weight.append(lepCorr.get_2D_eta_pt(tree.vLeptons_new_eta[0], tree.vLeptons_new_pt[0]))
+                                    #weight.append(lepCorr.get_2D_eta_pt(tree.vLeptons_new_eta[1], tree.vLeptons_new_pt[1]))
+				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
+                                    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[1], tree.vLeptons_new_eta[1]))
 				    
-			    elif 'trk_SF_Run' not in j:
+
+			    elif 'trk_SF_Run' not in j and 'EfficienciesAndSF_dZ_numH' not in j:
 				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[0], tree.vLeptons_new_eta[0]))
 				    weight.append(lepCorr.get_2D( tree.vLeptons_new_pt[1], tree.vLeptons_new_eta[1]))
+
+			    elif 'trk_SF_Run' not in j and 'EfficienciesAndSF_dZ_numH' in j:
+				    weight.append(lepCorr.get_2D(tree.vLeptons_new_eta[0], tree.vLeptons_new_eta[1]))
+				    weight.append(lepCorr.get_2D(tree.vLeptons_new_eta[1], tree.vLeptons_new_eta[0]))
+
 			    elif 'trk_SF_Run' in j:	    
 				    weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[0]))
                                     weight.append(lepCorr.get_1D(tree.vLeptons_new_eta[1]))
@@ -965,21 +1262,6 @@ for job in info:
                                             mTrk_GH_down = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
 					    #print weight[0][0], weight[1][0]
 
-				    elif j.find('ScaleFactor_doubleMuon80x') != -1:
-					    mTrigSFWeight_doubleMu80x[0] = weight[0][0]
-                                            mTrigSFWeight_doubleMu80xUp[0] = weight[0][0] + weight[0][1] 
-                                            mTrigSFWeight_doubleMu80xDown[0] = weight[0][0] - weight[0][1]
-					    
-				    elif j.find('SingleMuonTrigger_LooseMuons_afterL2fix_Z_RunBCD_prompt80X_7p65') != -1:
-					    muTrigEffAftr1 = weight[0][0]
-					    muTrigEffAftr2 = weight[1][0]
-					    
-					    muEffUpAftr1   = (weight[0][0]+weight[0][1])
-                                            muEffUpAftr2   = (weight[1][0]+weight[1][1])
-                                            muEffDownAftr1 = (weight[0][0]-weight[0][1])
-                                            muEffDownAftr2 = (weight[1][0]-weight[1][1])
-					    
-					    
 				    elif j.find('muon_ID_BCDEF') != -1:
 					    muID_BCDEF = weight[0][0]*weight[1][0]  
 					    mIDSFWeightUp_BCDEF   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
@@ -1002,6 +1284,40 @@ for job in info:
 					    mISOSFWeightUp_GH   = (weight[0][0]+weight[0][1])*(weight[1][0]+weight[1][1])
 					    mISOSFWeightDown_GH = (weight[0][0]-weight[0][1])*(weight[1][0]-weight[1][1])
 					    #print muISO_GH
+
+				    elif j.find('EfficienciesAndSF_doublehlt_perleg') != -1:
+					    
+					    if j.find('Data_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg8') != -1:
+						    effDataBCDEFG_leg8.append(computeSF_leg(0))
+						    effDataBCDEFG_leg8.append(computeSF_leg(1))
+					    elif j.find('Data_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg17') != -1:
+						    effDataBCDEFG_leg17.append(computeSF_leg(0))
+						    effDataBCDEFG_leg17.append(computeSF_leg(1))
+					    elif j.find('MC_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg8') != -1:
+						    effMCBCDEFG_leg8.append(computeSF_leg(0))
+						    effMCBCDEFG_leg8.append(computeSF_leg(1))
+					    elif j.find('MC_EfficienciesAndSF_doublehlt_perleg_RunBCDEFG_leg17') != -1:
+						    effMCBCDEFG_leg17.append(computeSF_leg(0))
+						    effMCBCDEFG_leg17.append(computeSF_leg(1))
+					    elif j.find('Data_EfficienciesAndSF_doublehlt_perleg_RunH_leg8') != -1:
+						    effDataH_leg8.append(computeSF_leg(0))
+						    effDataH_leg8.append(computeSF_leg(1))
+					    elif j.find('Data_EfficienciesAndSF_doublehlt_perleg_RunH_leg17') != -1:
+						    effDataH_leg17.append(computeSF_leg(0))
+						    effDataH_leg17.append(computeSF_leg(1))
+					    elif j.find('MC_EfficienciesAndSF_doublehlt_perleg_RunH_leg8') != -1:
+						    effMCH_leg8.append(computeSF_leg(0))
+						    effMCH_leg8.append(computeSF_leg(1))
+					    elif j.find('MC_EfficienciesAndSF_doublehlt_perleg_RunH_leg17') != -1:
+						    effMCH_leg17.append(computeSF_leg(0))
+						    effMCH_leg17.append(computeSF_leg(1))
+				    elif j.find('DATA_EfficienciesAndSF_dZ_numH') != -1:
+					    effDataH_DZ.append(computeSF_leg(0))
+					    effDataH_DZ.append(computeSF_leg(1))
+				    elif j.find('MC_EfficienciesAndSF_dZ_numH') != -1:
+					    effMCH_DZ.append(computeSF_leg(0))
+					    effMCH_DZ.append(computeSF_leg(1))
+					    
 
 			    elif tree.Vtype_new == 1:
 				    				    	    
@@ -1027,13 +1343,8 @@ for job in info:
 					    
 					    
                     # End JSON loop ====================================
-		    
+					    
 		    if tree.Vtype_new == 0:
-			    
-			    # for 35.9/fb
-			    #eff1 = 0.02772*muTrigEffBfr1 + 0.97227*muTrigEffAftr1
-			    #eff2 = 0.02772*muTrigEffBfr2 + 0.97227*muTrigEffAftr2
-			    #TrigSFWeight[0] = eff1*(1-eff2)*eff1 + eff2*(1-eff1)*eff2 + eff1*eff1*eff2*eff2
 			    
 			    mIdSFWeight[0]     = muID_BCDEF*(20.1/36.4) + muID_GH*(16.3/36.4)
 			    mIdSFWeightUp[0]   = mIDSFWeightUp_BCDEF*(20.1/36.4) + mIDSFWeightUp_GH*(16.3/36.4)
@@ -1046,6 +1357,37 @@ for job in info:
 			    mTrackerSFWeight[0]     = mTrk_BCDEF*(20.1/36.4) + mTrk_GH*(16.3/36.4)
 			    mTrackerSFWeightUp[0]   = mTrk_BCDEF_up*(20.1/36.4) + mTrk_GH_up*(16.3/36.4)
 			    mTrackerSFWeightDown[0] = mTrk_BCDEF_down*(20.1/36.4) + mTrk_GH_down*(16.3/36.4)
+			    
+			    EffData_BCDEFG = [1.0,0.]
+			    EffMC_BCDEFG = [1.0,0.]
+			    SF_BCDEFG = [1.0,0.,0.]
+			    EffData_BCDEFG = computeEventSF_fromleg(effDataBCDEFG_leg8,effDataBCDEFG_leg17)
+			    EffMC_BCDEFG = computeEventSF_fromleg(effMCBCDEFG_leg8,effMCBCDEFG_leg17)
+			    SF_BCDEFG[0] =  (EffData_BCDEFG[0]/EffMC_BCDEFG[0])
+			    SF_BCDEFG[1] = (1-math.sqrt(EffData_BCDEFG[1]**2+ EffMC_BCDEFG[1]**2))*SF_BCDEFG[0]
+			    SF_BCDEFG[2] = (1+math.sqrt(EffData_BCDEFG[1]**2+ EffMC_BCDEFG[1]**2))*SF_BCDEFG[0]
+                            #H no DZ
+			    EffData_H = [1.0,0.]
+			    EffMC_H = [1.0,0.]
+			    SF_H = [1.0,0.,0.]
+			    EffData_H = computeEventSF_fromleg(effDataH_leg8,effDataH_leg17)
+			    EffMC_H = computeEventSF_fromleg(effMCH_leg8,effMCH_leg17)
+			    SF_H[0] =  (EffData_H[0]/EffMC_H[0])
+			    SF_H[1] = (1-math.sqrt(EffData_H[1]**2+ EffMC_H[1]**2))*SF_H[0]
+			    SF_H[2] = (1+math.sqrt(EffData_H[1]**2+ EffMC_H[1]**2))*SF_H[0]
+                            #H DZ SF
+			    EffData_DZ = [1.0,0.]
+			    EffMC_DZ = [1.0,0.]
+			    SF_DZ = [1.0,0.,0.]
+			    EffData_DZ = computeEvenSF_DZ(effDataH_DZ)
+			    EffMC_DZ = computeEvenSF_DZ(effMCH_DZ)
+			    SF_DZ[0] = (EffData_DZ[0]/EffMC_DZ[0])
+			    SF_DZ[1] = (1-math.sqrt(EffData_DZ[1]**2+ EffMC_DZ[1]**2))*SF_DZ[0]
+			    SF_DZ[2] = (1+math.sqrt(EffData_DZ[1]**2+ EffMC_DZ[1]**2))*SF_DZ[0]
+			    
+			    mTrigSFWeight_doubleMu80x[0]     = (27.221/35.827)*SF_BCDEFG[0] + (8.606/35.827)*SF_H[0]*SF_DZ[0]
+			    mTrigSFWeight_doubleMu80xDown[0]   = (27.221/35.827)*SF_BCDEFG[1] + (8.606/35.827)*SF_H[1]*SF_DZ[1]
+			    mTrigSFWeight_doubleMu80xUp[0] = (27.221/35.827)*SF_BCDEFG[2] + (8.606/35.827)*SF_H[2]*SF_DZ[2]
 
 		    if tree.Vtype_new == 1:
 			    

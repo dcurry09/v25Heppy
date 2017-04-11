@@ -33,7 +33,7 @@ isVerbose = False
 doPlots = False
 #doPlots = True
 
-plotpath = '/afs/cern.ch/user/d/dcurry/www/v25_JEC_validation/'
+plotpath = '/afs/cern.ch/user/d/dcurry/www/v25_JEC_validation_withMET/'
 try: os.system('mkdir '+plotpath)
 except:print outpath+' already exists...'
 temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/.htaccess '+plotpath
@@ -46,13 +46,13 @@ inpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
 
 # List of files to add btag weights to
-bkg_list = ['ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ', 'DY_inclusive']
+bkg_list = ['ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
 
 data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets',
+DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets',
            'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6',
            'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf',
            'DY_800to1200_ext1', 'DY_800to1200_ext2',
@@ -76,13 +76,42 @@ prep_list = [
     'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
     ]
 
-temp_list = ['ZH125']
+temp_list = ['DY_Bjets']
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
-file_list  = data_list
+file_list  = temp_list
 
 file_list1 = ST_list + ['WZ'] + data_list
 file_list2 = signal_list + DY_list + ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'ttbar']
+
+
+def addAdditionalJets(H, tree):
+    for i in range(tree.nhjidxaddJetsdR08):
+        idx = tree.hjidxaddJetsdR08[i]
+        if (idx == tree.hJCidx[0]) or (idx == tree.hJCidx[1]): continue
+        addjet = ROOT.TLorentzVector()
+        addjet.SetPtEtaPhiM(tree.Jet_pt[idx],tree.Jet_eta[idx],tree.Jet_phi[idx],tree.Jet_mass[idx])
+        H = H + addjet
+    return H
+
+def deltaPhi(phi1, phi2):
+    result = phi1 - phi2
+    while (result > math.pi): result -= 2*math.pi
+    while (result <= -math.pi): result += 2*math.pi
+    return result
+
+
+def projectionMETOntoJet(met, metphi, jet, jetphi, onlyPositive=True, threshold = math.pi/4.0):
+
+  deltaphi = deltaPhi(metphi, jetphi)
+  met_dot_jet = met * jet * math.cos(deltaphi)
+  jetsq = jet * jet
+  projection = met_dot_jet / jetsq * jet
+
+  if onlyPositive and abs(deltaphi) >= threshold:
+      return 0.0
+  else:
+      return projection
 
 
 #for file in file_list:
@@ -90,11 +119,12 @@ def osSystem(file):
     
     input  = TFile.Open(inpath+'/v25_'+file+'.root', 'read')
     output = TFile.Open(outpath+'/v25_'+file+'.root', 'recreate')
-
+    
     #input  = TFile.Open(inpath+'/'+file+'.root', 'read')
     #output = TFile.Open(outpath+'/'+file+'.root', 'recreate')
-
-    regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/gravall-v25.weights.xml'
+    
+    #regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/gravall-v25.weights.xml'
+    regWeight = '../myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
 
     regVars = ["Jet_pt",
                "nPVs",
@@ -111,6 +141,8 @@ def osSystem(file):
                "Jet_vtx3dL",
                "Jet_vtxNtrk",
                "Jet_vtx3deL",
+               "met_pt",
+               "Jet_met_proj"
                ]      	
 
     regDict = {"Jet_pt":"Jet_pt[hJCMVAV2idx[0]]",
@@ -129,8 +161,8 @@ def osSystem(file):
                "Jet_vtx3dL":"Jet_vtx3dl[hJCMVAV2idx[0]]",
                "Jet_vtxNtrk":"Jet_vtxNtrk[hJCMVAV2idx[0]]",
                "Jet_vtx3deL":"Jet_vtx3deL[hJCMVAV2idx[0]]",
-               #"met_pt":"met_pt[hJCMVAV2idx[0]]",
-               #"Jet_met_proj":"Jet_met_proj[hJCMVAV2idx[0]]"
+               "met_pt":"met_pt",
+               "Jet_met_proj":"Jet_met_proj"
                } 
 
     if doGroup:
@@ -358,10 +390,10 @@ def osSystem(file):
         if entry % 1000 is 0: print '-----> Event # ', entry
         
         #if entry < 9000: continue
-        if entry > 1000: break
+        #if entry > 1000: break
         
         #if tree.nhJCMVAV2idx < 2: continue
-       # print entry
+        # print entry
         
         if 'ttbar' in file:
             if entry == 9015: continue
@@ -381,6 +413,12 @@ def osSystem(file):
         hJ0.SetPtEtaPhiM(Jet_pt_0, Jet_eta_0, Jet_phi_0, Jet_m_0)
         hJ1.SetPtEtaPhiM(Jet_pt_1, Jet_eta_1, Jet_phi_1, Jet_m_1)
    
+        met_pt_0 = tree.met_pt
+        met_pt_1 = tree.met_pt
+
+        Jet_met_proj_0 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_0, Jet_phi_0)
+        Jet_met_proj_1 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_1, Jet_phi_1)
+
         Jet_e_0 = hJ0.E()
         Jet_e_1 = hJ1.E()
         Jet_mt_0 = hJ0.Mt()

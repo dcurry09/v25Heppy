@@ -29,13 +29,26 @@ SettingsMed_VV: !H:!V:NTrees=500:nEventsMin=500:MaxDepth=2:BoostType=AdaBoost:Ad
 Settings_opt: !H:!V:NTrees=100:nEventsMin=100:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.10:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning
 
 # NEW: Settings for low,med,high pt regions
-SettingsLow: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning
 
-SettingsHigh: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning
+# Maybe use this to handle neg weights:  IgnoreEventsWithNegWeightsInTraining=True
 
-SettingsVV: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning:IgnoreNegWeightsInTraining=True
+# Seans Setting: NTrees=852:MaxDepth=4:MinNodeSize=2.3103033497285357:nCuts=24:BoostType=Grad:UseBaggedBoost=False:Shrinkage=0.1593548865074517:NodePurityLimit=0.2608420790469229:SeparationType=CrossEntropy
 
-SettingsVVLow: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning:IgnoreNegWeightsInTraining=True
+# Original Opt
+#SettingsLow: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning
+#SettingsHigh: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning
+
+SettingsLow: !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.1:PruneMethod=NoPruning:SeparationType=CrossEntropy:MinNodeSize=0.2:nCuts=250
+SettingsHigh: !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.1:PruneMethod=NoPruning:SeparationType=CrossEntropy:MinNodeSize=0.2:nCuts=100
+
+#SettingsHigh: !H:!V:NTrees=900:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:MinNodeSize=0.2:nCuts=100:SeparationType=CrossEntropy
+
+#SettingsHigh: !H:!V:NTrees=900:MaxDepth=4:BoostType=Grad:UseBaggedBoost=False:PruneMethod=NoPruning:MinNodeSize=0.2:nCuts=100:SeparationType=CrossEntropy
+
+# Diboson
+SettingsVV: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning:IgnoreNegWeightsInTraining=True
+
+SettingsVVLow: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=25:PruneMethod=NoPruning:IgnoreNegWeightsInTraining=True
 
 SettingsVVHigh: !H:!V:NTrees=300:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.11:SeparationType=MisClassificationError:IgnoreNegWeightsInTraining=True
 
@@ -62,6 +75,12 @@ jet2_pt: hJetCMVA_pt_1
 jet1_btag: hJetCMVA_btag_0
 jet2_btag: hJetCMVA_btag_1
 
+#jet1_pt: Jet_pt_reg[hJCMVAV2idx[0]]
+#jet2_pt: Jet_pt_reg[hJCMVAV2idx[1]]
+
+#jet1_btag: Jet_btagCMVAV2[hJCMVAV2idx[0]]
+#jet2_btag: Jet_btagCMVAV2[hJCMVAV2idx[1]]
+
 #jet_index: hJCidx
 #jet_btag: Jet_btagCSV
 #H_sel: HCSV
@@ -72,114 +91,116 @@ H_sel: HCMVAV2
 
 #########################3
 
-Nominal: <!treeVars|H_sel!>_reg_mass <!treeVars|H_sel!>_reg_pt VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> <!treeVars|jet1_pt!> <!treeVars|jet2_pt!> V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta,<!treeVars|H_sel!>_reg_phi,V_new_eta,V_new_phi) met_pt 
+#Nominal: <!treeVars|H_sel!>_reg_mass <!treeVars|H_sel!>_reg_pt VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> <!treeVars|jet1_pt!> <!treeVars|jet2_pt!> V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta,<!treeVars|H_sel!>_reg_phi,V_new_eta,V_new_phi) met_pt 
+
+Nominal: HCMVAV2_reg_mass HCMVAV2_reg_pt VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> <!treeVars|jet1_pt!> <!treeVars|jet2_pt!> V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCMVAV2idx[0])&&(aJCidx!=(hJCMVAV2idx[1]))) V_new_pt (HCMVAV2_reg_pt/V_new_pt) abs(Jet_eta[hJCMVAV2idx[0]]-Jet_eta[hJCMVAV2idx[1]]) softActivityVH_njets5 VHbb::deltaR(HCMVAV2_reg_eta,HCMVAV2_reg_phi,V_new_eta,V_new_phi) met_pt
 
 ##### JEC FactorizedIndividual SYS #####
-JER_Up: <!treeVars|H_sel!>_reg_mass_corrJERUp <!treeVars|H_sel!>_reg_pt_corrJERUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrJERUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0JERUp[0] hJetCMVAV2_pt_reg_1JERUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrJERUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrJERUp,<!treeVars|H_sel!>_reg_phi_corrJERUp,V_new_eta,V_new_phi) met_pt
+JER_Up: <!treeVars|H_sel!>_reg_mass_corrJERUp <!treeVars|H_sel!>_reg_pt_corrJERUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrJERUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0JERUp hJetCMVAV2_pt_reg_1JERUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrJERUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrJERUp,<!treeVars|H_sel!>_reg_phi_corrJERUp,V_new_eta,V_new_phi) met_pt
 
-JER_Down: <!treeVars|H_sel!>_reg_mass_corrJERDown <!treeVars|H_sel!>_reg_pt_corrJERDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrJERDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0JERDown[0] hJetCMVAV2_pt_reg_1JERDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrJERDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrJERDown,<!treeVars|H_sel!>_reg_phi_corrJERDown,V_new_eta,V_new_phi) met_pt
+JER_Down: <!treeVars|H_sel!>_reg_mass_corrJERDown <!treeVars|H_sel!>_reg_pt_corrJERDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrJERDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0JERDown hJetCMVAV2_pt_reg_1JERDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrJERDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrJERDown,<!treeVars|H_sel!>_reg_phi_corrJERDown,V_new_eta,V_new_phi) met_pt
 
-PileUpDataMC_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpDataMCUp <!treeVars|H_sel!>_reg_pt_corrPileUpDataMCUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpDataMCUp[0] hJetCMVAV2_pt_reg_1PileUpDataMCUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpDataMCUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpDataMCUp,<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCUp,V_new_eta,V_new_phi) met_pt
+PileUpDataMC_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpDataMCUp <!treeVars|H_sel!>_reg_pt_corrPileUpDataMCUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpDataMCUp hJetCMVAV2_pt_reg_1PileUpDataMCUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpDataMCUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpDataMCUp,<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCUp,V_new_eta,V_new_phi) met_pt
 
-PileUpDataMC_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpDataMCDown <!treeVars|H_sel!>_reg_pt_corrPileUpDataMCDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpDataMCDown[0] hJetCMVAV2_pt_reg_1PileUpDataMCDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpDataMCDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpDataMCDown,<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCDown,V_new_eta,V_new_phi) met_pt
+PileUpDataMC_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpDataMCDown <!treeVars|H_sel!>_reg_pt_corrPileUpDataMCDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpDataMCDown hJetCMVAV2_pt_reg_1PileUpDataMCDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpDataMCDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpDataMCDown,<!treeVars|H_sel!>_reg_phi_corrPileUpDataMCDown,V_new_eta,V_new_phi) met_pt
 
-PileUpPtRef_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtRefUp <!treeVars|H_sel!>_reg_pt_corrPileUpPtRefUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtRefUp[0] hJetCMVAV2_pt_reg_1PileUpPtRefUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtRefUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtRefUp,<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefUp,V_new_eta,V_new_phi) met_pt
+PileUpPtRef_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtRefUp <!treeVars|H_sel!>_reg_pt_corrPileUpPtRefUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtRefUp hJetCMVAV2_pt_reg_1PileUpPtRefUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtRefUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtRefUp,<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefUp,V_new_eta,V_new_phi) met_pt
 
-PileUpPtRef_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtRefDown <!treeVars|H_sel!>_reg_pt_corrPileUpPtRefDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtRefDown[0] hJetCMVAV2_pt_reg_1PileUpPtRefDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtRefDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtRefDown,<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefDown,V_new_eta,V_new_phi) met_pt
+PileUpPtRef_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtRefDown <!treeVars|H_sel!>_reg_pt_corrPileUpPtRefDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtRefDown hJetCMVAV2_pt_reg_1PileUpPtRefDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtRefDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtRefDown,<!treeVars|H_sel!>_reg_phi_corrPileUpPtRefDown,V_new_eta,V_new_phi) met_pt
 
-PileUpPtBB_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtBBUp <!treeVars|H_sel!>_reg_pt_corrPileUpPtBBUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtBBUp[0] hJetCMVAV2_pt_reg_1PileUpPtBBUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtBBUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtBBUp,<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBUp,V_new_eta,V_new_phi) met_pt
+PileUpPtBB_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtBBUp <!treeVars|H_sel!>_reg_pt_corrPileUpPtBBUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtBBUp hJetCMVAV2_pt_reg_1PileUpPtBBUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtBBUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtBBUp,<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBUp,V_new_eta,V_new_phi) met_pt
 
-PileUpPtBB_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtBBDown <!treeVars|H_sel!>_reg_pt_corrPileUpPtBBDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtBBDown[0] hJetCMVAV2_pt_reg_1PileUpPtBBDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtBBDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtBBDown,<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBDown,V_new_eta,V_new_phi) met_pt
+PileUpPtBB_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtBBDown <!treeVars|H_sel!>_reg_pt_corrPileUpPtBBDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtBBDown hJetCMVAV2_pt_reg_1PileUpPtBBDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtBBDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtBBDown,<!treeVars|H_sel!>_reg_phi_corrPileUpPtBBDown,V_new_eta,V_new_phi) met_pt
 
-PileUpPtEC1_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC1Up <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC1Up[0] hJetCMVAV2_pt_reg_1PileUpPtEC1Up[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC1Up,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Up,V_new_eta,V_new_phi) met_pt
+PileUpPtEC1_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC1Up <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC1Up hJetCMVAV2_pt_reg_1PileUpPtEC1Up V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC1Up,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Up,V_new_eta,V_new_phi) met_pt
 
-PileUpPtEC1_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC1Down <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC1Down[0] hJetCMVAV2_pt_reg_1PileUpPtEC1Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC1Down,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Down,V_new_eta,V_new_phi) met_pt
+PileUpPtEC1_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC1Down <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC1Down hJetCMVAV2_pt_reg_1PileUpPtEC1Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC1Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC1Down,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC1Down,V_new_eta,V_new_phi) met_pt
 
-PileUpPtEC2_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC2Up <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC2Up[0] hJetCMVAV2_pt_reg_1PileUpPtEC2Up[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC2Up,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Up,V_new_eta,V_new_phi) met_pt
+PileUpPtEC2_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC2Up <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC2Up hJetCMVAV2_pt_reg_1PileUpPtEC2Up V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC2Up,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Up,V_new_eta,V_new_phi) met_pt
 
-PileUpPtEC2_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC2Down <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC2Down[0] hJetCMVAV2_pt_reg_1PileUpPtEC2Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC2Down,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Down,V_new_eta,V_new_phi) met_pt
+PileUpPtEC2_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtEC2Down <!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtEC2Down hJetCMVAV2_pt_reg_1PileUpPtEC2Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtEC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtEC2Down,<!treeVars|H_sel!>_reg_phi_corrPileUpPtEC2Down,V_new_eta,V_new_phi) met_pt
 
-PileUpPtHF_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtHFUp <!treeVars|H_sel!>_reg_pt_corrPileUpPtHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtHFUp[0] hJetCMVAV2_pt_reg_1PileUpPtHFUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtHFUp,<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFUp,V_new_eta,V_new_phi) met_pt
+PileUpPtHF_Up: <!treeVars|H_sel!>_reg_mass_corrPileUpPtHFUp <!treeVars|H_sel!>_reg_pt_corrPileUpPtHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtHFUp hJetCMVAV2_pt_reg_1PileUpPtHFUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtHFUp,<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFUp,V_new_eta,V_new_phi) met_pt
 
-PileUpPtHF_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtHFDown <!treeVars|H_sel!>_reg_pt_corrPileUpPtHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtHFDown[0] hJetCMVAV2_pt_reg_1PileUpPtHFDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtHFDown,<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFDown,V_new_eta,V_new_phi) met_pt
+PileUpPtHF_Down: <!treeVars|H_sel!>_reg_mass_corrPileUpPtHFDown <!treeVars|H_sel!>_reg_pt_corrPileUpPtHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0PileUpPtHFDown hJetCMVAV2_pt_reg_1PileUpPtHFDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrPileUpPtHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrPileUpPtHFDown,<!treeVars|H_sel!>_reg_phi_corrPileUpPtHFDown,V_new_eta,V_new_phi) met_pt
 
-RelativeJEREC1_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC1Up <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC1Up[0] hJetCMVAV2_pt_reg_1RelativeJEREC1Up[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC1Up,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Up,V_new_eta,V_new_phi) met_pt
+RelativeJEREC1_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC1Up <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC1Up hJetCMVAV2_pt_reg_1RelativeJEREC1Up V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC1Up,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Up,V_new_eta,V_new_phi) met_pt
 
-RelativeJEREC1_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC1Down <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC1Down[0] hJetCMVAV2_pt_reg_1RelativeJEREC1Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC1Down,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Down,V_new_eta,V_new_phi) met_pt
+RelativeJEREC1_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC1Down <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC1Down hJetCMVAV2_pt_reg_1RelativeJEREC1Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC1Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC1Down,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC1Down,V_new_eta,V_new_phi) met_pt
 
-RelativeJEREC2_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC2Up <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC2Up[0] hJetCMVAV2_pt_reg_1RelativeJEREC2Up[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC2Up,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Up,V_new_eta,V_new_phi) met_pt
+RelativeJEREC2_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC2Up <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC2Up hJetCMVAV2_pt_reg_1RelativeJEREC2Up V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC2Up,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Up,V_new_eta,V_new_phi) met_pt
 
-RelativeJEREC2_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC2Down <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC2Down[0] hJetCMVAV2_pt_reg_1RelativeJEREC2Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC2Down,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Down,V_new_eta,V_new_phi) met_pt
+RelativeJEREC2_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeJEREC2Down <!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJEREC2Down hJetCMVAV2_pt_reg_1RelativeJEREC2Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJEREC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJEREC2Down,<!treeVars|H_sel!>_reg_phi_corrRelativeJEREC2Down,V_new_eta,V_new_phi) met_pt
 
-RelativeJERHF_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeJERHFUp <!treeVars|H_sel!>_reg_pt_corrRelativeJERHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJERHFUp[0] hJetCMVAV2_pt_reg_1RelativeJERHFUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJERHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJERHFUp,<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFUp,V_new_eta,V_new_phi) met_pt
+RelativeJERHF_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeJERHFUp <!treeVars|H_sel!>_reg_pt_corrRelativeJERHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJERHFUp hJetCMVAV2_pt_reg_1RelativeJERHFUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJERHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJERHFUp,<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFUp,V_new_eta,V_new_phi) met_pt
 
-RelativeJERHF_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeJERHFDown <!treeVars|H_sel!>_reg_pt_corrRelativeJERHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJERHFDown[0] hJetCMVAV2_pt_reg_1RelativeJERHFDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJERHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJERHFDown,<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFDown,V_new_eta,V_new_phi) met_pt
+RelativeJERHF_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeJERHFDown <!treeVars|H_sel!>_reg_pt_corrRelativeJERHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeJERHFDown hJetCMVAV2_pt_reg_1RelativeJERHFDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeJERHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeJERHFDown,<!treeVars|H_sel!>_reg_phi_corrRelativeJERHFDown,V_new_eta,V_new_phi) met_pt
 
-RelativeFSR_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeFSRUp <!treeVars|H_sel!>_reg_pt_corrRelativeFSRUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeFSRUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeFSRUp[0] hJetCMVAV2_pt_reg_1RelativeFSRUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeFSRUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeFSRUp,<!treeVars|H_sel!>_reg_phi_corrRelativeFSRUp,V_new_eta,V_new_phi) met_pt
+RelativeFSR_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeFSRUp <!treeVars|H_sel!>_reg_pt_corrRelativeFSRUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeFSRUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeFSRUp hJetCMVAV2_pt_reg_1RelativeFSRUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeFSRUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeFSRUp,<!treeVars|H_sel!>_reg_phi_corrRelativeFSRUp,V_new_eta,V_new_phi) met_pt
 
-RelativeFSR_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeFSRDown <!treeVars|H_sel!>_reg_pt_corrRelativeFSRDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeFSRDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeFSRDown[0] hJetCMVAV2_pt_reg_1RelativeFSRDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeFSRDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeFSRDown,<!treeVars|H_sel!>_reg_phi_corrRelativeFSRDown,V_new_eta,V_new_phi) met_pt
+RelativeFSR_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeFSRDown <!treeVars|H_sel!>_reg_pt_corrRelativeFSRDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeFSRDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeFSRDown hJetCMVAV2_pt_reg_1RelativeFSRDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeFSRDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeFSRDown,<!treeVars|H_sel!>_reg_phi_corrRelativeFSRDown,V_new_eta,V_new_phi) met_pt
 
-RelativeStatFSR_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeStatFSRUp <!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatFSRUp[0] hJetCMVAV2_pt_reg_1RelativeStatFSRUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatFSRUp,<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRUp,V_new_eta,V_new_phi) met_pt
+RelativeStatFSR_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeStatFSRUp <!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatFSRUp hJetCMVAV2_pt_reg_1RelativeStatFSRUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatFSRUp,<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRUp,V_new_eta,V_new_phi) met_pt
 
-RelativeStatFSR_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeStatFSRDown <!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatFSRDown[0] hJetCMVAV2_pt_reg_1RelativeStatFSRDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatFSRDown,<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRDown,V_new_eta,V_new_phi) met_pt
+RelativeStatFSR_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeStatFSRDown <!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatFSRDown hJetCMVAV2_pt_reg_1RelativeStatFSRDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatFSRDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatFSRDown,<!treeVars|H_sel!>_reg_phi_corrRelativeStatFSRDown,V_new_eta,V_new_phi) met_pt
 
-RelativeStatEC_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeStatECUp <!treeVars|H_sel!>_reg_pt_corrRelativeStatECUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatECUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatECUp[0] hJetCMVAV2_pt_reg_1RelativeStatECUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatECUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatECUp,<!treeVars|H_sel!>_reg_phi_corrRelativeStatECUp,V_new_eta,V_new_phi) met_pt
+RelativeStatEC_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeStatECUp <!treeVars|H_sel!>_reg_pt_corrRelativeStatECUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatECUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatECUp hJetCMVAV2_pt_reg_1RelativeStatECUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatECUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatECUp,<!treeVars|H_sel!>_reg_phi_corrRelativeStatECUp,V_new_eta,V_new_phi) met_pt
 
-RelativeStatEC_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeStatECDown <!treeVars|H_sel!>_reg_pt_corrRelativeStatECDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatECDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatECDown[0] hJetCMVAV2_pt_reg_1RelativeStatECDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatECDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatECDown,<!treeVars|H_sel!>_reg_phi_corrRelativeStatECDown,V_new_eta,V_new_phi) met_pt
+RelativeStatEC_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeStatECDown <!treeVars|H_sel!>_reg_pt_corrRelativeStatECDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatECDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatECDown hJetCMVAV2_pt_reg_1RelativeStatECDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatECDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatECDown,<!treeVars|H_sel!>_reg_phi_corrRelativeStatECDown,V_new_eta,V_new_phi) met_pt
 
-RelativeStatHF_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeStatHFUp <!treeVars|H_sel!>_reg_pt_corrRelativeStatHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatHFUp[0] hJetCMVAV2_pt_reg_1RelativeStatHFUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatHFUp,<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFUp,V_new_eta,V_new_phi) met_pt
+RelativeStatHF_Up: <!treeVars|H_sel!>_reg_mass_corrRelativeStatHFUp <!treeVars|H_sel!>_reg_pt_corrRelativeStatHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatHFUp hJetCMVAV2_pt_reg_1RelativeStatHFUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatHFUp,<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFUp,V_new_eta,V_new_phi) met_pt
 
-RelativeStatHF_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeStatHFDown <!treeVars|H_sel!>_reg_pt_corrRelativeStatHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatHFDown[0] hJetCMVAV2_pt_reg_1RelativeStatHFDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatHFDown,<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFDown,V_new_eta,V_new_phi) met_pt
+RelativeStatHF_Down: <!treeVars|H_sel!>_reg_mass_corrRelativeStatHFDown <!treeVars|H_sel!>_reg_pt_corrRelativeStatHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativeStatHFDown hJetCMVAV2_pt_reg_1RelativeStatHFDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativeStatHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativeStatHFDown,<!treeVars|H_sel!>_reg_phi_corrRelativeStatHFDown,V_new_eta,V_new_phi) met_pt
 
-RelativePtBB_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtBBUp <!treeVars|H_sel!>_reg_pt_corrRelativePtBBUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtBBUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtBBUp[0] hJetCMVAV2_pt_reg_1RelativePtBBUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtBBUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtBBUp,<!treeVars|H_sel!>_reg_phi_corrRelativePtBBUp,V_new_eta,V_new_phi) met_pt
+RelativePtBB_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtBBUp <!treeVars|H_sel!>_reg_pt_corrRelativePtBBUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtBBUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtBBUp hJetCMVAV2_pt_reg_1RelativePtBBUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtBBUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtBBUp,<!treeVars|H_sel!>_reg_phi_corrRelativePtBBUp,V_new_eta,V_new_phi) met_pt
 
-RelativePtBB_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtBBDown <!treeVars|H_sel!>_reg_pt_corrRelativePtBBDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtBBDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtBBDown[0] hJetCMVAV2_pt_reg_1RelativePtBBDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtBBDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtBBDown,<!treeVars|H_sel!>_reg_phi_corrRelativePtBBDown,V_new_eta,V_new_phi) met_pt
+RelativePtBB_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtBBDown <!treeVars|H_sel!>_reg_pt_corrRelativePtBBDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtBBDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtBBDown hJetCMVAV2_pt_reg_1RelativePtBBDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtBBDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtBBDown,<!treeVars|H_sel!>_reg_phi_corrRelativePtBBDown,V_new_eta,V_new_phi) met_pt
 
-RelativePtEC1_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC1Up <!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC1Up[0] hJetCMVAV2_pt_reg_1RelativePtEC1Up[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC1Up,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Up,V_new_eta,V_new_phi) met_pt
+RelativePtEC1_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC1Up <!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC1Up hJetCMVAV2_pt_reg_1RelativePtEC1Up V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC1Up,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Up,V_new_eta,V_new_phi) met_pt
 
-RelativePtEC1_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC1Down <!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC1Down[0] hJetCMVAV2_pt_reg_1RelativePtEC1Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC1Down,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Down,V_new_eta,V_new_phi) met_pt
+RelativePtEC1_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC1Down <!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC1Down hJetCMVAV2_pt_reg_1RelativePtEC1Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC1Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC1Down,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC1Down,V_new_eta,V_new_phi) met_pt
 
-RelativePtEC2_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC2Up <!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC2Up[0] hJetCMVAV2_pt_reg_1RelativePtEC2Up[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC2Up,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Up,V_new_eta,V_new_phi) met_pt
+RelativePtEC2_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC2Up <!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Up VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Up,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC2Up hJetCMVAV2_pt_reg_1RelativePtEC2Up V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Up/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC2Up,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Up,V_new_eta,V_new_phi) met_pt
 
-RelativePtEC2_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC2Down <!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC2Down[0] hJetCMVAV2_pt_reg_1RelativePtEC2Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC2Down,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_eta,V_new_phi) met_pt
+RelativePtEC2_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC2Down <!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC2Down hJetCMVAV2_pt_reg_1RelativePtEC2Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC2Down,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_eta,V_new_phi) met_pt
 
-RelativePtEC2_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC2Down <!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC2Down[0] hJetCMVAV2_pt_reg_1RelativePtEC2Down[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC2Down,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_eta,V_new_phi) met_pt
+RelativePtEC2_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtEC2Down <!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtEC2Down hJetCMVAV2_pt_reg_1RelativePtEC2Down V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtEC2Down/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtEC2Down,<!treeVars|H_sel!>_reg_phi_corrRelativePtEC2Down,V_new_eta,V_new_phi) met_pt
 
-RelativePtHF_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtHFUp <!treeVars|H_sel!>_reg_pt_corrRelativePtHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtHFUp[0] hJetCMVAV2_pt_reg_1RelativePtHFUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtHFUp,<!treeVars|H_sel!>_reg_phi_corrRelativePtHFUp,V_new_eta,V_new_phi) met_pt
+RelativePtHF_Up: <!treeVars|H_sel!>_reg_mass_corrRelativePtHFUp <!treeVars|H_sel!>_reg_pt_corrRelativePtHFUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtHFUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtHFUp hJetCMVAV2_pt_reg_1RelativePtHFUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtHFUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtHFUp,<!treeVars|H_sel!>_reg_phi_corrRelativePtHFUp,V_new_eta,V_new_phi) met_pt
 
-RelativePtHF_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtHFDown <!treeVars|H_sel!>_reg_pt_corrRelativePtHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtHFDown[0] hJetCMVAV2_pt_reg_1RelativePtHFDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtHFDown,<!treeVars|H_sel!>_reg_phi_corrRelativePtHFDown,V_new_eta,V_new_phi) met_pt
+RelativePtHF_Down: <!treeVars|H_sel!>_reg_mass_corrRelativePtHFDown <!treeVars|H_sel!>_reg_pt_corrRelativePtHFDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrRelativePtHFDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0RelativePtHFDown hJetCMVAV2_pt_reg_1RelativePtHFDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrRelativePtHFDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrRelativePtHFDown,<!treeVars|H_sel!>_reg_phi_corrRelativePtHFDown,V_new_eta,V_new_phi) met_pt
 
-AbsoluteScale_Up: <!treeVars|H_sel!>_reg_mass_corrAbsoluteScaleUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteScaleUp[0] hJetCMVAV2_pt_reg_1AbsoluteScaleUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteScaleUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleUp,V_new_eta,V_new_phi) met_pt
+AbsoluteScale_Up: <!treeVars|H_sel!>_reg_mass_corrAbsoluteScaleUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteScaleUp hJetCMVAV2_pt_reg_1AbsoluteScaleUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteScaleUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleUp,V_new_eta,V_new_phi) met_pt
 
-AbsoluteScale_Down: <!treeVars|H_sel!>_reg_mass_corrAbsoluteScaleDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteScaleDown[0] hJetCMVAV2_pt_reg_1AbsoluteScaleDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteScaleDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleDown,V_new_eta,V_new_phi) met_pt
+AbsoluteScale_Down: <!treeVars|H_sel!>_reg_mass_corrAbsoluteScaleDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteScaleDown hJetCMVAV2_pt_reg_1AbsoluteScaleDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteScaleDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteScaleDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteScaleDown,V_new_eta,V_new_phi) met_pt
 
-AbsoluteMPFBias_Up: <!treeVars|H_sel!>_reg_mass_corrAbsoluteMPFBiasUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteMPFBiasUp[0] hJetCMVAV2_pt_reg_1AbsoluteMPFBiasUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteMPFBiasUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasUp,V_new_eta,V_new_phi) met_pt
+AbsoluteMPFBias_Up: <!treeVars|H_sel!>_reg_mass_corrAbsoluteMPFBiasUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteMPFBiasUp hJetCMVAV2_pt_reg_1AbsoluteMPFBiasUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteMPFBiasUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasUp,V_new_eta,V_new_phi) met_pt
 
-AbsoluteMPFBias_Down: <!treeVars|H_sel!>_reg_mass_corrAbsoluteMPFBiasDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteMPFBiasDown[0] hJetCMVAV2_pt_reg_1AbsoluteMPFBiasDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteMPFBiasDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasDown,V_new_eta,V_new_phi) met_pt
+AbsoluteMPFBias_Down: <!treeVars|H_sel!>_reg_mass_corrAbsoluteMPFBiasDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteMPFBiasDown hJetCMVAV2_pt_reg_1AbsoluteMPFBiasDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteMPFBiasDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteMPFBiasDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteMPFBiasDown,V_new_eta,V_new_phi) met_pt
 
-AbsoluteStat_Up: <!treeVars|H_sel!>_reg_mass_corrAbsoluteStatUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteStatUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteStatUp[0] hJetCMVAV2_pt_reg_1AbsoluteStatUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteStatUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteStatUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatUp,V_new_eta,V_new_phi) met_pt
+AbsoluteStat_Up: <!treeVars|H_sel!>_reg_mass_corrAbsoluteStatUp <!treeVars|H_sel!>_reg_pt_corrAbsoluteStatUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteStatUp hJetCMVAV2_pt_reg_1AbsoluteStatUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteStatUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteStatUp,<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatUp,V_new_eta,V_new_phi) met_pt
 
-AbsoluteStat_Down: <!treeVars|H_sel!>_reg_mass_corrAbsoluteStatDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteStatDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteStatDown[0] hJetCMVAV2_pt_reg_1AbsoluteStatDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteStatDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteStatDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatDown,V_new_eta,V_new_phi) met_pt
+AbsoluteStat_Down: <!treeVars|H_sel!>_reg_mass_corrAbsoluteStatDown <!treeVars|H_sel!>_reg_pt_corrAbsoluteStatDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0AbsoluteStatDown hJetCMVAV2_pt_reg_1AbsoluteStatDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrAbsoluteStatDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrAbsoluteStatDown,<!treeVars|H_sel!>_reg_phi_corrAbsoluteStatDown,V_new_eta,V_new_phi) met_pt
 
-SinglePionECAL_Up: <!treeVars|H_sel!>_reg_mass_corrSinglePionECALUp <!treeVars|H_sel!>_reg_pt_corrSinglePionECALUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionECALUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionECALUp[0] hJetCMVAV2_pt_reg_1SinglePionECALUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionECALUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionECALUp,<!treeVars|H_sel!>_reg_phi_corrSinglePionECALUp,V_new_eta,V_new_phi) met_pt
+SinglePionECAL_Up: <!treeVars|H_sel!>_reg_mass_corrSinglePionECALUp <!treeVars|H_sel!>_reg_pt_corrSinglePionECALUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionECALUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionECALUp hJetCMVAV2_pt_reg_1SinglePionECALUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionECALUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionECALUp,<!treeVars|H_sel!>_reg_phi_corrSinglePionECALUp,V_new_eta,V_new_phi) met_pt
 
-SinglePionECAL_Down: <!treeVars|H_sel!>_reg_mass_corrSinglePionECALDown <!treeVars|H_sel!>_reg_pt_corrSinglePionECALDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionECALDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionECALDown[0] hJetCMVAV2_pt_reg_1SinglePionECALDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionECALDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionECALDown,<!treeVars|H_sel!>_reg_phi_corrSinglePionECALDown,V_new_eta,V_new_phi) met_pt
+SinglePionECAL_Down: <!treeVars|H_sel!>_reg_mass_corrSinglePionECALDown <!treeVars|H_sel!>_reg_pt_corrSinglePionECALDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionECALDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionECALDown hJetCMVAV2_pt_reg_1SinglePionECALDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionECALDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionECALDown,<!treeVars|H_sel!>_reg_phi_corrSinglePionECALDown,V_new_eta,V_new_phi) met_pt
 
-SinglePionHCAL_Up: <!treeVars|H_sel!>_reg_mass_corrSinglePionHCALUp <!treeVars|H_sel!>_reg_pt_corrSinglePionHCALUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionHCALUp[0] hJetCMVAV2_pt_reg_1SinglePionHCALUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionHCALUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionHCALUp,<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALUp,V_new_eta,V_new_phi) met_pt
+SinglePionHCAL_Up: <!treeVars|H_sel!>_reg_mass_corrSinglePionHCALUp <!treeVars|H_sel!>_reg_pt_corrSinglePionHCALUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionHCALUp hJetCMVAV2_pt_reg_1SinglePionHCALUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionHCALUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionHCALUp,<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALUp,V_new_eta,V_new_phi) met_pt
 
-SinglePionHCAL_Down: <!treeVars|H_sel!>_reg_mass_corrSinglePionHCALDown <!treeVars|H_sel!>_reg_pt_corrSinglePionHCALDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionHCALDown[0] hJetCMVAV2_pt_reg_1SinglePionHCALDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionHCALDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionHCALDown,<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALDown,V_new_eta,V_new_phi) met_pt
+SinglePionHCAL_Down: <!treeVars|H_sel!>_reg_mass_corrSinglePionHCALDown <!treeVars|H_sel!>_reg_pt_corrSinglePionHCALDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0SinglePionHCALDown hJetCMVAV2_pt_reg_1SinglePionHCALDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrSinglePionHCALDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrSinglePionHCALDown,<!treeVars|H_sel!>_reg_phi_corrSinglePionHCALDown,V_new_eta,V_new_phi) met_pt
 
-Fragmentation_Up: <!treeVars|H_sel!>_reg_mass_corrFragmentationUp <!treeVars|H_sel!>_reg_pt_corrFragmentationUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFragmentationUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FragmentationUp[0] hJetCMVAV2_pt_reg_1FragmentationUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFragmentationUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFragmentationUp,<!treeVars|H_sel!>_reg_phi_corrFragmentationUp,V_new_eta,V_new_phi) met_pt
+Fragmentation_Up: <!treeVars|H_sel!>_reg_mass_corrFragmentationUp <!treeVars|H_sel!>_reg_pt_corrFragmentationUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFragmentationUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FragmentationUp hJetCMVAV2_pt_reg_1FragmentationUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFragmentationUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFragmentationUp,<!treeVars|H_sel!>_reg_phi_corrFragmentationUp,V_new_eta,V_new_phi) met_pt
 
-Fragmentation_Down: <!treeVars|H_sel!>_reg_mass_corrFragmentationDown <!treeVars|H_sel!>_reg_pt_corrFragmentationDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFragmentationDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FragmentationDown[0] hJetCMVAV2_pt_reg_1FragmentationDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFragmentationDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFragmentationDown,<!treeVars|H_sel!>_reg_phi_corrFragmentationDown,V_new_eta,V_new_phi) met_pt
+Fragmentation_Down: <!treeVars|H_sel!>_reg_mass_corrFragmentationDown <!treeVars|H_sel!>_reg_pt_corrFragmentationDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFragmentationDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FragmentationDown hJetCMVAV2_pt_reg_1FragmentationDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFragmentationDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFragmentationDown,<!treeVars|H_sel!>_reg_phi_corrFragmentationDown,V_new_eta,V_new_phi) met_pt
 
-TimePtEta_Up: <!treeVars|H_sel!>_reg_mass_corrTimePtEtaUp <!treeVars|H_sel!>_reg_pt_corrTimePtEtaUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrTimePtEtaUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0TimePtEtaUp[0] hJetCMVAV2_pt_reg_1TimePtEtaUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrTimePtEtaUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrTimePtEtaUp,<!treeVars|H_sel!>_reg_phi_corrTimePtEtaUp,V_new_eta,V_new_phi) met_pt
+TimePtEta_Up: <!treeVars|H_sel!>_reg_mass_corrTimePtEtaUp <!treeVars|H_sel!>_reg_pt_corrTimePtEtaUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrTimePtEtaUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0TimePtEtaUp hJetCMVAV2_pt_reg_1TimePtEtaUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrTimePtEtaUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrTimePtEtaUp,<!treeVars|H_sel!>_reg_phi_corrTimePtEtaUp,V_new_eta,V_new_phi) met_pt
 
-TimePtEta_Down: <!treeVars|H_sel!>_reg_mass_corrTimePtEtaDown <!treeVars|H_sel!>_reg_pt_corrTimePtEtaDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrTimePtEtaDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0TimePtEtaDown[0] hJetCMVAV2_pt_reg_1TimePtEtaDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrTimePtEtaDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrTimePtEtaDown,<!treeVars|H_sel!>_reg_phi_corrTimePtEtaDown,V_new_eta,V_new_phi) met_pt
+TimePtEta_Down: <!treeVars|H_sel!>_reg_mass_corrTimePtEtaDown <!treeVars|H_sel!>_reg_pt_corrTimePtEtaDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrTimePtEtaDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0TimePtEtaDown hJetCMVAV2_pt_reg_1TimePtEtaDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrTimePtEtaDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrTimePtEtaDown,<!treeVars|H_sel!>_reg_phi_corrTimePtEtaDown,V_new_eta,V_new_phi) met_pt
 
-FlavorQCD_Up: <!treeVars|H_sel!>_reg_mass_corrFlavorQCDUp <!treeVars|H_sel!>_reg_pt_corrFlavorQCDUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFlavorQCDUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FlavorQCDUp[0] hJetCMVAV2_pt_reg_1FlavorQCDUp[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFlavorQCDUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFlavorQCDUp,<!treeVars|H_sel!>_reg_phi_corrFlavorQCDUp,V_new_eta,V_new_phi) met_pt
+FlavorQCD_Up: <!treeVars|H_sel!>_reg_mass_corrFlavorQCDUp <!treeVars|H_sel!>_reg_pt_corrFlavorQCDUp VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFlavorQCDUp,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FlavorQCDUp hJetCMVAV2_pt_reg_1FlavorQCDUp V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFlavorQCDUp/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFlavorQCDUp,<!treeVars|H_sel!>_reg_phi_corrFlavorQCDUp,V_new_eta,V_new_phi) met_pt
 
-FlavorQCD_Down: <!treeVars|H_sel!>_reg_mass_corrFlavorQCDDown <!treeVars|H_sel!>_reg_pt_corrFlavorQCDDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFlavorQCDDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FlavorQCDDown[0] hJetCMVAV2_pt_reg_1FlavorQCDDown[1] V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFlavorQCDDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFlavorQCDDown,<!treeVars|H_sel!>_reg_phi_corrFlavorQCDDown,V_new_eta,V_new_phi) met_pt
+FlavorQCD_Down: <!treeVars|H_sel!>_reg_mass_corrFlavorQCDDown <!treeVars|H_sel!>_reg_pt_corrFlavorQCDDown VHbb::deltaPhi(<!treeVars|H_sel!>_reg_phi_corrFlavorQCDDown,V_new_phi) <!treeVars|jet1_btag!> <!treeVars|jet2_btag!> hJetCMVAV2_pt_reg_0FlavorQCDDown hJetCMVAV2_pt_reg_1FlavorQCDDown V_new_mass Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(<!treeVars|jet_index!>[0])&&(aJCidx!=(<!treeVars|jet_index!>[1]))) V_new_pt (<!treeVars|H_sel!>_reg_pt_corrFlavorQCDDown/V_new_pt) abs(Jet_eta[<!treeVars|jet_index!>[0]]-Jet_eta[<!treeVars|jet_index!>[1]]) softActivityVH_njets5 VHbb::deltaR(<!treeVars|H_sel!>_reg_eta_corrFlavorQCDDown,<!treeVars|H_sel!>_reg_phi_corrFlavorQCDDown,V_new_eta,V_new_phi) met_pt
 
 
 ##################################################################################################################
@@ -211,7 +232,7 @@ cut_list: gg_plus_nCuts5,gg_plus_nCuts10,gg_plus_nCuts25,gg_plus_nCuts50,gg_plus
 
 #List_for_submitscript: <!MVALists|tree_list!>,<!MVALists|nEvt_list!>,<!MVALists|depth_list!>,<!MVALists|cut_list!>
 
-opt_tree_cut:  bdt_high_Zpt
+opt_tree_cut:bdt_high_Zpt
 
 
 
@@ -336,7 +357,7 @@ treeVarSet  : treeVars
 treeCut     : bdt_high_Zpt
 
 
-
+#SettingsLow: !H:!V:NTrees=400:nEventsMin=200:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError:nCuts=15:PruneMethod=NoPruning
 
 # For opt
 [gg_plus_trees100]
@@ -464,10 +485,27 @@ backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
 treeCut     : <!MVALists|opt_tree_cut!>
 
+##########################################################################
 
 [gg_plus_nEvt0.1]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.1
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.1
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt0.2]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.2
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_nEvt0.3]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.3
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -475,7 +513,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt0.5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.5
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=0.5
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -483,7 +521,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt1]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=1
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=1
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -491,7 +529,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt2]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=2
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=2
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -499,7 +537,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt3]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=3
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=3
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -507,7 +545,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt4]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=4
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=4
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -515,7 +553,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=5
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=5
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -523,7 +561,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt10]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=10
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=10
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -531,7 +569,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt15]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=15
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=15
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -539,7 +577,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nEvt20]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=20
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError::MinNodeSize=20
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -549,7 +587,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth1]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=1:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=800:MaxDepth=1:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -557,7 +595,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth2]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=800:MaxDepth=2:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -565,7 +603,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth3]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -573,7 +611,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth4]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=800:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -581,7 +619,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_depth5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings: !H:!V:NTrees=400:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+MVAsettings: !H:!V:NTrees=800:MaxDepth=5:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -591,7 +629,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts5]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=5
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=5
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -599,7 +637,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts10]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=10
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=10
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -607,7 +645,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts25]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=25
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -615,7 +653,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts50]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=50
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=50
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -623,7 +661,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts100]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=100
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=100
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -631,7 +669,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts250]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=250
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=250
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -639,7 +677,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts500]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=500
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=500
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -647,7 +685,7 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 [gg_plus_nCuts1000]
 MVAtype     : <!MVAGeneral|type!>
-MVAsettings : !H:!V:NTrees=400:MaxDepth=4:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=1000
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError:nCuts=1000
 signals     : <!MVAGeneral|signals!>
 backgrounds : <!MVAGeneral|backgrounds!>
 treeVarSet  : treeVars
@@ -655,6 +693,91 @@ treeCut     : <!MVALists|opt_tree_cut!>
 
 
 
-# pT windows, 3 regions
+################################################################
+[gg_plus_LR001]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.01:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
 
+[gg_plus_LR01]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
 
+[gg_plus_LR011]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.11:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR012]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.12:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR013]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.13:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR014]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.14:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR015]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.15:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR02]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.2:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR03]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.3:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR04]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.4:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>
+
+[gg_plus_LR05]
+MVAtype     : <!MVAGeneral|type!>
+MVAsettings : !H:!V:NTrees=800:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:SeparationType=MisClassificationError
+signals     : <!MVAGeneral|signals!>
+backgrounds : <!MVAGeneral|backgrounds!>
+treeVarSet  : treeVars
+treeCut     : <!MVALists|opt_tree_cut!>

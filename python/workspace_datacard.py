@@ -350,7 +350,11 @@ for syst in systematics:
                 _weight = _weight + '*(LHE_weights_scale_wgt[2])'
             if Q is 'Down':
                 _weight = _weight + '*(LHE_weights_scale_wgt[3])'
-                    
+
+        # EWK ZH Signal Corrections
+        if 'CMS_vhbb_EWK_Zll' in syst:
+            _weight = weightF.replace('Signal_ewkWeight', 'Signal_ewkWeight_%s' % Q)
+        
 
         if 'btag' in syst:    
             
@@ -787,7 +791,7 @@ if not ignore_stats:
         
         print "==== Running Statistical uncertainty ===="
         
-        threshold =  0.75 #stat error / sqrt(value). It was 0.5
+        threshold =  0.85 #stat error / sqrt(value). It was 0.5
         
         print "threshold", threshold
 
@@ -798,17 +802,11 @@ if not ignore_stats:
             # Turn off Bin Stat if selected
             if doBin == 'False': continue
             
-            if not bdt:
-                print '\n----> No Bin-by-Bin for CR...'
-                continue
-
-            
             for Q in UD:
                 final_histos['%s_bin%s_%s'%(systematicsnaming['stats'],bin,Q)] = {}
 
             for job,hist in final_histos['nominal'].items():
             
-                #binsBelowThreshold[job] = []
                 if not job in binsBelowThreshold.keys(): binsBelowThreshold[job] = [] #NEW Add
                 
                 print "binsBelowThreshold",binsBelowThreshold
@@ -816,17 +814,16 @@ if not ignore_stats:
                 print "hist.GetBinError(bin)",hist.GetBinError(bin)
 
                 print '\n\t-----> Making shapes for:',job
-                #binsBelowThreshold[job].append(bin) # NEW remove
-
                 if 'ST' in job: continue
-                
+
+                if not bdt:
+                    print '\n----> No Bin-by-Bin for CR...'
+                    continue
+
                 if hist.GetBinContent(bin) > 0.:
-                    
                     #print '\n\t\t-----> Bin content for job is > 0'
-   
                     if hist.GetBinError(bin)/sqrt(hist.GetBinContent(bin)) > threshold and hist.GetBinContent(bin) >= 1.:
                         binsBelowThreshold[job].append(bin)
-                 
                     elif hist.GetBinError(bin)/(hist.GetBinContent(bin)) > threshold and hist.GetBinContent(bin) < 1.:
                         binsBelowThreshold[job].append(bin)
 

@@ -44,9 +44,8 @@ sys_BDT: [
     'CMS_vhbb_eff_e_13TeV', 
     'CMS_vhbb_eff_m_13TeV',
 
-    #'CMS_vhbb_LHE_weights_scaleMuR',
-    #'CMS_vhbb_LHE_weights_scaleMuF',
-     
+    #'CMS_vhbb_EWK_Zll',
+    
     'CMS_vhbb_LHE_weights_scaleMuR_ZH',
     'CMS_vhbb_LHE_weights_scaleMuF_ZH',
     'CMS_vhbb_LHE_weights_scaleMuR_ggZH',
@@ -123,6 +122,8 @@ sys_BDT: [
 # configuration of systematics effects and behaviour
 sys_factor: {'CMS_vhbb_eff_e_13TeV':1.0,
 	     'CMS_vhbb_eff_m_13TeV':1.0,
+
+	     'CMS_vhbb_EWK_Zll':1.0,
 
 	     #'CMS_vhbb_LHE_weights_scaleMuR':1.0,
 	     #'CMS_vhbb_LHE_weights_scaleMuF':1.0,
@@ -232,6 +233,8 @@ sys_factor: {'CMS_vhbb_eff_e_13TeV':1.0,
 	     
 
 sys_affecting: {'weight_pileUp':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+
+		'CMS_vhbb_EWK_Zll':['ZH'],
 
 		'CMS_vhbb_LHE_weights_scaleMuR_ZH':['ZH'],
 		'CMS_vhbb_LHE_weights_scaleMuF_ZH':['ZH'],
@@ -344,6 +347,8 @@ sys_affecting: {'weight_pileUp':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','T
 systematicsnaming: {
     'CMS_vhbb_eff_e_13TeV':'CMS_vhbb_eff_e_13TeV',
     'CMS_vhbb_eff_m_13TeV':'CMS_vhbb_eff_m_13TeV',
+
+    'CMS_vhbb_EWK_Zll':'CMS_vhbb_EWK_Zll',
 
     'CMS_vhbb_LHE_weights_scaleMuR_ZH':'CMS_vhbb_LHE_weights_scaleMuR_ZH',
     'CMS_vhbb_LHE_weights_scaleMuF_ZH':'CMS_vhbb_LHE_weights_scaleMuF_ZH',

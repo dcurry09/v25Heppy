@@ -134,6 +134,9 @@ workdir=ROOT.gDirectory.GetPath()
 TrainCut= TCut +' & evt%2==0'
 EvalCut = TCut +' & evt%2!=0'
 
+#TrainCut= TCut +' & !((evt%2)==0)'
+#EvalCut = TCut +' & (evt%2)==0'
+
 cuts = [TrainCut,EvalCut]  
 
 print '\n ------> with Train Cuts: ', TrainCut
@@ -222,25 +225,26 @@ for var in MVA_Vars['Nominal']:
 # Execute TMVA
 #weightF = '1'
 
-factory.SetSignalWeightExpression(weightF)
-factory.SetBackgroundWeightExpression(weightF)
 
-print '-----> Booking TMVA: '
-print '          Type: ', MVAtype
-print '          Name: ', MVAname
-print '          Settings: ', MVAsettings
+# factory.SetSignalWeightExpression(weightF)
+# factory.SetBackgroundWeightExpression(weightF)
 
-factory.BookMethod(MVAtype, MVAname, MVAsettings)
-factory.TrainAllMethods()
-factory.TestAllMethods()
+# print '-----> Booking TMVA: '
+# print '          Type: ', MVAtype
+# print '          Name: ', MVAname
+# print '          Settings: ', MVAsettings
 
-if isEval: 
-	factory.EvaluateAllMethods()
+# factory.BookMethod(MVAtype, MVAname, MVAsettings)
+# factory.TrainAllMethods()
+# factory.TestAllMethods()
 
-#output.Write()
-output.Close()
+# if isEval: 
+# 	factory.EvaluateAllMethods()
 
-'''
+# #output.Write()
+# output.Close()
+
+
 #Execute TMVA
 print 'Execute TMVA: SetSignalWeightExpression'
 factory.SetSignalWeightExpression(weightF)
@@ -266,28 +270,26 @@ ROOT.gDirectory.cd(MVAname)
 rocIntegral_default=my_methodBase_bdt.GetROCIntegral()
 roc_integral_test = my_methodBase_bdt.GetROCIntegral(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_S'),ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_B'))
 roc_integral_train = my_methodBase_bdt.GetROCIntegral(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_S'),ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_B'))
-significance = my_methodBase_bdt.GetSignificance()
-separation_test = my_methodBase_bdt.GetSeparation(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_S'),ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_B'))
-separation_train = my_methodBase_bdt.GetSeparation(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_S'),ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_B'))
+
+#significance = my_methodBase_bdt.GetSignificance()
+#separation_test = my_methodBase_bdt.GetSeparation(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_S'),ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_B'))
+#separation_train = my_methodBase_bdt.GetSeparation(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_S'),ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_B'))
 #ks_signal = (ROOT.gDirectory.Get(my_methodBase_bdtname+'_'+MVAname+'_S')).KolmogorovTest(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_S'))
 #ks_bkg= (ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_B')).KolmogorovTest(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_Train_B'))
 
 
-#print '@DEBUG: Test Integral:', ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_S').Integral()
-print 'ROC integral:', rocIntegral_default
+print '@DEBUG: ROC TEST Integral   :', roc_integral_test
+print '@DEBUG: ROC TRAIN Integral  :', roc_integral_train
 
-# Send roc to text file
+#myROC = my_methodBase_bdt.GetIntegral(ROOT.gDirectory.Get(factoryname+'_'+MVAname+'_rejBvsS'))
 
-if os.path.isfile('roc_lowPt.txt'):
-	f = open('roc_lowPt.txt', 'a')
-if os.path.isfile('roc_medPt.txt'):
-	f = open('roc_medPt.txt', 'a')
-if os.path.isfile('roc_highPt.txt'):
-	f = open('roc_highPt.txt', 'a')
+#print '@DEBUG: ROC TEst NEW:', myROC
 
-f.write("%s\n" % rocIntegral_default)
+# Now save this ROC into a text file
+f = open('roc_temp.txt', 'a')	
+f.write("%s\n" % roc_integral_test)
 f.close()
-'''
+
 
 
 
