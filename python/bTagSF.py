@@ -192,11 +192,15 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_70to100','DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200', 'DY_1200to2500', 'DY_2500toInf', 'DY_Bjets',
-           'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6',
-           'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf'
-           #'DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400','DY_Pt400to650','DY_Pt650toInf'
+DY_list = ['DY_inclusive', 'DY_100to200', 'DY_200to400', 'DY_400to600',
+           #'DY_Bjets',
+           'DY_800to1200_ext1',
+           'DY_600to800_ext1', 'DY_600to800_ext2', 
+           'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2',
+           #'DY_1200to2500', 'DY_2500toInf',
+           'DY1J_10to50', 'DY2J_10to50', 'DY3J_10to50'
            ]
+
 
 DY_parton_list = ['DY0J', 'DY1J']
 
@@ -223,7 +227,7 @@ temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
 #file_list = temp_list
-file_list = signal_list
+file_list = DY_list
 
 
 #for file in file_list:

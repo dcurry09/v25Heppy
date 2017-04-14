@@ -85,13 +85,14 @@ ROOT.gROOT.ProcessLine(
 #input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/v23/DY_inclusive.root', 'read')
 input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/sys_out/v25_ZH125.root', 'read')
 
-output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_noMET.root', 'recreate')
+#output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_noMET.root', 'recreate')
+output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_withMET.root', 'recreate')
 
 #with MET
-#regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
+regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
 
 # no MET
-regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/fordavid_nomet/TMVARegression_BDTG.weights.xml'
+#regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/fordavid_nomet/TMVARegression_BDTG.weights.xml'
 
 regVars = ["Jet_pt",
            "nPVs",
@@ -108,8 +109,8 @@ regVars = ["Jet_pt",
            "Jet_vtx3dL",
            "Jet_vtxNtrk",
            "Jet_vtx3deL",
-           #"met_pt",
-           #"Jet_met_proj"
+           "met_pt",
+           "Jet_met_proj"
            ]      	
 
 
@@ -156,8 +157,8 @@ regDict = {"Jet_pt":"Jet_pt[0]",
            "Jet_vtx3dL":"Jet_vtx3dl[0]",
            "Jet_vtxNtrk":"Jet_vtxNtrk[0]",
            "Jet_vtx3deL":"Jet_vtx3deL[0]",
-           #"met_pt":"met_pt",
-           #"Jet_met_proj":"Jet_met_proj"
+           "met_pt":"met_pt",
+           "Jet_met_proj":"Jet_met_proj"
            } 
 
 

@@ -1,0 +1,1072 @@
+# include <TCanvas.h>
+# include <TPad.h>
+# include <TStyle.h>
+# include <TH1F.h>
+# include <THStack.h>
+# include <TColor.h>
+# include <TGraphErrors.h>
+# include <TLegend.h>
+# include <TLegendEntry.h>
+# include <TLatex.h>
+# include <TFile.h>
+# include <TText.h>
+# include <TLine.h>
+
+void Zlf_low_Zuu_Vpt_ZH125ggZH125() {
+
+  gStyle->SetBatch(True)
+    
+//=========Macro generated from canvas: Vpt/
+//=========  (Tue Apr 11 02:18:04 2017) by ROOT version6.02/05
+  TCanvas *Vpt1 = new TCanvas("Vpt1", "",0,0,600,600);
+  gStyle->SetOptFit(1);
+  gStyle->SetOptStat(0);
+  gStyle->SetOptTitle(0);
+  Vpt1->SetHighLightColor(2);
+  Vpt1->Range(0,0,1,1);
+  Vpt1->SetFillColor(0);
+  Vpt1->SetFillStyle(4000);
+  Vpt1->SetBorderMode(0);
+  Vpt1->SetBorderSize(2);
+  Vpt1->SetTickx(1);
+  Vpt1->SetTicky(1);
+  Vpt1->SetLeftMargin(0.13);
+  Vpt1->SetRightMargin(0.05);
+  Vpt1->SetTopMargin(0.05);
+  Vpt1->SetBottomMargin(0.13);
+  Vpt1->SetFrameFillStyle(1000);
+  Vpt1->SetFrameBorderMode(0);
+  
+// ------------>Primitives in pad: oben
+   TPad *oben = new TPad("oben", "oben",0,0.3,1,1);
+   oben->Draw();
+   oben->cd();
+   oben->Range(-63.41463,0,424.3902,220124.3);
+   oben->SetFillColor(0);
+   oben->SetFillStyle(4000);
+   oben->SetBorderMode(0);
+   oben->SetBorderSize(2);
+   oben->SetTickx(1);
+   oben->SetTicky(1);
+   oben->SetLeftMargin(0.13);
+   oben->SetRightMargin(0.05);
+   oben->SetTopMargin(0.05);
+   oben->SetBottomMargin(0);
+   oben->SetFrameFillStyle(1000);
+   oben->SetFrameBorderMode(0);
+   oben->SetFrameFillStyle(1000);
+   oben->SetFrameBorderMode(0);
+   
+   THStack *Vpt = new THStack();
+   Vpt->SetName("Vpt");
+   Vpt->SetTitle("");
+   Vpt->SetMaximum(199160.1);
+   
+   TH1F *Vpt_stack_8 = new TH1F("Vpt_stack_8","",40,0,400);
+   Vpt_stack_8->SetMinimum(0);
+   Vpt_stack_8->SetMaximum(209118.1);
+   Vpt_stack_8->SetDirectory(0);
+   Vpt_stack_8->SetStats(0);
+   Vpt_stack_8->SetFillColor(63);
+   Vpt_stack_8->SetLineStyle(0);
+   Vpt_stack_8->SetMarkerStyle(20);
+   Vpt_stack_8->SetMarkerSize(1.2);
+   Vpt_stack_8->GetXaxis()->SetRange(1,40);
+   Vpt_stack_8->GetXaxis()->SetLabelFont(42);
+   Vpt_stack_8->GetXaxis()->SetLabelOffset(0.007);
+   Vpt_stack_8->GetXaxis()->SetLabelSize(0.05);
+   Vpt_stack_8->GetXaxis()->SetTitleSize(0.05);
+   Vpt_stack_8->GetXaxis()->SetTitleFont(42);
+   Vpt_stack_8->GetYaxis()->SetTitle("Entries / 10 GeV");
+   Vpt_stack_8->GetYaxis()->SetLabelFont(42);
+   Vpt_stack_8->GetYaxis()->SetLabelOffset(0.007);
+   Vpt_stack_8->GetYaxis()->SetLabelSize(0.05);
+   Vpt_stack_8->GetYaxis()->SetTitleSize(0.05);
+   Vpt_stack_8->GetYaxis()->SetTitleOffset(1.4);
+   Vpt_stack_8->GetYaxis()->SetTitleFont(42);
+   Vpt_stack_8->GetZaxis()->SetLabelFont(42);
+   Vpt_stack_8->GetZaxis()->SetLabelOffset(0.007);
+   Vpt_stack_8->GetZaxis()->SetLabelSize(0.05);
+   Vpt_stack_8->GetZaxis()->SetTitleSize(0.05);
+   Vpt_stack_8->GetZaxis()->SetTitleFont(42);
+   Vpt->SetHistogram(Vpt_stack_8);
+   
+   
+   TH1F *ST_s = new TH1F("ST_s","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   ST_s->SetBinContent(6,30.15179);
+   ST_s->SetBinContent(7,28.74548);
+   ST_s->SetBinContent(8,33.94951);
+   ST_s->SetBinContent(9,28.97614);
+   ST_s->SetBinContent(10,26.60069);
+   ST_s->SetBinContent(11,16.76815);
+   ST_s->SetBinContent(12,19.20305);
+   ST_s->SetBinContent(13,11.8777);
+   ST_s->SetBinContent(14,6.382338);
+   ST_s->SetBinContent(15,4.036914);
+   ST_s->SetBinError(6,5.27352);
+   ST_s->SetBinError(7,4.745389);
+   ST_s->SetBinError(8,5.336475);
+   ST_s->SetBinError(9,4.871439);
+   ST_s->SetBinError(10,4.718462);
+   ST_s->SetBinError(11,2.835865);
+   ST_s->SetBinError(12,3.824951);
+   ST_s->SetBinError(13,2.661484);
+   ST_s->SetBinError(14,1.867371);
+   ST_s->SetBinError(15,0.9051551);
+   ST_s->SetEntries(681);
+
+   Int_t ci;      // for color index setting
+   TColor *color; // for color definition with alpha
+   ci = TColor::GetColor("#00ffcc");
+   ST_s->SetFillColor(ci);
+   ST_s->GetXaxis()->SetLabelFont(42);
+   ST_s->GetXaxis()->SetLabelSize(0.035);
+   ST_s->GetXaxis()->SetTitleSize(0.035);
+   ST_s->GetXaxis()->SetTitleFont(42);
+   ST_s->GetYaxis()->SetLabelFont(42);
+   ST_s->GetYaxis()->SetLabelSize(0.035);
+   ST_s->GetYaxis()->SetTitleSize(0.035);
+   ST_s->GetYaxis()->SetTitleFont(42);
+   ST_s->GetZaxis()->SetLabelFont(42);
+   ST_s->GetZaxis()->SetLabelSize(0.035);
+   ST_s->GetZaxis()->SetTitleSize(0.035);
+   ST_s->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(ST_s,"");
+   
+   TH1F *WZlight = new TH1F("WZlight","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   WZlight->SetBinContent(6,324.3723);
+   WZlight->SetBinContent(7,297.4536);
+   WZlight->SetBinContent(8,249.3561);
+   WZlight->SetBinContent(9,208.2753);
+   WZlight->SetBinContent(10,174.3569);
+   WZlight->SetBinContent(11,139.6811);
+   WZlight->SetBinContent(12,114.376);
+   WZlight->SetBinContent(13,94.01263);
+   WZlight->SetBinContent(14,79.57925);
+   WZlight->SetBinContent(15,63.55455);
+   WZlight->SetBinError(6,4.60446);
+   WZlight->SetBinError(7,4.402738);
+   WZlight->SetBinError(8,4.135552);
+   WZlight->SetBinError(9,3.837849);
+   WZlight->SetBinError(10,3.543877);
+   WZlight->SetBinError(11,3.219447);
+   WZlight->SetBinError(12,2.989336);
+   WZlight->SetBinError(13,2.74336);
+   WZlight->SetBinError(14,2.487476);
+   WZlight->SetBinError(15,2.292924);
+   WZlight->SetEntries(73489);
+
+   ci = TColor::GetColor("#666666");
+   WZlight->SetFillColor(ci);
+   WZlight->GetXaxis()->SetLabelFont(42);
+   WZlight->GetXaxis()->SetLabelSize(0.035);
+   WZlight->GetXaxis()->SetTitleSize(0.035);
+   WZlight->GetXaxis()->SetTitleFont(42);
+   WZlight->GetYaxis()->SetLabelFont(42);
+   WZlight->GetYaxis()->SetLabelSize(0.035);
+   WZlight->GetYaxis()->SetTitleSize(0.035);
+   WZlight->GetYaxis()->SetTitleFont(42);
+   WZlight->GetZaxis()->SetLabelFont(42);
+   WZlight->GetZaxis()->SetLabelSize(0.035);
+   WZlight->GetZaxis()->SetTitleSize(0.035);
+   WZlight->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(WZlight,"");
+   
+   TH1F *WZb = new TH1F("WZb","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   WZb->SetBinContent(6,29.53304);
+   WZb->SetBinContent(7,27.79063);
+   WZb->SetBinContent(8,25.20538);
+   WZb->SetBinContent(9,20.39128);
+   WZb->SetBinContent(10,15.37722);
+   WZb->SetBinContent(11,13.99987);
+   WZb->SetBinContent(12,11.07197);
+   WZb->SetBinContent(13,10.43416);
+   WZb->SetBinContent(14,8.624603);
+   WZb->SetBinContent(15,6.229774);
+   WZb->SetBinError(6,1.509874);
+   WZb->SetBinError(7,1.456575);
+   WZb->SetBinError(8,1.418074);
+   WZb->SetBinError(9,1.291343);
+   WZb->SetBinError(10,1.180504);
+   WZb->SetBinError(11,1.138456);
+   WZb->SetBinError(12,1.002388);
+   WZb->SetBinError(13,0.948565);
+   WZb->SetBinError(14,0.8182048);
+   WZb->SetBinError(15,0.7728307);
+   WZb->SetEntries(7385);
+
+   ci = TColor::GetColor("#cccccc");
+   WZb->SetFillColor(ci);
+   WZb->GetXaxis()->SetLabelFont(42);
+   WZb->GetXaxis()->SetLabelSize(0.035);
+   WZb->GetXaxis()->SetTitleSize(0.035);
+   WZb->GetXaxis()->SetTitleFont(42);
+   WZb->GetYaxis()->SetLabelFont(42);
+   WZb->GetYaxis()->SetLabelSize(0.035);
+   WZb->GetYaxis()->SetTitleSize(0.035);
+   WZb->GetYaxis()->SetTitleFont(42);
+   WZb->GetZaxis()->SetLabelFont(42);
+   WZb->GetZaxis()->SetLabelSize(0.035);
+   WZb->GetZaxis()->SetTitleSize(0.035);
+   WZb->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(WZb,"");
+   
+   TH1F *ttbar = new TH1F("ttbar","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0])*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   ttbar->SetBinContent(6,341.3565);
+   ttbar->SetBinContent(7,342.8393);
+   ttbar->SetBinContent(8,336.2861);
+   ttbar->SetBinContent(9,307.4689);
+   ttbar->SetBinContent(10,259.1623);
+   ttbar->SetBinContent(11,212.3785);
+   ttbar->SetBinContent(12,154.0333);
+   ttbar->SetBinContent(13,116.9162);
+   ttbar->SetBinContent(14,77.41082);
+   ttbar->SetBinContent(15,65.02021);
+   ttbar->SetBinError(6,12.85475);
+   ttbar->SetBinError(7,12.9341);
+   ttbar->SetBinError(8,12.72867);
+   ttbar->SetBinError(9,12.12998);
+   ttbar->SetBinError(10,11.17758);
+   ttbar->SetBinError(11,10.08549);
+   ttbar->SetBinError(12,8.616757);
+   ttbar->SetBinError(13,7.476296);
+   ttbar->SetBinError(14,6.087129);
+   ttbar->SetBinError(15,5.578912);
+   ttbar->SetEntries(5031);
+
+   ci = TColor::GetColor("#3333ff");
+   ttbar->SetFillColor(ci);
+   ttbar->GetXaxis()->SetLabelFont(42);
+   ttbar->GetXaxis()->SetLabelSize(0.035);
+   ttbar->GetXaxis()->SetTitleSize(0.035);
+   ttbar->GetXaxis()->SetTitleFont(42);
+   ttbar->GetYaxis()->SetLabelFont(42);
+   ttbar->GetYaxis()->SetLabelSize(0.035);
+   ttbar->GetYaxis()->SetTitleSize(0.035);
+   ttbar->GetYaxis()->SetTitleFont(42);
+   ttbar->GetZaxis()->SetLabelFont(42);
+   ttbar->GetZaxis()->SetLabelSize(0.035);
+   ttbar->GetZaxis()->SetTitleSize(0.035);
+   ttbar->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(ttbar,"");
+   
+   TH1F *Zudsg = new TH1F("Zudsg","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0])*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)*(1*((!(lheNb>0)*1) + (lheNb>0)*((lheV_pt<100)*0.97 + (lheV_pt>100 && lheV_pt<200)*0.51 + (lheV_pt>200)*0.50))))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   Zudsg->SetBinContent(6,106208.6);
+   Zudsg->SetBinContent(7,86883.31);
+   Zudsg->SetBinContent(8,66970.22);
+   Zudsg->SetBinContent(9,50554.29);
+   Zudsg->SetBinContent(10,38648.75);
+   Zudsg->SetBinContent(11,29055.82);
+   Zudsg->SetBinContent(12,22824.32);
+   Zudsg->SetBinContent(13,17816.66);
+   Zudsg->SetBinContent(14,14179.18);
+   Zudsg->SetBinContent(15,11105.85);
+   Zudsg->SetBinError(6,461.8235);
+   Zudsg->SetBinError(7,406.1622);
+   Zudsg->SetBinError(8,344.2269);
+   Zudsg->SetBinError(9,285.4062);
+   Zudsg->SetBinError(10,231.1274);
+   Zudsg->SetBinError(11,177.7318);
+   Zudsg->SetBinError(12,148.1889);
+   Zudsg->SetBinError(13,128.0106);
+   Zudsg->SetBinError(14,113.1988);
+   Zudsg->SetBinError(15,99.83274);
+   Zudsg->SetEntries(535496);
+
+   ci = TColor::GetColor("#cccc00");
+   Zudsg->SetFillColor(ci);
+   Zudsg->GetXaxis()->SetLabelFont(42);
+   Zudsg->GetXaxis()->SetLabelSize(0.035);
+   Zudsg->GetXaxis()->SetTitleSize(0.035);
+   Zudsg->GetXaxis()->SetTitleFont(42);
+   Zudsg->GetYaxis()->SetLabelFont(42);
+   Zudsg->GetYaxis()->SetLabelSize(0.035);
+   Zudsg->GetYaxis()->SetTitleSize(0.035);
+   Zudsg->GetYaxis()->SetTitleFont(42);
+   Zudsg->GetZaxis()->SetLabelFont(42);
+   Zudsg->GetZaxis()->SetLabelSize(0.035);
+   Zudsg->GetZaxis()->SetTitleSize(0.035);
+   Zudsg->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(Zudsg,"");
+   
+   TH1F *Z1b = new TH1F("Z1b","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0])*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)*(1*((!(lheNb>0)*1) + (lheNb>0)*((lheV_pt<100)*0.97 + (lheV_pt>100 && lheV_pt<200)*0.51 + (lheV_pt>200)*0.50))))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   Z1b->SetBinContent(6,4102.003);
+   Z1b->SetBinContent(7,3269.927);
+   Z1b->SetBinContent(8,2585.885);
+   Z1b->SetBinContent(9,1997.242);
+   Z1b->SetBinContent(10,1540.163);
+   Z1b->SetBinContent(11,1218.332);
+   Z1b->SetBinContent(12,910.3552);
+   Z1b->SetBinContent(13,694.2118);
+   Z1b->SetBinContent(14,549.4624);
+   Z1b->SetBinContent(15,434.7935);
+   Z1b->SetBinError(6,88.82656);
+   Z1b->SetBinError(7,77.30813);
+   Z1b->SetBinError(8,66.29112);
+   Z1b->SetBinError(9,56.34363);
+   Z1b->SetBinError(10,44.51472);
+   Z1b->SetBinError(11,32.29956);
+   Z1b->SetBinError(12,23.17632);
+   Z1b->SetBinError(13,19.16389);
+   Z1b->SetBinError(14,16.68631);
+   Z1b->SetBinError(15,14.82242);
+   Z1b->SetEntries(94878);
+   Z1b->SetFillColor(41);
+   Z1b->GetXaxis()->SetLabelFont(42);
+   Z1b->GetXaxis()->SetLabelSize(0.035);
+   Z1b->GetXaxis()->SetTitleSize(0.035);
+   Z1b->GetXaxis()->SetTitleFont(42);
+   Z1b->GetYaxis()->SetLabelFont(42);
+   Z1b->GetYaxis()->SetLabelSize(0.035);
+   Z1b->GetYaxis()->SetTitleSize(0.035);
+   Z1b->GetYaxis()->SetTitleFont(42);
+   Z1b->GetZaxis()->SetLabelFont(42);
+   Z1b->GetZaxis()->SetLabelSize(0.035);
+   Z1b->GetZaxis()->SetTitleSize(0.035);
+   Z1b->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(Z1b,"");
+   
+   TH1F *Z2b = new TH1F("Z2b","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0])*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)*(1*((!(lheNb>0)*1) + (lheNb>0)*((lheV_pt<100)*0.97 + (lheV_pt>100 && lheV_pt<200)*0.51 + (lheV_pt>200)*0.50))))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   Z2b->SetBinContent(6,524.211);
+   Z2b->SetBinContent(7,360.4091);
+   Z2b->SetBinContent(8,389.1812);
+   Z2b->SetBinContent(9,291.3462);
+   Z2b->SetBinContent(10,230.5757);
+   Z2b->SetBinContent(11,185.701);
+   Z2b->SetBinContent(12,138.3332);
+   Z2b->SetBinContent(13,105.3417);
+   Z2b->SetBinContent(14,91.25352);
+   Z2b->SetBinContent(15,72.13538);
+   Z2b->SetBinError(6,33.74285);
+   Z2b->SetBinError(7,25.84742);
+   Z2b->SetBinError(8,27.27191);
+   Z2b->SetBinError(9,22.71687);
+   Z2b->SetBinError(10,17.83695);
+   Z2b->SetBinError(11,12.44184);
+   Z2b->SetBinError(12,8.74303);
+   Z2b->SetBinError(13,6.805671);
+   Z2b->SetBinError(14,6.570099);
+   Z2b->SetBinError(15,6.038699);
+   Z2b->SetEntries(14845);
+   Z2b->SetFillColor(5);
+   Z2b->GetXaxis()->SetLabelFont(42);
+   Z2b->GetXaxis()->SetLabelSize(0.035);
+   Z2b->GetXaxis()->SetTitleSize(0.035);
+   Z2b->GetXaxis()->SetTitleFont(42);
+   Z2b->GetYaxis()->SetLabelFont(42);
+   Z2b->GetYaxis()->SetLabelSize(0.035);
+   Z2b->GetYaxis()->SetTitleSize(0.035);
+   Z2b->GetYaxis()->SetTitleFont(42);
+   Z2b->GetZaxis()->SetLabelFont(42);
+   Z2b->GetZaxis()->SetLabelSize(0.035);
+   Z2b->GetZaxis()->SetTitleSize(0.035);
+   Z2b->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(Z2b,"");
+   
+   TH1F *ZH125 = new TH1F("ZH125","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",40,0,400);
+   ZH125->SetBinContent(6,2.257036);
+   ZH125->SetBinContent(7,2.44031);
+   ZH125->SetBinContent(8,2.494397);
+   ZH125->SetBinContent(9,2.42992);
+   ZH125->SetBinContent(10,2.338948);
+   ZH125->SetBinContent(11,2.235923);
+   ZH125->SetBinContent(12,2.113413);
+   ZH125->SetBinContent(13,1.981683);
+   ZH125->SetBinContent(14,1.816304);
+   ZH125->SetBinContent(15,1.608165);
+   ZH125->SetBinError(6,0.03880258);
+   ZH125->SetBinError(7,0.0402165);
+   ZH125->SetBinError(8,0.04085183);
+   ZH125->SetBinError(9,0.04009837);
+   ZH125->SetBinError(10,0.03951741);
+   ZH125->SetBinError(11,0.03860301);
+   ZH125->SetBinError(12,0.03746547);
+   ZH125->SetBinError(13,0.03639452);
+   ZH125->SetBinError(14,0.03468921);
+   ZH125->SetBinError(15,0.03272346);
+   ZH125->SetEntries(37864);
+   ZH125->SetFillColor(2);
+   ZH125->GetXaxis()->SetLabelFont(42);
+   ZH125->GetXaxis()->SetLabelSize(0.035);
+   ZH125->GetXaxis()->SetTitleSize(0.035);
+   ZH125->GetXaxis()->SetTitleFont(42);
+   ZH125->GetYaxis()->SetLabelFont(42);
+   ZH125->GetYaxis()->SetLabelSize(0.035);
+   ZH125->GetYaxis()->SetTitleSize(0.035);
+   ZH125->GetYaxis()->SetTitleFont(42);
+   ZH125->GetZaxis()->SetLabelFont(42);
+   ZH125->GetZaxis()->SetLabelSize(0.035);
+   ZH125->GetZaxis()->SetTitleSize(0.035);
+   ZH125->GetZaxis()->SetTitleFont(42);
+   Vpt->Add(ZH125,"");
+   Vpt->Draw("hist");
+   
+   Double_t Graph_from_ZH125_fx1015[40] = {
+   5,
+   15,
+   25,
+   35,
+   45,
+   55,
+   65,
+   75,
+   85,
+   95,
+   105,
+   115,
+   125,
+   135,
+   145,
+   155,
+   165,
+   175,
+   185,
+   195,
+   205,
+   215,
+   225,
+   235,
+   245,
+   255,
+   265,
+   275,
+   285,
+   295,
+   305,
+   315,
+   325,
+   335,
+   345,
+   355,
+   365,
+   375,
+   385,
+   395};
+   Double_t Graph_from_ZH125_fy1015[40] = {
+   0,
+   0,
+   0,
+   0,
+   0,
+   111562.5,
+   91212.91,
+   70592.57,
+   53410.42,
+   40897.32,
+   30844.92,
+   24173.8,
+   18851.44,
+   14993.71,
+   11753.23,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0};
+   Double_t Graph_from_ZH125_fex1015[40] = {
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5};
+   Double_t Graph_from_ZH125_fey1015[40] = {
+   0,
+   0,
+   0,
+   0,
+   0,
+   471.7269,
+   414.5162,
+   351.9091,
+   292.1209,
+   236.3911,
+   181.4058,
+   150.5734,
+   129.8911,
+   114.8171,
+   101.2943,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0};
+   TGraphErrors *gre = new TGraphErrors(40,Graph_from_ZH125_fx1015,Graph_from_ZH125_fy1015,Graph_from_ZH125_fex1015,Graph_from_ZH125_fey1015);
+   gre->SetName("Graph_from_ZH125");
+   gre->SetTitle("V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}");
+
+   ci = TColor::GetColor("#333333");
+   gre->SetFillColor(ci);
+   gre->SetFillStyle(3013);
+   
+   TH1F *Graph_Graph_from_ZH1251015 = new TH1F("Graph_Graph_from_ZH1251015","V_new_pt {(sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]))*(Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44) & V_new_pt > -25.0 & Vtype_new == 0 & Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & abs(VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi))>2.5 & V_new_mass>75. & V_new_mass < 105. & Jet_btagCMVAV2[hJCMVAV2idx[0]] < 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] < -0.5884 & V_new_pt >= 50 & V_new_pt < 150)}",100,0,440);
+   Graph_Graph_from_ZH1251015->SetMinimum(0);
+   Graph_Graph_from_ZH1251015->SetMaximum(123237.6);
+   Graph_Graph_from_ZH1251015->SetDirectory(0);
+   Graph_Graph_from_ZH1251015->SetStats(0);
+   Graph_Graph_from_ZH1251015->SetFillColor(63);
+   Graph_Graph_from_ZH1251015->SetLineStyle(0);
+   Graph_Graph_from_ZH1251015->SetMarkerStyle(20);
+   Graph_Graph_from_ZH1251015->SetMarkerSize(1.2);
+   Graph_Graph_from_ZH1251015->GetXaxis()->SetLabelFont(42);
+   Graph_Graph_from_ZH1251015->GetXaxis()->SetLabelOffset(0.007);
+   Graph_Graph_from_ZH1251015->GetXaxis()->SetLabelSize(0.05);
+   Graph_Graph_from_ZH1251015->GetXaxis()->SetTitleSize(0.05);
+   Graph_Graph_from_ZH1251015->GetXaxis()->SetTitleFont(42);
+   Graph_Graph_from_ZH1251015->GetYaxis()->SetLabelFont(42);
+   Graph_Graph_from_ZH1251015->GetYaxis()->SetLabelOffset(0.007);
+   Graph_Graph_from_ZH1251015->GetYaxis()->SetLabelSize(0.05);
+   Graph_Graph_from_ZH1251015->GetYaxis()->SetTitleSize(0.05);
+   Graph_Graph_from_ZH1251015->GetYaxis()->SetTitleOffset(1.4);
+   Graph_Graph_from_ZH1251015->GetYaxis()->SetTitleFont(42);
+   Graph_Graph_from_ZH1251015->GetZaxis()->SetLabelFont(42);
+   Graph_Graph_from_ZH1251015->GetZaxis()->SetLabelOffset(0.007);
+   Graph_Graph_from_ZH1251015->GetZaxis()->SetLabelSize(0.05);
+   Graph_Graph_from_ZH1251015->GetZaxis()->SetTitleSize(0.05);
+   Graph_Graph_from_ZH1251015->GetZaxis()->SetTitleFont(42);
+   gre->SetHistogram(Graph_Graph_from_ZH1251015);
+   
+   gre->Draw("2");
+   
+   TH1F *noData = new TH1F("noData","noData",40,0,400);
+   noData->SetBinContent(6,117153);
+   noData->SetBinContent(7,98629);
+   noData->SetBinContent(8,77736);
+   noData->SetBinContent(9,60299);
+   noData->SetBinContent(10,46198);
+   noData->SetBinContent(11,35726);
+   noData->SetBinContent(12,27998);
+   noData->SetBinContent(13,22206);
+   noData->SetBinContent(14,17811);
+   noData->SetBinContent(15,14171);
+   noData->SetBinError(6,342.2762);
+   noData->SetBinError(7,314.0525);
+   noData->SetBinError(8,278.8118);
+   noData->SetBinError(9,245.5585);
+   noData->SetBinError(10,214.9372);
+   noData->SetBinError(11,189.0132);
+   noData->SetBinError(12,167.326);
+   noData->SetBinError(13,149.0168);
+   noData->SetBinError(14,133.4579);
+   noData->SetBinError(15,119.042);
+   noData->SetEntries(517927);
+   noData->SetFillColor(63);
+   noData->SetLineStyle(0);
+   noData->SetMarkerStyle(20);
+   noData->SetMarkerSize(1.2);
+   noData->GetXaxis()->SetLabelFont(42);
+   noData->GetXaxis()->SetLabelOffset(0.007);
+   noData->GetXaxis()->SetLabelSize(0.05);
+   noData->GetXaxis()->SetTitleSize(0.05);
+   noData->GetXaxis()->SetTitleFont(42);
+   noData->GetYaxis()->SetLabelFont(42);
+   noData->GetYaxis()->SetLabelOffset(0.007);
+   noData->GetYaxis()->SetLabelSize(0.05);
+   noData->GetYaxis()->SetTitleSize(0.05);
+   noData->GetYaxis()->SetTitleOffset(1.4);
+   noData->GetYaxis()->SetTitleFont(42);
+   noData->GetZaxis()->SetLabelFont(42);
+   noData->GetZaxis()->SetLabelOffset(0.007);
+   noData->GetZaxis()->SetLabelSize(0.05);
+   noData->GetZaxis()->SetTitleSize(0.05);
+   noData->GetZaxis()->SetTitleFont(42);
+   noData->Draw("E,same");
+   
+   TLegend *leg = new TLegend(0.45,0.6,0.75,0.92,NULL,"brNDC");
+   leg->SetBorderSize(0);
+   leg->SetTextFont(62);
+   leg->SetTextSize(0.035);
+   leg->SetLineColor(1);
+   leg->SetLineStyle(1);
+   leg->SetLineWidth(2);
+   leg->SetFillColor(0);
+   leg->SetFillStyle(4000);
+   TLegendEntry *entry=leg->AddEntry("noData","Data","P");
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(1.2);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("ZH125","ZH(b#bar{b}) 125","F");
+   entry->SetFillColor(2);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("Z2b","Z + b#bar{b}","F");
+   entry->SetFillColor(5);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("Z1b","Z + b","F");
+   entry->SetFillColor(41);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("Zudsg","Z+udscg","F");
+
+   ci = TColor::GetColor("#cccc00");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   leg->Draw();
+   
+   leg = new TLegend(0.68,0.6,0.92,0.92,NULL,"brNDC");
+   leg->SetBorderSize(0);
+   leg->SetTextFont(62);
+   leg->SetTextSize(0.035);
+   leg->SetLineColor(1);
+   leg->SetLineStyle(1);
+   leg->SetLineWidth(2);
+   leg->SetFillColor(0);
+   leg->SetFillStyle(4000);
+   entry=leg->AddEntry("ttbar","t#bar{t}","F");
+
+   ci = TColor::GetColor("#3333ff");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("WZb","VVHF","F");
+
+   ci = TColor::GetColor("#cccccc");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("WZlight","VVLF","F");
+
+   ci = TColor::GetColor("#666666");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("ST_s","Single top","F");
+
+   ci = TColor::GetColor("#00ffcc");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(1001);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   entry=leg->AddEntry("Graph_from_ZH125","MC uncert. (stat.)","fl");
+
+   ci = TColor::GetColor("#333333");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(3013);
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   leg->Draw();
+   TLatex *   tex = new TLatex(0.17,0.88,"CMS Preliminary");
+tex->SetNDC();
+   tex->SetTextSize(0.052);
+   tex->SetLineWidth(2);
+   tex->Draw();
+      tex = new TLatex(0.17,0.83,"#sqrt{s} =  13TeV, L = 35.9 fb^{-1}");
+tex->SetNDC();
+   tex->SetTextSize(0.04);
+   tex->SetLineWidth(2);
+   tex->Draw();
+      tex = new TLatex(0.17,0.78,"Z(#mu^{-}#mu^{+})H(b#bar{b})");
+tex->SetNDC();
+   tex->SetTextSize(0.04);
+   tex->SetLineWidth(2);
+   tex->Draw();
+      tex = new TLatex(0.17,0.73,"Low p_{T}(V)");
+tex->SetNDC();
+   tex->SetTextSize(0.04);
+   tex->SetLineWidth(2);
+   tex->Draw();
+   oben->Modified();
+   Vpt1->cd();
+  
+// ------------>Primitives in pad: unten
+   TPad *unten = new TPad("unten", "unten",0,0,1,0.3);
+   unten->Draw();
+   unten->cd();
+   unten->Range(-63.41463,-0.1730769,424.3902,1.75);
+   unten->SetFillColor(0);
+   unten->SetFillStyle(4000);
+   unten->SetBorderMode(0);
+   unten->SetBorderSize(2);
+   unten->SetTickx(1);
+   unten->SetTicky(1);
+   unten->SetLeftMargin(0.13);
+   unten->SetRightMargin(0.05);
+   unten->SetTopMargin(0);
+   unten->SetBottomMargin(0.35);
+   unten->SetFrameFillStyle(1000);
+   unten->SetFrameBorderMode(0);
+   unten->SetFrameFillStyle(1000);
+   unten->SetFrameBorderMode(0);
+   Double_t xAxis15[13] = {0, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 400}; 
+   
+   TH1F *Ratio87 = new TH1F("Ratio87","",12, xAxis15);
+   Ratio87->SetBinContent(2,1.050111);
+   Ratio87->SetBinContent(3,1.081305);
+   Ratio87->SetBinContent(4,1.101192);
+   Ratio87->SetBinContent(5,1.128974);
+   Ratio87->SetBinContent(6,1.129609);
+   Ratio87->SetBinContent(7,1.158246);
+   Ratio87->SetBinContent(8,1.158196);
+   Ratio87->SetBinContent(9,1.177947);
+   Ratio87->SetBinContent(10,1.187898);
+   Ratio87->SetBinContent(11,1.205711);
+   Ratio87->SetBinError(2,0.003068023);
+   Ratio87->SetBinError(3,0.003443071);
+   Ratio87->SetBinError(4,0.003949591);
+   Ratio87->SetBinError(5,0.004597577);
+   Ratio87->SetBinError(6,0.005255532);
+   Ratio87->SetBinError(7,0.006127856);
+   Ratio87->SetBinError(8,0.006921792);
+   Ratio87->SetBinError(9,0.007904797);
+   Ratio87->SetBinError(10,0.008900921);
+   Ratio87->SetBinError(11,0.01012845);
+   Ratio87->SetMinimum(0.5);
+   Ratio87->SetMaximum(1.75);
+   Ratio87->SetEntries(10);
+   Ratio87->SetStats(0);
+   Ratio87->SetFillColor(63);
+   Ratio87->SetLineStyle(0);
+   Ratio87->SetMarkerStyle(20);
+   Ratio87->GetXaxis()->SetTitle("p_{T} (V) [GeV]");
+   Ratio87->GetXaxis()->SetRange(1,12);
+   Ratio87->GetXaxis()->SetLabelFont(42);
+   Ratio87->GetXaxis()->SetLabelOffset(0.007);
+   Ratio87->GetXaxis()->SetLabelSize(0.11);
+   Ratio87->GetXaxis()->SetTitleSize(0.11);
+   Ratio87->GetXaxis()->SetTitleFont(42);
+   Ratio87->GetYaxis()->SetTitle("Data/MC");
+   Ratio87->GetYaxis()->CenterTitle(true);
+   Ratio87->GetYaxis()->SetNdivisions(505);
+   Ratio87->GetYaxis()->SetLabelFont(42);
+   Ratio87->GetYaxis()->SetLabelOffset(0.007);
+   Ratio87->GetYaxis()->SetLabelSize(0.11);
+   Ratio87->GetYaxis()->SetTitleSize(0.11);
+   Ratio87->GetYaxis()->SetTitleOffset(0.4);
+   Ratio87->GetYaxis()->SetTitleFont(42);
+   Ratio87->GetZaxis()->SetLabelFont(42);
+   Ratio87->GetZaxis()->SetLabelOffset(0.007);
+   Ratio87->GetZaxis()->SetLabelSize(0.05);
+   Ratio87->GetZaxis()->SetTitleSize(0.05);
+   Ratio87->GetZaxis()->SetTitleFont(42);
+   Ratio87->Draw("E1");
+   
+   Double_t Graph_from_RefError_fx1016[12] = {
+   25,
+   55,
+   65,
+   75,
+   85,
+   95,
+   105,
+   115,
+   125,
+   135,
+   145,
+   275};
+   Double_t Graph_from_RefError_fy1016[12] = {
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   0};
+   Double_t Graph_from_RefError_fex1016[12] = {
+   25,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   125};
+   Double_t Graph_from_RefError_fey1016[12] = {
+   0,
+   0.004228366,
+   0.004544491,
+   0.004985073,
+   0.005469362,
+   0.005780113,
+   0.005881222,
+   0.006228785,
+   0.006890249,
+   0.007657684,
+   0.008618429,
+   0};
+   gre = new TGraphErrors(12,Graph_from_RefError_fx1016,Graph_from_RefError_fy1016,Graph_from_RefError_fex1016,Graph_from_RefError_fey1016);
+   gre->SetName("Graph_from_RefError");
+   gre->SetTitle("noData");
+
+   ci = TColor::GetColor("#333333");
+   gre->SetFillColor(ci);
+   gre->SetFillStyle(3013);
+   gre->SetLineStyle(0);
+   gre->SetMarkerStyle(20);
+   
+   TH1F *Graph_Graph_from_RefError1016 = new TH1F("Graph_Graph_from_RefError1016","noData",100,0,440);
+   Graph_Graph_from_RefError1016->SetMinimum(0);
+   Graph_Graph_from_RefError1016->SetMaximum(1.10948);
+   Graph_Graph_from_RefError1016->SetDirectory(0);
+   Graph_Graph_from_RefError1016->SetStats(0);
+   Graph_Graph_from_RefError1016->SetFillColor(63);
+   Graph_Graph_from_RefError1016->SetLineStyle(0);
+   Graph_Graph_from_RefError1016->SetMarkerStyle(20);
+   Graph_Graph_from_RefError1016->SetMarkerSize(1.2);
+   Graph_Graph_from_RefError1016->GetXaxis()->SetLabelFont(42);
+   Graph_Graph_from_RefError1016->GetXaxis()->SetLabelOffset(0.007);
+   Graph_Graph_from_RefError1016->GetXaxis()->SetLabelSize(0.05);
+   Graph_Graph_from_RefError1016->GetXaxis()->SetTitleSize(0.05);
+   Graph_Graph_from_RefError1016->GetXaxis()->SetTitleFont(42);
+   Graph_Graph_from_RefError1016->GetYaxis()->SetLabelFont(42);
+   Graph_Graph_from_RefError1016->GetYaxis()->SetLabelOffset(0.007);
+   Graph_Graph_from_RefError1016->GetYaxis()->SetLabelSize(0.05);
+   Graph_Graph_from_RefError1016->GetYaxis()->SetTitleSize(0.05);
+   Graph_Graph_from_RefError1016->GetYaxis()->SetTitleOffset(1.4);
+   Graph_Graph_from_RefError1016->GetYaxis()->SetTitleFont(42);
+   Graph_Graph_from_RefError1016->GetZaxis()->SetLabelFont(42);
+   Graph_Graph_from_RefError1016->GetZaxis()->SetLabelOffset(0.007);
+   Graph_Graph_from_RefError1016->GetZaxis()->SetLabelSize(0.05);
+   Graph_Graph_from_RefError1016->GetZaxis()->SetTitleSize(0.05);
+   Graph_Graph_from_RefError1016->GetZaxis()->SetTitleFont(42);
+   gre->SetHistogram(Graph_Graph_from_RefError1016);
+   
+   gre->Draw("2");
+   Double_t xAxis16[13] = {0, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 400}; 
+   
+   TH1F *Ratio88 = new TH1F("Ratio88","",12, xAxis16);
+   Ratio88->SetBinContent(2,1.050111);
+   Ratio88->SetBinContent(3,1.081305);
+   Ratio88->SetBinContent(4,1.101192);
+   Ratio88->SetBinContent(5,1.128974);
+   Ratio88->SetBinContent(6,1.129609);
+   Ratio88->SetBinContent(7,1.158246);
+   Ratio88->SetBinContent(8,1.158196);
+   Ratio88->SetBinContent(9,1.177947);
+   Ratio88->SetBinContent(10,1.187898);
+   Ratio88->SetBinContent(11,1.205711);
+   Ratio88->SetBinError(2,0.003068023);
+   Ratio88->SetBinError(3,0.003443071);
+   Ratio88->SetBinError(4,0.003949591);
+   Ratio88->SetBinError(5,0.004597577);
+   Ratio88->SetBinError(6,0.005255532);
+   Ratio88->SetBinError(7,0.006127856);
+   Ratio88->SetBinError(8,0.006921792);
+   Ratio88->SetBinError(9,0.007904797);
+   Ratio88->SetBinError(10,0.008900921);
+   Ratio88->SetBinError(11,0.01012845);
+   Ratio88->SetMinimum(0.5);
+   Ratio88->SetMaximum(1.75);
+   Ratio88->SetEntries(10);
+   Ratio88->SetStats(0);
+   Ratio88->SetFillColor(63);
+   Ratio88->SetLineStyle(0);
+   Ratio88->SetMarkerStyle(20);
+   Ratio88->GetXaxis()->SetTitle("p_{T} (V) [GeV]");
+   Ratio88->GetXaxis()->SetRange(1,12);
+   Ratio88->GetXaxis()->SetLabelFont(42);
+   Ratio88->GetXaxis()->SetLabelOffset(0.007);
+   Ratio88->GetXaxis()->SetLabelSize(0.11);
+   Ratio88->GetXaxis()->SetTitleSize(0.11);
+   Ratio88->GetXaxis()->SetTitleFont(42);
+   Ratio88->GetYaxis()->SetTitle("Data/MC");
+   Ratio88->GetYaxis()->CenterTitle(true);
+   Ratio88->GetYaxis()->SetNdivisions(505);
+   Ratio88->GetYaxis()->SetLabelFont(42);
+   Ratio88->GetYaxis()->SetLabelOffset(0.007);
+   Ratio88->GetYaxis()->SetLabelSize(0.11);
+   Ratio88->GetYaxis()->SetTitleSize(0.11);
+   Ratio88->GetYaxis()->SetTitleOffset(0.4);
+   Ratio88->GetYaxis()->SetTitleFont(42);
+   Ratio88->GetZaxis()->SetLabelFont(42);
+   Ratio88->GetZaxis()->SetLabelOffset(0.007);
+   Ratio88->GetZaxis()->SetLabelSize(0.05);
+   Ratio88->GetZaxis()->SetTitleSize(0.05);
+   Ratio88->GetZaxis()->SetTitleFont(42);
+   Ratio88->Draw("E1SAME");
+   
+   leg = new TLegend(0.39,0.85,0.93,0.97,NULL,"brNDC");
+   leg->SetBorderSize(0);
+   leg->SetTextFont(62);
+   leg->SetTextSize(0.075);
+   leg->SetLineColor(1);
+   leg->SetLineStyle(1);
+   leg->SetLineWidth(2);
+   leg->SetFillColor(0);
+   leg->SetFillStyle(4000);
+   entry=leg->AddEntry("Graph_from_RefError","MC uncert. (stat.)","f");
+
+   ci = TColor::GetColor("#333333");
+   entry->SetFillColor(ci);
+   entry->SetFillStyle(3013);
+   entry->SetLineColor(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(1);
+   entry->SetTextFont(62);
+   leg->Draw();
+   TLine *line = new TLine(0,1,400,1);
+   line->Draw();
+   tex = new TLatex(0.17,0.895,"#chi^{2}_{ }#lower[0.1]{/^{}#it{dof} = 37.62}");
+   tex->SetNDC();
+   tex->SetTextSize(0.0775);
+   tex->SetLineWidth(2);
+   tex->Draw();
+   TText *text = new TText(0.1059,0.96,"0");
+   text->SetNDC();
+   text->SetTextFont(42);
+   text->SetTextSize(0.12);
+   text->Draw();
+   unten->Modified();
+   Vpt1->cd();
+   Vpt1->Modified();
+   Vpt1->cd();
+   Vpt1->SetSelected(Vpt1);
+
+   TFile* file = TFile::Open("Zlf_Vpt.root", "RECREATE");
+
+   file->cd();
+   noData->Write();
+   ZH125->Write();
+   ST_s->Write();
+   WZlight->Write();
+   WZb->Write();
+   ttbar->Write();
+   Zudsg->Write();
+   Z1b->Write();
+   Z2b->Write();
+   file->Close();
+
+
+};

@@ -69,14 +69,14 @@ DY2b_nolhe:   'Z2b',  'Z2b5070',  'Z2b70100',  'Z2b100ext'
 
 #DYudsg: 'Zudsg','Zudsg1J','Zudsg2J','Zudsg3J','Zudsg4J','ZudsgHT100to200','ZudsgHT200to400','ZudsgHT400to600', 'ZudsgHT600toInf','Zudsg5070','Zudsg70100','Zudsg100','Zudsg180','Zudsg100ext'
 
-DYudsg: 'Zudsg','ZudsgHT100to200', 'ZudsgHT200to400','ZudsgHT400to600','ZudsgHT600toInf', 'Zudsg_Bjets', 'Zudsg_BgenFilter', 'Zudsg5to50', 'Zudsg5to50_100to200', 'Zudsg5to50_200to400', 'Zudsg5to50_400to600', 'Zudsg5to50_600toInf', 'Zudsg_nlo','ZudsgVpt100to250','ZudsgVpt250to400','ZudsgVpt400to650','ZudsgVpt650toInf', 'ZudsgHT600to800', 'ZudsgHT800to1200_ext1', 'ZudsgHT800to1200_ext2', 'ZudsgHT1200to2500', 'ZudsgHT2500toInf', 'ZudsgHT70to100', 'ZudsgVpt50to100', 'Zudsg0J', 'Zudsg1J', 'Zudsg2J','Zudsg2J','Zudsg2Jext2','Zudsg2Jext3','Zudsg2Jext4','Zudsg2Jext1', 'ZudsgHT600to800_ext1', 'ZudsgHT600to800_ext2','ZudsgHT600to800_ext3','ZudsgHT600to800_ext4','ZudsgHT600to800_ext5','ZudsgHT600to800_ext6','Zudsg_Bjets_Vpt100to200','Zudsg_Bjets_Vpt200toInf', 'Zudsg_DY1J_10to50', 'Zudsg_DY2J_10to50', 'Zudsg_DY3J_10to50'
+DYudsg: 'Zudsg','ZudsgHT100to200', 'ZudsgHT200to400','ZudsgHT400to600','ZudsgHT600toInf', 'Zudsg_Bjets', 'Zudsg_BgenFilter', 'Zudsg5to50', 'Zudsg5to50_100to200', 'Zudsg5to50_200to400', 'Zudsg5to50_400to600', 'Zudsg5to50_600toInf', 'Zudsg_nlo','ZudsgVpt100to250','ZudsgVpt250to400','ZudsgVpt400to650','ZudsgVpt650toInf', 'ZudsgHT600to800', 'ZudsgHT800to1200_ext1', 'ZudsgHT800to1200_ext2', 'ZudsgHT1200to2500', 'ZudsgHT2500toInf', 'ZudsgHT70to100', 'ZudsgVpt50to100', 'Zudsg0J', 'Zudsg1J', 'Zudsg2J','Zudsg2J','Zudsg2Jext2','Zudsg2Jext3','Zudsg2Jext4','Zudsg2Jext1', 'ZudsgHT600to800_ext1', 'ZudsgHT600to800_ext2','ZudsgHT600to800_ext3','ZudsgHT600to800_ext4','ZudsgHT600to800_ext5','ZudsgHT600to800_ext6','Zudsg_Bjets_Vpt100to200','Zudsg_Bjets_Vpt200toInf', 'Zudsg_DY1J_10to50', 'Zudsg_DY2J_10to50', 'Zudsg_DY3J_10to50','Zudsg_Bjets_Vpt100to200_ext2','Zudsg_Bjets_Vpt200toInf_ext2'
     
 
 DYc: 'Zcc','ZccHT100to200','ZccHT200to400','ZccHT400to600','ZccHT600toInf', 'Zcc_Bjets', 'Zcc_BgenFilter', 'Zcc5to50', 'Zcc5to50_100to200', 'Zcc5to50_200to400', 'Zcc5to50_400to600', 'Zcc5to50_600toInf','Zcc_nlo','ZccVpt100to250','ZccVpt250to400','ZccVpt400to650','ZccVpt650toInf','ZccHT70to100'
 
-DY1b: 'Z1b','Z1bHT100to200','Z1bHT200to400','Z1bHT400to600','Z1bHT600toInf', 'Z1b_Bjets', 'Z1b_BgenFilter', 'Z1b5to50', 'Z1b5to50_100to200', 'Z1b5to50_200to400', 'Z1b5to50_400to600', 'Z1b5to50_600toInf','Z1b_nlo','Z1bVpt100to250','Z1bVpt250to400','Z1bVpt400to650','Z1bVpt650toInf','Z1bHT600to800', 'Z1bHT800to1200_ext1', 'Z1bHT800to1200_ext2', 'Z1bHT1200to2500', 'Z1bHT2500toInf','Z1bHT70to100', 'Z1bVpt50to100', 'Z1b0J', 'Z1b1J','Z1b2J','Z1b2Jext2','Z1b2Jext3','Z1b2Jext4','Z1b2Jext1', 'Z1bHT600to800_ext1','Z1bHT600to800_ext2','Z1bHT600to800_ext3','Z1bHT600to800_ext4','Z1bHT600to800_ext5','Z1bHT600to800_ext6','Z1b_Bjets_Vpt100to200','Z1b_Bjets_Vpt200toInf','Z1b_DY1J_10to50', 'Z1b_DY2J_10to50', 'Z1b_DY3J_10to50'
+DY1b: 'Z1b','Z1bHT100to200','Z1bHT200to400','Z1bHT400to600','Z1bHT600toInf', 'Z1b_Bjets', 'Z1b_BgenFilter', 'Z1b5to50', 'Z1b5to50_100to200', 'Z1b5to50_200to400', 'Z1b5to50_400to600', 'Z1b5to50_600toInf','Z1b_nlo','Z1bVpt100to250','Z1bVpt250to400','Z1bVpt400to650','Z1bVpt650toInf','Z1bHT600to800', 'Z1bHT800to1200_ext1', 'Z1bHT800to1200_ext2', 'Z1bHT1200to2500', 'Z1bHT2500toInf','Z1bHT70to100', 'Z1bVpt50to100', 'Z1b0J', 'Z1b1J','Z1b2J','Z1b2Jext2','Z1b2Jext3','Z1b2Jext4','Z1b2Jext1', 'Z1bHT600to800_ext1','Z1bHT600to800_ext2','Z1bHT600to800_ext3','Z1bHT600to800_ext4','Z1bHT600to800_ext5','Z1bHT600to800_ext6','Z1b_Bjets_Vpt100to200','Z1b_Bjets_Vpt200toInf','Z1b_DY1J_10to50', 'Z1b_DY2J_10to50', 'Z1b_DY3J_10to50','Z1b_Bjets_Vpt100to200_ext2','Z1b_Bjets_Vpt200toInf_ext2'
 
-DY2b: 'Z2b','Z2bHT100to200','Z2bHT200to400','Z2bHT400to600','Z2bHT600toInf', 'Z2b_Bjets', 'Z2b_BgenFilter', 'Z2b5to50', 'Z2b5to50_100to200', 'Z2b5to50_200to400', 'Z2b5to50_400to600', 'Z2b5to50_600toInf','Z2b_nlo','Z2bVpt100to250','Z2bVpt250to400','Z2bVpt400to650','Z2bVpt650toInf', 'Z2bHT600to800', 'Z2bHT800to1200_ext1', 'Z2bHT800to1200_ext2','Z2bHT1200to2500', 'Z2bHT2500toInf','Z2bHT70to100', 'Z2bVpt50to100', 'Z2b0J', 'Z2b1J', 'Z2b2J','Z2b2Jext2','Z2b2Jext3','Z2b2Jext4','Z2b2Jext1','Z2bHT600to800_ext1','Z2bHT600to800_ext2','Z2bHT600to800_ext3','Z2bHT600to800_ext4','Z2bHT600to800_ext5','Z2bHT600to800_ext6','Z2b_Bjets_Vpt100to200','Z2b_Bjets_Vpt200toInf', 'Z2b_DY1J_10to50', 'Z2b_DY2J_10to50', 'Z2b_DY3J_10to50'
+DY2b: 'Z2b','Z2bHT100to200','Z2bHT200to400','Z2bHT400to600','Z2bHT600toInf', 'Z2b_Bjets', 'Z2b_BgenFilter', 'Z2b5to50', 'Z2b5to50_100to200', 'Z2b5to50_200to400', 'Z2b5to50_400to600', 'Z2b5to50_600toInf','Z2b_nlo','Z2bVpt100to250','Z2bVpt250to400','Z2bVpt400to650','Z2bVpt650toInf', 'Z2bHT600to800', 'Z2bHT800to1200_ext1', 'Z2bHT800to1200_ext2','Z2bHT1200to2500', 'Z2bHT2500toInf','Z2bHT70to100', 'Z2bVpt50to100', 'Z2b0J', 'Z2b1J', 'Z2b2J','Z2b2Jext2','Z2b2Jext3','Z2b2Jext4','Z2b2Jext1','Z2bHT600to800_ext1','Z2bHT600to800_ext2','Z2bHT600to800_ext3','Z2bHT600to800_ext4','Z2bHT600to800_ext5','Z2bHT600to800_ext6','Z2b_Bjets_Vpt100to200','Z2b_Bjets_Vpt200toInf', 'Z2b_DY1J_10to50', 'Z2b_DY2J_10to50', 'Z2b_DY3J_10to50','Z2b_Bjets_Vpt100to200_ext2','Z2b_Bjets_Vpt200toInf_ext2'
 
 
 DY_inclusive: 'Zudsg','Zcc','Z1b','Z2b'
@@ -147,7 +147,7 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
 	'Zudsg0J':'DYlight', 'Zudsg1J':'DYlight', 'Zudsg2J':'DYlight','Zudsg2Jext2':'DYlight','Zudsg2Jext3':'DYlight','Zudsg2Jext4':'DYlight','Zudsg2Jext1':'DYlight',
 	'ZudsgHT600to800_ext1':'DYlight', 'ZudsgHT600to800_ext2':'DYlight','ZudsgHT600to800_ext3':'DYlight','ZudsgHT600to800_ext4':'DYlight','ZudsgHT600to800_ext5':'DYlight',
 	'ZudsgHT600to800_ext6':'DYlight',
-	'Zudsg_Bjets_Vpt100to200':'DYlight','Zudsg_Bjets_Vpt200toInf':'DYlight',
+	'Zudsg_Bjets_Vpt100to200':'DYlight','Zudsg_Bjets_Vpt200toInf':'DYlight', 'Zudsg_Bjets_Vpt100to200_ext2':'DYlight','Zudsg_Bjets_Vpt200toInf_ext2':'DYlight',
 	'Zudsg_DY1J_10to50':'DYlight', 'Zudsg_DY2J_10to50':'DYlight', 'Zudsg_DY3J_10to50':'DYlight',
 	'Zcc':'DYlight', 'ZccHT100to200':'DYlight', 'ZccHT200to400':'DYlight', 'ZccHT400to600':'DYlight', 'ZccHT600toInf':'DYlight', 'Zcc_Bjets':'DYlight',\
 	'Zcc_BgenFilter':'DYlight', 'Zcc5to50':'DYlight', 'Zcc5to50_100to200':'DYlight', 'Zcc5to50_200to400':'DYlight', 'Zcc5to50_400to600':'DYlight', 
@@ -161,7 +161,7 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
 	'Z1bHT1200to2500':'DY1b', 'Z1bHT2500toInf':'DY1b','Z1bHT70to100':'DY1b','Z1bVpt50to100':'DY1b',
 	'Z1b0J':'DY1b', 'Z1b1J':'DY1b', 'Z1b2J':'DY1b','Z1b2Jext2':'DY1b','Z1b2Jext3':'DY1b','Z1b2Jext4':'DY1b','Z1b2Jext1':'DY1b',
 	'Z1bHT600to800_ext1':'DY1b','Z1bHT600to800_ext2':'DY1b','Z1bHT600to800_ext3':'DY1b','Z1bHT600to800_ext4':'DY1b','Z1bHT600to800_ext5':'DY1b','Z1bHT600to800_ext6':'DY1b',
-	'Z1b_Bjets_Vpt100to200':'DY1b','Z1b_Bjets_Vpt200toInf':'DY1b',
+	'Z1b_Bjets_Vpt100to200':'DY1b','Z1b_Bjets_Vpt200toInf':'DY1b','Z1b_Bjets_Vpt100to200_ext2':'DY1b','Z1b_Bjets_Vpt200toInf_ext2':'DY1b',
 	'Z1b_DY1J_10to50':'DY1b', 'Z1b_DY2J_10to50':'DY1b', 'Z1b_DY3J_10to50':'DY1b',
 	'Z2b':'DY2b','Z2bHT100to200':'DY2b','Z2bHT200to400':'DY2b','Z2bHT400to600':'DY2b','Z2bHT600toInf':'DY2b', 'Z2b_Bjets':'DY2b', \
 	'Z2b_BgenFilter':'DY2b', 'Z2b5to50':'DY2b', 'Z2b5to50_100to200':'DY2b', 'Z2b5to50_200to400':'DY2b', 'Z2b5to50_400to600':'DY2b', 'Z2b5to50_600toInf':'DY2b',\
@@ -170,7 +170,7 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
 	'Z2bHT1200to2500':'DY2b', 'Z2bHT2500toInf':'DY2b','Z2bHT70to100':'DY2b','Z2bVpt50to100':'DY2b',
         'Z2b0J':'DY2b', 'Z2b1J':'DY2b', 'Z2b2J':'DY2b', 'Z2b2Jext2':'DY2b', 'Z2b2Jext3':'DY2b', 'Z2b2Jext4':'DY2b', 'Z2b2Jext1':'DY2b',
 	'Z2bHT600to800_ext1':'DY2b','Z2bHT600to800_ext2':'DY2b','Z2bHT600to800_ext3':'DY2b','Z2bHT600to800_ext4':'DY2b','Z2bHT600to800_ext5':'DY2b','Z2bHT600to800_ext6':'DY2b',
-	'Z2b_Bjets_Vpt100to200':'DY2b','Z2b_Bjets_Vpt200toInf':'DY2b',
+	'Z2b_Bjets_Vpt100to200':'DY2b','Z2b_Bjets_Vpt200toInf':'DY2b','Z2b_Bjets_Vpt100to200_ext2':'DY2b','Z2b_Bjets_Vpt200toInf_ext2':'DY2b',
 	'Z2b_DY1J_10to50':'DY2b', 'Z2b_DY2J_10to50':'DY2b', 'Z2b_DY3J_10to50':'DY2b',
 	'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF','ZZlight_2L2Q_ext1':'VVLF', 'ZZlight_2L2Q_ext2':'VVLF', 'ZZlight_2L2Q_ext3':'VVLF',
 	'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF','ZZb_2L2Q_ext1':'VVHF', 'ZZb_2L2Q_ext2':'VVHF', 'ZZb_2L2Q_ext3':'VVHF',
@@ -198,8 +198,7 @@ weightF_muSFiso: mIsoSFWeight[0]
 weightF_muSFtracker: mTrackerSFWeight[0]
 weightF_muSFtrigg: mTrigSFWeight_doubleMu80x[0]
 
-weightF_muSF: <!Weights|weightF_muSFiso!>*<!Weights|weightF_muSFid!>*<!Weights|weightF_muSFtracker!>
-#*<!Weights|weightF_muSFtrigg!>
+weightF_muSF: <!Weights|weightF_muSFiso!>*<!Weights|weightF_muSFid!>*<!Weights|weightF_muSFtracker!>*<!Weights|weightF_muSFtrigg!>
  
 # Electrons
 weightF_eSFid: eId90SFWeight[0]

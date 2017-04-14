@@ -44,7 +44,7 @@ file_list = [
     
     #'DY_2J', 'DY_2J_NewExt1', 'DY_2J_NewExt2', 'DY_2J_NewExt3', 'DY_2J_NewExt4', 'DY_2J_NewExt5', 'DY_2J_NewExt6', 'DY_2J_NewExt7', 'DY_2J_NewExt8'
     
-    'DY_inclusive_ext1', 'DY_inclusive_ext2'
+    'DY_inclusive_ext1', 'DY_inclusive_ext2', 'DY_inclusive_ext2_NewExt1'
 
     ]
 
@@ -61,7 +61,7 @@ zee_data_triggers = 'HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v'
 
 zuu_data_triggers = '(HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v)'
 
-prep_cut = '((abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4) || (abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4)) & ((Jet_pt_reg[hJCidx[0]] > 18 & Jet_pt_reg[hJCidx[1]] > 18) || (Jet_pt_reg[hJCMVAV2idx[0]] > 18 & Jet_pt_reg[hJCMVAV2idx[1]] > 18)) & V_pt > 50 & Vtype < 2 & Vtype > -1'
+prep_cut = '((abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4) || (abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4)) & ((Jet_pt_reg[hJCidx[0]] > 18 & Jet_pt_reg[hJCidx[1]] > 18) || (Jet_pt_reg[hJCMVAV2idx[0]] > 18 & Jet_pt_reg[hJCMVAV2idx[1]] > 18)) & Vtype!=2'
 
 #prep_cut = '((abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4) || (abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4)) & ((Jet_pt_reg[hJCidx[0]] > 18 & Jet_pt_reg[hJCidx[1]] > 18) || (Jet_pt_reg[hJCMVAV2idx[0]] > 18 & Jet_pt_reg[hJCMVAV2idx[1]] > 18)) & ((Vtype_new < 2 & Vtype_new > -1) || (Vtype < 2 & Vtype > -1)) & (V_new_pt > 50 || V_pt > 50)'
 
@@ -71,7 +71,7 @@ zee_cut = prep_cut + ' & Vtype != 2 & json == 1 & HLT_BIT_HLT_Ele23_Ele12_CaloId
 zuu_cut = prep_cut + ' & Vtype != 2 & json == 1 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v==1 || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v==1 || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v==1 || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v==1)'
 #zuu_cut = prep_cut + ' & Vtype != 2 & json == 1'
 
-ttbar_cut = prep_cut + ' & (HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v==1 || (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))'
+ttbar_cut = prep_cut + ' & (HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v==1 || (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v)) & lheHT<100'
 
 
 

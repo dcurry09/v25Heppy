@@ -84,25 +84,25 @@ vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 't
 # ====================================
 
 #temp_list = ['VV_BDT_Zuu_highZpt']
-temp_list = bdt_list
+#temp_list = bdt_list
 
 # ==============================================
 
 #### Chose VH or VV ####
 #datacard_list = bdt_list
 #datacard_list = control_list + bdt_list
-#datacard_list = control_list
+datacard_list = control_list
 
 #datacard_list = vv_bdt_list
 #datacard_list = vv_control_list + vv_bdt_list
 #datacard_list = vv_control_list
 
-datacard_list = temp_list
+#datacard_list = temp_list
 
 
 ##### Directory to save datacards ####
 
-title = 'CMVA_LO_withBjets_4_9'
+title = 'CMVA_LO_4_15'
 #title = 'TEST'
 
 sig_dir = 'v25_SR_'+title
@@ -130,11 +130,11 @@ isVV = False
  
 # For Control Region Scale Factors
 isCombine = False
-#isCombine = True
+isCombine = True
 
 # BDT final fit(split Pt Categories)
 splitRegionFOM = False
-splitRegionFOM = True
+#splitRegionFOM = True
 
 # Old Test
 isFinalFit = False
