@@ -182,52 +182,36 @@ class Jet :
 prefix = 'v25_'
 #prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/MVA_out_VV/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_MVA_out_VV/'
 
 # List of files to add btag weights to
-bkg_list = ['DY_inclusive', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
+bkg_list = ['ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
 
 data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_inclusive', 'DY_100to200', 'DY_200to400', 'DY_400to600',
-           #'DY_Bjets',
-           'DY_800to1200_ext1',
-           'DY_600to800_ext1', 'DY_600to800_ext2', 
+DY_list = ['DY_600to800_ext1', 'DY_600to800_ext2','DY_600to800_ext3','DY_600to800_ext4','DY_600to800_ext5', 'DY_600to800_ext6', 
+           'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf',
            'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2',
-           #'DY_1200to2500', 'DY_2500toInf',
-           'DY1J_10to50', 'DY2J_10to50', 'DY3J_10to50'
            ]
-
-
-DY_parton_list = ['DY0J', 'DY1J']
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
-prep_list = [
-    #'prep_DY_2J', 'prep_DY_2J_NewExt1', 'prep_DY_2J_NewExt2', 'prep_DY_2J_NewExt3', 
-    #'prep_DY_2J_NewExt4', 'prep_DY_2J_NewExt5', 'prep_DY_2J_NewExt6', 'prep_DY_2J_NewExt7', 'prep_DY_2J_NewExt8']
-    # 'prep_ttbar_ext1', 'prep_ttbar_ext2',
-    # 'prep_ttbar_ext1_NewExt1', 'prep_ttbar_ext2_NewExt1',
-    # 'prep_ttbar_ext1_NewExt2', 'prep_ttbar_ext2_NewExt2',
-    # 'prep_ttbar_ext1_NewExt3', 'prep_ttbar_ext2_NewExt3',
-    # 'prep_ttbar_ext1_NewExt4', 'prep_ttbar_ext2_NewExt4',
-    # 'prep_ttbar_ext1_NewExt5', 'prep_ttbar_ext2_NewExt5',
-    # 'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
-    
-    'prep_DY_inclusive_ext1', 'prep_DY_inclusive_ext2'
-    
-    ]
 
-
-temp_list = ['DY_800to1200_ext1', 'DY_800to1200_ext2']
-
+temp_list = ['ttbar','DY_600to800_ext1','DY_600to800_ext4','DY_600to800_ext5','DY_600to800_ext6','ST_s','ST_t_antitop']
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
-#file_list = temp_list
-file_list = DY_list
+file_list = temp_list
+
+
+file_list1 = ST_list + ['WZ','DY_Bjets','DY_inclusive', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_1200to2500', 'DY_2500toInf',
+                        'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200_ext1','DY_800to1200_ext2']
+
+file_list2 = DY_list + signal_list + ['ttbar']
+
+
 
 
 #for file in file_list:
@@ -330,15 +314,11 @@ def osSystem(file):
             #bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir] = np.zeros(1, dtype=float)
             #otree.Branch("bTagWeightCSV_Moriond_"+syst+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir], "bTagWeightCSV_Moriond_"+syst+sdir+"/D")
 
-            for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-             
-                bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
-                otree.Branch("bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir], "bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir+"/D")
-
-                #bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir] = np.zeros(1, dtype=float)
-                #otree.Branch("bTagWeightCSV_Moriond_"+syst+systcat+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir], "bTagWeightCSV_Moriond_"+syst+systcat+sdir+"/D")
-                
-                
+            #for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
+            for ipt in range(1,5):
+                for ieta in range(1,4):
+                    bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir] = np.zeros(1, dtype=float)
+                    otree.Branch("bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir], "bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir+"/D")
 
 
     nentries = tree.GetEntries()
@@ -386,29 +366,45 @@ def osSystem(file):
                 bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
                 #bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
                                 
-                for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-
-                    #print '\n Btag for SYS:', syst+systcat+sdir
+                #for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
+                for ipt in range(1,5):
 
                     ptmin = 20.
                     ptmax = 1000.
                     etamin = 0.
                     etamax = 2.4
-                    if (systcat.find("High")!=-1):
-                        ptmin = 100.
-                    if (systcat.find("Low")!=-1):
-                        ptmax = 100.
-                    if (systcat.find("Central")!=-1):
-                        etamax = 1.4
-                    if (systcat.find("Forward")!=-1):
-                        etamin = 1.4
-                 
-                    bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
                     
-                    #bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
+                    if ipt == 1:
+                        ptmin = 30.
+                        ptmax = 40.
+                    elif ipt ==2:
+                        ptmin = 40.
+                        ptmax = 60.
+                    elif ipt ==3:
+                        ptmin = 60.
+                        ptmax = 100.
+                    elif ipt ==4:
+                        ptmin = 100.
+                        ptmax = 1000.
 
-                    #print 'bTagWeights[bTagWeightCMVAV2_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0]
-                    #print 'bTagWeights[bTagWeightCSV_Moriond_'+syst+systcat+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+systcat+sdir][0]
+                    for ieta in range(1,4):
+
+                        #print '\n Btag for SYS:', syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir
+                        if ieta ==1:
+                            etamin = 0.
+                            etamax = 0.8
+                        elif ieta ==2:
+                            etamin = 0.8
+                            etamax = 1.6
+                        elif ieta ==3:
+                            etamin = 1.6
+                            etamax = 2.4
+                            
+                            #bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+systcat+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
+                        bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir][0] = get_event_SF(ptmin, ptmax, etamin, etamax, jets_cmva, sysMap[syst+sdir], "CMVAV2", btag_calibrators)
+
+                        #print 'bTagWeights[bTagWeightCMVAV2_Moriond_'+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir][0]
+                            
 
         otree.Fill()
 
@@ -429,6 +425,11 @@ p.join()
 
 
 # p = multiprocessing.Pool()
-# results = p.imap(osSystem, DY_list)
+# results = p.imap(osSystem, file_list1)
+# p.close()
+# p.join()
+
+# p = multiprocessing.Pool()
+# results = p.imap(osSystem, file_list2)
 # p.close()
 # p.join()

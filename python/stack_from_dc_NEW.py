@@ -51,28 +51,48 @@ parser.add_option("-R", "--region", dest="region", default="",
 print opts
 
 
-def rebinHist(hist,nbin, xmin, xmax):
+def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, postfit_error_histos, stat_hists):
 
     '''The postfit plots stored in the mlfit.root don't have the proper bin size. A rebinning is therefor necessary.
        PostFit Shapes will be given preFit errors in order to seperate out MC and SYS errors.
     '''
 
     h_new = ROOT.TH1F(hist.GetName(), hist.GetName(), nbin, xmin, xmax)
+    h_new_postfit = ROOT.TH1F(subdir.GetName()+'_postfit', subdir.GetName()+'_postfit', nbin, xmin, xmax)
+
+    print '\n Making PostFit Rebinned Hist for ', hist.GetName(), h_new
+    
 
     for b in range(1,nbin+1):
-
-        #print 'Bin:', b, hist.GetBinContent(b), hist.GetBinError(b)
         
         h_new.SetBinContent(b, hist.GetBinContent(b))
         h_new.SetBinError(b, hist.GetBinError(b))
-    
-    # Set bin error to preFit
-    #ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
-    #pre_hist = ROOT.gDirectory.Get(subdir.GetName()).Clone()
-    #for bin in range(1,nbin+1):
-    #     h_new.SetBinError(bin, pre_hist.GetBinError(bin))
-    #ROOT.gDirectory.cd('/shapes_fit_s/'+dirname)
+        h_new.SetBinError(b, stat_hists[hist.GetName()].GetBinError(b))
+        h_new_postfit.SetBinContent(b, hist.GetBinContent(b))
+        h_new_postfit.SetBinError(b, hist.GetBinError(b)+stat_hists[hist.GetName()].GetBinError(b))
+        print '\nBin content:', hist.GetBinContent(b)
+        print 'Stat Bin ',b, 'error:', stat_hists[hist.GetName()].GetBinError(b)
+        print 'Post Fit Bin ',b, 'error:', hist.GetBinError(b)
 
+
+    postfit_error_histos.append(h_new_postfit)
+        
+    # Set bin error to preFit
+    print '\nSetting preFit Error(dirname,subdir)', dirname, subdir    
+    ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
+    
+    pre_hist = ROOT.gDirectory.Get(subdir.GetName()).Clone()
+    h_new_prefit = ROOT.TH1F(subdir.GetName()+'_prefit', subdir.GetName()+'_prefit', nbin, xmin, xmax)
+    for b in range(1,nbin+1):
+        h_new_prefit.SetBinContent(b, pre_hist.GetBinContent(b))
+        h_new_prefit.SetBinError(b, pre_hist.GetBinError(b)+stat_hists[hist.GetName()].GetBinError(b))
+        print 'Bin ',b, 'error:', h_new_prefit.GetBinError(b)
+    prefit_error_histos.append(h_new_prefit)
+    #print 'PreFit Error Hist:', prefit_error_histos
+    
+    
+    ROOT.gDirectory.cd('/shapes_fit_s/'+dirname)
+    
     return h_new
 
 def drawFromDC():
@@ -86,7 +106,6 @@ def drawFromDC():
     print "opts:", opts
     print "var:", opts.var
     print "bin:", opts.bin
-    
     
     dataname = 'Zll'
     
@@ -109,7 +128,6 @@ def drawFromDC():
         if dataname == '' or var == 'BDT': raise RuntimeError, 'Did not recognise mode or var from '+opts.bin
     else:
         var = opts.var
-     
     
     
     if opts.var == 'BDT':
@@ -119,7 +137,7 @@ def drawFromDC():
         elif 'VV' in opts.bin: var = 'VV_bdt'
         else: var = 'gg_plus_ZH125_high_Zpt'
 
-
+        
     #if 'BDT' in var:
     #    region = 'BDT'    
     #else:
@@ -133,27 +151,15 @@ def drawFromDC():
     if opts.var == 'BDT':
         ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
     else:
-        ws_var = ROOT.RooRealVar(ws_var,ws_var, 0, 1.)
+        ws_var = ROOT.RooRealVar(ws_var,ws_var, -1, 1.)
 
     blind = eval(config.get('Plot:%s'%region,'blind'))
     #blind = True
-
-    # If Zvv change region to relevant CR
-    if 'Znn' in region:
-         if 'QCD' in opts.dc:
-             region = 'Zvv_QCD'
-         if 'TT' in opts.dc:
-             region = 'Zvv_TT'
-         if 'Zbb' in opts.dc:
-             region = 'Zvv_Zbb'
-         if 'Zlight' in opts.dc:
-             region  = 'Zvv_Zlight'
-    
+ 
+        
     print 'config:', config
     print 'var: ', var
     print 'region: ', region
-
-    
     
     Stack=StackMaker(config,var,region,True)
     
@@ -182,7 +188,7 @@ def drawFromDC():
     log = eval(config.get('Plot:%s'%region,'log'))
     
 
-    if 'Zll' in opts.bin or 'Zee' in opts.bin or 'Zuu' in opts.bin or 'minCMVA' in opts.var or 'Zmm' in opts.bin:
+    if 'Zll' in opts.bin or 'Zee' in opts.bin or 'Zuu' in opts.bin or 'Zmm' in opts.bin:
         #setup = config.get('Plot_general','setup').split(',')
         setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST']
         signalList = ['ZH']
@@ -190,7 +196,7 @@ def drawFromDC():
         #channel = 'ZllHbb'
 
         # For my own fits
-        channel = ''
+        channel = 'ZllHbb'
 
         if 'Zee' in opts.bin: lep_channel = 'Zee'
         elif 'Zuu' in opts.bin: lep_channel = 'Zmm'
@@ -205,35 +211,136 @@ def drawFromDC():
             if 'Zhf' in opts.bin: region_name = 'Zhf'
             if 'ttbar' in opts.bin: region_name = 'TT'
         
-        pt_region_dic = {'lowpt':'low','highpt':'high', 'LowPt':'low', 'HighPt':'high'}
-        pt_region_name =  [pt_region_dic[key] for key in pt_region_dic if (key in opts.bin)]
-        #pt_region_name = pt_region_name[0]
-        if 'low' in opts.bin: pt_region_name  = 'low'
-        if 'high' in opts.bin: pt_region_name = 'high'
+        if 'low' in opts.bin or 'Low' in opts.bin: pt_region_name  = 'low'
+        if 'high' in opts.bin or 'High' in opts.bin: pt_region_name = 'high'
 
-        print 'region_name is', region_name
-        print 'pt region_name is', pt_region_name
         
+        # ['ZllHbb', 'ch1', 'Zmm', 'SIG', 'low']
+        if 'Zmm' in lep_channel and 'low' in pt_region_name: zll_index = 'ch1'
+        if 'Zmm' in lep_channel and 'high' in pt_region_name: zll_index = 'ch3'
+        if 'Zee' in lep_channel and 'high' in pt_region_name: zll_index = 'ch4'
+        if 'Zee' in lep_channel and 'low' in pt_region_name: zll_index = 'ch2'
+
+        # binning
+        nBins = Stack.nBins
+        xMin  = Stack.xMin
+        xMax  = Stack.xMax
+
+        # for stat hists
+        if 'Zee' in lep_channel and 'low' in pt_region_name and 'minCMVA' not in opts.var:
+            stat_name = 'ZeeLowPt_13TeV'
+        if 'Zee' in lep_channel and 'high' in pt_region_name and 'minCMVA' not in opts.var:
+            stat_name = 'ZeeHighPt_13TeV'
+        if 'Zmm' in lep_channel and 'low' in pt_region_name and 'minCMVA' not in opts.var:
+            stat_name = 'ZuuLowPt_13TeV'
+        if 'Zmm' in lep_channel and 'high' in pt_region_name and 'minCMVA' not in opts.var:
+            stat_name = 'ZuuHighPt_13TeV'
+        
+        if 'minCMVA' in opts.var:    
+            if 'low' in pt_region_name:
+                if 'Zmm' in lep_channel:
+                    if 'Zlf' in region_name: stat_name = 'Zlf_low_Zuu'
+                    if 'Zhf' in region_name: stat_name = 'Zhf_low_Zuu'
+                    if 'TT' in region_name: stat_name = 'ttbar_low_Zuu'
+                else:
+                    if 'Zlf' in region_name: stat_name = 'Zlf_low_Zee'
+                    if 'Zhf' in region_name: stat_name = 'Zhf_low_Zee'
+                    if 'TT' in region_name: stat_name = 'ttbar_low_Zee'
+
+            if 'high' in pt_region_name:
+                if 'Zmm' in lep_channel:
+                    if 'Zlf' in region_name: stat_name = 'Zlf_high_Zuu'
+                    if 'Zhf' in region_name: stat_name = 'Zhf_high_Zuu'
+                    if 'TT' in region_name: stat_name = 'ttbar_high_Zuu'
+                else:
+                    if 'Zlf' in region_name: stat_name = 'Zlf_high_Zee'
+                    if 'Zhf' in region_name: stat_name = 'Zhf_high_Zee'
+                    if 'TT' in region_name: stat_name = 'ttbar_high_Zee'
+
+
 
     if 'Wmn' in opts.bin or 'Wen' in opts.bin:
         setup = ['WH', 'ZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST','Wj0b', 'Wj1b', 'Wj2b']
         signalList = ['ZH','WH']
 
+        channel = 'WlnHbb'
+        if 'Wmn' in opts.bin: lep_channel = 'Wmn'
+        if 'Wen' in opts.bin: lep_channel = 'Wen'
+
+        pt_region_name = 'none'
+
+        if opts.var == 'BDT':
+            region_name = 'SR'
+            # binning
+            nBins = 40
+            xMin  = -1
+            xMax  = 1
+            
+            
+            stat_name = 'BDT_'+lep_channel+'HighPt_'
+            
+        else:
+            if 'tt' in region: region_name  = 'TTCR'
+            if 'whf' in region: region_name = 'WHFCR'
+            if 'wlf' in region: region_name = 'WLFCR'
+
+            stat_name = 'BDT_'+opts.bin+'_'
+            
+            
+            # binning
+            nBins = 15
+            xMin  = -1
+            xMax  = 1
+
     if 'Znn' in opts.bin:
         setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'ST', 'WH', 'Wj0b', 'Wj1b', 'Wj2b']
         signalList = ['ZH']
-    
-        lep_channel = 'Znn'
+        
+        channel = 'ZnnHbb'
+        lep_channel = 'ZnnHbb'
         pt_region_name = 'HighPt'
+
         if opts.var == 'BDT': 
-            region_name = ''
-            region_type = 'SR' 
+            region_name = 'Signal'
+            # binning
+            nBins = 25
+            xMin  = -1
+            xMax  = 1
+
+            stat_name = 'Znn_13TeV_Signal'
+
+        else:
+            if 'QCD' in opts.dc: 
+                region_name = 'QCD'
+                stat_name = 'Znn_13TeV_QCD'
+            if 'TT' in opts.dc: 
+                region_name = 'TT'
+                stat_name = 'Znn_13TeV_TT'
+            if 'Zbb' in opts.dc: 
+                region_name = 'Zbb'
+                stat_name = 'Znn_13TeV_Zbb'
+            if 'Zlight' in opts.dc: 
+                region_name = 'Zlight'
+                stat_name = 'Znn_13TeV_Zlight'
+
+            # binning
+            nBins = 40
+            xMin  = -1
+            xMax  = 1
+            
+
+    print '############'
+    print 'Channel is', channel
+    print 'lepton channel is', lep_channel
+    print 'region_name is', region_name
+    print 'pt region_name is', pt_region_name
         
-        print 'region_name is', region_name
-        print 'region_type is', region_type
-        print 'pt region_name is', pt_region_name
-        print 'Lepton channel:', lep_channel
-        
+
+    print '/n----> The Binning:'
+    print 'nBins:', nBins
+    print 'xMin:', xMin
+    print 'xMax:', xMax
+    
 
     if dataname == 'Zmm' or dataname == 'Zee': 
         try:
@@ -272,21 +379,12 @@ def drawFromDC():
     options.nuisancesToExclude = []
     options.noJMax = None
     
-    theBinning = ROOT.RooFit.Binning(Stack.nBins,Stack.xMin,Stack.xMax)
+    theBinning = ROOT.RooFit.Binning(nBins,xMin,xMax)
+    
+    # for prefit erros
+    prefit_error_histos  = []
+    postfit_error_histos = []
 
-    if 'Wmn' in opts.bin or 'Wen' in opts.bin or 'Znn' in opts.bin:        # SET: WLV MINCSV BINNING
-        if 'CSV' in opts.var:
-            Stack.nBins = 15
-            print '\n\t Changing Wlv/Zvv CSV bins to ', 15
-            theBinning = ROOT.RooFit.Binning(15,Stack.xMin,Stack.xMax)
-
-
-    print '/n----> The Binning:'
-    print 'nBins:', Stack.nBins
-    print 'xMin:', Stack.xMin
-    print 'xMax:', Stack.xMax
-
-    error_histos = []
     histos = []
     typs = []
     shapes = {}
@@ -308,75 +406,189 @@ def drawFromDC():
         print '@ERROR: didn\'t find the shapes_fit_s directory. Aborting'
         sys.exit()
 
-
     for dir in ROOT.gDirectory.GetListOfKeys():
 
         dirinfo = dir.GetName().split('_')
 
         print 'dirinfo:', dirinfo
 
-        if 'Znn' in opts.bin and 'BDT' in opts.var:
-            print 'lepton channel, pt_region_name, region_type:', dirinfo[0], dirinfo[1], dirinfo[2]
-            if not (dirinfo[0] == lep_channel and dirinfo[1] == pt_region_name  and dirinfo[2] == region_type):
+        if 'Znn' in dirinfo[0] and 'Znn' not in opts.bin: continue
+        if 'ZllHbb' in dirinfo[0] and ('Zmm' not in lep_channel and 'Zee' not in lep_channel): continue
+        if 'W' in dirinfo[0] and 'W' not in opts.bin: continue
+        
+        if 'W' in opts.bin:
+            print 'channel, lepton channel, region_name:', channel, lep_channel, region_name
+            if not (dirinfo[0] == channel and dirinfo[1] == lep_channel and dirinfo[2] == region_name):
                 continue
-            
-        elif len(dirinfo) == 5:
-            print 'channel, lepton channel, region_name, pt_region_name:', dirinfo[0], dirinfo[1], dirinfo[2], dirinfo[3], dirinfo[4]  
-            if not (dirinfo[0] == channel and dirinfo[2] == lep_channel and dirinfo[3] == region_name and dirinfo[4] == pt_region_name):
-                continue
+            else: print '!!! Match !!!'
 
-        elif len(dirinfo)== 4:
-            print 'channel, lepton channel, region_name, pt_region_name:', dirinfo[0], dirinfo[1], dirinfo[2], dirinfo[3]
-            if not (dirinfo[1] == lep_channel and dirinfo[2] == region_name and dirinfo[3] == pt_region_name):
+
+        if 'Znn' in opts.bin:
+            print 'channel, lepton channel, region_name, pt_region_name:', channel, lep_channel, region_name, pt_region_name
+            if not (dirinfo[0] == channel and dirinfo[1] == lep_channel and dirinfo[2] == region_name):
                 continue
+            else: print '!!! Match !!!'
+    
+
+        if 'Zuu' in opts.bin or 'Zee' in opts.bin:
+            print 'channel, zll index, lepton channel, region_name, pt_region_name:', channel, zll_index, lep_channel, region_name, pt_region_name
+            if not (dirinfo[0] == channel and dirinfo[1] == zll_index and dirinfo[2] == lep_channel and dirinfo[3] == region_name and dirinfo[4] == pt_region_name):
+                continue
+            else: print '!!! Match !!!'
+
 
         print 'Directory:', dir.GetName()
         
         dirname = dir.GetName()
 
-        ROOT.gDirectory.cd(dirname)
+        # Pull out the MC stat uncertainties first
+        #hists_WenHighPt40.root
+        #vhbb_WenHighPt40_13TeV.txt
+
+        if 'W' in opts.bin:
+            stat_filename = opts.dc.replace('.txt', '.root')
+            stat_filename = stat_filename.replace('vhbb', 'hists')
+            stat_filename = stat_filename.replace('_13TeV', '')
+
+        else :
+            stat_filename = opts.dc.replace('.txt', '.root')
+            stat_filename = stat_filename.replace('DC_', '')
+        
+
+        print '\n Opening card for MC stat hists:', stat_filename
+        print 'Dir name:', stat_name
+
+        stat_file = ROOT.TFile.Open(stat_filename)
+        if 'W' not in opts.bin: ROOT.gDirectory.cd(stat_name)
+        stat_hists = {}
+        
         for s in setup:
+            for dir in ROOT.gDirectory.GetListOfKeys():
+                #print 'dir:', dir.GetName()
+                
+                if 'W' in opts.bin:
+                    wlvname = dir.GetName().replace(stat_name,'')
+                    if wlvname == Dict[s]:
+                        stat_hists[wlvname] = ROOT.gDirectory.Get(dir.GetName()).Clone()
+                        
+                if dir.GetName() == Dict[s]:
+                    stat_hists[dir.GetName()] = ROOT.gDirectory.Get(dir.GetName()).Clone()
+                 
+                    
+       
+        #stat_file.Close()
+        print '\nStat_hists:', stat_hists
+
+        file = ROOT.TFile.Open(opts.mlfit)
+        ROOT.gDirectory.cd('shapes_fit_s')
+        
+        ROOT.gDirectory.cd(dirname)
+        subdir_list = [x for x in ROOT.gDirectory.GetListOfKeys()]
+        for s in setup:
+            print '\ns:', s
             found = False
-            for subdir in ROOT.gDirectory.GetListOfKeys():
+            
+            #for subdir in ROOT.gDirectory.GetListOfKeys():
+            for subdir in subdir_list:
                 print 'subdir name is', subdir.GetName()
+                print 'Dict Key is', Dict[s]
                 if subdir.GetName() == Dict[s]:
                     found = True
                     
                     # Set Histos postFit shapes and preFit errors
-                    hist = rebinHist(ROOT.gDirectory.Get(subdir.GetName()).Clone(), Stack.nBins, Stack.xMin, Stack.xMax)
-                    
+                    hist = rebinHist(ROOT.gDirectory.Get(subdir.GetName()).Clone(), nBins, xMin, xMax, dirname, subdir, prefit_error_histos, postfit_error_histos, stat_hists)
+
                     histos.append(hist)
-                    #error_histos.append(PostFit_Errors)
                     typs.append(s)
-                    print 's is', s
-                    print 'signalList is', signalList
+                    
                     if s in signalList:
                         hist.SetTitle(s)
                         Overlay.append(hist)
-                        print 'the Histogram title is', hist.GetTitle()
+                        #print 'the Histogram title is', hist.GetTitle()
 
+                    break
 
             if not found:
                 print '@ERROR: didn\'t find  the postfit histogram. Aborting'
                 sys.exit()
-        ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
-        total = rebinHist(ROOT.gDirectory.Get('total').Clone(), Stack.nBins, Stack.xMin, Stack.xMax)
-        total.SetTitle('prefit')
-        prefit_overlay.append(total)
+        #ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
+        #total = rebinHist(ROOT.gDirectory.Get('total').Clone(), Stack.nBins, Stack.xMin, Stack.xMax)
+        #total.SetTitle('prefit')
+        #prefit_overlay.append(total)
         break
 
 
+    # Get the total pre/post fit error
+    #print '\n Calculating final pre/post fit errors'
+    #print prefit_error_histos
+    for i,iErrorHist in enumerate(prefit_error_histos):
+        #print i,iErrorHist
+        if i == 0: 
+            temp_prefit_error = iErrorHist.Clone()
+        else:
+            temp_prefit_error.Add(iErrorHist)
     
+    for i,iErrorHist in enumerate(postfit_error_histos):
+        #print i,iErrorHist
+        if i == 0:
+            temp_postfit_error = iErrorHist.Clone()
+        else:
+            temp_postfit_error.Add(iErrorHist)
+
+    final_prefit_error = ROOT.TGraphAsymmErrors(temp_prefit_error)
+    final_postfit_error = ROOT.TGraphAsymmErrors(temp_postfit_error)
+
+    total   = [[]]*nBins
+    errUp   = [[]]*nBins
+    errDown = [[]]*nBins
+
+    total_post   = [[]]*nBins
+    errUp_post   = [[]]*nBins
+    errDown_post = [[]]*nBins
+
+    # rebin the final errors
+    for bin in range(1,nBins+1):
+        binError = temp_prefit_error.GetBinError(bin)
+        total[bin-1] = temp_prefit_error.GetBinContent(bin)
+        errUp[bin-1] = [binError]
+        errDown[bin-1] = [binError]
+
+        binError_post = temp_postfit_error.GetBinError(bin)
+        total_post[bin-1] = temp_postfit_error.GetBinContent(bin)
+        errUp_post[bin-1] = [binError_post]
+        errDown_post[bin-1] = [binError_post]
+
+    #Add all in quadrature
+    totErrUp   =[sqrt(sum([x**2 for x in bin])) for bin in errUp]
+    totErrDown =[sqrt(sum([x**2 for x in bin])) for bin in errDown]
+    
+    totErrUp_post   =[sqrt(sum([x**2 for x in bin])) for bin in errUp_post]
+    totErrDown_post =[sqrt(sum([x**2 for x in bin])) for bin in errDown_post]
+
+    for bin in range(1,nBins+1):
+        if not total[bin-1] == 0:
+            point = histos[0].GetXaxis().GetBinCenter(bin)
+            final_prefit_error.SetPoint(bin-1,point,1)
+            final_prefit_error.SetPointEYlow(bin-1,totErrDown[bin-1]/total[bin-1])
+            final_prefit_error.SetPointEYhigh(bin-1,totErrUp[bin-1]/total[bin-1])
+            
+        if not total_post[bin-1] == 0:
+            point = histos[0].GetXaxis().GetBinCenter(bin)
+            final_postfit_error.SetPoint(bin-1,point,1)
+            final_postfit_error.SetPointEYlow(bin-1,totErrDown_post[bin-1]/total_post[bin-1])
+            final_postfit_error.SetPointEYhigh(bin-1,totErrUp_post[bin-1]/total_post[bin-1])
+
 
     # =================================================
     ##### Read data
-    print 'file is ',opts.dc
+    print '\n#### Datafile is ',opts.dc
     dc_file= open(opts.dc, "r")
     os.chdir(os.path.dirname(opts.dc))
     DC = parseCard(dc_file, options)
     if not DC.hasShapes: DC.hasShapes = True
     MB = ShapeBuilder(DC, options)
     data0 = MB.getShape(opts.bin,'data_obs')
+    print data0
     if (data0.InheritsFrom("RooDataHist")):
         data0 = ROOT.RooAbsData.createHistogram(data0,'data_obs',ws_var,theBinning)
         data0.SetName('data_obs')
@@ -387,10 +599,27 @@ def drawFromDC():
     print '\nDATA HIST:', data0
     print 'Data name:', dataname
     
-    
     if opts.var == 'BDT':
-        for bin in range(11,datas[0].GetNbinsX()+1):
-            datas[0].SetBinContent(bin,0)
+        print '!!!! Blinding !!!!'
+        
+        if 'Zee' in dataname or 'Zuu' in dataname:
+            for bin in range(11,datas[0].GetNbinsX()+1):
+                datas[0].SetBinContent(bin,0)
+        if 'Znn' in dataname:
+            for bin in range(18,datas[0].GetNbinsX()+1):
+                datas[0].SetBinContent(bin,0)
+
+        if 'W' in dataname:
+            print 'Wlv blinding'
+            for bin in range(30,datas[0].GetNbinsX()+1):
+                #print datas[0].GetBinContent(bin,0)
+                datas[0].SetBinContent(bin,0)
+
+
+    else:   
+        for bin in range(0,datas[0].GetNbinsX()+1):
+            print datas[0].GetBinContent(bin,0)
+            
     # =======================================================
 
 
@@ -441,6 +670,11 @@ def drawFromDC():
 
         
 
+    Stack.nBins = nBins
+    Stack.xMin  = xMin
+    Stack.xMax  = xMax
+
+
     print '\n-----> Stack.setup(double check)...', Stack
     print 'Post Histos:', histos
     print 'Datas:', datas
@@ -463,9 +697,9 @@ def drawFromDC():
     
     
     # Add custom postFit errors
-    #Stack.AddErrors = theErrorGraph
-
-
+    Stack.AddErrors = final_prefit_error
+    Stack.AddErrors_Postfit = final_postfit_error
+    
     if dataname == 'Wtn': 
         lumi = 18300.
     Stack.lumi = lumi

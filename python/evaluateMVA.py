@@ -88,7 +88,6 @@ workdir = ROOT.gDirectory.GetPath()
 # Acess the weight XML files
 theMVAs = []
 for mva in MVAinfos:
-
 	theMVAs.append(MvaEvaluator(config, mva))
 
 samples = info.get_samples(namelist)

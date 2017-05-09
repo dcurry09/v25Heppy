@@ -44,9 +44,9 @@ channels= ['Zll']
 #path = config.get('Directories','limits')
 #outpath = config.get('Directories','plotpath')
 
-path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'
+path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_NewKinematicSplitBtag_5_5/'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_4_9/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_5_5/'
 
 # Make the dir and copy the website ini files
 try:
@@ -66,10 +66,18 @@ MCs = [Dict[s] for s in setup]
 
 sys_BDT= eval(config.get('LimitGeneral','sys_BDT'))
 systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming'))
-print systematicsnaming
+
+for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
+    for ipt in range(1,5):
+        for ieta in range(1,4):
+            sys_BDT.append("btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta))
+            systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_btagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
+
+print '\nSystematics:', sys_BDT
+print '\nSystematicsnaming:', systematicsnaming
+
 systs=[systematicsnaming[s] for s in sys_BDT]
 
-#if eval(config.get('LimitGeneral','weightF_sys')): systs.append('UEPS')
 
 def myText(txt="CMS Preliminary",ndcX=0,ndcY=0,size=0.8):
     ROOT.gPad.Update()
@@ -88,10 +96,6 @@ print '\n\t ---> Output: ', outpath
 #for mass in ['110','115','120','125','130','135']:
 for mass in masses:
     for Abin in Abins:
-
-        systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming'))
-        systs=[systematicsnaming[s] for s in sys_BDT]
-
         for channel in channels:
 
             if mode == 'BDT':

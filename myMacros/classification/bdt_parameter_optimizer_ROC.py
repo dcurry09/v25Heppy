@@ -17,7 +17,7 @@ from matplotlib import interactive
 from ROOT import *
 gROOT.SetBatch(True)
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_BDT_optimization_4_5/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_BDT_optimization_4_20/'
 try:
     os.system('mkdir '+outpath)
 except:
@@ -45,7 +45,7 @@ lr = True
 # =======================================
 
 # Define the BDT paramter to vary
-tree_list = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 700, 800, 900, 1000]
+tree_list = [100, 200, 300, 400, 450, 500, 550, 600, 700, 800, 900, 1000]
 #tree_list = [100, 150]
 
 depth_list = [1,2,3,4,5]
@@ -54,7 +54,7 @@ depth_list = [1,2,3,4,5]
 lr_list = [0.01, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.2, 0.3, 0.4, 0.5]
 
 # node search space size. TMVA default is 20
-nodeCut_list = [5, 10, 25, 50, 100, 250, 500, 1000]
+nodeCut_list = [5, 10, 25, 50, 100, 150, 200, 250, 300, 400, 500]
 
 # number of events for node minimum
 nEvt_list = [0.1, 0.2, 0.3, 0.5, 1, 2, 3, 4, 5, 10, 15, 20]
@@ -74,8 +74,8 @@ print '=========================================================================
 
 # ====== For 3 pt Regions we need to train BDTS for each region and each opt point  =========
 
-#pt_region_list = ['high']
-pt_region_list = ['low','high']
+pt_region_list = ['high']
+#pt_region_list = ['low','high']
 
 for region in pt_region_list:
 
@@ -90,9 +90,7 @@ for region in pt_region_list:
     # end file modification
     
          
-    if trees and 'low' not in region:
-
-
+    if trees:
     
         if os.path.isfile('roc_temp.txt'):    
             os.system('rm roc_temp.txt')
@@ -166,7 +164,7 @@ for region in pt_region_list:
     #######################################################
 
 
-    if depth and 'low' not in region:
+    if depth:
     
         if os.path.isfile('roc_temp.txt'):    
             os.system('rm roc_temp.txt')
@@ -225,7 +223,7 @@ for region in pt_region_list:
 
         for i in range(0, len(tree_metric_list)):
             h1b.SetBinContent(i+1, tree_metric_list[i])
-            h1b.GetXaxis().SetBinLabel(i+1, str(tree_list[i]))
+            h1b.GetXaxis().SetBinLabel(i+1, str(depth_list[i]))
         h1b.Draw('B')
 
         cStd.Update()
@@ -295,7 +293,7 @@ for region in pt_region_list:
 
         for i in range(0, len(tree_metric_list)):
             h1b.SetBinContent(i+1, tree_metric_list[i])
-            h1b.GetXaxis().SetBinLabel(i+1, str(tree_list[i]))
+            h1b.GetXaxis().SetBinLabel(i+1, str(nEvt_list[i]))
         h1b.Draw('B')
     
         cStd.Update()
@@ -363,7 +361,7 @@ for region in pt_region_list:
         
         for i in range(0, len(tree_metric_list)):
             h1b.SetBinContent(i+1, tree_metric_list[i])
-            h1b.GetXaxis().SetBinLabel(i+1, str(tree_list[i]))
+            h1b.GetXaxis().SetBinLabel(i+1, str(nodeCut_list[i]))
         h1b.Draw('B')
 
         cStd.Update()
@@ -418,7 +416,7 @@ for region in pt_region_list:
     
     # end tree loop
 
-    tree_metric_list = [0.5, 0.8]
+    #tree_metric_list = [0.5, 0.8]
                     
     print 'Tree Metric List: ', tree_metric_list
 
@@ -432,7 +430,7 @@ for region in pt_region_list:
     h1b.SetBarOffset(0.3)
     h1b.SetStats(0)
     h1b.GetYaxis().SetTitle('AUC ROC')
-    h1b.GetXaxis().SetTitle('Lr')
+    h1b.GetXaxis().SetTitle('LR')
 
     #h1b.SetMinimum(0)
     #h1b.SetMaximum(20);
@@ -440,7 +438,7 @@ for region in pt_region_list:
     for i in range(0, len(tree_metric_list)):
         #h1b.Fill(i+1, tree_metric_list[i])
         h1b.SetBinContent(i+1, tree_metric_list[i])
-        h1b.GetXaxis().SetBinLabel(i+1, str(tree_list[i]))
+        h1b.GetXaxis().SetBinLabel(i+1, str(lr_list[i]))
     h1b.Draw('B')
 
     cStd.Update()

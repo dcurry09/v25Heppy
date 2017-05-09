@@ -10,7 +10,7 @@ import numpy
 from array import *
 
 isVV = False
-#isVV = True
+isVV = True
 
 isOverlay = False
 #isOverlay = True
@@ -123,7 +123,10 @@ class StackMaker:
         self.lumi = None
         self.histos = None
         self.typs = None
+        
         self.AddErrors = None
+        self.AddErrors_Postfit = None
+
         self.addFlag2 = ''
         self.filename = None
         
@@ -256,6 +259,10 @@ class StackMaker:
 
         for histo in self.histos:
             MC_integral+=histo.Integral()
+            print histo
+            print 'MC RMS:', histo.GetRMS()
+            print 'MC Mean:', histo.GetMean()
+
         print "\033[1;32m\n\tMC integral = %s\033[1;m"%MC_integral
 
         #ORDER AND ADD TOGETHER
@@ -282,16 +289,30 @@ class StackMaker:
         
         print 'self.datanames:', self.datanames
         print 'Self.var:', self.var
-        if 'Wmn' in self.datanames and not 'CSV' in self.var or 'Wen' in self.datanames and not 'CSV' in self.var:
-            #print 'here'
-            if not isVV:
-                binBoundaries = [-1.,-0.966,-0.83184615,-0.69769231,-0.56353846,-0.42938462,-0.29523077,-0.16107692,-0.02692308,0.10723077,0.24138462,0.37553846,0.50969231,0.64384615,0.778,1.]
-        
-            if isVV:
-                binBoundaries = [-1.,-0.886, -0.746, -0.606, -0.466, -0.326, -0.186, -0.046,  0.094, 0.234, 0.374, 0.514, 0.654, 0.794, 0.934,1.] 
-
-            bins = array('f', binBoundaries)  
-            d1 = ROOT.TH1F('noData','noData',self.nBins,bins)
+        # if 'Wmn' in self.datanames and not 'CMVA' in self.var or 'Wen' in self.datanames and not 'CMVA' in self.var:
+        #     #print 'here'
+        #     if not isVV:
+                
+        #         if 'Wen' in self.datanames:
+        #             binBoundaries = [-1., -0.958, -0.91, -0.862, -0.814, -0.766, -0.718, -0.67, -0.622, -0.574,
+        #                               -0.526, -0.478, -0.43, -0.382, -0.334, -0.286, -0.238, -0.19, -0.142, -0.094,
+        #                               -0.046,  0.002,  0.05, 0.098,0.146, 0.194, 0.242, 0.29, 0.338, 0.386,
+        #                               0.434, 0.482, 0.53, 0.578, 0.626, 0.674, 0.722, 0.77, 0.818, 0.866, 1.]
+        #         if 'Wmn' in self.datanames:
+        #             binBoundaries = [-1., -0.966, -0.91989474, -0.87378947, -0.82768421, -0.78157895,
+        #                               -0.73547368, -0.68936842, -0.64326316, -0.59715789, -0.55105263, -0.50494737,
+        #                               -0.45884211, -0.41273684, -0.36663158, -0.32052632, -0.27442105, -0.22831579,
+        #                               -0.18221053, -0.13610526, -0.09, -0.04389474, 0.00221053, 0.04831579,
+        #                               0.09442105,  0.14052632,  0.18663158,  0.23273684,  0.27884211, 0.32494737,
+        #                               0.37105263,  0.41715789,  0.46326316,  0.50936842,  0.55547368, 0.60157895,
+        #                               0.64768421,  0.69378947,  0.73989474,  0.786, 1.]
+            
+        #     if isVV:
+        #         binBoundaries = [-1.,-0.886, -0.746, -0.606, -0.466, -0.326, -0.186, -0.046,  0.094, 0.234, 0.374, 0.514, 0.654, 0.794, 0.934,1.] 
+                
+        #     self.nBins = 40
+        #     bins = array('f', binBoundaries)  
+        #     d1 = ROOT.TH1F('noData','noData',self.nBins,bins)
             
 
 
@@ -309,7 +330,7 @@ class StackMaker:
             else: addFlag = 'Z(#mu^{-}#mu^{+})H(b#bar{b})'
         elif 'Znn' in self.datanames:
             if isVV: addFlag = 'Z(#nu#nu)Z(b#bar{b})'
-            else: 'Z(#nu#nu)H(b#bar{b})'
+            else: addFlag = 'Z(#nu#nu)H(b#bar{b})'
         elif 'Wmn' in self.datanames:
             if isVV:
                 addFlag = 'W(#mu#nu)Z(b#bar{b})'
@@ -334,8 +355,14 @@ class StackMaker:
 
         print "\033[1;32m\n\tDATA integral = %s\033[1;m"%d1.Integral()
         flow = d1.GetEntries()-d1.Integral()
+
+        print 'Data Mean:', d1.GetRMS()
+        print 'Data RMS:', d1.GetMean()
+
         if flow > 0:
             print "\033[1;31m\tU/O flow: %s\033[1;m"%flow
+
+
 
 
         if not isOverlay:
@@ -463,7 +490,7 @@ class StackMaker:
         
         
         # Tline temp hack for pt balance
-        #pt_balance_line = ROOT.TLine(1, 0, 1, 3000)
+        #pt_balance_line = ROOT.TLine(1, 0, 1, 1400)
         #pt_balance_line.SetLineStyle(ROOT.kSolid)
         #pt_balance_line.SetLineColor(ROOT.kRed)
         #pt_balance_line.Draw("Same")
@@ -535,7 +562,7 @@ class StackMaker:
         unten.cd()
         ROOT.gPad.SetTicks(1,1)
 
-        l2 = ROOT.TLegend(0.39, 0.85,0.93,0.97)
+        l2 = ROOT.TLegend(0.3, 0.85,0.93,0.97)
         l2.SetLineWidth(2)
         l2.SetBorderSize(0)
         l2.SetFillColor(0)
@@ -547,8 +574,8 @@ class StackMaker:
         ratio, error = getRatio(d1, allMC, self.xMin, self.xMax, "", self.maxRatioUncert)
         ksScore = d1.KolmogorovTest( allMC )
         chiScore = d1.Chi2Test( allMC , "UWCHI2/NDF")
-        print ksScore
-        print chiScore
+        #print ksScore
+        #print chiScore
         ratio.SetStats(0)
         ratio.GetXaxis().SetTitle(self.xAxis)
         ratioError = ROOT.TGraphErrors(error)
@@ -568,9 +595,18 @@ class StackMaker:
             self.AddErrors.SetFillColor(5)
             self.AddErrors.SetFillStyle(3001)
             self.AddErrors.Draw('SAME2')
-            l2.AddEntry(self.AddErrors,"MC uncert. (stat. + syst.)","f")
+            l2.AddEntry(self.AddErrors,"MC(stat.+Prefit syst.)","f")
 
-        l2.AddEntry(ratioError,"MC uncert. (stat.)","f")
+        if not self.AddErrors_Postfit == None:
+            self.AddErrors_Postfit.SetLineColor(1)
+            self.AddErrors_Postfit.SetFillColorAlpha(2, 0.60)
+            self.AddErrors_Postfit.SetFillStyle(3001)
+            self.AddErrors_Postfit.Draw('SAME2')
+            l2.AddEntry(self.AddErrors_Postfit,"MC(stat.+Postfit syst.)","f")
+            
+
+
+        l2.AddEntry(ratioError,"MC(stat.)","f")
 
         ratioError.Draw('SAME2')
         ratio.Draw("E1SAME")
@@ -708,8 +744,10 @@ class StackMaker:
 
         for histo in sub_histos:
             MC_integral+=histo.Integral()
-        print "\033[1;32m\n\tMC integral = %s\033[1;m"%MC_integral
+            print histo
 
+        print "\033[1;32m\n\tMC integral = %s\033[1;m"%MC_integral
+        
 
 
         if not 'DYc' in self.typs: self.typLegendDict.update({'DYlight':self.typLegendDict['DYlc']})

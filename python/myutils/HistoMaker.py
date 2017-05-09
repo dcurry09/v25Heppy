@@ -148,32 +148,30 @@ class HistoMaker:
                 weightF = weightF+'*('+job.specialweight+')'
             if 'ttbar' in job.name:
                 weightF = weightF+'*VHbb::ttbar_reweight(GenTop_pt[0],GenTop_pt[1],nGenTop)'
-            if 'ZH' in job.name and not 'ggZH' in job.name:
-                weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
+            #if 'ZH' in job.name and not 'ggZH' in job.name:
+                #weightF = weightF+'*VHbb::ptWeightEWK_Zll_v25(nGenVbosons[0], GenVbosons_pt[0], VtypeSim)'
 
             ### For temp Inclusive testing ###
-            #if 'Zudsg' == job.name or 'Z1b' == job.name or 'Z2b' == job.name:
-            #    print '\n\t----> Adding Inclusive lheHT cut...'
-            #    treeCut = treeCut+' & lheHT < 100'
+            if 'Zudsg' == job.name or 'Z1b' == job.name or 'Z2b' == job.name:
+                print '\n\t----> Adding Inclusive lheHT cut...'
+                treeCut = treeCut+' & lheHT < 100'
                 
             # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':
-                
-
-                              
+                                              
                 if 'V_new_pt >= 50' in treeCut:
                     print '\n\t !!! Adding RateParam !!!'
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.0725)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.75)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.05)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.0256)'
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.01)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.89)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.10)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.0065)'
                     
                 if 'V_new_pt >= 150' in treeCut:
                     print '\n\t !!! Adding RateParam !!!'
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.15)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(1.015)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.44)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.0724)'
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.04)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.59)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.437)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.0309)'
 
                         
             print '\n-----> Making histograms for variable:', treeVar

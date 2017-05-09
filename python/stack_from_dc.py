@@ -11,7 +11,7 @@ from HiggsAnalysis.CombinedLimit.ShapeTools     import *
 from collections import Counter
 
 isVV = False
-isVV = True
+#isVV = True
 
 # import ROOT with a fix to get batch mode (http://root.cern.ch/phpBB3/viewtopic.php?t=3198)
 hasHelp = False
@@ -127,11 +127,11 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     print 'DC:', opts.dc
 
         
-    file = ROOT.TFile.Open(mlfit)
+    #file = ROOT.TFile.Open(mlfit)
 
-    if file == None: raise RuntimeError, "Cannot open file %s" % theFile
+    #if file == None: raise RuntimeError, "Cannot open file %s" % theFile
 
-    print '\n\n-----> Fit File: ',file
+    #print '\n\n-----> Fit File: ',file
         
     b = opts.bin
     
@@ -141,118 +141,6 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     bkg_zee_low, bkg_zuu_low, bkg_zee_high, bkg_zuu_high = 0,0,0,0
 
     count = Counter()
-    
-    
-    # choose the fit to plot
-    fit = 'shapes_fit_s'
-    #fit = 'shapes_fit_b'
-    #fit  = 'shapes_prefit'
-    
-    # if 'CSV' not in opts.var:
-
-
-    #     # for combined fit
-    #     zll_Zee_low_channel = 'ZllHbb_ch2_Zee'
-    #     zll_Zee_high_channel= 'ZllHbb_ch4_Zee'
-    #     zll_Zuu_low_channel = 'ZllHbb_ch1_Zmm'
-    #     zll_Zuu_high_channel= 'ZllHbb_ch3_Zmm'
-
-    #     # for my fit
-    #     #zll_Zee_low_channel = 'ch2_Zee'
-    #     #zll_Zee_high_channel= 'ch4_Zee'
-    #     #zll_Zuu_low_channel = 'ch1_Zmm'
-    #     #zll_Zuu_high_channel= 'ch3_Zmm'
-
-        
-    #     # Zll
-    #     if 'ZuuLowPt_13TeV' in b or 'ZuuBDT_lowpt' in b:
-    #         dir = fit+'/'+zll_Zuu_low_channel+'_SIG_low/'
-    #     if 'ZuuHighPt_13TeV' in b or 'ZuuBDT_highpt' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_SIG_high/'
-    #     if 'ZeeLowPt_13TeV' in b or 'ZeeBDT_lowpt' in b:
-    #         dir = fit+'/'+zll_Zee_low_channel+'_SIG_low/'
-    #     if 'ZeeHighPt_13TeV' in b or 'ZeeBDT_highpt' in b:
-    #         dir = fit+'/'+zll_Zee_high_channel+'_SIG_high/'
- 
-            
-    #     # Wlv
-    #     if 'WenHighPt' in b:
-    #         dir  = fit+'/WlnHbb_WenHighPt/'
-    #     if 'WmnHighPt' in b:
-    #         dir  = fit+'/WlnHbb_WmnHighPt/'
-
-    #     # Zvv
-    #     if 'Znn_13TeV' in b:
-    #         dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Signal/'
-
-    # elif 'CSV' in opts.var:
-
-        
-    #     # for combined fit
-    #     zll_Zee_low_channel = 'ZllHbb_ch2_Zee'
-    #     zll_Zee_high_channel= 'ZllHbb_ch4_Zee'
-    #     zll_Zuu_low_channel = 'ZllHbb_ch1_Zmm'
-    #     zll_Zuu_high_channel= 'ZllHbb_ch3_Zmm'
-        
-    #     # for my fit
-    #     #zll_Zee_low_channel = 'ch2_Zee'
-    #     #zll_Zee_high_channel= 'ch4_Zee'
-    #     #zll_Zuu_low_channel = 'ch1_Zmm'
-    #     #zll_Zuu_high_channel= 'ch3_Zmm'
-
-    #     #### Zll ####
-    #     if 'Zhf_low_Zee' in b:
-    #         dir = fit+'/'+zll_Zee_low_channel+'_Zhf_low/'
-    #     if 'Zlf_low_Zee' in b:
-    #         dir = fit+'/'+zll_Zee_low_channel+'_Zlf_low/'
-    #     if 'ttbar_low_Zee' in b:
-    #         dir = fit+'/'+zll_Zee_low_channel+'_TT_low/'
-
-    #     if 'Zhf_high_Zee' in b:
-    #         dir = fit+'/'+zll_Zee_high_channel+'_Zhf_high/'
-    #     if 'Zlf_high_Zee' in b:
-    #         dir = fit+'/'+zll_Zee_high_channel+'_Zlf_high/'
-    #     if 'ttbar_high_Zee' in b:
-    #         dir = fit+'/'+zll_Zee_high_channel+'_TT_high/'
-
-    #     if 'Zhf_high_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zhf_high/'
-    #     if 'Zlf_high_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zlf_high/'
-    #     if 'ttbar_high_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_TT_high/'
-
-    #     if 'Zhf_low_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_low_channel+'_Zhf_low/'
-    #     if 'Zlf_low_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_low_channel+'_Zlf_low/'
-    #     if 'ttbar_low_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_low_channel+'_TT_low/'
-
-    #     if 'Zhf_high_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zhf_high/'
-    #     if 'Zlf_high_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_Zlf_high/'
-    #     if 'ttbar_high_Zuu' in b:
-    #         dir = fit+'/'+zll_Zuu_high_channel+'_TT_high/'
-
-    #     # Wlv
-    #     if 'Wen' in b or 'Wmn' in b:
-    #         dir = fit+'/WlnHbb_'+b+'/'
-            
-    #     # Zvv
-    #     if 'Znn_13TeV' in b:
-    #         if 'QCD' in opts.dc:
-    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_QCD/'
-    #         if 'TT' in opts.dc:
-    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_TT/'
-    #         if 'Zbb' in opts.dc:
-    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Zbb/'
-    #         if 'Zlight' in opts.dc:
-    #             dir = fit+'/ZnnHbb_ZnnHbb_HighPt_Zlight/'
-            
-    #print 'Current Dir:', dir
-    
 
     for p in procs:
         counter = 0
@@ -264,112 +152,23 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
         # Old style from workspace
         nom = theShapes[p].Clone()
         #print 'Hist from DC worksapce:', nom
-
-                
-        # New style from mlfit.root
         
-        # if 'Znn' in b and 'VVLF' in p: continue
+        for bin in range(1,15+1):
+            # count the most sensitive bins
+            if bin > 12:
+                count[p] += nom.GetBinContent(bin)
 
-        # if 'Znn' in b and 'VVHF' in p:
-        #     nom2 = file.Get('%s%s' % (dir, 'VZbb')).Clone()
-
-        # else: nom2 = file.Get('%s%s' % (dir, p)).Clone()
-
-        # print 'Hist from mlfit.root:', nom2
-
-        
-        # # Set the DC bins to the mlfit bin contents
-        # nBins = nom.GetNbinsX()
-        # print 'nBins:', nBins
-        
-        
-        # for bin in range(1,nBins+1):
-        #     print 'Bin', bin, ' Nom:', nom.GetBinContent(bin)
-        #     print 'Bin', bin, ' Fit:', nom2.GetBinContent(bin)
-        #     print 'Bin low edge:', nom.GetBinLowEdge(bin)
-        #     print 'Bin low edge mlfit:', nom2.GetBinLowEdge(bin)
-        #     nom.SetBinContent(bin, nom2.GetBinContent(bin))
-        #     print 'NEW Bin', bin, ' Nom:', nom.GetBinContent(bin)
-            
-        #     # count the most sensitive bins
-        #     if bin > 11:
-
-        #         count[p] += nom.GetBinContent(bin)
-
-        #         if not isVV:
-        #             if 'ZH' in p or 'ggZH' in p:
-        #                 total_sig_count += nom.GetBinContent(bin)
-        #             else: total_bkg_count+= nom.GetBinContent(bin)
-        #         if isVV:
-        #             if 'VVHF' in p:
-        #                 total_sig_count+= nom.GetBinContent(bin)
-        #             else: total_bkg_count+= nom.GetBinContent(bin)
+                if not isVV:
+                    if 'ZH' in p or 'ggZH' in p:
+                        total_sig_count += nom.GetBinContent(bin)
+                    else: total_bkg_count+= nom.GetBinContent(bin)
+                if isVV:
+                    if 'VVHF' in p:
+                        total_sig_count+= nom.GetBinContent(bin)
+                    else: total_bkg_count+= nom.GetBinContent(bin)
 
 
-
-        for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
-            if errline[b][p] == 0: continue
-            if ("shape" in pdf):
-                #print 'Systematic:', p+lsyst, shapeNui[p+lsyst]
-                if shapeNui[p+lsyst] > 0.:
-                    theVari = 'Up'
-                else:
-                    theVari = 'Down'
-                bestNuiVar = theShapes[p+lsyst+theVari].Clone()
-                bestNuiVar.Add(nom)
-                
-                #print p,lsyst,abs(shapeNui[p+lsyst]),bestNuiVar.Integral()
-                
-                bestNuiVar.Scale(abs(shapeNui[p+lsyst]))
-                if counter == 0:
-                    bestNui = bestNuiVar.Clone()
-                else:
-                    bestNui.Add(bestNuiVar)
-                counter +=1
-        
-        nom.Add(bestNui)
-        nom.Scale(theShapes[p].Integral()/nom.Integral()*theBestFit[p])
-
-        # Add the rateParam here
-        '''
-        if 'Low' in opts.bin or 'low' in opts.bin:
-            if p == 'TT':
-                if 'Zee' in opts.bin:
-                    nom.Scale(0.80)
-                else: nom.Scale(0.85)
-            if p == 'Zj0b': nom.Scale(0.99)
-            if p == 'Zj1b': nom.Scale(0.89) 
-
-            if p == 'Zj2b': 
-                if 'Zee' in opts.bin:
-                    nom.Scale(0.79)
-                else:nom.Scale(0.82)
-
-        if 'High' in opts.bin or 'high' in opts.bin:
-            if p == 'TT': 
-                if 'Zee' in opts.bin:
-                    nom.Scale(0.83)
-                else: nom.Scale(0.90)
-            if p == 'Zj0b': nom.Scale(0.99)
-            if p == 'Zj1b': nom.Scale(1.08) 
-
-            if p == 'Zj2b':
-                if 'Zee' in opts.bin:
-                    nom.Scale(0.65)
-                else:nom.Scale(0.66)
-
-       
-        '''
-        
-        #print 'Nominal shape :', nom
-        #print 'best Fit shape Integral:', nom.Integral()
-        #print 'nBins:', nom.GetNbinsX()
-
-        nBins = nom.GetNbinsX()
-        #print 'nBins:', nBins
-        
-        for bin in range(1,nBins+1):
-            nom.SetBinError(bin,theShapes[p].GetBinError(bin))
+ 
         
         #print 'Setting the nominal shape:', '%s_%s'%(opts.fit,p)
         theShapes['%s_%s'%(opts.fit,p)] = nom.Clone()
@@ -412,10 +211,10 @@ def getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict, mlf
     
     
     # Sig/Bkg count in most sensitive bins
-    #print '\n\n\t\t====== Region:', opts.bin, ' ======'
-    #print 'Total Signal:', total_sig_count
-    #print 'Total BKG   :', total_bkg_count
-    #print count
+    print '\n\n\t\t====== Region:', opts.bin, ' ======'
+    print 'Total Signal:', total_sig_count
+    print 'Total BKG   :', total_bkg_count
+    print count
 
     return histos,Overlay,typs
 
@@ -646,11 +445,11 @@ def drawFromDC():
             exps[p] = [ e, [] ]
             expNui[p] = [ e, [] ]
             
-        print '\n-----> Datacard systematics: ', DC.systs    
+        #print '\n-----> Datacard systematics: ', DC.systs    
             
         for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
             
-            print '\n-----> Looping over systematics in datacard: ', (lsyst,nofloat,pdf,pdfargs,errline)  
+            #print '\n-----> Looping over systematics in datacard: ', (lsyst,nofloat,pdf,pdfargs,errline)  
             
             #if pdf in ('param', 'flatParam'): continue
             
@@ -684,13 +483,13 @@ def drawFromDC():
                     exps[p][1].append(kmax-1.);
                 elif pdf == 'lnN':
                      lnNVar = max(errline[b][p], 1.0/errline[b][p])-1.
-                     print 'lnNVar', lnNVar
+                     #print 'lnNVar', lnNVar
                      if not nuiVar.has_key('%s_%s'%(opts.fit,lsyst)):
                          nui = 0.
                      else:
                         nui= nuiVar['%s_%s'%(opts.fit,lsyst)][0]
                         lnNVar = lnNVar*nuiVar['%s_%s'%(opts.fit,lsyst)][1]
-                        print 'nui, lnNVar', nui,lnNVar
+                        #print 'nui, lnNVar', nui,lnNVar
                      exps[p][1].append(lnNVar)
                      expNui[p][1].append(abs(1-errline[b][p])*nui);
 
@@ -738,7 +537,7 @@ def drawFromDC():
 
             #### Adding Rate Parameter Uncertainty ####
             # Make sure the SF acts on this bin 
-                print '\n Adding Rate Param Uncertainties for bin(process):', b,p
+                #print '\n Adding Rate Param Uncertainties for bin(process):', b,p
                 for sys in nuiVar:
                     if 'SF' not in sys: continue
                     if p not in sys: continue
@@ -746,7 +545,7 @@ def drawFromDC():
                         if 'Zll' not in sys: continue
                         if 'high' in b and 'high' not in sys: continue
                         if 'low' in b and 'low' not in sys: continue
-                        print '\nRate Param:', sys
+                        #print '\nRate Param:', sys
                         nui= nuiVar[sys][0]      
                         lnNVar = nuiVar[sys][1]
                         #exps[p][1].append(lnNVar)
@@ -783,7 +582,7 @@ def drawFromDC():
         print fmt % (p, exps[p][0], exps[p][0]*relunc)
 
         theNormUncert[p] = relunc
-        print 'The Norm Uncertainty:', theNormUncert[p]
+        #print 'The Norm Uncertainty:', theNormUncert[p]
 
         absBestFit = sum([x for x in expNui[p][1]])
         theBestFit[p] = 1.+absBestFit
@@ -840,7 +639,7 @@ def drawFromDC():
         for p in procs:
             sumErr += errline[b][p]
             
-        print '---> Systematic Uncertainty for:', lsyst,nofloat,pdf,pdfargs,errline
+        #print '---> Systematic Uncertainty for:', lsyst,nofloat,pdf,pdfargs,errline
         
         if ("shape" in pdf) and not 'CMS_vhbb_stat' in lsyst and not sumErr == 0:
             theSystUp = theSyst[lsyst+'Up'].Clone()
@@ -861,6 +660,7 @@ def drawFromDC():
     
     #-------------
     #Best fit for shapes
+    preFit = False
     if not preFit:
         
         # Set the preFit as an overlay
@@ -876,15 +676,15 @@ def drawFromDC():
             if i == 0:
                 prefit_overlay=copy(theShapes[hist])
                 #prefit_overlay=theShapes[hist]
-                print 'First Integral:', theShapes[hist].Integral()
+                #print 'First Integral:', theShapes[hist].Integral()
                 i+=1
             else:
                 #prefit_overlay.Add(theShapes[hist], 1.0)
                 prefit_overlay.Add(theShapes[hist])
-                print 'Integral:', theShapes[hist].Integral()
+                #print 'Integral:', theShapes[hist].Integral()
 
-        print  'prefit_overlay:', prefit_overlay
-        print 'Integral:', prefit_overlay.Integral()
+        #print  'prefit_overlay:', prefit_overlay
+        #print 'Integral:', prefit_overlay.Integral()
 
         print '\n-----> Getting best fit shapes(for postFit)...'
         histos, Overlay, typs = getBestFitShapes(procs,theShapes,shapeNui,theBestFit,DC,setup,opts,Dict,opts.mlfit)
@@ -950,12 +750,12 @@ def drawFromDC():
             #errDown[bin-1].append(histos[h].GetBinContent(bin)*theNormUncert[histos[h].GetName()])
             errUp[bin-1].append(histos[h].GetBinContent(bin)*temp_theNormUncert[histos[h].GetName()])
             errDown[bin-1].append(histos[h].GetBinContent(bin)*temp_theNormUncert[histos[h].GetName()])
-            print 'Norm Uncertainty for', histos[h].GetName(), ':', temp_theNormUncert[histos[h].GetName()]
+            #print 'Norm Uncertainty for', histos[h].GetName(), ':', temp_theNormUncert[histos[h].GetName()]
             
     
     #Shape uncertainty of the MC
     for bin in range(1,nBins+1):
-        print 'Shape uncertainty of the MC', sqrt(theSystUp.GetBinContent(bin))
+        #print 'Shape uncertainty of the MC', sqrt(theSystUp.GetBinContent(bin))
         errUp[bin-1].append(sqrt(theAbsSystUp.GetBinContent(bin)))
         errDown[bin-1].append(sqrt(theAbsSystDown.GetBinContent(bin)))
     
@@ -963,7 +763,7 @@ def drawFromDC():
     #Add all in quadrature
     totErrUp=[sqrt(sum([x**2 for x in bin])) for bin in errUp]
     totErrDown=[sqrt(sum([x**2 for x in bin])) for bin in errDown]
-
+    
     #Make TGraph with errors
     for bin in range(1,nBins+1):
         if not total[bin-1] == 0:

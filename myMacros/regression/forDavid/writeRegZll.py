@@ -83,13 +83,17 @@ ROOT.gROOT.ProcessLine(
 
 
 #input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/v23/DY_inclusive.root', 'read')
-input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/sys_out/v25_ZH125.root', 'read')
+input  = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/sys_out/v25_DY_800to1200_ext1.root', 'read')
 
 #output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_noMET.root', 'recreate')
-output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_withMET.root', 'recreate')
+output = TFile.Open('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_DY.root', 'recreate')
+
+# ttbar
+regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/gravall-v25.weights.xml'
 
 #with MET
-regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
+#regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
+
 
 # no MET
 #regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/fordavid_nomet/TMVARegression_BDTG.weights.xml'
@@ -109,8 +113,8 @@ regVars = ["Jet_pt",
            "Jet_vtx3dL",
            "Jet_vtxNtrk",
            "Jet_vtx3deL",
-           "met_pt",
-           "Jet_met_proj"
+           #"met_pt",
+           #"Jet_met_proj"
            ]      	
 
 
@@ -157,8 +161,8 @@ regDict = {"Jet_pt":"Jet_pt[0]",
            "Jet_vtx3dL":"Jet_vtx3dl[0]",
            "Jet_vtxNtrk":"Jet_vtxNtrk[0]",
            "Jet_vtx3deL":"Jet_vtx3deL[0]",
-           "met_pt":"met_pt",
-           "Jet_met_proj":"Jet_met_proj"
+           #"met_pt":"met_pt",
+           #"Jet_met_proj":"Jet_met_proj"
            } 
 
 
@@ -344,10 +348,10 @@ for entry in range(0,nEntries):
             met_pt_0 = tree.met_pt
             met_pt_1 = tree.met_pt
             
-            Jet_met_proj_0 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_0, Jet_phi_0)
-            Jet_met_proj_1 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_1, Jet_phi_1)
+            #Jet_met_proj_0 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_0, Jet_phi_0)
+            #Jet_met_proj_1 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_1, Jet_phi_1)
             
-            met_projection_Hpt.Fill(Jet_pt_0, Jet_met_proj_0)
+            #met_projection_Hpt.Fill(Jet_pt_0, Jet_met_proj_0)
             
             Jet_vtxPt_0 = max(0.,tree.Jet_vtxPt[tree.hJCidx[0]])
             Jet_vtxPt_1 = max(0.,tree.Jet_vtxPt[tree.hJCidx[1]])
@@ -391,35 +395,35 @@ for entry in range(0,nEntries):
 
 
             # for matched genJets
-            minDr0 = 0.4;
-            minDr1 = 0.4;
-            for m in range(0,tree.nGenJet):
+            # minDr0 = 0.4;
+            # minDr1 = 0.4;
+            # for m in range(0,tree.nGenJet):
 
-                if tree.GenJet_numBHadrons[m] < 1: continue
+            #     if tree.GenJet_numBHadrons[m] < 1: continue
 
-                hQ = ROOT.TLorentzVector()
-                hQ.SetPtEtaPhiM(tree.GenJet_wNuPt[m], tree.GenJet_wNuEta[m], tree.GenJet_wNuPhi[m], tree.GenJet_wNuM[m]);
+            #     hQ = ROOT.TLorentzVector()
+            #     hQ.SetPtEtaPhiM(tree.GenJet_wNuPt[m], tree.GenJet_wNuEta[m], tree.GenJet_wNuPhi[m], tree.GenJet_wNuM[m]);
                 
-                if hQ.DeltaR(hJ0)<minDr0 :
-                    Jet_mcPt[0] = tree.GenJet_wNuPt[m]
-                    Jet_mcEta[0] = tree.GenJet_wNuEta[m]
-                    Jet_mcPhi[0] = tree.GenJet_wNuPhi[m]
-                    minDr0 = hQ.DeltaR(hJ0)
-                    if tree.Jet_btagCSV[tree.hJCidx[0]] > 0:
-                        count['num_allMatched_jets'] += 1
-                    if tree.Jet_btagCSV[tree.hJCidx[0]] < 0.8:
-                        count['num_allMatched_jets_0.46'] += 1
+            #     if hQ.DeltaR(hJ0)<minDr0 :
+            #         Jet_mcPt[0] = tree.GenJet_wNuPt[m]
+            #         Jet_mcEta[0] = tree.GenJet_wNuEta[m]
+            #         Jet_mcPhi[0] = tree.GenJet_wNuPhi[m]
+            #         minDr0 = hQ.DeltaR(hJ0)
+            #         if tree.Jet_btagCSV[tree.hJCidx[0]] > 0:
+            #             count['num_allMatched_jets'] += 1
+            #         if tree.Jet_btagCSV[tree.hJCidx[0]] < 0.8:
+            #             count['num_allMatched_jets_0.46'] += 1
                         
 
-                if hQ.DeltaR(hJ1)< minDr1:
-                    Jet_mcPt[1] = tree.GenJet_wNuPt[m]
-                    Jet_mcEta[1] = tree.GenJet_wNuEta[m]
-                    Jet_mcPhi[1] = tree.GenJet_wNuPhi[m]
-                    minDr1 = hQ.DeltaR(hJ1)
-                    if tree.Jet_btagCSV[tree.hJCidx[1]] > 0:
-                        count['num_allMatched_jets'] += 1
-                    if tree.Jet_btagCSV[tree.hJCidx[1]] < 0.8:
-                        count['num_allMatched_jets_0.46'] += 1
+            #     if hQ.DeltaR(hJ1)< minDr1:
+            #         Jet_mcPt[1] = tree.GenJet_wNuPt[m]
+            #         Jet_mcEta[1] = tree.GenJet_wNuEta[m]
+            #         Jet_mcPhi[1] = tree.GenJet_wNuPhi[m]
+            #         minDr1 = hQ.DeltaR(hJ1)
+            #         if tree.Jet_btagCSV[tree.hJCidx[1]] > 0:
+            #             count['num_allMatched_jets'] += 1
+            #         if tree.Jet_btagCSV[tree.hJCidx[1]] < 0.8:
+            #             count['num_allMatched_jets_0.46'] += 1
                     
 
             #if sample == 'Zuu' or sample == 'Zee':

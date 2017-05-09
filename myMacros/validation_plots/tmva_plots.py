@@ -12,38 +12,53 @@ from ROOT import *
 from matplotlib import interactive
 from ROOT import gROOT
 import ConfigParser
-
+gROOT.SetBatch(True)
 
 # ===== Get the weights and SF for ttbar =====
 Config = ConfigParser.ConfigParser()
 Config.read('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/python/13TeVconfig/general')
 weightF = Config.get('Weights', 'weightF')
 Config.read('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/python/13TeVconfig/samples.ini')
-SF = 1.184
-lumi = 2320.00
+SF = 1.0065
+lumi = 35900.00
 xSec = 831.76
 # ==================================
 
+gROOT.LoadMacro("/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/interface/VHbbNameSpace_h.so")
+
 
 # Where to save
-outdir = 'Zll_validation_plots/TMVA/'
+outdir = '/afs/cern.ch/user/d/dcurry/www/BDT_inputVars_correlations_v25/'
+
+try:
+    os.system('mkdir '+outdir)
+except:
+     print outpath+' already exists...'
+
+temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/.htaccess '+outdir
+temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/zllHbbPlots/index.php '+outdir
+
+os.system(temp_string2)
+os.system(temp_string3)
+
 
 # TTbar from MC
-file_mc = TFile('/exports/uftrig01a/dcurry/heppy/files/MVA_out/v21_5_22_ttbar.root')
+file_mc = TFile('/exports/uftrig01a/dcurry/heppy/files/MVA_out/v25_ttbar.root')
 
 # TTbar from Data(Zuu for now)
-file_data = TFile('/exports/uftrig01a/dcurry/heppy/files/MVA_out/v21_5_22_Zuu.root')
+file_data = TFile('/exports/uftrig01a/dcurry/heppy/files/MVA_out/v25_Zuu.root')
 
 tree_data = file_data.Get('tree') 
 
 tree_mc =  file_mc.Get('tree')
 
 # TMVA tree
-file = TFile.Open('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/data/MVA_gg_plus_ZH125_tightHmass.root', 'read')
-tree = gDirectory.Get('TrainTree')
+#file = TFile.Open('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/data/goodBDT/MVA_gg_plus_ZH125_lowZpt.root', 'read')
+#tree = gDirectory.Get('TrainTree')
+
 
 # ttbar cut
-cut = 'abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & vLeptons_pt[0] > 20. & vLeptons_pt[1] > 20. & vLeptons_relIso04[0] < 0.15 & vLeptons_relIso04[1] < 0.15 & (HLT_BIT_HLT_IsoMu20_v || HLT_BIT_HLT_IsoTkMu20_v) & Vtype == 0 & Jet_pt_reg[hJCidx[0]] > 20. & Jet_pt_reg[hJCidx[1]] > 20. & HCSV_reg_pt > 100. & (V_mass < 75. || V_mass > 120.) & V_mass > 10. & Jet_btagCSV[hJCidx[0]] > 0.935 & Jet_btagCSV[hJCidx[1]] > 0.460' 
+cut = 'Jet_puId[hJCMVAV2idx[0]] >= 4 & Jet_puId[hJCMVAV2idx[1]] >= 4.0 & (((Vtype_new==1) & vLeptons_new_relIso03[0] < 0.15 & vLeptons_new_relIso03[1] < 0.15 & HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v & (abs(vLeptons_new_eta[0]) >= 1.57 || abs(vLeptons_new_eta[0]) <= 1.44) & (abs(vLeptons_new_eta[1])>=1.57 || abs(vLeptons_new_eta[1])<=1.44)) || ((Vtype_new==0) & vLeptons_new_relIso04[0] < 0.25 & vLeptons_new_relIso04[1] < 0.25 & (HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v || HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v))) & vLeptons_new_pt[0] > 20 & vLeptons_new_pt[1] > 20 & V_new_pt > -25.0 & Vtype_new == 0& Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20. & (V_new_mass < 75. || V_new_mass > 120.) & V_new_mass > 10. & Jet_btagCMVAV2[hJCMVAV2idx[0]] > 0.9432 & Jet_btagCMVAV2[hJCMVAV2idx[1]] > -0.5884 & V_new_pt >= 50'
 
 # Get the full normalization
 posWeight = file_mc.Get('CountPosWeight')
@@ -51,7 +66,7 @@ negWeight = file_mc.Get('CountNegWeight')
 
 theScale = lumi*xSec*SF / (posWeight.GetBinContent(1) - negWeight.GetBinContent(1))
 
-cut_mc = cut + '*(puWeight*bTagWeight*'+str(theScale)+')'
+cut_mc = cut + '*((sign(genWeight))*(puWeight*bTagWeightCMVAv2_Moriond[0]*((Vtype_new == 1)*eId90SFWeight[0]*eTrackerSFWeight[0]*eTrigSFWeight_doubleEle80x[0] + (Vtype_new == 0)*mIsoSFWeight[0]*mIdSFWeight[0]*mTrackerSFWeight[0]*mTrigSFWeight_doubleMu80x[0])*'+str(theScale)+'))'
 
 
 # list of training vars
@@ -71,32 +86,33 @@ var_tmva_list = [['HCSV_reg_mass', 30, 90, 150],
             ['HCSV_dR_reg', 30, 0, 2]
             ]
 
-var_list = [['HCSV_reg_mass', 30, 90, 150],
-            ['HCSV_reg_pt', 30, 20, 220],
-            ['HVdPhi_reg', 30, 0, 3.14],
-            ['Jet_btagCSV[hJCidx[0]]', 30, 0.5, 1],
-            ['Jet_btagCSV[hJCidx[1]]', 30, 0.5, 1],
-            ['Jet_pt_reg[hJCidx[0]]', 30, 20, 150],
-            ['Jet_pt_reg[hJCidx[1]]', 30, 20, 150],
-            ['V_mass', 30, 70, 105],
+var_list = [['HCMVAV2_reg_mass', 30, 0, 200],
+            ['HCMVAV2_reg_pt', 30, 0, 220],
+            ['VHbb::deltaPhi(HCMVAV2_reg_phi,V_new_phi)', 30, 0, 3.14],
+            ['Jet_btagCMVAV2[hJCMVAV2idx[0]]', 30, -0.5, 1],
+            ['Jet_btagCMVAV2[hJCMVAV2idx[1]]', 30, -0.5, 1],
+            ['hJetCMVAV2_pt_reg_0', 30, 0, 150],
+            ['hJetCMVAV2_pt_reg_1', 30, 0, 150],
+            ['V_new_mass', 30, 0, 105],
             ['Sum$(Jet_pt_reg>30&&abs(Jet_eta)<2.4&&Jet_puId==7&&Jet_id>0&&aJCidx!=(hJCidx[0])&&(aJCidx!=(hJCidx[1])))', 10, 0, 10],
-            ['V_pt', 30, 50, 200],
-            ['HCSV_reg_pt/V_pt', 20, 0, 2] ,
+            ['V_new_pt', 30, 50, 200],
+            ['HCMVAV2_reg_pt/V_new_pt', 20, 0, 2] ,
             ['abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]])', 30, 0, 2],
             ['softActivityVH_njets5', 10, 0, 10],
-            ['HCSV_dR_reg', 30, 0, 2],
-            ['gg_plus_ZH125_tightHmass.nominal', 20, -1, 1]
+            ['VHbb::deltaR(HCMVAV2_reg_eta,HCMVAV2_reg_phi,V_new_eta,V_new_phi)', 30, 0, 2],
+            ['met_pt', 30, 0, 150],
+            ['gg_plus_ZH125_lowZpt.nominal', 20, -1, 1]
             ]
 
 for var in var_tmva_list:
 
-    #break
+    break
     
     canvas = TCanvas('canvas')
     
     tree.Draw(var[0])
     
-    canvas.SaveAs('Zll_validation_plots/TMVA/'+var[0]+'.pdf')
+    canvas.SaveAs(outdir+'/'+var[0]+'.pdf')
 
     canvas.IsA().Destructor(canvas)
 
@@ -104,12 +120,14 @@ for var in var_tmva_list:
 
 # Now profiles of worst input var vs all other vars and BDT output
 
-worst_var = 'Jet_btagCSV[hJCidx[1]]'
+worst_var = 'Jet_btagCMVAV2[hJCMVAV2idx[1]]'
 
 
 for var in var_list:
     
     break
+
+    print '\n Making Plot for ', var
     
     if var[0] == worst_var: continue
     
@@ -128,7 +146,7 @@ for var in var_list:
     prof.SetMaximum(var[3])
 
     profd = hd.ProfileX()
-    profd.SetLineColor(kRed)
+    profd.SetLineColor(kBlue)
 
     prof.SetStats(0)
     prof.Draw('same')
@@ -143,26 +161,34 @@ for var in var_list:
     leg.AddEntry(profd, 'Data', 'l')
     leg.Draw('same')
 
+    l = TLatex()
+    l.SetNDC()
+    l.SetTextSize(0.03)
+    l.DrawLatex(0.1, 0.93, "CMS Preliminary  #sqrt{s} = 13 TeV, L = 35.9 fb^{-1}")
+    l.Draw('same')
     
     #raw_input('Press return to continue...')
-    
-    canvas.SaveAs('Zll_validation_plots/TMVA/profiles/profile_'+var[0]+'.pdf')
+
+    if '/' in var[0]: var[0].replace('/', '')
+    canvas.SaveAs(outdir+'/profile_'+var[0]+'.pdf')
+    canvas.SaveAs(outdir+'/profile_'+var[0]+'.png')
     canvas.IsA().Destructor(canvas)
     h.IsA().Destructor(h)
     hd.IsA().Destructor(hd)
     prof.IsA().Destructor(prof)
     profd.IsA().Destructor(profd)
 
-
 # And now vs Mjj
 
-mjj_var = 'HCSV_reg_mass'
+mjj_var = 'HCMVAV2_reg_mass'
 
 for var in var_list:
     
-    break
+    #break
+
+    print '\n Making Plot for ', var
     
-    if var[0] == worst_var: continue
+    if var[0] == mjj_var: continue
     
     canvas = TCanvas('canvas')
     
@@ -179,7 +205,7 @@ for var in var_list:
     prof.SetMaximum(var[3])
 
     profd = hd.ProfileX()
-    profd.SetLineColor(kRed)
+    profd.SetLineColor(kBlue)
 
     prof.SetStats(0)
     prof.Draw('same')
@@ -193,11 +219,16 @@ for var in var_list:
     leg.AddEntry(prof, 'Simulation', 'l')
     leg.AddEntry(profd, 'Data', 'l')
     leg.Draw('same')
+    
+    l = TLatex()
+    l.SetNDC()
+    l.SetTextSize(0.03)
+    l.DrawLatex(0.1, 0.93, "CMS Preliminary  #sqrt{s} = 13 TeV, L = 35.9 fb^{-1}")
+    l.Draw('same')
 
-    
-    #raw_input('Press return to continue...')
-    
-    canvas.SaveAs('Zll_validation_plots/TMVA/profiles/profile_mjj_'+var[0]+'.pdf')
+    if '/' in var[0]: var[0].replace('/', '')
+    canvas.SaveAs(outdir+'/profile_mjj_'+var[0]+'.pdf')
+    canvas.SaveAs(outdir+'/profile_mjj_'+var[0]+'.png')
     canvas.IsA().Destructor(canvas)
     h.IsA().Destructor(h)
     hd.IsA().Destructor(hd)

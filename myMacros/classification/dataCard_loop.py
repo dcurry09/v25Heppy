@@ -77,64 +77,60 @@ vv_zlf_list = ['Zlf_low_Zee_VV', 'Zlf_high_Zuu_VV', 'Zlf_low_Zuu_VV', 'Zlf_high_
 
 vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 'ttbar_high_Zee_VV']
 
-# bdt_list = vv_bdt_list
-# zhf_list = vv_zhf_list
-# zlf_list = vv_zlf_list
-# ttbar_list = vv_ttbar_list
 # ====================================
 
-#temp_list = ['VV_BDT_Zuu_highZpt']
-#temp_list = bdt_list
+temp_list = ['ttbar_high_Zee']
+#temp_list = vv_bdt_list
 
 # ==============================================
 
 #### Chose VH or VV ####
 #datacard_list = bdt_list
 #datacard_list = control_list + bdt_list
-datacard_list = control_list
+#datacard_list = control_list
 
 #datacard_list = vv_bdt_list
 #datacard_list = vv_control_list + vv_bdt_list
 #datacard_list = vv_control_list
 
-#datacard_list = temp_list
+datacard_list = temp_list
 
 
 ##### Directory to save datacards ####
-
-title = 'CMVA_LO_4_15'
+title = 'Datacards_NewKinematicSplitBtag_5_5'
 #title = 'TEST'
 
-sig_dir = 'v25_SR_'+title
+sig_dir = 'ZllHbb_SR_'+title
 
-cr_dir = 'v25_CR_'+title
+cr_dir = 'ZllHbb_CR_'+title
 
 # final combined directory
-dir = 'v25_VH_'+title
+dir = 'ZllHbb_'+title
+#dir  = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/v25_VH_CMVA_LO_withBjets_4_9/'
 
 # Final VV combined Dir
-#dir = 'v25_VV_'+title
+dir = 'ZllZbb_'+title
 
 print '\n\t ###### Making DC in', dir, cr_dir, sig_dir
 
 #Choose batch mode or sequential
 batch = False
-batch = True
+#batch = True
 
 # choose bdt, CR split
 isSplit = False
-#isSplit = True
+isSplit = True
 
 isVV = False
-#isVV = True
+isVV = True
  
 # For Control Region Scale Factors
 isCombine = False
-isCombine = True
+#isCombine = True
 
 # BDT final fit(split Pt Categories)
 splitRegionFOM = False
-#splitRegionFOM = True
+splitRegionFOM = True
 
 # Old Test
 isFinalFit = False
@@ -166,7 +162,7 @@ semiLepton = False
 
 #print 'Here2...'
 
-os.system('rm ../limits/*.txt ../limits/*.root')
+
 
 
 print '\n======================== Starting DataCard Loop ================================'
@@ -175,6 +171,8 @@ print '=========================================================================
 if batch:
  
     print '\n------> Running in Batch Mode...' 
+
+    os.system('rm ../limits/*.txt ../limits/*.root')
 
     # define the os.system function
     def osSystem(datacard):
@@ -239,9 +237,9 @@ if batch:
         
         os.system('rm ../limits/*.txt ../limits/*.root')
         
-        dir     = 'v25_VV_'+title
-        sig_dir = 'v25_SR_VV_'+title
-        cr_dir  = 'v25_CR_VV_'+title
+        dir     = 'ZllZbb_'+title
+        sig_dir = 'ZllZbb_SR_'+title
+        cr_dir  = 'ZllZbb_CR_'+title
         
         # define the multiprocessing object
         p = multiprocessing.Pool()
@@ -298,6 +296,8 @@ if isSplit:
     
     print '\n------> Running in Split Mode...' 
 
+    os.system('rm ../limits/*.txt ../limits/*.root')
+    
     def osSystem(datacard):
 
         print '\n------> Making DataCard for ', datacard,'...'
@@ -307,10 +307,10 @@ if isSplit:
 
     if not isVV:
         
-        p = multiprocessing.Pool() 
-        results = p.imap(osSystem, bdt_list)
-        p.close()
-        p.join()
+        #p = multiprocessing.Pool() 
+        #results = p.imap(osSystem, bdt_list)
+        #p.close()
+        #p.join()
         
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
@@ -359,15 +359,15 @@ if isSplit:
 
         os.system('rm ../limits/*.txt ../limits/*.root')
         
-        dir     = 'v25_VV_'+title
-        sig_dir = 'v25_VV_SR_'+title
-        cr_dir  = 'v25_VV_CR_'+title
+        dir     = 'ZllZbb_'+title
+        sig_dir = 'ZllZbb_SR_'+title
+        cr_dir  = 'ZllZbb_CR_'+title
         
         p = multiprocessing.Pool()
         results = p.imap(osSystem, vv_bdt_list)
         p.close()
         p.join()
-
+        
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
         os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
@@ -474,13 +474,13 @@ if isCombine:
     os.system(temp_string_combine_BKGonly)
     #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_BKG_Combined.txt >> bkg_only_RP.txt'
     t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_BKG_Combined.txt'
-    #os.system(t5)
+    os.system(t5)
     
     print '\n\n ============= SIG + BKG Scale Facors =============='
     os.system(temp_string_combine)
     #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt >> sigPlusBkg_RP.txt'
     t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt'
-    os.system(t5)
+    #os.system(t5)
     
     #--minimizerAlgo=Minuit --minimizerTolerance=100.0
     
@@ -544,6 +544,7 @@ if isFOM:
 if splitRegionFOM:
 
     os.chdir('../limits/'+dir)
+    #os.chdir(dir)
 
 
     print '\t\n\n ================ Combined Electron and Control Region Datacard =================='
@@ -840,11 +841,11 @@ if splitRegionFOM:
 
     print '\n==== Post Fit ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
+    #os.system(t2)
     
     print '\n==== Post Fit NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
+    #os.system(t2)
 
     print '\t\n\n========= Signal Strength Uncertainty ========='
 

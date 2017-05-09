@@ -18,79 +18,76 @@ from matplotlib import interactive
 #from ROOT import *
 
 isVV = False
-#isVV = True
+isVV = True
 
 isFromDC = False
 #isFromDC = True
 
+#path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VH_combo05052017/'
+VV_path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VZ_combo05052017/'
+
 # Wlv: WH
-#in_dir = 'WlnHbb_Datacards_Nov8_noRateParamsApplied_withSplitNuisances'
+#in_dir = path+'WlnHbb_Datacards_April6_v2_PDFInlfated_BTDecorr'
 
 # Wlv: VV
-#in_dir = 'WlnZbb_Datacards_Nov24_withNuisancesSplit'
+#in_dir = VV_path+'WlnZbb_Datacards_April6_v2_PDFInlfated_BTDecorr'
 
 # Zvv: ZH
-#in_dir = 'ZnnHbb_Datacards_FinalLimit_NoScaleFactorsApplied'
+#in_dir = path+'ZnnHbb_Datacards_May3'
 
 #Zvv: VV
-#in_dir = 'Diboson_Datacards_FinalLimit_withoutScaleFactors_new'
+in_dir = VV_path+'ZnnZbb_Datacards_May3'
 
 # VV
-#in_dir = 'v25_VV_CMVA_LO_withBjets_4_9'
+#in_dir = VV_path+'ZllZbb_Datacards_ChannelDecorrelatedBtag_5_1'
 
 # VH
-in_dir = 'v25_VH_CMVA_LO_withBjets_4_9'
-#in_dir = 'v25_SR_CMVA_LO_4_9'
+#in_dir = path+'ZllHbb_Datacards_ChannelDecorrelatedBtag_5_1'
+#in_dir = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_ChannelDecorrelatedBtag_5_1'
 
-# Gael
-#in_dir = 'DC_v23_VH_v2_25_11_2016'
-
-out_dir = '~/www/v25_VH_CMVA_LO_4_9_postFit/'
+out_dir = '~/www/v25_VV_AllChannels_5_5_postFit/'
+#out_dir = '~/www/Test_15/'
 
 
 cr_list = {
-    #'Zhf_low': 'Zhf_low', 
-    #'Zlf_low': 'Zlf_low', 
-    #'ttbar_low': 'ttbar_low',
-    #'Zhf_high': 'Zhf_high', 
-    #'Zlf_high': 'Zlf_high', 
-    #'ttbar_high': 'ttbar_high'
     
-    'Zlf_low_Zuu': 'Zlf_low_Zuu',
-    'Zlf_low_Zee': 'Zlf_low_Zee',
-    'Zlf_high_Zuu': 'Zlf_high_Zuu',
-    'Zlf_high_Zee': 'Zlf_high_Zee',
+    ##### Zll #####
+    # 'Zlf_low_Zuu': 'Zlf_low_Zuu',
+    # 'Zlf_low_Zee': 'Zlf_low_Zee',
+    # 'Zlf_high_Zuu': 'Zlf_high_Zuu',
+    # 'Zlf_high_Zee': 'Zlf_high_Zee',
         
-    'Zhf_low_Zee': 'Zhf_low_Zee',
-    'Zhf_high_Zee': 'Zhf_high_Zee',
-    'Zhf_low_Zuu': 'Zhf_low_Zuu',
-    'Zhf_high_Zuu': 'Zhf_high_Zuu',
+    # 'Zhf_low_Zee': 'Zhf_low_Zee',
+    # 'Zhf_high_Zee': 'Zhf_high_Zee',
+    # 'Zhf_low_Zuu': 'Zhf_low_Zuu',
+    # 'Zhf_high_Zuu': 'Zhf_high_Zuu',
     
-    'ttbar_low_Zee': 'ttbar_low_Zee',
-    'ttbar_high_Zee': 'ttbar_high_Zee',
-    'ttbar_low_Zuu': 'ttbar_low_Zuu',
-    'ttbar_high_Zuu': 'ttbar_high_Zuu',
+    # 'ttbar_low_Zee': 'ttbar_low_Zee',
+    # 'ttbar_high_Zee': 'ttbar_high_Zee',
+    # 'ttbar_low_Zuu': 'ttbar_low_Zuu',
+    # 'ttbar_high_Zuu': 'ttbar_high_Zuu',
     
-    'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
-    'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
-    'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
-    'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
+    # 'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
+    # 'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
+    # 'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
+    # 'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
+    
+    #### Wlv ####
+    # 'vhbb_ttWen_13TeV': 'ttWen',
+    # 'vhbb_ttWmn_13TeV': 'ttWmn',
+    # 'vhbb_whfWen_13TeV': 'whfWen',
+    # 'vhbb_whfWmn_13TeV': 'whfWmn',
+    # 'vhbb_wlfWen_13TeV': 'wlfWen',
+    # 'vhbb_wlfWmn_13TeV': 'wlfWmn',
+    # 'vhbb_WenHighPt_13TeV':'WenHighPt',
+    # 'vhbb_WmnHighPt_13TeV':'WmnHighPt'
 
-    
-    ####  wlv; ####
-    #'vhbb_ttWen_13TeV': 'ttWen',
-    #'vhbb_ttWmn_13TeV': 'ttWmn',
-    #'vhbb_whfWen_13TeV': 'whfWen',
-    #'vhbb_whfWmn_13TeV': 'whfWmn',
-    #'vhbb_wlfWen_13TeV': 'wlfWen',
-    #'vhbb_wlfWmn_13TeV': 'wlfWmn'
-    
     #### Zvv ####
-    #'vhbb_DC_TH_Znn_13TeV_HighPt_QCD':'Znn_13TeV',
-    #'vhbb_DC_TH_Znn_13TeV_HighPt_TT':'Znn_13TeV',
-    #'vhbb_DC_TH_Znn_13TeV_HighPt_Zbb':'Znn_13TeV',
-    #'vhbb_DC_TH_Znn_13TeV_HighPt_Zlight':'Znn_13TeV',
-    #'Znn_13TeV_HighPt_Signal':'Znn_13TeV'
+    'vhbb_DC_TH_Znn_13TeV_QCD':'Znn_13TeV_QCD',
+    'vhbb_DC_TH_Znn_13TeV_TT':'Znn_13TeV_TT',
+    'vhbb_DC_TH_Znn_13TeV_Zbb':'Znn_13TeV_Zbb',
+    'vhbb_DC_TH_Znn_13TeV_Zlight':'Znn_13TeV_Zlight',
+    'vhbb_DC_TH_Znn_13TeV_Signal':'Znn_13TeV_Signal'
     }
 
 sr_list = { 
@@ -139,12 +136,11 @@ os.system(temp_string2)
 os.system(temp_string3)
 
 
-
 for region in final_list:
     print region
     
-    os.system('cp ../limits/'+in_dir+'/mlfit.root .')
-
+    os.system('cp '+in_dir+'/mlfit.root .')
+    
     '''
     if not isVV:
         if os.path.isfile('mlfit_combined_channels.root'):
@@ -160,35 +156,35 @@ for region in final_list:
     '''
 
     if 'Zlf' in region or 'Zhf' in region or 'ttbar' in region:
-        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D '+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
     
     else:
-        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D '+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
     if 'Wen' in region and 'HighPt' in region or 'Wmn' in region and 'HighPt' in region:
-        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D '+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
     elif 'Wen' in region or 'Wmn' in region and not 'HighPt' in region:
 
         print '\n\t Making Wlv Control region Plots...\n\n'
 
-        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D '+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
 
 
     if 'Znn' in region and 'Signal' in region:
-        s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc_NEW.py -D '+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
 
     elif 'Znn' in region:
-         s1 = 'python stack_from_dc_NEW.py -D ../limits/'+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+         s1 = 'python stack_from_dc_NEW.py -D '+in_dir+'/'+region+'.txt -B '+final_list[region]+' -M mlfit.root -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
 
 
     if isFromDC:
-        s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+        s1 = 'python stack_from_dc.py -D '+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V BDT -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
         if 'Zlf' in region or 'Zhf' in region or 'ttbar' in region:
-            s1 = 'python stack_from_dc.py -D ../limits/'+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
+            s1 = 'python stack_from_dc.py -D '+in_dir+'/vhbb_DC_TH_'+region+'.txt -B '+final_list[region]+' -F b -V minCMVA -C 13TeVconfig/general -C 13TeVconfig/configPlot_vars -C 13TeVconfig/plots -C 13TeVconfig/paths -C 13TeVconfig/datacard'
         
         
     print 'Plot Command:', s1
@@ -223,20 +219,20 @@ for region in final_list:
         if 'HighPt' in region:
             s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt_W* '+out_dir
         else:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/minCMVA* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*minCMVA* '+out_dir
             
 
     if 'Znn' in region:
         if 'Signal' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+final_list[region]+'/*gg_plus_ZH125_high_Zpt_Znn_13TeV_PostFit_b* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Znn_13TeV_Signal/*gg_plus_ZH125* '+out_dir
         if 'QCD' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_QCD/Zvv_QCD_minCMVA** '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Znn_13TeV_QCD/Znn_QCD_minCMVA* '+out_dir
         if 'TT' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_TT/minCMVA* '+out_dir    
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Znn_13TeV_TT/*minCMVA* '+out_dir    
         if 'Zlight' in region :
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_Zlight/minCMVA* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Znn_13TeV_Zlight/*minCMVA* '+out_dir
         if 'Zbb' in region:
-            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Zvv_Zbb/minCMVA* '+out_dir
+            s2 = 'cp /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/Znn_13TeV_Zbb/*minCMVA* '+out_dir
 
     '''
     # Control Regions

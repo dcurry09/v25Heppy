@@ -214,6 +214,34 @@ class TreeCache:
         
         return theScale
 
+    def get_scale_BDT(self, sample, config, lumi = None):
+
+        print ('----> Getting Sample Scale...')
+
+        # get the weights from the file,. not the tree
+        input = ROOT.TFile('%stmp_%s.root'%(self.__tmpPath,self.__hashDict[sample.name]),'read')
+        posWeight = input.Get('CountPosWeight')
+        negWeight = input.Get('CountNegWeight')
+        #print ('posWeight:',posWeight)
+        
+        anaTag=config.get('Analysis','tag')
+        
+        theScale = 1.
+        
+        lumi = float(sample.lumi)
+        print ('sample:', sample)
+        print ('xsec:', sample.xsec)
+        print ('lumi:', sample.lumi)
+        print ('SF:', sample.sf)
+        print ('posWeight:', posWeight.GetBinContent(1))
+        print ('negWeight:', negWeight.GetBinContent(1))
+        print ('Special Weight:', sample.specialweight)
+        theScale = float(sample.specialweight)*lumi*sample.xsec/(posWeight.GetBinContent(1)-negWeight.GetBinContent(1))
+        
+        return theScale
+
+
+
     #@staticmethod
     def get_scale_LHEscale(self, sample, config, lhe_scale, lumi = None):
 

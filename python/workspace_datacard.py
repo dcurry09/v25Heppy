@@ -97,7 +97,7 @@ doBin       = config.get('dc:%s'%var,'doBin')
 
 # CHange setup for VV analysis
 if 'VV' in anType:
-    setup = ['VVHF', 'VVLF', 'ZH', 'ggZH', 'DYlight','DY1b', 'DY2b', 'TT', 'ST']
+    setup = ['VVHF','VVLF','ZH','ggZH','DYlight','DY1b','DY2b','TT','ST']
 
 #Systematics:
 if config.has_option('LimitGeneral','addSample_sys'):
@@ -125,7 +125,7 @@ else:
     bdt = True
     systematics = eval(config.get('LimitGeneral','sys_BDT'))
 
-print '\nSystematics:', systematics
+
 
 # Turn off Systematics if selected
 #print 'doSYS:', doSYS
@@ -151,10 +151,29 @@ elif 'low' in ROOToutname or 'LowPt' in ROOToutname:
 else:
     systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming'))
 
-print '\nSystematicsnaming:', systematicsnaming
+
 
 sys_factor_dict = eval(config.get('LimitGeneral','sys_factor'))
 sys_affecting = eval(config.get('LimitGeneral','sys_affecting'))
+
+# Add the bTag sys variations by hand
+for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
+    for ipt in range(1,5):
+        for ieta in range(1,4):
+            systematics.append("btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta))
+                
+            sys_factor_dict["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 1.0 
+
+            sys_affecting["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = ['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF']
+
+            systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_btagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
+
+
+print '\nSystematics:', systematics
+print '\nSystematicsnaming:', systematicsnaming
+print 'SYS factor:', sys_factor_dict
+print 'SYS affecting:', sys_affecting
+
 
 # weightF:
 weightF = config.get('Weights','weightF')
@@ -354,102 +373,120 @@ for syst in systematics:
         # EWK ZH Signal Corrections
         if 'CMS_vhbb_EWK_Zll' in syst:
             _weight = weightF.replace('Signal_ewkWeight', 'Signal_ewkWeight_%s' % Q)
-        
+            
 
         if 'btag' in syst:    
             
-            if 'JES' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESLowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESHighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESLowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESHighForward%s'%(Q))
-
-
-            if '_lf_' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFLowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFHighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFLowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFHighForward%s'%(Q))
-
-            if '_hf_' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFLowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFHighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFLowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFHighForward%s'%(Q))
-        
-            if 'lfstats1' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1LowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1HighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1LowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1HighForward%s'%(Q))
-
-            if 'hfstats1' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1LowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1HighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1LowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1HighForward%s'%(Q))
-    
-            if 'lfstats2' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2LowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2HighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2LowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2HighForward%s'%(Q))
-
-            if 'hfstats2' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2LowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2HighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2LowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2HighForward%s'%(Q))
+            print '\nBtag SYS:', syst
             
-            if 'cferr1' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1LowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1HighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1LowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1HighForward%s'%(Q))
+            bTagSplit = syst.split('_')
+            print bTagSplit 
 
-            if 'cferr2' in syst:
-                if 'LowCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2LowCentral%s'%(Q))
-                if 'HighCentral' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2HighCentral%s'%(Q))
-                if 'LowForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2LowForward%s'%(Q))
-                if 'HighForward' in syst:
-                    _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2HighForward%s'%(Q))
+            _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_'+bTagSplit[1]+'_'+bTagSplit[2]+'_'+bTagSplit[3]+Q)
 
-        
+
+            # if 'JES' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESLowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESHighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESLowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JESHighForward%s'%(Q))
+
+            #     else: _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_JES%s'%(Q))
+
+            # if '_lf_' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFLowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFHighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFLowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFHighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LF%s'%(Q))
+
+            # if '_hf_' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFLowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFHighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFLowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFHighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HF%s'%(Q))
+
+            # if 'lfstats1' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1LowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1HighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1LowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1HighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats1%s'%(Q))
+                    
+
+            # if 'hfstats1' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1LowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1HighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1LowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1HighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats1%s'%(Q))
+                
+            # if 'lfstats2' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2LowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2HighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2LowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2HighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_LFStats2%s'%(Q))
+
+            # if 'hfstats2' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2LowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2HighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2LowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2HighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_HFStats2%s'%(Q))
+    
+            # if 'cferr1' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1LowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1HighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1LowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1HighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr1%s'%(Q))
+
+            # if 'cferr2' in syst:
+            #     if 'LowCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2LowCentral%s'%(Q))
+            #     elif 'HighCentral' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2HighCentral%s'%(Q))
+            #     elif 'LowForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2LowForward%s'%(Q))
+            #     elif 'HighForward' in syst:
+            #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2HighForward%s'%(Q))
+            #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2%s'%(Q))
+                
+
         if 'JER' in syst or 'JEC' in syst:
             JECsys = {"JER",
                       "PileUpDataMC",
@@ -791,7 +828,7 @@ if not ignore_stats:
         
         print "==== Running Statistical uncertainty ===="
         
-        threshold =  0.85 #stat error / sqrt(value). It was 0.5
+        threshold =  0.75 #stat error / sqrt(value). It was 0.5
         
         print "threshold", threshold
 

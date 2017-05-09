@@ -173,7 +173,7 @@ relPath: H_pt
 xAxis  : p_{T} (jj) [GeV]
 nBins  : 10
 min    : 50
-max    : 450
+max    : 400
 
 [plotDef:Vpt]
 relPath: <!General|V_pt!>_pt
@@ -273,7 +273,7 @@ relPath: Jet_pt[<!General|jet_index!>[1]]
 xAxis  : second jet p_{T} [GeV]
 nBins  : 25
 min    : 0
-max    : 250
+max    : 400
 
 
 [plotDef:ptBalance]

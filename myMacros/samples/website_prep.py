@@ -12,8 +12,8 @@ import multiprocessing
 
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
-main_dir  = 'TEST_4_13_v4'
-#main_dir = 'v25_CR_LO_WithBjets2_4_9'
+#main_dir  = '4_15_TEST11'
+main_dir = '4_15_v25_CR_LO_RegressionVars'
 
 
 
@@ -39,7 +39,8 @@ control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu',
                 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee',
                 'Zlf_high', 'Zhf_high', 'ttbar_high',
                 'Zlf_low', 'Zhf_low', 'ttbar_low',
-                'Zlf_Zee'
+                'Zlf_Zee',
+                'Zhf'
                 ]
 
 regr_list = ['jet_regression_Zhf']
@@ -299,9 +300,15 @@ for dir in region_list:
         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
         temp_string5 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
-
+        
     
-
+    if 'Zhf' is dir:
+         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
+         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string5 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
 
 
     if 'regression' in dir:

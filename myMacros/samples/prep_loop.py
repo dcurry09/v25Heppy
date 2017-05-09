@@ -38,14 +38,14 @@ DY_list = [
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
-temp_list = ['DY1J_10to50', 'DY_600to800_ext2']
+temp_list = ['DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
 
 
 # final list
-sample_list = DY_list
+#sample_list = DY_list
 #sample_list = signal_list
 #sample_list = bkg_list
-#sample_list = temp_list
+sample_list = temp_list
 #sample_list = data_list
 #sample_list = signal_list + bkg_list + DY_list + ST_list + data_list
 

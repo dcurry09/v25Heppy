@@ -79,13 +79,14 @@ REGRout: <!Directories|uftrig_storage!>/files/regr_out
 
 # On which samples to apply the regression and write the sys and where to write the resulting trees:
 SYSin : <!Directories|uftrig_storage!>/files/jec_out/
-SYSout: <!Directories|uftrig_storage!>/files/sys_out
+SYSout: <!Directories|uftrig_storage!>/files/sys_out/
 
 # On which samples to evaluate the MVA on and where to write the resulting trees:
 MVAin : <!Directories|SYSout!>
-#MVAin : <!Directories|uftrig_storage!>/files/btag_out/
-MVAout: <!Directories|uftrig_storage!>/files/MVA_out
-
+#MVAout: <!Directories|uftrig_storage!>/files/MVA_out/
+#MVAout: <!Directories|uftrig_storage!>/files/MVA_out_VV/
+#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
+MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
 
 # On which samples to evaluate the MVAon and where to write the resulting trees:
 SPLITin : <!Directories|samplepath!>/env/sys/

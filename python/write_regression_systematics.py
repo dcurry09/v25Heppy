@@ -796,6 +796,12 @@ for job in info:
     hJetCMVA_pt_1 = array('f',[0]*1)
     newtree.Branch('hJetCMVA_pt_1', hJetCMVA_pt_1, 'hJetCMVA_pt_1/F')
 
+    #hJetCMVAV2_pt_reg_0 = array('f',[0]*1)
+    #newtree.Branch('hJetCMVAV2_pt_reg_0', hJetCMVAV2_pt_reg_0, 'hJetCMVAV2_pt_reg_0/F')
+
+    #hJetCMVAV2_pt_reg_1 = array('f',[0]*1)
+    #newtree.Branch('hJetCMVAV2_pt_reg_1', hJetCMVAV2_pt_reg_1, 'hJetCMVAV2_pt_reg_1/F')
+
     hJetCMVA_btag_0 = array('f',[0]*1)
     newtree.Branch('hJetCMVA_btag_0', hJetCMVA_btag_0, 'hJetCMVA_btag_0/F')
 
@@ -813,7 +819,12 @@ for job in info:
 
     hJetCMVA_index_1 = array('f',[0]*1)
     newtree.Branch('hJetCMVA_index_1', hJetCMVA_index_1, 'hJetCMVA_index_1/F')
+
+    hJetCMVAV2_pt_reg = array('f',[0]*21)
+    newtree.Branch('hJetCMVAV2_pt_reg', hJetCMVAV2_pt_reg, 'hJetCMVAV2_pt_reg[21]/F')
     
+    
+
     # ========== Lepton SF branches ============
 
     # per event we have a weight that we fill based on vtype.  It is good for every event
@@ -982,6 +993,12 @@ for job in info:
 	    hJetCMVA_index_0[0] = tree.hJCMVAV2idx[0]
             hJetCMVA_index_1[0] = tree.hJCMVAV2idx[1]
 
+	    for j in xrange(min(tree.nJet,21)):
+		    hJetCMVAV2_pt_reg[j] = tree.Jet_pt_reg[j] 
+	    
+	    
+	    #hJetCMVAV2_pt_reg[0] = tree.hJetCMVAV2_pt_reg_0
+	    #hJetCMVAV2_pt_reg[1] = tree.hJetCMVAV2_pt_reg_1
 	    	    
 		    #print ptWeightEWK_Zll(tree.nGenVbosons[0], tree.GenVbosons_pt[0], tree.VtypeSim, tree.nGenTop, tree.nGenHiggsBoson)
 

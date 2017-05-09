@@ -53,12 +53,13 @@ data_list = ['Zuu', 'Zee']
 signal_list = ['ZH125', 'ggZH125']
 
 DY_list = ['DY_inclusive', 'DY_100to200', 'DY_200to400', 'DY_400to600',
-           #'DY_Bjets',
-           'DY_800to1200_ext1',
-           'DY_600to800_ext1', 'DY_600to800_ext2',
+           'DY_Bjets',
+           'DY_800to1200_ext1', 'DY_800to1200_ext2',
+           'DY_600to800_ext1', 'DY_600to800_ext2','DY_600to800_ext3',
+           'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf',
            'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2',
-           #'DY_1200to2500', 'DY_2500toInf',
-           'DY1J_10to50', 'DY2J_10to50', 'DY3J_10to50'
+           'DY_1200to2500', 'DY_2500toInf',
+           #'DY1J_10to50', 'DY2J_10to50', 'DY3J_10to50'
            ]
 
 
@@ -79,10 +80,9 @@ prep_list = [
     'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
     ]
 
-temp_list = ['DY_Bjets']
+temp_list = ['DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
 
-#file_list = bkg_list + signal_list + ST_list + DY_list
-file_list  = DY_list
+file_list  = temp_list
 
 file_list1 = ST_list + ['WZ'] + data_list
 file_list2 = signal_list + DY_list + ['ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'ttbar']
@@ -126,8 +126,8 @@ def osSystem(file):
     #input  = TFile.Open(inpath+'/'+file+'.root', 'read')
     #output = TFile.Open(outpath+'/'+file+'.root', 'recreate')
     
-    #regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/gravall-v25.weights.xml'
-    regWeight = '../myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
+    regWeight = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/myMacros/regression/forDavid/gravall-v25.weights.xml'
+    #regWeight = '../myMacros/regression/forDavid/weights_zh/TMVARegression_BDTG.weights.xml'
 
     regVars = ["Jet_pt",
                "nPVs",
@@ -143,9 +143,9 @@ def osSystem(file):
                "Jet_vtxMass",
                "Jet_vtx3dL",
                "Jet_vtxNtrk",
-               "Jet_vtx3deL",
-               "met_pt",
-               "Jet_met_proj"
+               "Jet_vtx3deL"
+               #"met_pt",
+               #"Jet_met_proj"
                ]      	
 
     regDict = {"Jet_pt":"Jet_pt[hJCMVAV2idx[0]]",
@@ -163,9 +163,9 @@ def osSystem(file):
                "Jet_vtxMass":"Jet_vtxMass[hJCMVAV2idx[0]]",
                "Jet_vtx3dL":"Jet_vtx3dl[hJCMVAV2idx[0]]",
                "Jet_vtxNtrk":"Jet_vtxNtrk[hJCMVAV2idx[0]]",
-               "Jet_vtx3deL":"Jet_vtx3deL[hJCMVAV2idx[0]]",
-               "met_pt":"met_pt",
-               "Jet_met_proj":"Jet_met_proj"
+               "Jet_vtx3deL":"Jet_vtx3deL[hJCMVAV2idx[0]]"
+               #"met_pt":"met_pt",
+               #"Jet_met_proj":"Jet_met_proj"
                } 
 
     if doGroup:
@@ -416,11 +416,11 @@ def osSystem(file):
         hJ0.SetPtEtaPhiM(Jet_pt_0, Jet_eta_0, Jet_phi_0, Jet_m_0)
         hJ1.SetPtEtaPhiM(Jet_pt_1, Jet_eta_1, Jet_phi_1, Jet_m_1)
    
-        met_pt_0 = tree.met_pt
-        met_pt_1 = tree.met_pt
-
-        Jet_met_proj_0 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_0, Jet_phi_0)
-        Jet_met_proj_1 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_1, Jet_phi_1)
+        #met_pt_0 = tree.met_pt
+        #met_pt_1 = tree.met_pt
+        
+        #Jet_met_proj_0 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_0, Jet_phi_0)
+        #Jet_met_proj_1 = projectionMETOntoJet(met_pt_0, tree.met_phi,Jet_pt_1, Jet_phi_1)
 
         Jet_e_0 = hJ0.E()
         Jet_e_1 = hJ1.E()

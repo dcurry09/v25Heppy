@@ -428,8 +428,8 @@ file_names.append('Zee_H_ext4')
 #file_list.append('/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v2-111534e26c584bec896f31eb8ea043e9/USER')
 #file_names.append('DY_inclusive_ext1')
 
-file_list.append('/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25b_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext2-v1-242bf058d9cde89edd6295bd1304d0c2/USER')
-file_names.append('DY_inclusive_ext2')
+#file_list.append('/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25b_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext2-v1-242bf058d9cde89edd6295bd1304d0c2/USER')
+#file_names.append('DY_inclusive_ext2')
 
 # file_list.append(eos_path3+'DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_130358/0000/')
 # file_names.append('DY_70to100')
@@ -455,8 +455,8 @@ file_names.append('DY_inclusive_ext2')
 # file_list.append('/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1-8849c8a2dc5b6be76b0cc5c7dcd7edd9/USER')
 # file_names.append('DY_400to600_ext2')
 
-# file_list.append('/DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2-070115ed2c09337784f48a604847a5dd/USER')
-# file_names.append('DY_600to800_ext1')
+file_list.append('/DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2-070115ed2c09337784f48a604847a5dd/USER')
+file_names.append('DY_600to800_ext1')
 
 #file_list.append('/DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1-de5e32bc4f795c05db126b70b93de291/USER')
 #file_names.append('DY_800to1200_ext1')
@@ -481,8 +481,8 @@ file_names.append('DY_inclusive_ext2')
 #file_list.append(eos_path3+'DYBJetsToLL_M-50_Zpt-200toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYBJetsToLL_M-50_Zpt-200toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_160252/0000/')
 #file_names.append('DY_Bjets_Vpt200toInf_ext1')
 
-file_list.append('/DYBJetsToLL_M-50_Zpt-200toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25b_passall_DYBJetsToLL_M-50_Zpt-200toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1-dbf1bb1a2e04f2bafebfa590d8e73076/USER')
-file_names.append('DY_Bjets_Vpt200toInf_ext2')
+#file_list.append('/DYBJetsToLL_M-50_Zpt-200toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25b_passall_DYBJetsToLL_M-50_Zpt-200toInf_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1-dbf1bb1a2e04f2bafebfa590d8e73076/USER')
+#file_names.append('DY_Bjets_Vpt200toInf_ext2')
 
 # file_list.append(eos_path3+'DYJetsToLL_BGenFilter_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/VHBB_HEPPY_V25_DYJetsToLL_BGenFilter_M-50_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170128_153211/0000/')
 # file_names.append('DY_BgenFilter')
@@ -719,12 +719,12 @@ def osSystem(file):
             y = x
 
             # check if file already present
-            local_filename = 'tree'+y.split("tree")[1]
-            t1 = local_filename.replace(" ", "")
-            print t1
-            if t1 not in os.listdir(temp_dir):
-                os.system('xrdcp -f root://cms-xrd-global.cern.ch/'+x+' '+temp_dir)
-            else: print '\n ---> File already exists...'
+            # local_filename = 'tree'+y.split("tree")[1]
+            # t1 = local_filename.replace(" ", "")
+            # print t1
+            # if t1 not in os.listdir(temp_dir):
+            #     os.system('xrdcp -f root://cms-xrd-global.cern.ch/'+x+' '+temp_dir)
+            # else: print '\n ---> File already exists...'
                 
 
     # Now merge the files
@@ -824,11 +824,11 @@ def osSystem(file):
                     input_file_ext2 += x
                     
 
-            #elif '800to1200' in name:
-            #    if i < 25:
-            #        input_file += x
-            #    if i >= 25: 
-            #        input_file_ext += x
+            elif '800to1200' in name:
+                if i < 25:
+                    input_file += x
+                if i >= 25: 
+                    input_file_ext += x
 
             else:
                 input_file += x
@@ -838,7 +838,7 @@ def osSystem(file):
     
     print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
     
-    #os.system(merge)
+    os.system(merge)
 
     if 'DY_inclusive_ext2' in name:
         merge_ext = "hadd -f %s %s" % (uftrig_path+name+'_NewExt1.root', input_file_ext)
@@ -883,33 +883,33 @@ def osSystem(file):
         print '----> Merging Files into', uftrig_path+name+'_NewExt9.root','.  This may take a while....'
         os.system(merge_ext9)
 
-    if 'ZZ_2L2Q' in name or '600to800' in name:
-        # Now for really large ttbar files
-        name = name.replace('ext1', 'ext2')
-        merge_ext2 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext)
-        print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
-        os.system(merge_ext2)
+    # if 'ZZ_2L2Q' in name or '600to800' in name or '800to1200' in name:
+    #     # Now for really large ttbar files
+    #     name = name.replace('ext1', 'ext2')
+    #     merge_ext2 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext)
+    #     print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+    #     os.system(merge_ext2)
         
-        name = name.replace('ext2', 'ext3')
-        merge_ext3 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext2)
-        print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
-        os.system(merge_ext3)
+    #     name = name.replace('ext2', 'ext3')
+    #     merge_ext3 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext2)
+    #     print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+    #     os.system(merge_ext3)
         
-        if '600to800' in name:
-            name = name.replace('ext3', 'ext4')
-            merge_ext4 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext3)
-            print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
-            os.system(merge_ext4)
+    #     if '600to800' in name:
+    #         name = name.replace('ext3', 'ext4')
+    #         merge_ext4 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext3)
+    #         print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+    #         os.system(merge_ext4)
         
-            name = name.replace('ext4', 'ext5')
-            merge_ext5 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext4)
-            print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
-            os.system(merge_ext5)
+    #         name = name.replace('ext4', 'ext5')
+    #         merge_ext5 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext4)
+    #         print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+    #         os.system(merge_ext5)
             
-            name = name.replace('ext5', 'ext6')
-            merge_ext6 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext5)
-            print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
-            os.system(merge_ext6)
+    #         name = name.replace('ext5', 'ext6')
+    #         merge_ext6 = "hadd -f %s %s" % (uftrig_path+name+'.root', input_file_ext5)
+    #         print '----> Merging Files into', uftrig_path+name+'.root','.  This may take a while....'
+    #         os.system(merge_ext6)
             
         
 
@@ -963,9 +963,11 @@ ST_t_merge_list = ['prep_ST_t_ext1', 'prep_ST_t_ext1_NewExt', 'prep_ST_t_ext1_Ne
 
 DY_inclusive_merge_list = ['prep_DY_inclusive_ext1', 'prep_DY_inclusive_ext2', 'prep_DY_inclusive_ext2_NewExt1']
 
-DY_600to800_ext1_merge_list = ['DY_600to800_ext1_temp', 'DY_600to800_ext2_temp', 'DY_600to800_ext3']
+DY_600to800_ext1_merge_list = ['DY_600to800_ext1_temp','DY_600to800_ext2_temp']
 
-DY_600to800_ext2_merge_list = ['DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
+DY_600to800_ext2_merge_list = ['DY_600to800_ext3_temp','DY_600to800_ext4']
+
+DY_600to800_ext3_merge_list = ['DY_600to800_ext5','DY_600to800_ext6']
 
 DY_100to200_merge_list = ['DY_100to200_ext1', 'DY_100to200_ext2']
 
@@ -1010,14 +1012,15 @@ merge_list = [
     #['Zuu.root', Zuu_merge_list],
     #['Zee.root', Zee_merge_list]
     
-    ['DY_inclusive.root', DY_inclusive_merge_list],
+    #['DY_inclusive.root', DY_inclusive_merge_list],
     #['DY_100to200.root',DY_100to200_merge_list], 
     #['DY_200to400.root',DY_200to400_merge_list], 
     #['DY_400to600.root',DY_400to600_merge_list], 
     #['DY_800to1200.root',DY_800to1200_merge_list],
 
-    #['DY_600to800_ext1.root',DY_600to800_ext1_merge_list],
-    #['DY_600to800_ext2.root',DY_600to800_ext2_merge_list],
+    ['DY_600to800_ext1.root',DY_600to800_ext1_merge_list],
+    ['DY_600to800_ext2.root',DY_600to800_ext2_merge_list],
+    ['DY_600to800_ext3.root',DY_600to800_ext3_merge_list],
     #['ttbar.root',ttbar_merge_list]
     #['ZH125.root',ZH125_merge_list],
     #['ggZH125.root', ggZH125_merge_list],

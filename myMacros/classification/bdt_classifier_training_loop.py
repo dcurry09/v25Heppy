@@ -28,8 +28,14 @@ training_list = ['gg_plus_ZH125_lowZpt', 'gg_plus_ZH125_highZpt']
 
 #training_list = ['gg_plus_ZH125_highZpt']
 
+#training_list = ['VV_bdt_highZpt']#, 'VV_bdt_highZpt']
+
+#####################################################################
+
+
+
 ##### for nEvt Opt #####
-training_list_trees = ['gg_plus_trees100','gg_plus_trees150','gg_plus_trees200','gg_plus_trees250','gg_plus_trees300','gg_plus_trees350','gg_plus_trees400','gg_plus_trees450','gg_plus_trees500','gg_plus_trees550','gg_plus_trees600','gg_plus_trees700','gg_plus_trees800', 'gg_plus_trees900', 'gg_plus_trees1000']
+training_list_trees = ['gg_plus_trees100', 'gg_plus_trees200', 'gg_plus_trees300','gg_plus_trees350','gg_plus_trees400','gg_plus_trees450','gg_plus_trees500','gg_plus_trees550','gg_plus_trees600','gg_plus_trees700','gg_plus_trees800', 'gg_plus_trees900', 'gg_plus_trees1000']
 
 #training_list_trees = ['gg_plus_trees100','gg_plus_trees150']
 

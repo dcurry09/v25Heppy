@@ -139,8 +139,13 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 # Preselections (combination of single cuts)
 # -------------------------------------------
 
-jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4.0
-#& <!ZHbb|minCSV_peakCut!>
+### !!!! VV has 4, VH has 4.0 !!! ###
+
+# VH
+#jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4.0
+
+# VV
+jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4.0 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4
 
 lepton_Iso_uu: <!ZHbb|vLeptons!>_relIso04[0] < 0.25 & <!ZHbb|vLeptons!>_relIso04[1] < 0.25
 lepton_Iso_ee: <!ZHbb|vLeptons!>_relIso03[0] < 0.15 & <!ZHbb|vLeptons!>_relIso03[1] < 0.15

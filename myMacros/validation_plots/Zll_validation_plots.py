@@ -27,7 +27,7 @@ gROOT.SetBatch(True)
 #file = TFile.Open('root://eoscms//eos/cms/store/group/phys_higgs/hbb/ntuples/80X_test_v2/ZH_HToBB_ZToLL_M125_13TeV_powheg_herwigpp/VHBB_HEPPY_80X_TEST_V2_ZH_HToBB_ZToLL_M125_13TeV_powheg_herwigpp__spring16MAv2-PUSpring16RAWAODSIM_80X_r2as_2016_miniAODv2_v0-v1/160621_150125/0000/tree_1.root')
 
 #file = TFile('/exports/uftrig01a/dcurry/heppy/files/sys_out/v25_ZH125.root')
-file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_withMET.root')
+file = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_DY.root')
 
 file_noMET = TFile('/exports/uftrig01a/dcurry/heppy/files/prep_out/regression_v25_ZH_noMET.root')
 
@@ -50,7 +50,7 @@ title = 'ZH125'
 
 # Outpath:
 #outdir = 'Zll_validation_plots/'+new_version+'/'
-outdir = '~/www/v25_Regression_withMET2/'
+outdir = '~/www/v25_Regression_4_22/'
 
 try:
     os.system('mkdir '+outdir)
