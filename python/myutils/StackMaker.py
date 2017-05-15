@@ -10,7 +10,7 @@ import numpy
 from array import *
 
 isVV = False
-isVV = True
+#isVV = True
 
 isOverlay = False
 #isOverlay = True
@@ -71,6 +71,8 @@ class StackMaker:
             self.xMax = eval(config.get(section,'max'))
         else:
             self.xMax = eval(config.get('plotDef:%s'%var,'max'))
+
+        print 'self.xMax:', self.xMax
 
         self.name = config.get('plotDef:%s'%var,'relPath')
         
@@ -279,6 +281,7 @@ class StackMaker:
             self.histos[i].SetFillColor(int(self.colorDict[self.typs[i]]))
             self.histos[i].SetLineColor(1)
             allStack.Add(self.histos[i])
+            print '# of MC bins:', self.histos[i].GetNbinsX()+1
             #for bin in range(0,self.histos[i].GetNbinsX()+1):
             #    print 'MC in bin ', bin, ':', self.histos[i].GetBinContent(bin)
 
@@ -342,12 +345,17 @@ class StackMaker:
 	        addFlag = 'W(#tau#nu)H(b#bar{b})'
 
         
+        print 'D1 bins:', d1.GetNbinsX()
+        print 'D1 Bin Max:', d1.GetXaxis().GetXmax()
 
+        print 'Data bins:', self.datas[i].GetNbinsX()
+        print 'Data Bin Max:', self.datas[i].GetXaxis().GetXmax()
+                
         for i in range(0,len(self.datas)):
             print 'Datas:', self.datas
-            print self.datas[i]
-            #for bin in range(0,self.datas[i].GetNbinsX()+1):
-            #    print 'Data in bin ', bin, ':', self.datas[0].GetBinContent(bin)
+            for bin in range(0,self.datas[i].GetNbinsX()+1):
+                print 'Data in bin ', bin, ':', self.datas[i].GetBinContent(bin)
+
             d1.Add(self.datas[i],1)
             for bin in range(0,self.datas[i].GetNbinsX()+1):
                 print 'Data in bin ', bin, ':', d1.GetBinContent(bin)

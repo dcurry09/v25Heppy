@@ -36,7 +36,7 @@ DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600',
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
-temp_list = ['ST_s']
+temp_list = ['WZ']
 
 sample_list = temp_list
 #sample_list = DY_list + signal_list
@@ -53,21 +53,21 @@ def osSystem(sample):
          os.system('./runAll.sh '+sample+' 13TeV sys')
 
 # define the multiprocessing object
+p = multiprocessing.Pool()
+results = p.imap(osSystem, sample_list)
+p.close()
+p.join()
+
+
 # p = multiprocessing.Pool()
-# results = p.imap(osSystem, sample_list)
+# results = p.imap(osSystem, sample_list1)
 # p.close()
 # p.join()
 
-
-p = multiprocessing.Pool()
-results = p.imap(osSystem, sample_list1)
-p.close()
-p.join()
-
-p = multiprocessing.Pool()
-results = p.imap(osSystem, sample_list2)
-p.close()
-p.join()
+# p = multiprocessing.Pool()
+# results = p.imap(osSystem, sample_list2)
+# p.close()
+# p.join()
 
     
     

@@ -18,13 +18,13 @@ from matplotlib import interactive
 #from ROOT import *
 
 isVV = False
-isVV = True
+#isVV = True
 
 isFromDC = False
-#isFromDC = True
+isFromDC = True
 
 #path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VH_combo05052017/'
-VV_path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VZ_combo05052017/'
+#VV_path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VZ_combo05052017/'
 
 # Wlv: WH
 #in_dir = path+'WlnHbb_Datacards_April6_v2_PDFInlfated_BTDecorr'
@@ -36,28 +36,28 @@ VV_path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VZ_combo05052017/'
 #in_dir = path+'ZnnHbb_Datacards_May3'
 
 #Zvv: VV
-in_dir = VV_path+'ZnnZbb_Datacards_May3'
+#in_dir = VV_path+'ZnnZbb_Datacards_May3'
 
 # VV
 #in_dir = VV_path+'ZllZbb_Datacards_ChannelDecorrelatedBtag_5_1'
 
 # VH
 #in_dir = path+'ZllHbb_Datacards_ChannelDecorrelatedBtag_5_1'
-#in_dir = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_ChannelDecorrelatedBtag_5_1'
+in_dir = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_NewKinematicSplitBtag_ZlfStatReduce100_newEffE_5_12/'
 
-out_dir = '~/www/v25_VV_AllChannels_5_5_postFit/'
-#out_dir = '~/www/Test_15/'
+#out_dir = '~/www/v25_VV_AllChannels_5_5_postFit/'
+out_dir = '~/www/Test_5_15/'
 
 
 cr_list = {
     
     ##### Zll #####
-    # 'Zlf_low_Zuu': 'Zlf_low_Zuu',
-    # 'Zlf_low_Zee': 'Zlf_low_Zee',
-    # 'Zlf_high_Zuu': 'Zlf_high_Zuu',
-    # 'Zlf_high_Zee': 'Zlf_high_Zee',
+    'Zlf_low_Zuu': 'Zlf_low_Zuu',
+    'Zlf_low_Zee': 'Zlf_low_Zee',
+    'Zlf_high_Zuu': 'Zlf_high_Zuu',
+    'Zlf_high_Zee': 'Zlf_high_Zee',
         
-    # 'Zhf_low_Zee': 'Zhf_low_Zee',
+    #'Zhf_low_Zee': 'Zhf_low_Zee',
     # 'Zhf_high_Zee': 'Zhf_high_Zee',
     # 'Zhf_low_Zuu': 'Zhf_low_Zuu',
     # 'Zhf_high_Zuu': 'Zhf_high_Zuu',
@@ -83,11 +83,11 @@ cr_list = {
     # 'vhbb_WmnHighPt_13TeV':'WmnHighPt'
 
     #### Zvv ####
-    'vhbb_DC_TH_Znn_13TeV_QCD':'Znn_13TeV_QCD',
-    'vhbb_DC_TH_Znn_13TeV_TT':'Znn_13TeV_TT',
-    'vhbb_DC_TH_Znn_13TeV_Zbb':'Znn_13TeV_Zbb',
-    'vhbb_DC_TH_Znn_13TeV_Zlight':'Znn_13TeV_Zlight',
-    'vhbb_DC_TH_Znn_13TeV_Signal':'Znn_13TeV_Signal'
+    # 'vhbb_DC_TH_Znn_13TeV_QCD':'Znn_13TeV_QCD',
+    # 'vhbb_DC_TH_Znn_13TeV_TT':'Znn_13TeV_TT',
+    # 'vhbb_DC_TH_Znn_13TeV_Zbb':'Znn_13TeV_Zbb',
+    # 'vhbb_DC_TH_Znn_13TeV_Zlight':'Znn_13TeV_Zlight',
+    # 'vhbb_DC_TH_Znn_13TeV_Signal':'Znn_13TeV_Signal'
     }
 
 sr_list = { 

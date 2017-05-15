@@ -38,7 +38,7 @@ DY_list = [
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
-temp_list = ['DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
+temp_list = ['WZ']
 
 
 # final list

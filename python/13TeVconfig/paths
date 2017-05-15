@@ -48,10 +48,11 @@ logpath: <!Directories|vhbbpath!>/LOG/
     
 # from which samples to plot and where to save the plots
 #plottingSamples: /exports/uftrig01a/dcurry/data/bbar/13TeV/heppy/regression/fromPier/
-plottingSamples : <!Directories|SYSout!>
+#plottingSamples : <!Directories|SYSout!>
 #plottingSamples : <!Directories|PREPout!>
-#plottingSamples : <!Directories|uftrig_storage!>/files/btag_out/
+plottingSamples : <!Directories|uftrig_storage!>/files/btag_MVA_out/
 #plottingSamples : <!Directories|MVAout!>
+
 plotpath        : <!Directories|vhbbpath!>/plots/basic_out/
 
 # cahed files
@@ -78,15 +79,15 @@ REGRin : <!Directories|PREPout!>
 REGRout: <!Directories|uftrig_storage!>/files/regr_out
 
 # On which samples to apply the regression and write the sys and where to write the resulting trees:
-SYSin : <!Directories|uftrig_storage!>/files/jec_out/
+SYSin : <!Directories|uftrig_storage!>/files/btag_out/
 SYSout: <!Directories|uftrig_storage!>/files/sys_out/
 
 # On which samples to evaluate the MVA on and where to write the resulting trees:
 MVAin : <!Directories|SYSout!>
 #MVAout: <!Directories|uftrig_storage!>/files/MVA_out/
 #MVAout: <!Directories|uftrig_storage!>/files/MVA_out_VV/
-#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
-MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
+MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
+#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
 
 # On which samples to evaluate the MVAon and where to write the resulting trees:
 SPLITin : <!Directories|samplepath!>/env/sys/

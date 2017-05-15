@@ -182,8 +182,8 @@ class Jet :
 prefix = 'v25_'
 #prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/MVA_out_VV/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_MVA_out_VV/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
 
 # List of files to add btag weights to
 bkg_list = ['ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
@@ -192,15 +192,13 @@ data_list = ['Zuu', 'Zee']
 
 signal_list = ['ZH125', 'ggZH125']
 
-DY_list = ['DY_600to800_ext1', 'DY_600to800_ext2','DY_600to800_ext3','DY_600to800_ext4','DY_600to800_ext5', 'DY_600to800_ext6', 
-           'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf',
-           'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2',
-           ]
+DY_list = ['DY_600to800_ext1', 'DY_600to800_ext2','DY_600to800_ext3','DY_600to800_ext4','DY_600to800_ext5', 'DY_600to800_ext6']
+
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
 
-temp_list = ['ttbar','DY_600to800_ext1','DY_600to800_ext4','DY_600to800_ext5','DY_600to800_ext6','ST_s','ST_t_antitop']
+temp_list = ['WZ']
 
 #file_list = bkg_list + signal_list + ST_list + DY_list
 file_list = temp_list
@@ -208,10 +206,11 @@ file_list = temp_list
 
 file_list1 = ST_list + ['WZ','DY_Bjets','DY_inclusive', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_1200to2500', 'DY_2500toInf',
                         'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200_ext1','DY_800to1200_ext2']
+                        #'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
 
-file_list2 = DY_list + signal_list + ['ttbar']
+file_list2 = signal_list + ['ttbar', 'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2', 'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
 
-
+file_list3 = DY_list
 
 
 #for file in file_list:
@@ -315,14 +314,14 @@ def osSystem(file):
             #otree.Branch("bTagWeightCSV_Moriond_"+syst+sdir, bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir], "bTagWeightCSV_Moriond_"+syst+sdir+"/D")
 
             #for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-            for ipt in range(1,5):
+            for ipt in range(0,5):
                 for ieta in range(1,4):
                     bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir] = np.zeros(1, dtype=float)
                     otree.Branch("bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir, bTagWeights["bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir], "bTagWeightCMVAV2_Moriond_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)+sdir+"/D")
 
 
     nentries = tree.GetEntries()
-    print "nentries = ",nentries
+    print file," has nentries = ",nentries
     for entry in range(nentries):
 
         if (entry%10000 == 0): printc('green', '', "\t processing entry: %i" % entry)
@@ -367,14 +366,17 @@ def osSystem(file):
                 #bTagWeights["bTagWeightCSV_Moriond_"+syst+sdir][0] = get_event_SF( ptmin, ptmax, etamin, etamax, jets_csv, sysMap[syst+sdir], "CSV", btag_calibrators)
                                 
                 #for systcat in ["HighCentral","LowCentral","HighForward","LowForward"]:
-                for ipt in range(1,5):
+                for ipt in range(0,5):
 
                     ptmin = 20.
                     ptmax = 1000.
                     etamin = 0.
                     etamax = 2.4
                     
-                    if ipt == 1:
+                    if ipt == 0:
+                        ptmin = 20.
+                        ptmax = 30.
+                    elif ipt == 1:
                         ptmin = 30.
                         ptmax = 40.
                     elif ipt ==2:
@@ -425,11 +427,16 @@ p.join()
 
 
 # p = multiprocessing.Pool()
-# results = p.imap(osSystem, file_list1)
+# results = p.imap(osSystem, file_list2)
 # p.close()
 # p.join()
 
 # p = multiprocessing.Pool()
-# results = p.imap(osSystem, file_list2)
+# results = p.imap(osSystem, file_list3)
+# p.close()
+# p.join()
+
+# p = multiprocessing.Pool()
+# results = p.imap(osSystem, file_list1)
 # p.close()
 # p.join()

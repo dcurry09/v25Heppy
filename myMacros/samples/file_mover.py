@@ -455,8 +455,8 @@ file_names.append('Zee_H_ext4')
 # file_list.append('/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6_ext1-v1-8849c8a2dc5b6be76b0cc5c7dcd7edd9/USER')
 # file_names.append('DY_400to600_ext2')
 
-file_list.append('/DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2-070115ed2c09337784f48a604847a5dd/USER')
-file_names.append('DY_600to800_ext1')
+#file_list.append('/DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v2-070115ed2c09337784f48a604847a5dd/USER')
+#file_names.append('DY_600to800_ext1')
 
 #file_list.append('/DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/arizzi-VHBB_HEPPY_V25_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1-de5e32bc4f795c05db126b70b93de291/USER')
 #file_names.append('DY_800to1200_ext1')
@@ -576,10 +576,12 @@ file_names.append('DY_600to800_ext1')
 
 file_list.append(eos_path2+'ZZ_TuneCUETP8M1_13TeV-pythia8/VHBB_HEPPY_V25_ZZ_TuneCUETP8M1_13TeV-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_111722/0000/')
 file_names.append('ZZ')
+'''
 
-file_list.append(eos_path2+'WZ_TuneCUETP8M1_13TeV-pythia8/VHBB_HEPPY_V25_WZ_TuneCUETP8M1_13TeV-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_121302/0000/')
+file_list.append('/WZ_TuneCUETP8M1_13TeV-pythia8/tboccali-VHBB_HEPPY_V25_WZ_TuneCUETP8M1_13TeV-Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1-c4e7df461b501eec0b5a355bb018cf96/USER')
 file_names.append('WZ')
 
+'''
 file_list.append(eos_path2+'ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/VHBB_HEPPY_V25_ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_Py8__RunIISummer16MAv2-PUMoriond17_80r2as_2016_TrancheIV_v6-v1/170130_140220/0000/')
 file_names.append('ZZ_2L2Q_ext1')
 
@@ -610,10 +612,10 @@ file_names.append('ST_tW_top')
 #os.system('voms-proxy-init --voms cms')
 
 isLxplus = False
-#isLxplus = True
+isLxplus = True
 
 isUftrig = False
-#isUftrig = True
+isUftrig = True
 
 eos2_list = ['ZZ', 'WZ', 'ST_s', 'ST_t_ext1', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top', 'ZZ_2L2Q_ext1']
 
@@ -717,14 +719,14 @@ def osSystem(file):
             print '-----> Copying file:', x
          
             y = x
-
-            # check if file already present
-            # local_filename = 'tree'+y.split("tree")[1]
-            # t1 = local_filename.replace(" ", "")
-            # print t1
-            # if t1 not in os.listdir(temp_dir):
-            #     os.system('xrdcp -f root://cms-xrd-global.cern.ch/'+x+' '+temp_dir)
-            # else: print '\n ---> File already exists...'
+            
+            #check if file already present
+            local_filename = 'tree'+y.split("tree")[1]
+            t1 = local_filename.replace(" ", "")
+            print t1
+            if t1 not in os.listdir(temp_dir):
+                os.system('xrdcp -f root://cms-xrd-global.cern.ch/'+x+' '+temp_dir)
+            else: print '\n ---> File already exists...'
                 
 
     # Now merge the files
@@ -1018,9 +1020,9 @@ merge_list = [
     #['DY_400to600.root',DY_400to600_merge_list], 
     #['DY_800to1200.root',DY_800to1200_merge_list],
 
-    ['DY_600to800_ext1.root',DY_600to800_ext1_merge_list],
-    ['DY_600to800_ext2.root',DY_600to800_ext2_merge_list],
-    ['DY_600to800_ext3.root',DY_600to800_ext3_merge_list],
+    #['DY_600to800_ext1.root',DY_600to800_ext1_merge_list],
+    #['DY_600to800_ext2.root',DY_600to800_ext2_merge_list],
+    #['DY_600to800_ext3.root',DY_600to800_ext3_merge_list],
     #['ttbar.root',ttbar_merge_list]
     #['ZH125.root',ZH125_merge_list],
     #['ggZH125.root', ggZH125_merge_list],

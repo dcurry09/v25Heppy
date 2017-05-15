@@ -279,7 +279,7 @@ def drawFromDC():
     
     if opts.var == 'BDT' or opts.var == 'minCMVA':
         ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
-        #if 'Zlf' not in opts.bin: ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
+    #if 'Zlf' not in opts.bin: ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
         #else: 
         #    ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,0.0)
     else:
@@ -385,8 +385,8 @@ def drawFromDC():
     options.noJMax = None
 
     # If ZLF CR change binning
-    ##if 'CMVA' in opts.var and 'Zlf' in opts.bin:
-    #     Stack.xMax = 0.0
+    if 'CMVA' in opts.var and 'Zlf' in opts.bin:
+        Stack.xMax = 0.0
      
     theBinning = ROOT.RooFit.Binning(Stack.nBins,Stack.xMin,Stack.xMax)
 

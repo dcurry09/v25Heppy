@@ -12,10 +12,11 @@ import multiprocessing
 import logging
 from matplotlib import interactive
 
-#inpath = '/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/limits/temp/'
-inpath = '/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/limits/v24_ICHEP_VH_11_22_noRP/'
+datacard_dir = 'ZllHbb_Datacards_NewKinematicSplitBtag_ZlfStatReduce100_newEffE_5_12'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v24_ICHEP_preSF_11_22/Nuisance_Pulls/'
+inpath = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+datacard_dir+'/'
+
+outpath = '/afs/cern.ch/user/d/dcurry/www/NuisancePulls_'+datacard_dir+'/'
 
 # Make the dir and copy the website ini files
 try:
@@ -31,49 +32,30 @@ os.system(temp_string3)
 # Move to in path
 os.chdir(inpath)
 
-# Make 3 sets of plots: btag, JEC/JER, All others
-sys_list = ['Btag', 'JER', 'Other', 'BinStat']
+# Make 2 Nuisance tests: BKG Only and SIG+BKG fpr asimov and unblinded data fits
+pull_list = ['SigPlusBKG_asimov', 'SigPlusBKG_data']
+#pull_list = ['BKG_asimov']
 
-for sys in sys_list:
+for pull in pull_list:
 
-    print '\n\t Making Nuisance Pull Plots for ', sys
+    print '\n\t Making Nuisance Pulls for ', pull
 
-    temp_sys = sys
+    if pull == 'BKG_asimov':
+        os.system('combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=0 vhbb_Zll.txt')
+                
+    if pull == 'SigPlusBKG_asimov':
+        os.system('combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 vhbb_Zll.txt')
 
-    # Turn off all bools
-    for sys in sys_list:
-        new_bool = "is"+sys+" = False\n"
-        for line in fileinput.input('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/python/diffNuisances.py', inplace=True):
-            if "is"+sys+" =" in line:
-                print line.replace(line, new_bool),
-            else: print line,
-    # end file modification
+    if pull == 'BKG_data':
+        os.system('combine -M MaxLikelihoodFit -m 125 --expectSignal=0 --minimizerAlgo=Minuit vhbb_Zll.txt')
 
-    sys = temp_sys
-
-    # Turn on the appropriate bool(isBtag)
-    new_bool = "is"+sys+" = True\n"
-    for line in fileinput.input('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/python/diffNuisances.py', inplace=True):
-        if "is"+sys+" =" in line:
-            print line.replace(line, new_bool),
-        else: print line,
-    # end file modification
-        
-    os.system('rm outputfile.root')
-    #outputFile = sys+"_outputfile.root"
-        
-    # Make the nuisance pull plot
-    t1 = "python /afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_1_5/src/VHbb/python/diffNuisances.py mlfit.root -g outputfile.root -ptol 0.00001"
-    os.system(t1)
-
-    # Then take the outputfile.root and plot the canvas
-    file = TFile.Open('outputfile.root', 'read')
-
-    pulls = file.Get('nuisancs')
-    uncert = file.Get('post_fit_errs')
-
-    pulls.Print(outpath+"nuisancs_"+sys+".pdf")
-    pulls.Print(outpath+"nuisancs_"+sys+".png")
-        
-    uncert.Print(outpath+'post_fit_errs'+sys+'.png')
-    uncert.Print(outpath+'post_fit_errs'+sys+'.pdf')
+    if pull == 'SigPlusBKG_data':
+        os.system('combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --minimizerAlgo=Minuit vhbb_Zll.txt')
+    
+    os.system('rm '+outpath+'/Zll_'+pull+'_pulls.txt')
+    
+    os.system('rm ../../python/mlfit.root')
+    
+    os.system('cp ../../python/diffNuisances.py .')
+    
+    os.system('python diffNuisances.py -a '+inpath+'/mlfit.root  >> '+outpath+'/Zll_'+pull+'_pulls.txt')

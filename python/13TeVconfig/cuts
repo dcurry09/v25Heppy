@@ -135,6 +135,13 @@ looseHMass_beforeReg: HNoReg.mass > 40. & HNoReg.mass < 250.
 
 run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 
+zlf_stat_cut: evt%10==0 & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
+
+zlf_low_stat_cut: evt%25==0 & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
+
+zlf_high_stat_cut: evt%10==0 & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
+
+
 # -------------------------------------------
 # Preselections (combination of single cuts)
 # -------------------------------------------
@@ -142,10 +149,10 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 ### !!!! VV has 4, VH has 4.0 !!! ###
 
 # VH
-#jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4.0
+jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4.0
 
 # VV
-jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4.0 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4
+#jet_preselection: Jet_puId[<!ZHbb|jet_index!>[0]] >= 4.0 & Jet_puId[<!ZHbb|jet_index!>[1]] >= 4
 
 lepton_Iso_uu: <!ZHbb|vLeptons!>_relIso04[0] < 0.25 & <!ZHbb|vLeptons!>_relIso04[1] < 0.25
 lepton_Iso_ee: <!ZHbb|vLeptons!>_relIso03[0] < 0.15 & <!ZHbb|vLeptons!>_relIso03[1] < 0.15
@@ -247,13 +254,13 @@ Zhf_Zee_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_Zhf!> & <
 
 Zhf_Zuu_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50.
 
-Zlf_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!>
+Zlf_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|zlf_low_stat_cut!>
 
-Zlf_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!>
+Zlf_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|zlf_low_stat_cut!>
 
-Zlf_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!>
+Zlf_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|zlf_high_stat_cut!>
 
-Zlf_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!>
+Zlf_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|zlf_high_stat_cut!>
 
 Zlf_low: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!>
 

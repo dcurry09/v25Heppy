@@ -42,7 +42,7 @@ DY_list = [
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
 
-temp_list = ['ST_s']
+temp_list = ['WZ']
 
 #sample_list = bkg_list + data_list + ST_list+ signal_list + DY_list
 #sample_list = data_list
@@ -85,20 +85,20 @@ if isBatch:
             os.system('./runAll.sh '+sample+' 13TeV evalBDT > print_dump.txt')
 
     # define the multiprocessing object
+    p = multiprocessing.Pool()
+    results = p.imap(osSystem, sample_list)
+    p.close()
+    p.join()
+
+
     # p = multiprocessing.Pool()
-    # results = p.imap(osSystem, sample_list)
+    # results = p.imap(osSystem, sample_list1)
     # p.close()
     # p.join()
 
-
-    p = multiprocessing.Pool()
-    results = p.imap(osSystem, sample_list1)
-    p.close()
-    p.join()
-
-    p = multiprocessing.Pool()
-    results = p.imap(osSystem, sample_list2)
-    p.close()
-    p.join()
+    # p = multiprocessing.Pool()
+    # results = p.imap(osSystem, sample_list2)
+    # p.close()
+    # p.join()
 
 print '\n\n-----> All Jobs Finished...\n'

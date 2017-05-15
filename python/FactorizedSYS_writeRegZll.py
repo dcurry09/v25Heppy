@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 #from samplesclass import sample
 #from printcolor import printc
@@ -42,7 +43,7 @@ os.system(temp_string2)
 os.system(temp_string3)
 
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
+inpath = '/exports/uftrig01a/dcurry/heppy/files/prep_out/'
 outpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
 
 # List of files to add btag weights to
@@ -80,7 +81,7 @@ prep_list = [
     'prep_ttbar_ext1_NewExt6','prep_ttbar_ext1_NewExt7','prep_ttbar_ext1_NewExt8','prep_ttbar_ext1_NewExt9'
     ]
 
-temp_list = ['DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6']
+temp_list = ['WZ']
 
 file_list  = temp_list
 

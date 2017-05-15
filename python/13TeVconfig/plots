@@ -89,7 +89,8 @@ additional_vars: rHVpt,vxMult,Sum,fatHfileteredMass,dR_hJet0_V,dR_hJet1_V,FatH_H
 
 
 
-BDTs: gg_plus_ZH125_low_Zpt,gg_plus_ZH125_high_Zpt,VV_bdt_lowZpt,VV_bdt_highZpt
+BDTs: gg_plus_ZH125_low_Zpt,gg_plus_ZH125_high_Zpt
+#,VV_bdt_lowZpt,VV_bdt_highZpt
 
 REG_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,Jet0_rawPt,Jet0_leadTrackPt,Jet0_leptonPtRel,Jet0_leptonPt,Jet0_leptonDeltaR,Jet0_chEmEF,Jet0_chHEF,Jet0_neHEF,Jet0_neEmEF,Jet1_rawPt,Jet1_leadTrackPt,Jet1_leptonPtRel,Jet1_leptonPt,Jet1_leptonDeltaR,Jet1_chEmEF,Jet1_chHEF,Jet1_neHEF,Jet1_neEmEF,Jet0_vtxPt,Jet1_vtxPt,Jet0_vtxMass,Jet1_vtxMass,Jet_vtx3dL,Jet_vtx3deL,Jet_vtxNtrk
 
@@ -109,8 +110,7 @@ plot_mass: ZH125,ggZH125
 Normalize: False
 #Normalize: True
 
-standard_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,ptBalance,ptBalance_noReg
-#,<!Plot_general|BDTs!>
+standard_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,ptBalance,ptBalance_noReg,<!Plot_general|BDTs!>
 
 #standard_vars: Vpt,hJet1pt_reg,hJet0pt_reg,HT,HCMVAV2_reg_pt,HCMVAV2_reg_mass,minCMVA,vLeptons0_pt,vLeptons1_pt
 

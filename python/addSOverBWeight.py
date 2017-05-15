@@ -146,16 +146,15 @@ signal_list = ['ZH125', 'ggZH125']
 
 DY_list = ['DY_600to800_ext1', 'DY_600to800_ext2','DY_600to800_ext3','DY_600to800_ext4','DY_600to800_ext5', 'DY_600to800_ext6',
            'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf',
-           'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2',
            ]
-
 
 ST_list = ['ST_s', 'ST_tW_top', 'ST_tW_antitop', 'ST_t_antitop']
 
 file_list = bkg_list + data_list + signal_list + DY_list + ST_list
 
 file_list1 = ST_list + ['WZ','DY_Bjets','DY_inclusive', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_1200to2500', 'DY_2500toInf',
-                        'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200_ext1','DY_800to1200_ext2']
+                        'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200_ext1','DY_800to1200_ext2',
+                        'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2']
 
 file_list2 = DY_list + signal_list + ['ttbar']
 

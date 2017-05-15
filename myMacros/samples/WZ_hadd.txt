@@ -12,7 +12,6 @@ tree_19.root
 tree_2.root
 tree_20.root
 tree_21.root
-tree_3.root
 tree_4.root
 tree_5.root
 tree_6.root

@@ -95,6 +95,7 @@ setup       = eval(config.get('LimitGeneral','setup'))
 doSYS       = config.get('dc:%s'%var,'doSYS')
 doBin       = config.get('dc:%s'%var,'doBin')
 
+
 # CHange setup for VV analysis
 if 'VV' in anType:
     setup = ['VVHF','VVLF','ZH','ggZH','DYlight','DY1b','DY2b','TT','ST']
@@ -158,8 +159,9 @@ sys_affecting = eval(config.get('LimitGeneral','sys_affecting'))
 
 # Add the bTag sys variations by hand
 for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
-    for ipt in range(1,5):
+    for ipt in range(0,5):
         for ieta in range(1,4):
+            #break
             systematics.append("btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta))
                 
             sys_factor_dict["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 1.0 
@@ -347,12 +349,24 @@ for syst in systematics:
         _sys_cut = treecut
 
         # Lepton Efficiency
-        if '_eff_' in syst:
-            _weight = _weight.replace('eId90SFWeight', 'eId90SFWeight'+Q)
-            _weight = _weight.replace('eTrigSFWeight_doubleEle80x', 'eTrigSFWeight_doubleEle80x'+Q)
+        if 'trigger' in syst:
+            if 'eff_e' in syst:
+                _weight = _weight.replace('eTrigSFWeight_doubleEle80x', 'eTrigSFWeight_doubleEle80x'+Q)
+            elif 'eff_m' in syst:
+                _weight = _weight.replace('mTrigSFWeight_doubleMu80x', 'mTrigSFWeight_doubleMu80x'+Q)
+        if 'MVAID' in syst:
+            if 'eff_e' in syst:
+                _weight = _weight.replace('eId90SFWeight', 'eId90SFWeight'+Q)
+            elif 'eff_m' in syst:
+                _weight = _weight.replace('mIdSFWeight', 'mIdSFWeight'+Q)
+        if 'tracker' in syst:
+            if 'eff_e' in syst:
+                _weight = _weight.replace('eTrackerSFWeight', 'eTrackerSFWeight'+Q)
+            elif 'eff_m' in syst:
+                _weight = _weight.replace('mTrackerSFWeight', 'mTrackerSFWeight'+Q)
+        if 'ISO' in syst:
             _weight = _weight.replace('mIsoSFWeight', 'mIsoSFWeight'+Q)
-            _weight = _weight.replace('mIdSFWeight', 'mIdSFWeight'+Q)
-            _weight = _weight.replace('mTrigSFWeight_doubleMu80x', 'mTrigSFWeight_doubleMu80x'+Q)
+                    
         
         # Pu weight
         if 'weight_pileUp' in syst:
@@ -380,8 +394,7 @@ for syst in systematics:
             print '\nBtag SYS:', syst
             
             bTagSplit = syst.split('_')
-            print bTagSplit 
-
+            
             _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_'+bTagSplit[1]+'_'+bTagSplit[2]+'_'+bTagSplit[3]+Q)
 
 
@@ -828,7 +841,7 @@ if not ignore_stats:
         
         print "==== Running Statistical uncertainty ===="
         
-        threshold =  0.75 #stat error / sqrt(value). It was 0.5
+        threshold =  0.5 #stat error / sqrt(value). It was 0.5
         
         print "threshold", threshold
 

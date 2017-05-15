@@ -1,7 +1,8 @@
+
 # ===================================================
 # Python script to perform datacard loop over bins/regions
 #
-#  !!!! Needs to be ran from python directory
+# !!!! Needs to be ran from python directory
 #
 # 2/15/2015 David Curry
 # ===================================================
@@ -54,7 +55,6 @@ SR_combine_list_high = ['vhbb_DC_TH_BDT_Zee_HighPt.txt', 'vhbb_DC_TH_BDT_Zuu_Hig
 # ======== Signal Split Regions ========
 bdt_list = ['BDT_Zee_high_Zpt', 'BDT_Zuu_high_Zpt', 'BDT_Zee_low_Zpt', 'BDT_Zuu_low_Zpt']
 
-
 control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu', 'Zlf_low_Zuu', 'Zhf_low_Zuu','ttbar_low_Zuu',
                 'Zlf_high_Zee', 'Zhf_high_Zee', 'ttbar_high_Zee', 'Zlf_low_Zee', 'Zhf_low_Zee','ttbar_low_Zee']
 
@@ -80,7 +80,7 @@ vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 't
 # ====================================
 
 temp_list = ['ttbar_high_Zee']
-#temp_list = vv_bdt_list
+#temp_list = zlf_list
 
 # ==============================================
 
@@ -97,8 +97,8 @@ datacard_list = temp_list
 
 
 ##### Directory to save datacards ####
-title = 'Datacards_NewKinematicSplitBtag_5_5'
-#title = 'TEST'
+title = 'Datacards_SplitLeptonShapes_NewBinZlf_5_14'
+#title = 'Datacards_NoWZ_5_14'
 
 sig_dir = 'ZllHbb_SR_'+title
 
@@ -109,7 +109,7 @@ dir = 'ZllHbb_'+title
 #dir  = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/v25_VH_CMVA_LO_withBjets_4_9/'
 
 # Final VV combined Dir
-dir = 'ZllZbb_'+title
+#dir = 'ZllZbb_'+title
 
 print '\n\t ###### Making DC in', dir, cr_dir, sig_dir
 
@@ -122,7 +122,7 @@ isSplit = False
 isSplit = True
 
 isVV = False
-isVV = True
+#isVV = True
  
 # For Control Region Scale Factors
 isCombine = False
@@ -307,10 +307,10 @@ if isSplit:
 
     if not isVV:
         
-        #p = multiprocessing.Pool() 
-        #results = p.imap(osSystem, bdt_list)
-        #p.close()
-        #p.join()
+        p = multiprocessing.Pool() 
+        results = p.imap(osSystem, bdt_list)
+        p.close()
+        p.join()
         
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
@@ -474,13 +474,13 @@ if isCombine:
     os.system(temp_string_combine_BKGonly)
     #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_BKG_Combined.txt >> bkg_only_RP.txt'
     t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_BKG_Combined.txt'
-    os.system(t5)
+    #os.system(t5)
     
     print '\n\n ============= SIG + BKG Scale Facors =============='
     os.system(temp_string_combine)
     #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt >> sigPlusBkg_RP.txt'
     t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt'
-    #os.system(t5)
+    os.system(t5)
     
     #--minimizerAlgo=Minuit --minimizerTolerance=100.0
     
@@ -547,10 +547,9 @@ if splitRegionFOM:
     #os.chdir(dir)
 
 
-    print '\t\n\n ================ Combined Electron and Control Region Datacard =================='
-    print '==================================================================================='
-
-    print '\n=============== Low V pT Region ==============='
+    #print '\t\n\n ================ Combined Electron and Control Region Datacard =================='
+    #print '==================================================================================='
+    #print '\n=============== Low V pT Region ==============='
     
     t_ele = 'combineCards.py Zee_TT_low=vhbb_DC_TH_ttbar_low_Zee.txt Zee_Zhf_low=vhbb_DC_TH_Zhf_low_Zee.txt Zee_Zlf_low=vhbb_DC_TH_Zlf_low_Zee.txt Zee_SIG_low=vhbb_DC_TH_BDT_Zee_LowPt.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt'
 
@@ -576,7 +575,7 @@ if splitRegionFOM:
 
     '''
 
-    print '\t\n\n========= Signal Strength Uncertainty ========='
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
 
     t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt | grep 'Best fit r' | awk '{print $5}'"
 
@@ -586,7 +585,7 @@ if splitRegionFOM:
     
     
     
-    print '\n=============== High V pT Region ==============='
+    #print '\n=============== High V pT Region ==============='
     
     t_ele_h = 'combineCards.py Zee_TT_high=vhbb_DC_TH_ttbar_high_Zee.txt Zee_Zhf_high=vhbb_DC_TH_Zhf_high_Zee.txt Zee_Zlf_high=vhbb_DC_TH_Zlf_high_Zee.txt Zee_SIG_high=vhbb_DC_TH_BDT_Zee_HighPt.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt'
 
@@ -611,7 +610,7 @@ if splitRegionFOM:
 
 
     '''
-    print '\t\n\n========= Signal Strength Uncertainty ========='
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt | grep 'Best fit r' | awk '{print $5}'"
     t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --saveWorkspace --saveNormalizations --saveShapes --saveWithUncertainties vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt"
@@ -619,10 +618,10 @@ if splitRegionFOM:
     
     
     
-    print '\t\n\n ================ Combined Muon and Control Region Datacard =================='
-    print '==================================================================================='
+    #print '\t\n\n ================ Combined Muon and Control Region Datacard =================='
+    #print '==================================================================================='
 
-    print '\n=============== Low V pT Region ==============='
+    #print '\n=============== Low V pT Region ==============='
     
     t_mu = 'combineCards.py Zmm_TT_low=vhbb_DC_TH_ttbar_low_Zuu.txt Zmm_Zhf_low=vhbb_DC_TH_Zhf_low_Zuu.txt Zmm_Zlf_low=vhbb_DC_TH_Zlf_low_Zuu.txt Zmm_SIG_low=vhbb_DC_TH_BDT_Zuu_LowPt.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt'
 
@@ -651,7 +650,7 @@ if splitRegionFOM:
 
     '''
     
-    print '\t\n\n========= Signal Strength Uncertainty ========='
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
     #Uncertainty on Mu
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt | grep 'Best fit r' | awk '{print $5}'"
 
@@ -660,7 +659,7 @@ if splitRegionFOM:
 
 
 
-    print '\n=============== High V pT Region ==============='
+    #print '\n=============== High V pT Region ==============='
     
     t_mu_h = 'combineCards.py Zmm_TT_high=vhbb_DC_TH_ttbar_high_Zuu.txt Zmm_Zhf_high=vhbb_DC_TH_Zhf_high_Zuu.txt Zmm_Zlf_high=vhbb_DC_TH_Zlf_high_Zuu.txt Zmm_SIG_high=vhbb_DC_TH_BDT_Zuu_HighPt.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt'
 
@@ -684,7 +683,7 @@ if splitRegionFOM:
     os.system(t2)
     '''
     
-    print '\t\n\n========= Signal Strength Uncertainty ========='
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt | grep 'Best fit r' | awk '{print $5}'"
 
@@ -695,49 +694,49 @@ if splitRegionFOM:
     # ==================================================================================================
     # ==================================================================================================
 
-    print '\t\n\n ================ Combined E+M and Control Region Datacard =================='
-    print '==================================================================================='
+    #print '\t\n\n ================ Combined E+M and Control Region Datacard =================='
+    #print '==================================================================================='
     
-    print '\n=============== Low V pT Region ==============='
+    #  print '\n=============== Low V pT Region ==============='
     
     t_low = 'combineCards.py vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt'
 
     os.system(t_low)
     
-    print '\t\n\n========= CLS Limit ========='
+    #print '\t\n\n========= CLS Limit ========='
     t1 = "combine -M Asymptotic -m 125 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
     
-    print '\n==== NO SYS ===='
+    #print '\n==== NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
-    print '\n==== Post Fit ===='
+    #print '\n==== Post Fit ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 --toysFreq vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
-    print '\n==== Post Fit NO SYS ===='
+    #print '\n==== Post Fit NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 --toysFreq vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
-    print '\t\n\n========= Significance ========='
+    #print '\t\n\n========= Significance ========='
     # P-value
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
     
-    print '\n==== NO SYS ===='
+    #print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
     
-    print '\n==== Post Fit ===='
+    #print '\n==== Post Fit ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
 
-    print '\n==== Post Fit NO SYS===='
+    #print '\n==== Post Fit NO SYS===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
 
-    print '\t\n\n========= Signal Strength Uncertainty ========='
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
 
     #Uncertainty on Mu
 
@@ -748,42 +747,42 @@ if splitRegionFOM:
     #os.system(t3)
 
 
-    print '\n=============== High V pT Region ==============='
+    #print '\n=============== High V pT Region ==============='
     
     t_high = 'combineCards.py vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt'
     os.system(t_high)
     
 
-    print '\t\n\n========= CLS Limit ========='
+    #print '\t\n\n========= CLS Limit ========='
     t1 = "combine -M Asymptotic -m 125 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
    # os.system(t1)
     
-    print '\n==== NO SYS ===='
+    #print '\n==== NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
     
-    print '\n==== Post Fit ===='
+    #print '\n==== Post Fit ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 --toysFreq vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
-    print '\n==== Post Fit NO SYS ===='
+    #print '\n==== Post Fit NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 --toysFreq vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
-    print '\t\n\n========= Significance ========='
+    #print '\t\n\n========= Significance ========='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
 
-    print '\n==== NO SYS ===='
+    #print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
 
-    print '\n==== Post Fit ===='
+    #print '\n==== Post Fit ===='
     
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
 
-    print '\t\n\n========= Signal Strength Uncertainty ========='
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Best fit r' | awk '{print $5}'"
 
@@ -793,7 +792,7 @@ if splitRegionFOM:
     #os.system(t3)
     
 
-    print '\t\n\n========= All Pt regions Combined  ========='
+    #print '\t\n\n========= All Pt regions Combined  ========='
     
     # Now combine the signal and control regions together for a better fit
     temp_string = 'combineCards.py'
@@ -812,20 +811,20 @@ if splitRegionFOM:
     
 
 
-    print '\t\n\n========= CLS Limit ========='
+    #print '\t\n\n========= CLS Limit ========='
     # CLs Limit
     t1 = "combine -M Asymptotic -m 125 -t -1 vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
     
-    print '\n==== NO SYS ===='
+    #print '\n==== NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
-    print '\n==== Post Fit ===='
+    #print '\n==== Post Fit ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 --toysFreq vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
     
-    print '\n==== Post Fit NO SYS ===='
+    #print '\n==== Post Fit NO SYS ===='
     t1 = "combine -M Asymptotic -m 125 -t -1 -S 0 --toysFreq vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
     #os.system(t1)
 
@@ -841,11 +840,11 @@ if splitRegionFOM:
 
     print '\n==== Post Fit ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    #os.system(t2)
+    os.system(t2)
     
     print '\n==== Post Fit NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    #os.system(t2)
+    os.system(t2)
 
     print '\t\n\n========= Signal Strength Uncertainty ========='
 
