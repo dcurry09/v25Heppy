@@ -71,7 +71,8 @@ class StackMaker:
             self.xMax = eval(config.get(section,'max'))
         else:
             self.xMax = eval(config.get('plotDef:%s'%var,'max'))
-
+    
+        print 'self.xMax:', self.xMin
         print 'self.xMax:', self.xMax
 
         self.name = config.get('plotDef:%s'%var,'relPath')
@@ -369,9 +370,9 @@ class StackMaker:
 
         if flow > 0:
             print "\033[1;31m\tU/O flow: %s\033[1;m"%flow
-
-
-
+        
+        print 'self.xMax:', self.xMin
+        print 'self.xMax:', self.xMax
 
         if not isOverlay:
             self.overlay = False

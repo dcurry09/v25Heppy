@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+0;95;0c#!/usr/bin/env python
 import ROOT 
 ROOT.gROOT.SetBatch(True)
 from ROOT import TFile
@@ -21,30 +21,30 @@ print config
 
 #---------- yes, this is not in the config yet---------
  
-mode = 'BDT'
-xMin=-1
-xMax=1
-masses = ['125']
-Abins = ['LowPt']#,'HighPt']
-channels = ['Zee']#, 'Zee']
+# mode = 'BDT'
+# xMin=-1
+# xMax=1
+# masses = ['125']
+# Abins = ['LowPt']#,'HighPt']
+# channels = ['Zee', 'Zuu']
 
 #------------------------------------------------------
 
 #---------- Control Regions ---------------------------------------
-'''
+
 mode = 'CR'
-xMin=0
+xMin=-1
 xMax=1
 masses = ['125']
-Abins = ['ttbar', 'Zlf', 'Zhf']
+Abins = ['Zlf']#, 'Zhf']
 channels= ['Zll']
-'''
+
 #------------------------------------------------------
 
 #path = config.get('Directories','limits')
 #outpath = config.get('Directories','plotpath')
 
-path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_NewKinematicSplitBtag_5_5/'
+path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_SplitLeptonShapes_NewBinZlf_5_14'
 
 outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_5_5/'
 

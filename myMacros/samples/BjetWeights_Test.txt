@@ -1,0 +1,168 @@
+file inc is DY_inclusive
+countInc 151065.0 
+
+file inc is DY_100to200
+countInc 674610.0 
+
+file inc is DY_200to400
+countInc 811951.0 
+
+file inc is DY_400to600
+countInc 884457.0 
+
+file inc is DY_600to800_ext1
+countInc 979139.0 
+
+file inc is DY_600to800_ext2
+countInc 1074251.0 
+
+file inc is DY_600to800_ext3
+countInc 1166261.0 
+
+file inc is DY_600to800_ext4
+countInc 1261457.0 
+
+file inc is DY_600to800_ext5
+countInc 1356975.0 
+
+file inc is DY_600to800_ext6
+countInc 1410988.0 
+
+file inc is DY_800to1200_ext1
+countInc 1485976.0 
+
+file inc is DY_800to1200_ext2
+countInc 1558886.0 
+
+file inc is DY_1200to2500
+countInc 1592393.0 
+
+file inc is DY_2500toInf
+countInc 1613075.0 
+
+fileB inc is DY_Bjets
+nEvents for file DY_Bjets is: 47407.0
+fileB inc is DY_Bjets_Vpt100to200
+nEvents for file DY_Bjets_Vpt100to200 is: 47407.0
+fileB inc is DY_Bjets_Vpt200toInf
+nEvents for file DY_Bjets_Vpt200toInf is: 47407.0
+fileB inc is DY_Bjets_Vpt100to200_ext2
+nEvents for file DY_Bjets_Vpt100to200_ext2 is: 47407.0
+fileB inc is DY_Bjets_Vpt200toInf_ext2
+nEvents for file DY_Bjets_Vpt200toInf_ext2 is: 47407.0
+countInc is 1613075.0
+countB is 47407.0
+weightZBjetsVpt0=	0.97
+
+file inc is DY_inclusive
+countInc 0.0 
+
+file inc is DY_100to200
+countInc 293524.0 
+
+file inc is DY_200to400
+countInc 444524.0 
+
+file inc is DY_400to600
+countInc 533956.0 
+
+file inc is DY_600to800_ext1
+countInc 661039.0 
+
+file inc is DY_600to800_ext2
+countInc 787841.0 
+
+file inc is DY_600to800_ext3
+countInc 911081.0 
+
+file inc is DY_600to800_ext4
+countInc 1037693.0 
+
+file inc is DY_600to800_ext5
+countInc 1164565.0 
+
+file inc is DY_600to800_ext6
+countInc 1236665.0 
+
+file inc is DY_800to1200_ext1
+countInc 1342771.0 
+
+file inc is DY_800to1200_ext2
+countInc 1446299.0 
+
+file inc is DY_1200to2500
+countInc 1496953.0 
+
+file inc is DY_2500toInf
+countInc 1529594.0 
+
+fileB inc is DY_Bjets
+nEvents for file DY_Bjets is: 14589.0
+fileB inc is DY_Bjets_Vpt100to200
+nEvents for file DY_Bjets_Vpt100to200 is: 929563.0
+fileB inc is DY_Bjets_Vpt200toInf
+nEvents for file DY_Bjets_Vpt200toInf is: 929563.0
+fileB inc is DY_Bjets_Vpt100to200_ext2
+nEvents for file DY_Bjets_Vpt100to200_ext2 is: 1817675.0
+fileB inc is DY_Bjets_Vpt200toInf_ext2
+nEvents for file DY_Bjets_Vpt200toInf_ext2 is: 1817675.0
+countInc is 1529594.0
+countB is 1817675.0
+weightZBjetsVpt100=	0.46
+
+file inc is DY_inclusive
+countInc 0.0 
+
+file inc is DY_100to200
+countInc 0.0 
+
+file inc is DY_200to400
+countInc 55507.0 
+
+file inc is DY_400to600
+countInc 137607.0 
+
+file inc is DY_600to800_ext1
+countInc 281929.0 
+
+file inc is DY_600to800_ext2
+countInc 425741.0 
+
+file inc is DY_600to800_ext3
+countInc 565436.0 
+
+file inc is DY_600to800_ext4
+countInc 709363.0 
+
+file inc is DY_600to800_ext5
+countInc 852824.0 
+
+file inc is DY_600to800_ext6
+countInc 934072.0 
+
+file inc is DY_800to1200_ext1
+countInc 1066481.0 
+
+file inc is DY_800to1200_ext2
+countInc 1195549.0 
+
+file inc is DY_1200to2500
+countInc 1264964.0 
+
+file inc is DY_2500toInf
+countInc 1315750.0 
+
+fileB inc is DY_Bjets
+nEvents for file DY_Bjets is: 2087.0
+fileB inc is DY_Bjets_Vpt100to200
+nEvents for file DY_Bjets_Vpt100to200 is: 2087.0
+fileB inc is DY_Bjets_Vpt200toInf
+nEvents for file DY_Bjets_Vpt200toInf is: 680140.0
+fileB inc is DY_Bjets_Vpt100to200_ext2
+nEvents for file DY_Bjets_Vpt100to200_ext2 is: 680140.0
+fileB inc is DY_Bjets_Vpt200toInf_ext2
+nEvents for file DY_Bjets_Vpt200toInf_ext2 is: 1343013.0
+countInc is 1315750.0
+countB is 1343013.0
+weightZBjetsVpt200=	0.49
+

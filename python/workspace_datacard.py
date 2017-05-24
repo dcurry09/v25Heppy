@@ -10,7 +10,7 @@ from optparse import OptionParser
 from myutils import BetterConfigParser, Sample, progbar, printc, ParseInfo, Rebinner, HistoMaker
  
 #btag = 'CSV'
-batg = 'CMVAV2'
+btag = 'CMVAV2'
 
 def useSpacesInDC(fileName):
     file_ = open(fileName,"r+")
@@ -167,8 +167,8 @@ for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", 
             sys_factor_dict["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 1.0 
 
             sys_affecting["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = ['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF']
-
-            systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_btagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
+            
+            systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_bTagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
 
 
 print '\nSystematics:', systematics
@@ -854,22 +854,22 @@ if not ignore_stats:
             
             for Q in UD:
                 final_histos['%s_bin%s_%s'%(systematicsnaming['stats'],bin,Q)] = {}
-
-            for job,hist in final_histos['nominal'].items():
             
+            for job,hist in final_histos['nominal'].items():
+                
                 if not job in binsBelowThreshold.keys(): binsBelowThreshold[job] = [] #NEW Add
                 
                 print "binsBelowThreshold",binsBelowThreshold
                 print "hist.GetBinContent(bin)",hist.GetBinContent(bin)
                 print "hist.GetBinError(bin)",hist.GetBinError(bin)
-
+                
                 print '\n\t-----> Making shapes for:',job
-                if 'ST' in job: continue
-
+                #if 'ST' in job: continue
+                
                 if not bdt:
                     print '\n----> No Bin-by-Bin for CR...'
                     continue
-
+                
                 if hist.GetBinContent(bin) > 0.:
                     #print '\n\t\t-----> Bin content for job is > 0'
                     if hist.GetBinError(bin)/sqrt(hist.GetBinContent(bin)) > threshold and hist.GetBinContent(bin) >= 1.:

@@ -612,10 +612,10 @@ file_names.append('ST_tW_top')
 #os.system('voms-proxy-init --voms cms')
 
 isLxplus = False
-isLxplus = True
+#isLxplus = True
 
 isUftrig = False
-isUftrig = True
+#isUftrig = True
 
 eos2_list = ['ZZ', 'WZ', 'ST_s', 'ST_t_ext1', 'ST_t_antitop', 'ST_tW_antitop', 'ST_tW_top', 'ZZ_2L2Q_ext1']
 
@@ -1229,9 +1229,9 @@ for index, file in enumerate(file_list):
 # initiate voms
 #os.system('voms-proxy-init --voms cms')
 
-eos_path = '/store/user/dcurry/heppy/files/sys_out/'
+eos_path = '/store/user/dcurry/heppy/files/btag_MVA_out/'
 
-uftrig_path = '/exports/uftrig01a/dcurry/heppy/files/sys_out/'
+uftrig_path = '/exports/uftrig01a/dcurry/heppy/files/btag_MVA_out/'
 
 prefix = 'v25_'
 
@@ -1241,13 +1241,12 @@ signal_list = ['ZH125', 'ggZH125']
 
 bkg_list = ['WZ', 'ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_inclusive']
 
-DY_list = ['DY_70to100', 'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_Bjets',
+DY_list = ['DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_Bjets',
            'DY_1200to2500', 'DY_2500toInf','DY_800to1200_ext1','DY_800to1200_ext2',
            'DY_600to800_ext1', 'DY_600to800_ext2', 'DY_600to800_ext3', 'DY_600to800_ext4', 'DY_600to800_ext5', 'DY_600to800_ext6',
-           'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf'
+           'DY_Bjets_Vpt100to200','DY_Bjets_Vpt200toInf',
+           'DY_Bjets_Vpt100to200_ext1','DY_Bjets_Vpt200toInf_ext2'
            ]
-
-DY_nlo_list = ['DY_Pt50to100', 'DY_Pt100to250', 'DY_Pt250to400', 'DY_Pt400to650', 'DY_Pt650toInf']
 
 ST_list = ['ST_t', 'ST_t_antitop', 'ST_s', 'ST_tW_top', 'ST_tW_antitop']
 
@@ -1256,12 +1255,12 @@ file_list = signal_list + bkg_list + data_list + DY_list + ST_list
 
 # xrdcp the files
 #for name, file in zip(file_names, file_list):
-# for name in file_list:
+for name in file_list:
 
-#     print '\n-----> Copying file: ', uftrig_path+prefix+name+'.root'
-#     print '-----> EOS Destination: ', eos_path+prefix+name+'.root\n'
+    print '\n-----> Copying file: ', uftrig_path+prefix+name+'.root'
+    print '-----> EOS Destination: ', eos_path+prefix+name+'.root\n'
 
-#     os.system('xrdcp '+uftrig_path+prefix+name+'.root'+' root://eoscms//eos/cms'+eos_path+prefix+name+'.root')
+    os.system('xrdcp '+uftrig_path+prefix+name+'.root'+' root://eoscms//eos/cms'+eos_path+prefix+name+'.root')
 
 
 # Now login into uftrig

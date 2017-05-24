@@ -266,10 +266,6 @@ def drawFromDC():
         elif 'VV' in opts.bin: var = 'VV_bdt'
         else: var = 'gg_plus_ZH125_high_Zpt'
 
-
-    #if 'BDT' in var:
-    #    region = 'BDT'    
-    #else:
     
     region = opts.bin
 
@@ -279,9 +275,10 @@ def drawFromDC():
     
     if opts.var == 'BDT' or opts.var == 'minCMVA':
         ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
-        #if 'Zlf' not in opts.bin: ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
+        #if 'Zlf' not in opts.bin: 
+        #    ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
         #else: 
-        #    ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,0.0)
+        #    ws_var = ROOT.RooRealVar(ws_var,ws_var,0.,0.2)
     else:
         ws_var = ROOT.RooRealVar(ws_var,ws_var, 0, 1.)
 
@@ -389,7 +386,7 @@ def drawFromDC():
     #     Stack.xMax = 0.0
      
     theBinning = ROOT.RooFit.Binning(Stack.nBins,Stack.xMin,Stack.xMax)
-
+    
     if 'Wmn' in opts.bin or 'Wen' in opts.bin or 'Znn' in opts.bin:        # SET: WLV MINCSV BINNING
         if 'CSV' in opts.var:
             Stack.nBins = 15

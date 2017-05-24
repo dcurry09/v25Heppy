@@ -13,7 +13,7 @@ import multiprocessing
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
 #main_dir  = '4_15_TEST11'
-main_dir = '4_15_v25_CR_LO_RegressionVars'
+main_dir = 'SR_Zuu_HighPt_5_18'
 
 
 
@@ -40,7 +40,9 @@ control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu',
                 'Zlf_high', 'Zhf_high', 'ttbar_high',
                 'Zlf_low', 'Zhf_low', 'ttbar_low',
                 'Zlf_Zee',
-                'Zhf'
+                'Zhf',
+                'bdt_Zuu_low_Zpt','bdt_Zuu_high_Zpt',
+                'bdt_Zee_low_Zpt','bdt_Zee_high_Zpt',
                 ]
 
 regr_list = ['jet_regression_Zhf']

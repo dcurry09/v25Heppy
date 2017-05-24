@@ -182,8 +182,11 @@ class Jet :
 prefix = 'v25_'
 #prefix = ''
 
-inpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
-outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
+#inpath = '/exports/uftrig01a/dcurry/heppy/files/jec_out/'
+#outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_out/'
+
+inpath = '/exports/uftrig01a/dcurry/heppy/files/MVA_out_VV/'
+outpath = '/exports/uftrig01a/dcurry/heppy/files/btag_MVA_out_VV/'
 
 # List of files to add btag weights to
 bkg_list = ['ttbar', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'WZ']
@@ -205,12 +208,13 @@ file_list = temp_list
 
 
 file_list1 = ST_list + ['WZ','DY_Bjets','DY_inclusive', 'ZZ_2L2Q_ext1', 'ZZ_2L2Q_ext2', 'ZZ_2L2Q_ext3', 'DY_1200to2500', 'DY_2500toInf',
-                        'DY_100to200', 'DY_200to400', 'DY_400to600', 'DY_800to1200_ext1','DY_800to1200_ext2']
-                        #'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
+                        'DY_100to200', 'DY_200to400', 'DY_400to600']
 
-file_list2 = signal_list + ['ttbar', 'DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2', 'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
+file_list2 = signal_list + ['ttbar', 'DY_Bjets_Vpt100to200', 'DY_Bjets_Vpt200toInf']
 
 file_list3 = DY_list
+
+file_list4 = ['DY_800to1200_ext1','DY_800to1200_ext2','DY_Bjets_Vpt100to200_ext2', 'DY_Bjets_Vpt200toInf_ext2']
 
 
 #for file in file_list:
@@ -420,23 +424,28 @@ def osSystem(file):
 
 
 # Done
+# p = multiprocessing.Pool()
+# results = p.imap(osSystem, file_list)
+# p.close()
+# p.join()
+
+
 p = multiprocessing.Pool()
-results = p.imap(osSystem, file_list)
+results = p.imap(osSystem, file_list2)
 p.close()
 p.join()
 
+p = multiprocessing.Pool()
+results = p.imap(osSystem, file_list3)
+p.close()
+p.join()
 
-# p = multiprocessing.Pool()
-# results = p.imap(osSystem, file_list2)
-# p.close()
-# p.join()
+p = multiprocessing.Pool()
+results = p.imap(osSystem, file_list1)
+p.close()
+p.join()
 
-# p = multiprocessing.Pool()
-# results = p.imap(osSystem, file_list3)
-# p.close()
-# p.join()
-
-# p = multiprocessing.Pool()
-# results = p.imap(osSystem, file_list1)
-# p.close()
-# p.join()
+p = multiprocessing.Pool()
+results = p.imap(osSystem, file_list4)
+p.close()
+p.join()

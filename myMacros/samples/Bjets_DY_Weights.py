@@ -77,6 +77,9 @@ ZLLjetsHT600     = ["DY_600to800_ext1","DY_600to800_ext2","DY_600to800_ext3","DY
 ZLLjetsHT600_ext1 = "DY_600to800_ext1"
 ZLLjetsHT600_ext2 = "DY_600to800_ext2"
 ZLLjetsHT600_ext3 = "DY_600to800_ext3"
+ZLLjetsHT600_ext4 = "DY_600to800_ext4"
+ZLLjetsHT600_ext5 = "DY_600to800_ext5"
+ZLLjetsHT600_ext6 = "DY_600to800_ext6"
 ZLLjetsHT800      = ["DY_800to1200_ext1","DY_800to1200_ext2"]
 ZLLjetsHT800_ext1 = "DY_800to1200_ext1" 
 ZLLjetsHT800_ext2 = "DY_800to1200_ext2"
@@ -87,7 +90,8 @@ ZLLjetsHT2500    = "DY_2500toInf"
 
 
 ZlljetsHTbinned = [
-    ZLLjetsHT0, ZLLjetsHT100, ZLLjetsHT200, ZLLjetsHT400, ZLLjetsHT600_ext1, ZLLjetsHT600_ext2, ZLLjetsHT600_ext3,
+    ZLLjetsHT0, ZLLjetsHT100, ZLLjetsHT200, ZLLjetsHT400, ZLLjetsHT600_ext1, ZLLjetsHT600_ext2, ZLLjetsHT600_ext3, 
+    ZLLjetsHT600_ext4,ZLLjetsHT600_ext5,ZLLjetsHT600_ext6,
     ZLLjetsHT800_ext1, ZLLjetsHT800_ext2, ZLLjetsHT1200, ZLLjetsHT2500
     ]
 
@@ -106,11 +110,11 @@ VPT100            = "(lheV_pt>100 && lheV_pt<200)"
 VPT200            = "(lheV_pt>200)"
 
 
-#print "weightZBjetsVpt0=\t%.2f\n"   %getWeight(ZlljetsHTbinned, ZLLBjets, VPT0)
-#print "weightZBjetsVpt100=\t%.2f\n"   %getWeight(ZlljetsHTbinned, ZLLBjets, VPT100)
-#print "weightZBjetsVpt200=\t%.2f\n"   %getWeight(ZlljetsHTbinned, ZLLBjets, VPT200)
+print "weightZBjetsVpt0=\t%.2f\n"   %getWeight(ZlljetsHTbinned, ZLLBjets, VPT0)
+print "weightZBjetsVpt100=\t%.2f\n"   %getWeight(ZlljetsHTbinned, ZLLBjets, VPT100)
+print "weightZBjetsVpt200=\t%.2f\n"   %getWeight(ZlljetsHTbinned, ZLLBjets, VPT200)
 
-getExtWeight(ZLLjetsHT600)
+#getExtWeight(ZLLjetsHT600)
 
 #getExtWeight(ZLLjetsHT800)
 

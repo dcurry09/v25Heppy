@@ -11,7 +11,7 @@ from HiggsAnalysis.CombinedLimit.ShapeTools     import *
 from collections import Counter
 
 isVV = False
-isVV = True
+#isVV = True
 
 # import ROOT with a fix to get batch mode (http://root.cern.ch/phpBB3/viewtopic.php?t=3198)
 hasHelp = False
@@ -80,7 +80,8 @@ def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, post
     # Set bin error to preFit
     print '\nSetting preFit Error(dirname,subdir)', dirname, subdir    
     ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
-    
+    #ROOT.gDirectory.cd('/tree_prefit/'+dirname)
+
     pre_hist = ROOT.gDirectory.Get(subdir.GetName()).Clone()
     h_new_prefit = ROOT.TH1F(subdir.GetName()+'_prefit', subdir.GetName()+'_prefit', nbin, xmin, xmax)
     for b in range(1,nbin+1):
@@ -92,7 +93,8 @@ def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, post
     
     
     ROOT.gDirectory.cd('/shapes_fit_s/'+dirname)
-    
+    #ROOT.gDirectory.cd('/tree_fit_sb/'+dirname)
+
     return h_new
 
 def drawFromDC():
@@ -270,7 +272,10 @@ def drawFromDC():
         pt_region_name = 'none'
 
         if opts.var == 'BDT':
-            region_name = 'SR'
+
+            #region_name = 'SR'
+            region_name = lep_channel+'HighPt'
+            
             # binning
             nBins = 40
             xMin  = -1
@@ -280,9 +285,18 @@ def drawFromDC():
             stat_name = 'BDT_'+lep_channel+'HighPt_'
             
         else:
-            if 'tt' in region: region_name  = 'TTCR'
-            if 'whf' in region: region_name = 'WHFCR'
-            if 'wlf' in region: region_name = 'WLFCR'
+            # if 'tt' in region: region_name  = 'TTCR'
+            # if 'whf' in region: region_name = 'WHFCR'
+            # if 'wlf' in region: region_name = 'WLFCR'
+
+            if 'tt' in region: region_name  = 'tt'+lep_channel
+            
+            if 'whf' in region: 
+                if 'High' in opts.bin:
+                    region_name = 'whf'+lep_channel+'High'
+                else: region_name = 'whf'+lep_channel+'Low'
+
+            if 'wlf' in region: region_name = 'wlf'+lep_channel
 
             stat_name = 'BDT_'+opts.bin+'_'
             
@@ -402,7 +416,10 @@ def drawFromDC():
     if file == None: raise RuntimeError, "Cannot open file %s" % opts.mlfit
     print '\n\n-----> Fit File: ',file
 
-    if not ROOT.gDirectory.cd('shapes_fit_s'):
+    fit_dir = 'shapes_fit_s'
+
+    #if not ROOT.gDirectory.cd('shapes_fit_s'):
+    if not ROOT.gDirectory.cd(fit_dir):
         print '@ERROR: didn\'t find the shapes_fit_s directory. Aborting'
         sys.exit()
 
@@ -418,7 +435,8 @@ def drawFromDC():
         
         if 'W' in opts.bin:
             print 'channel, lepton channel, region_name:', channel, lep_channel, region_name
-            if not (dirinfo[0] == channel and dirinfo[1] == lep_channel and dirinfo[2] == region_name):
+            #if not (dirinfo[0] == channel and dirinfo[1] == lep_channel and dirinfo[2] == region_name):
+            if not (dirinfo[0] == channel and dirinfo[1] == region_name): 
                 continue
             else: print '!!! Match !!!'
 
@@ -480,8 +498,9 @@ def drawFromDC():
         print '\nStat_hists:', stat_hists
 
         file = ROOT.TFile.Open(opts.mlfit)
-        ROOT.gDirectory.cd('shapes_fit_s')
-        
+        #ROOT.gDirectory.cd('shapes_fit_s')
+        ROOT.gDirectory.cd(fit_dir)
+
         ROOT.gDirectory.cd(dirname)
         subdir_list = [x for x in ROOT.gDirectory.GetListOfKeys()]
         for s in setup:
@@ -510,7 +529,10 @@ def drawFromDC():
 
             if not found:
                 print '@ERROR: didn\'t find  the postfit histogram. Aborting'
-                sys.exit()
+                hist = ROOT.TH1F(Dict[s], Dict[s], nBins, xMin, xMax)
+                histos.append(hist)
+                typs.append(s)
+                #sys.exit()
         #ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
         #total = rebinHist(ROOT.gDirectory.Get('total').Clone(), Stack.nBins, Stack.xMin, Stack.xMax)
         #total.SetTitle('prefit')
@@ -621,9 +643,6 @@ def drawFromDC():
             print datas[0].GetBinContent(bin,0)
             
     # =======================================================
-
-
-
     
     #if 'VV' in opts.bin:
     if isVV:

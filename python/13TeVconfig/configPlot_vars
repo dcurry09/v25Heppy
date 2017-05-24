@@ -225,11 +225,11 @@ min    : -1
 max    : 1
 
 [plotDef:minCMVA_Zlf]
-relPath: Jet_btagCMVAV2[hJCMVAV2idx[1]]
+relPath: log(Jet_btagCMVAV2[hJCMVAV2idx[1]])
 xAxis  : min CMVAv2
 nBins  : 20
-min    : -1.0
-max    : 0.0
+min    : 0.0
+max    : 0.2
 
 [plotDef:maxCMVA]
 relPath: Jet_btagCMVAV2[hJCMVAV2idx[0]]

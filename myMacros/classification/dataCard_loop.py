@@ -68,6 +68,10 @@ ttbar_list = ['ttbar_low_Zee', 'ttbar_high_Zuu', 'ttbar_low_Zuu', 'ttbar_high_Ze
 # ======== Diboson Analysis =========
 vv_bdt_list = ['VV_BDT_Zee_lowZpt', 'VV_BDT_Zee_highZpt', 'VV_BDT_Zuu_lowZpt', 'VV_BDT_Zuu_highZpt']
 
+vv_bdt_list1 = ['VV_BDT_Zee_lowZpt', 'VV_BDT_Zuu_lowZpt']
+
+vv_bdt_list2 = ['VV_BDT_Zee_highZpt', 'VV_BDT_Zuu_highZpt']
+
 vv_control_list = ['Zlf_high_Zuu_VV', 'Zhf_high_Zuu_VV', 'ttbar_high_Zuu_VV', 'Zlf_low_Zuu_VV', 'Zhf_low_Zuu_VV','ttbar_low_Zuu_VV',
                    'Zlf_high_Zee_VV', 'Zhf_high_Zee_VV', 'ttbar_high_Zee_VV', 'Zlf_low_Zee_VV', 'Zhf_low_Zee_VV','ttbar_low_Zee_VV']
 
@@ -79,8 +83,8 @@ vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 't
 
 # ====================================
 
-temp_list = ['ttbar_high_Zee']
-#temp_list = zlf_list
+temp_list = ['BDT_Zee_high_Zpt']
+#temp_list = zlf_list + bdt_list
 
 # ==============================================
 
@@ -95,10 +99,9 @@ temp_list = ['ttbar_high_Zee']
 
 datacard_list = temp_list
 
-
 ##### Directory to save datacards ####
-title = 'Datacards_SplitLeptonShapes_NewBinZlf_5_14'
-#title = 'Datacards_NoWZ_5_14'
+#title = 'Datacards_NoRebin_TEST'
+title = 'Datacards_minCMVAMed_5_23'
 
 sig_dir = 'ZllHbb_SR_'+title
 
@@ -106,7 +109,6 @@ cr_dir = 'ZllHbb_CR_'+title
 
 # final combined directory
 dir = 'ZllHbb_'+title
-#dir  = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/v25_VH_CMVA_LO_withBjets_4_9/'
 
 # Final VV combined Dir
 #dir = 'ZllZbb_'+title
@@ -363,11 +365,21 @@ if isSplit:
         sig_dir = 'ZllZbb_SR_'+title
         cr_dir  = 'ZllZbb_CR_'+title
         
+        # p = multiprocessing.Pool()
+        # results = p.imap(osSystem, vv_bdt_list)
+        # p.close()
+        # p.join()
+        
         p = multiprocessing.Pool()
-        results = p.imap(osSystem, vv_bdt_list)
+        results = p.imap(osSystem, vv_bdt_list1)
         p.close()
         p.join()
-        
+
+        p = multiprocessing.Pool()
+        results = p.imap(osSystem, vv_bdt_list2)
+        p.close()
+        p.join()
+
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
         os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
@@ -473,12 +485,12 @@ if isCombine:
     print '\n\n ============= BKG Scale Facors =============='
     os.system(temp_string_combine_BKGonly)
     #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_BKG_Combined.txt >> bkg_only_RP.txt'
-    t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_BKG_Combined.txt'
+    #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_BKG_Combined.txt'
     #os.system(t5)
     
     print '\n\n ============= SIG + BKG Scale Facors =============='
     os.system(temp_string_combine)
-    #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt >> sigPlusBkg_RP.txt'
+    #t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt'
     t5 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_DC_TH_CR_SIGplusBKG_Combined_combine.txt'
     os.system(t5)
     
@@ -838,13 +850,13 @@ if splitRegionFOM:
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     os.system(t2)
 
-    print '\n==== Post Fit ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
+    #print '\n==== Post Fit ===='
+    #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
     
-    print '\n==== Post Fit NO SYS ===='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
+    # print '\n==== Post Fit NO SYS ===='
+    # t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    # os.system(t2)
 
     print '\t\n\n========= Signal Strength Uncertainty ========='
 
