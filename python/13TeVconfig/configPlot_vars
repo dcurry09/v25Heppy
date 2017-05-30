@@ -4,7 +4,9 @@
 tag: 13TeV
 
 [General]
-BDTbins = 15
+BDTbins = 8
+BDTxMin = 0.2
+BDTxMax = 1.
 
 CSVbins = 20
 
@@ -320,8 +322,8 @@ max     : 2.
 relPath: gg_plus_ZH125_highZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
-min    : -1
-max    : 1
+min    : <!General|BDTxMin!>
+max    : <!General|BDTxMax!>
 
 [plotDef:gg_plus_ZH125_tightHmass]
 relPath: gg_plus_ZH125_tightHmass.nominal
@@ -334,8 +336,8 @@ max    : 1
 relPath: gg_plus_ZH125_lowZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
-min    : -1
-max    : 1
+min    : <!General|BDTxMin!>
+max    : <!General|BDTxMax!>
 
 [plotDef:gg_plus_ZH125_med_Zpt]
 relPath: gg_plus_ZH125_medZpt.nominal
@@ -348,8 +350,8 @@ max    : 1
 relPath: gg_plus_ZH125_highZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
-min    : -1
-max    : 1
+min    : <!General|BDTxMin!>
+max    : <!General|BDTxMax!>
 
 # SemiLepton
 [plotDef:gg_plus_ZH125_semiLepton]
@@ -384,15 +386,15 @@ max    : 1
 relPath: VV_bdt_lowZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
-min    : -1
-max    : 1
+min    : <!General|BDTxMin!>
+max    : <!General|BDTxMax!>
 
 [plotDef:VV_bdt_highZpt]
 relPath: VV_bdt_highZpt.nominal
 xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
-min    : -1
-max    : 1
+min    : <!General|BDTxMin!>
+max    : <!General|BDTxMax!>
 
 # ================================
 # Regression Variables

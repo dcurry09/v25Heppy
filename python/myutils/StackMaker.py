@@ -283,8 +283,8 @@ class StackMaker:
             self.histos[i].SetLineColor(1)
             allStack.Add(self.histos[i])
             print '# of MC bins:', self.histos[i].GetNbinsX()+1
-            #for bin in range(0,self.histos[i].GetNbinsX()+1):
-            #    print 'MC in bin ', bin, ':', self.histos[i].GetBinContent(bin)
+            for bin in range(0,self.histos[i].GetNbinsX()+1):
+                print 'MC in bin ', bin, ':', self.histos[i].GetBinContent(bin)
 
 
 
@@ -293,30 +293,13 @@ class StackMaker:
         
         print 'self.datanames:', self.datanames
         print 'Self.var:', self.var
-        # if 'Wmn' in self.datanames and not 'CMVA' in self.var or 'Wen' in self.datanames and not 'CMVA' in self.var:
-        #     #print 'here'
-        #     if not isVV:
-                
-        #         if 'Wen' in self.datanames:
-        #             binBoundaries = [-1., -0.958, -0.91, -0.862, -0.814, -0.766, -0.718, -0.67, -0.622, -0.574,
-        #                               -0.526, -0.478, -0.43, -0.382, -0.334, -0.286, -0.238, -0.19, -0.142, -0.094,
-        #                               -0.046,  0.002,  0.05, 0.098,0.146, 0.194, 0.242, 0.29, 0.338, 0.386,
-        #                               0.434, 0.482, 0.53, 0.578, 0.626, 0.674, 0.722, 0.77, 0.818, 0.866, 1.]
-        #         if 'Wmn' in self.datanames:
-        #             binBoundaries = [-1., -0.966, -0.91989474, -0.87378947, -0.82768421, -0.78157895,
-        #                               -0.73547368, -0.68936842, -0.64326316, -0.59715789, -0.55105263, -0.50494737,
-        #                               -0.45884211, -0.41273684, -0.36663158, -0.32052632, -0.27442105, -0.22831579,
-        #                               -0.18221053, -0.13610526, -0.09, -0.04389474, 0.00221053, 0.04831579,
-        #                               0.09442105,  0.14052632,  0.18663158,  0.23273684,  0.27884211, 0.32494737,
-        #                               0.37105263,  0.41715789,  0.46326316,  0.50936842,  0.55547368, 0.60157895,
-        #                               0.64768421,  0.69378947,  0.73989474,  0.786, 1.]
-            
-        #     if isVV:
-        #         binBoundaries = [-1.,-0.886, -0.746, -0.606, -0.466, -0.326, -0.186, -0.046,  0.094, 0.234, 0.374, 0.514, 0.654, 0.794, 0.934,1.] 
-                
-        #     self.nBins = 40
-        #     bins = array('f', binBoundaries)  
-        #     d1 = ROOT.TH1F('noData','noData',self.nBins,bins)
+        
+        # if 'gg_plus' in self.var:
+        
+        #         binBoundaries = [-1., 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.]
+        #         self.nBins = 8
+        #         bins = array('f', binBoundaries)  
+        #         d1 = ROOT.TH1F('noData','noData',self.nBins,bins)
             
 
 

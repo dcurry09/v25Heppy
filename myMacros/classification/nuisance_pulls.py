@@ -12,7 +12,7 @@ import multiprocessing
 import logging
 from matplotlib import interactive
 
-datacard_dir = 'ZllHbb_Datacards_ZlfMjjCut_minCMVAMed_5_23'
+datacard_dir = 'ZllHbb_Datacards_minCMVAMed_SRMinus1to1_8bins_5_28'
 
 inpath = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+datacard_dir+'/'
 
@@ -52,8 +52,8 @@ for pull in pull_list:
         os.system('combine -M MaxLikelihoodFit -m 125 --expectSignal=0 --minimizerAlgo=Minuit vhbb_Zll.txt')
 
     if pull == 'SigPlusBKG_data':
-        os.system('combine -M MaxLikelihoodFit -m 125 -v 3 --expectSignal=1 --minimizerAlgo=Minuit --saveNorm --saveShapes --saveWithUncertainties vhbb_Zll.txt')
-
+        os.system('combine -M MaxLikelihoodFit -m 125 -v 3 --expectSignal=1 --minimizerAlgo=Minuit vhbb_Zll.txt')
+        
         #os.system('combine -M MaxLikelihoodFit -v 3 -m 125 --rMin=-5 --rMax=5 --stepSize=0.05 --expectSignal=1 --robustFit=1 --saveNorm --saveShapes --saveWithUncertainties --minimizerTolerance=10.0 --minimizerAlgoForMinos Minuit2,Migrad vhbb_Zll.txt')
 
         

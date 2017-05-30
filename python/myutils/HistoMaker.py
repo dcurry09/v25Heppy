@@ -18,6 +18,7 @@ class HistoMaker:
         self.config = config
         self.optionsList = optionsList
         self.nBins = optionsList[0]['nBins']
+        self.xMin  = optionsList[0]['xMin']
         self.lumi=0.
         self.cuts = []
         self.weight = []
@@ -173,6 +174,20 @@ class HistoMaker:
                     if 'Z2b' in job.name: weightF = weightF+'*(1.437)'
                     if 'ttbar' in job.name: weightF = weightF+'*(1.0309)'
 
+
+
+            # New test for variable BDT bins
+            if 'gg_plus' in treeVar or 'VV' in treeVar:
+                # binBoundaries = [-1., 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.]
+                # nBins = 8.
+                # bins = array('f', binBoundaries)
+                # hTree = ROOT.TH1F('%s'%job.name,'%s'%job.name,nBins,bins)
+                hTree = ROOT.TH1F('%s'%job.name,'%s'%job.name,nBins,xMin,xMax)
+            else:
+                hTree = ROOT.TH1F('%s'%job.name,'%s'%job.name,nBins,xMin,xMax)
+            
+            hTree.Sumw2()
+            hTree.SetTitle(job.name)
                         
             print '\n-----> Making histograms for variable:', treeVar
             print 'Job.name:', job.name
@@ -191,6 +206,7 @@ class HistoMaker:
                         print '\n----> Filling Histogram with BDT Test Events Only...'
                         drawoption = '(sign(genWeight))*(%s)*(%s & %s)'%(weightF, treeCut, BDT_test_cut)
                         
+
                     elif 'vtx' in treeVar or 'EmEF' in treeVar or '_lepton' in treeVar:
                         drawoption = '(sign(genWeight))*(%s)*(%s)' % (weightF,treeCut+' && '+treeVar+' > 0')
                         '''    
@@ -206,11 +222,13 @@ class HistoMaker:
                     else: 
                         #drawoption = '(sign(genWeight))*(%s)*(%s)*(%s)' % (weightF,treeCut,xSec)
                         drawoption = '(sign(genWeight))*(%s)*(%s)' % (weightF,treeCut)
-                      
+                        
                     print 'Draw Option:',drawoption
 
-                    CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), drawoption, "goff,e")
-                    
+                    #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), drawoption, "goff,e")
+                    #TD = ROOT.treedraw()
+                    #hTree = TD.TreeDraw(CuttedTree, hTree, '%s>>%s' %(treeVar,job.name), drawoption)
+                    CuttedTree.Draw('%s>>%s' %(treeVar,job.name), drawoption, "goff,e")
 
                     full = True
 
@@ -227,16 +245,17 @@ class HistoMaker:
                 
    
                 if 'gg_plus' in treeVar or 'VV' in treeVar:
+                    
                     if options['blind']:
-                        #treeCut = treeCut + ' & '+treeVar+'<0.3'
                         
                         print '\n\n====== BLINDED ======'
                         print treeCut
                    
-                        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
+                        #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
+                        CuttedTree.Draw('%s>>%s' %(treeVar,job.name),'%s' %treeCut, "goff,e")
                     else:
-                        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
-
+                        #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
+                        CuttedTree.Draw('%s>>%s' %(treeVar,job.name),'%s' %treeCut, "goff,e")
                         
                 elif '_corr' in treeVar:
                     print 'VAR:',treeVar
@@ -244,12 +263,12 @@ class HistoMaker:
                         new_treeVar = 'Jet_pt[hJCidx[0]]/Jet_rawPt[hJCidx[0]]'
                     if '[1]' in treeVar:
                         new_treeVar = 'Jet_pt[hJCidx[1]]/Jet_rawPt[hJCidx[1]]'
-                    CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(new_treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
-                    
+                    #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(new_treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
+                    CuttedTree.Draw('%s>>%s' %(treeVar,job.name),'%s' %treeCut, "goff,e")
 
                 elif 'vtx' in treeVar or 'EmEF' in treeVar or '_lepton' in treeVar:
-                    CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut+' && '+treeVar+' > 0', "goff,e")
-                    
+                    #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut+' && '+treeVar+' > 0', "goff,e")
+                    CuttedTree.Draw('%s>>%s' %(treeVar,job.name),'%s' %treeCut+' && '+treeVar+' > 0', "goff,e")
                     
                 #else:
                 #    if options['blind']:
@@ -257,14 +276,14 @@ class HistoMaker:
                 #        CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s & V_pt < 50.' %treeCut, "goff,e")
 
                 elif 'LHE' in treeVar or 'HT' in treeVar or 'lhe' in treeVar:
-                    CuttedTree.Draw('%s>>%s(%s,%s,%s)' %('Jet_pt[hJCidx[1]]',job.name,nBins,xMin,xMax), '%s' %treeCut+' && Jet_pt[hJCidx[1]] < 0.0', "goff,e")
-                    
+                    #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %('Jet_pt[hJCidx[1]]',job.name,nBins,xMin,xMax), '%s' %treeCut+' && Jet_pt[hJCidx[1]] < 0.0', "goff,e")
+                    CuttedTree.Draw('%s>>%s' %(treeVar,job.name),'%s' %treeCut+' && Jet_pt[hJCidx[1]] < 0.0', "goff,e")
                     
                 else:
                     print '!!!!NOT BLINDING!!!'
-                    CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
+                    #CuttedTree.Draw('%s>>%s(%s,%s,%s)' %(treeVar,job.name,nBins,xMin,xMax), '%s' %treeCut, "goff,e")
+                    CuttedTree.Draw('%s>>%s' %(treeVar,job.name),'%s' %treeCut, "goff,e")
                     
-
 
                 print CuttedTree
                 
@@ -277,24 +296,24 @@ class HistoMaker:
                 hNom_std = str(round(hNom.GetRMS(),3))
                 hNom_mu  = str(round(hNom.GetMean(),3))
                 '''
-
+ 
                 full = True
 
-            if full:
-                hTree = ROOT.gDirectory.Get(job.name)
-                print '\nJob name: ',job.name
-                print 'hTree: ', hTree
+            # if full:
+            #     hTree = ROOT.gDirectory.Get(job.name)
+            #     print '\nJob name: ',job.name
+            #     print 'hTree: ', hTree
                 
-                # Get Stats
-                #hTree.GetRMS()
-                #hTree.GetMean()
-                #print '\t Mean: ', hTree.GetMean()
-                #print '\t RMS : ', hTree.GetRMS()
+            #     # Get Stats
+            #     #hTree.GetRMS()
+            #     #hTree.GetMean()
+            #     #print '\t Mean: ', hTree.GetMean()
+            #     #print '\t RMS : ', hTree.GetRMS()
                 
 
-            else:
-                hTree = ROOT.TH1F('%s'%name,'%s'%name,nBins,xMin,xMax)
-                hTree.Sumw2()
+            # else:
+            #     hTree = ROOT.TH1F('%s'%name,'%s'%name,nBins,xMin,xMax)
+            #     hTree.Sumw2()
                 
             # NOW scale the histograms    
             if job.type != 'DATA':
@@ -446,7 +465,7 @@ class HistoMaker:
         #it's the lower edge
         binL+=1
         #print 'lower bin is %s'%binL
-
+        
         inbetween=binR-binL
         stepsize=int(inbetween)/(int(self.norebin_nBins)-2)
         modulo = int(inbetween)%(int(self.norebin_nBins)-2)
@@ -459,8 +478,11 @@ class HistoMaker:
         binlist[-1]+=modulo
         binlist.append(binR)
         binlist.append(self.rebin_nBins+1)
-       # print 'binning set to %s'%binlist
-        self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
+        # print 'binning set to %s'%binlist
+        print 'bin low edge array:', array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist])
+        #print array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist])
+        #self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
+        self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
         self._rebin = True
         print '\t > rebinning is set <\n'
 
@@ -485,14 +507,18 @@ class HistoMaker:
 
 
 class Rebinner:
+
     def __init__(self,nBins,lowedgearray,active=True):
         self.lowedgearray=lowedgearray
         self.nBins=nBins
         self.active=active
+
     def rebin(self, histo):
         if not self.active: return histo
         #print histo.Integral()
         print '!!!!! Rebinning FInal Step !!!!!'
+        print 'Xmin(low edge):', self.lowedgearray[0]
+        print 'Xmax(high edge):', self.lowedgearray[-1]
         ROOT.gDirectory.Delete('hnew')
         histo.Rebin(self.nBins,'hnew',self.lowedgearray)
         binhisto=ROOT.gDirectory.Get('hnew')

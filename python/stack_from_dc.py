@@ -273,14 +273,17 @@ def drawFromDC():
 
     print 'ws_var:', ws_var
     
-    if opts.var == 'BDT' or opts.var == 'minCMVA':
-        ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
+    if opts.var == 'BDT': 
+        #ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
+        ws_var = ROOT.RooRealVar(ws_var,ws_var,0.,1.)
+
         #if 'Zlf' not in opts.bin: 
         #    ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
         #else: 
         #    ws_var = ROOT.RooRealVar(ws_var,ws_var,0.,0.2)
-    else:
-        ws_var = ROOT.RooRealVar(ws_var,ws_var, 0, 1.)
+
+    if opts.var == 'minCMVA':
+        ws_var = ROOT.RooRealVar(ws_var,ws_var, -1, 1.)
 
     blind = eval(config.get('Plot:%s'%region,'blind'))
     #blind = True
@@ -300,7 +303,6 @@ def drawFromDC():
     print 'var: ', var
     print 'region: ', region
 
-    
     
     Stack=StackMaker(config,var,region,True)
     
@@ -384,6 +386,11 @@ def drawFromDC():
     # If ZLF CR change binning
     ##if 'CMVA' in opts.var and 'Zlf' in opts.bin:
     #     Stack.xMax = 0.0
+    
+    #Stack.nBins = 7
+    #Stack.xMin = 0.
+    #Stack.xMax = 1.
+
      
     theBinning = ROOT.RooFit.Binning(Stack.nBins,Stack.xMin,Stack.xMax)
     
@@ -392,7 +399,8 @@ def drawFromDC():
             Stack.nBins = 15
             print '\n\t Changing Wlv/Zvv CSV bins to ', 15
             theBinning = ROOT.RooFit.Binning(15,Stack.xMin,Stack.xMax)
-        
+            
+
 
     print '/n----> The Binning:'
     print 'nBins:', Stack.nBins
@@ -793,7 +801,7 @@ def drawFromDC():
     
     
     if opts.var == 'BDT':
-        for bin in range(11,datas[0].GetNbinsX()+1):
+        for bin in range(4,datas[0].GetNbinsX()+1):
             datas[0].SetBinContent(bin,0)
     
     for bin in range(0,datas[0].GetNbinsX()+1):

@@ -692,14 +692,12 @@ def drawFromDC():
     Stack.nBins = nBins
     Stack.xMin  = xMin
     Stack.xMax  = xMax
-
-
+    
     print '\n-----> Stack.setup(double check)...', Stack
     print 'Post Histos:', histos
     print 'Datas:', datas
     print 'typs:', typs
-    
-    
+        
     Stack.histos = histos
     Stack.typs = typs
     Stack.datas = datas

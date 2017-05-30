@@ -43,11 +43,12 @@ Zhf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_
 # for regression validation
 Zhf_Btag_reg: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
-#Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < <!ZHbb|CSVL!>
+#Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < <!ZHbb|CSVL!>
 Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
 ttbar_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
+#bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVL!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!> 
 
 
@@ -74,7 +75,11 @@ Vpt_150: <!ZHbb|V_pt!>_pt > 150.
 Vpt_240: <!ZHbb|V_pt!>_pt > 240.
 
 # H pt cuts
-Hpt_100: <!ZHbb|H_sel!>_reg_pt > 100.
+Hpt_100: <!ZHbb|H_sel!>_reg_pt >= 100
+
+Hpt_50: <!ZHbb|H_sel!>_reg_pt >= 50
+#Hpt_50: <!ZHbb|H_sel!>_reg_pt >= 100
+
 Hpt_Zhf: <!ZHbb|H_sel!>_reg_pt > 0.
 
 # Jet cuts
@@ -144,8 +149,11 @@ zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZH
 #zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
 #zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
 
-vv_zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 160. & <!ZHbb|H_sel!>_reg_mass > 60.
-vv_zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 160. & <!ZHbb|H_sel!>_reg_mass > 60.
+#vv_zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 160. & <!ZHbb|H_sel!>_reg_mass > 60.
+#vv_zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 160. & <!ZHbb|H_sel!>_reg_mass > 60.
+
+vv_zlf_low_stat_cut: <!ZHbb|zlf_low_stat_cut!>
+vv_zlf_high_stat_cut: <!ZHbb|zlf_high_stat_cut!>
 
 vv_bdt_cut: H_pt < 999. & H_pt > 0.0 & H_mass < 9999. & H_mass > 0.0
 
@@ -261,13 +269,17 @@ Zhf_Zee_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_Zhf!> & <
 
 Zhf_Zuu_VV: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_Zhf!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass_hf!> & <!ZHbb|Zhf_Btag!> & <!ZHbb|vetoHmass_VV!> & <!ZHbb|met_signal!> & <!ZHbb|V_pt!>_pt > 50.
 
-Zlf_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|zlf_low_stat_cut!>
+Zlf_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|zlf_low_stat_cut!> 
+#& <!ZHbb|Hpt_50!>
 
-Zlf_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|zlf_low_stat_cut!>
+Zlf_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!> & <!ZHbb|zlf_low_stat_cut!> 
+#& <!ZHbb|Hpt_50!>
 
-Zlf_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|zlf_high_stat_cut!>
+Zlf_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==1 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|zlf_high_stat_cut!> 
+#& <!ZHbb|Hpt_50!>
 
-Zlf_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|zlf_high_stat_cut!>
+Zlf_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> ==0 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_high_window!> & <!ZHbb|zlf_high_stat_cut!> 
+#& <!ZHbb|Hpt_50!>
 
 Zlf_low: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|dPhiVH!> & <!ZHbb|Zwindow_mass!> & <!ZHbb|Zlf_Btag!> & <!ZHbb|Vpt_low_window!>
 
@@ -279,13 +291,21 @@ ttbar_high: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & 
 
 ttbar_low: <!ZHbb|preselection!>  & <!ZHbb|vtype!> > -1 & <!ZHbb|vtype!> < 2 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_low_window!>
 
-ttbar_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_high_window!>
+ttbar_high_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_high_window!> 
+
+#& <!ZHbb|Hpt_50!>
 
 ttbar_high_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1 & <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_high_window!>
 
+#& <!ZHbb|Hpt_50!>
+
 ttbar_low_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_low_window!>
 
-ttbar_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_low_window!>
+#& <!ZHbb|Hpt_50!>
+
+ttbar_low_Zuu: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 0& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|Vpt_low_window!> 
+
+#& <!ZHbb|Hpt_50!>
 
 ttbar_Zee: <!ZHbb|preselection!> & <!ZHbb|vtype!> == 1& <!ZHbb|jet_pt_20!> & <!ZHbb|vetoVmass_ttbar!> & <!ZHbb|ttbar_Btag!> & <!ZHbb|V_pt!>_pt > 50.
 

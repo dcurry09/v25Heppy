@@ -13,7 +13,8 @@ addOverFlow: True
 # --------------------------------------
 # Binning:
 # --------------------------------------
-BDTrange: 15,-1,1
+#BDTrange: 15,-1,1
+BDTrange: 8,0.2,1.
 BDToutname: v1
 
 ## CSV ##
@@ -324,6 +325,43 @@ sys_affecting: {'weight_pileUp':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','T
 		"JEC_Fragmentation":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		"JEC_TimePtEta":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		"JEC_FlavorQCD":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+
+		# no TT
+		# 'JER':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# 'JEC':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		
+		# "JEC_PileUp":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_Relative":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_AbsoluteMisc":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+
+		# "JEC_PileUpDataMC":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_PileUpPtRef":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_PileUpPtBB":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_PileUpPtEC1":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_PileUpPtEC2":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_PileUpPtHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		
+		# "JEC_RelativeJEREC1":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativeJEREC2":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativeJERHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativeFSR":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativeStatFSR":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativeStatEC":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativeStatHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativePtBB":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativePtEC1":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativePtEC2":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_RelativePtHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		
+		# "JEC_AbsoluteScale":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_AbsoluteMPFBias":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_AbsoluteStat":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_SinglePionECAL":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_SinglePionHCAL":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_Fragmentation":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_TimePtEta":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# "JEC_FlavorQCD":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+
 		
 		
 		'JER_low':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
@@ -398,18 +436,18 @@ systematicsnaming: {
 	
     'CMS_vhbb_EWK_Zll':'CMS_vhbb_EWK_Zll',
 
-    'CMS_vhbb_LHE_weights_scaleMuR_ZH':'CMS_vhbb_LHE_weights_scaleMuR_ZH',
-    'CMS_vhbb_LHE_weights_scaleMuF_ZH':'CMS_vhbb_LHE_weights_scaleMuF_ZH',
-    'CMS_vhbb_LHE_weights_scaleMuR_ggZH':'CMS_vhbb_LHE_weights_scaleMuR_ggZH',
-    'CMS_vhbb_LHE_weights_scaleMuF_ggZH':'CMS_vhbb_LHE_weights_scaleMuF_ggZH',
-    'CMS_vhbb_LHE_weights_scaleMuR_DYlight':'CMS_vhbb_LHE_weights_scaleMuR_DYlight',
-    'CMS_vhbb_LHE_weights_scaleMuF_DYlight':'CMS_vhbb_LHE_weights_scaleMuF_DYlight',
-    'CMS_vhbb_LHE_weights_scaleMuR_DY2b':'CMS_vhbb_LHE_weights_scaleMuR_DY2b',
-    'CMS_vhbb_LHE_weights_scaleMuF_DY2b':'CMS_vhbb_LHE_weights_scaleMuF_DY2b',
-    'CMS_vhbb_LHE_weights_scaleMuR_DY1b':'CMS_vhbb_LHE_weights_scaleMuR_DY1b',
-    'CMS_vhbb_LHE_weights_scaleMuF_DY1b':'CMS_vhbb_LHE_weights_scaleMuF_DY1b',
-    'CMS_vhbb_LHE_weights_scaleMuR_TT':'CMS_vhbb_LHE_weights_scaleMuR_TT',
-    'CMS_vhbb_LHE_weights_scaleMuF_TT':'CMS_vhbb_LHE_weights_scaleMuF_TT',
+    'CMS_vhbb_LHE_weights_scaleMuR_ZH':'CMS_vhbb_LHE_weights_scale_muR_ZH',
+    'CMS_vhbb_LHE_weights_scaleMuF_ZH':'CMS_vhbb_LHE_weights_scale_muF_ZH',
+    'CMS_vhbb_LHE_weights_scaleMuR_ggZH':'CMS_vhbb_LHE_weights_scale_muR_ggZH',
+    'CMS_vhbb_LHE_weights_scaleMuF_ggZH':'CMS_vhbb_LHE_weights_scale_muF_ggZH',
+    'CMS_vhbb_LHE_weights_scaleMuR_DYlight':'CMS_vhbb_LHE_weights_scale_muR_Zj0b',
+    'CMS_vhbb_LHE_weights_scaleMuF_DYlight':'CMS_vhbb_LHE_weights_scale_muF_Zj0b',
+    'CMS_vhbb_LHE_weights_scaleMuR_DY2b':'CMS_vhbb_LHE_weights_scale_muR_Zj2b',
+    'CMS_vhbb_LHE_weights_scaleMuF_DY2b':'CMS_vhbb_LHE_weights_scale_muF_Zj2b',
+    'CMS_vhbb_LHE_weights_scaleMuR_DY1b':'CMS_vhbb_LHE_weights_scale_muR_Zj1b',
+    'CMS_vhbb_LHE_weights_scaleMuF_DY1b':'CMS_vhbb_LHE_weights_scale_muF_Zj1b',
+    'CMS_vhbb_LHE_weights_scaleMuR_TT':'CMS_vhbb_LHE_weights_scale_muR_TT',
+    'CMS_vhbb_LHE_weights_scaleMuF_TT':'CMS_vhbb_LHE_weights_scale_muF_TT',
 
     'stats':'CMS_vhbb_stats',
     'model':'CMS_vhbb_model',

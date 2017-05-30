@@ -170,11 +170,28 @@ for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", 
             
             systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_bTagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
 
+# For test removing JEC on certain process
+print '\n\tROOToutname:', ROOToutname
+print 'BDT Flag:', bdt
+#if 'tt' in ROOToutname or 'TT' in ROOToutname:
+#   for sys in systematics:
+#       if 'btagWeight' in sys:
+#           sys_affecting[sys] = ['ZH','ggZH','DYlight','DY2b','DY1b','VVLF','ST','VVHF']
+            
+# Only remove JEC from high pT SR region
+# if 'high' in ROOToutname or 'High' in ROOToutname:
+#     if bdt:
+#         for sys in systematics:
+#             if 'JEC' in sys or 'JER' in sys:
+#                 print sys
+#                 sys_affecting.pop(sys)
+#                 sys_affecting[sys] = []
+#                 print sys_affecting[sys]
 
 print '\nSystematics:', systematics
 print '\nSystematicsnaming:', systematicsnaming
-print 'SYS factor:', sys_factor_dict
-print 'SYS affecting:', sys_affecting
+print '\nSYS factor:', sys_factor_dict
+print '\n\nSYS affecting:', sys_affecting
 
 
 # weightF:
@@ -568,13 +585,20 @@ for syst in systematics:
                 new_Hcut60  = 'HCMVAV2_reg_mass>60.'
                 new_Hcut160 = 'HCMVAV2_reg_mass<160.'
                 new_Jcut    = 'Jet_pt_reg[hJCMVAV2idx[0]]>15&Jet_pt_reg[hJCMVAV2idx[1]]>15'
+
+                # New Hpt cut
+                new_low_Hpt_cut  = '(HCMVAV2_reg_pt>=50&HCMVAV2_reg_pt<150)'
+                new_high_Hpt_cut = 'HCMVAV2_reg_pt>=50'
+
                 for sys in JECsys:
                     for q in ['Up', 'Down']:
                         new_Hcut150 = new_Hcut150+'||HCMVAV2_reg_mass_corr'+sys+q+'>150'
                         new_Hcut90  = new_Hcut90+'||HCMVAV2_reg_mass_corr'+sys+q+'<90'
                         new_Hcut160 = new_Hcut160+'||HCMVAV2_reg_mass_corr'+sys+q+'<160'
                         new_Hcut60  = new_Hcut60+'||HCMVAV2_reg_mass_corr'+sys+q+'>60'
-                        
+                        new_low_Hpt_cut = new_low_Hpt_cut+'||(HCMVAV2_reg_pt_corr'+sys+q+'>=50&HCMVAV2_reg_pt_corr'+sys+q+'<150)'
+                        new_high_Hpt_cut= new_low_Hpt_cut+'||HCMVAV2_reg_pt_corr'+sys+q+'>=50'
+
                 if 'VV' not in anType:
                     if 'Zhf' in name: ## (<!ZHbb|H_sel!>_reg_mass < 90. || <!ZHbb|H_sel!>_reg_mass > 150.)
                         _cut = _cut.replace('HCMVAV2_reg_mass > 150.', '('+new_Hcut150+')')
@@ -590,8 +614,11 @@ for syst in systematics:
                         _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
                     else:
                         _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
-                    
                 
+                #_cut = _cut.replace('HCMVAV2_reg_pt >= 50 & HCMVAV2_reg_pt < 150', '('+new_low_Hpt_cut+')')
+                #_cut = _cut.replace('HCMVAV2_reg_pt >= 50', '('+new_high_Hpt_cut+')')
+                                
+                #_sys_cut = _sys_cut.replace('HCMVAV2_reg_pt', 'HCMVAV2_reg_pt_corr%s%s'%(syst_temp,Q))
                 _sys_cut = _sys_cut.replace('HCMVAV2_reg_mass', 'HCMVAV2_reg_mass_corr%s%s'%(syst_temp,Q))
                 _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[0]]', 'hJetCMVAV2_pt_reg_0%s%s'%(syst_temp,Q))
                 _sys_cut = _sys_cut.replace('Jet_pt_reg[hJCMVAV2idx[1]]', 'hJetCMVAV2_pt_reg_1%s%s'%(syst_temp,Q))

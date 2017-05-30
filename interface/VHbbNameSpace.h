@@ -64,7 +64,7 @@ namespace VHbb {
   }
 
 
-  double ptWeightEWK_Zll_v25(int nGenVbosons,double GenVbosons_pt,int VtypeSim, int nGenTop, int nGenHiggsBoson){
+  double ptWeightEWK_Zll_v25(int nGenVbosons,double GenVbosons_pt,int VtypeSim){
     double SF = 1.;
     
     double EWK[25]={0.932072955817,
@@ -94,7 +94,7 @@ namespace VHbb {
 		    0.777869490396
     };
     
-    if (nGenVbosons ==1 && nGenTop == 0 && nGenHiggsBoson == 0)
+    if (nGenVbosons ==1)
       {
         if (VtypeSim == 0 || VtypeSim == 1 || VtypeSim == 4 || VtypeSim == 5)
           {
