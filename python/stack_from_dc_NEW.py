@@ -151,7 +151,7 @@ def drawFromDC():
     print 'ws_var:', ws_var
     
     if opts.var == 'BDT':
-        ws_var = ROOT.RooRealVar(ws_var,ws_var,-1.,1.)
+        ws_var = ROOT.RooRealVar(ws_var,ws_var,0.2,1.)
     else:
         ws_var = ROOT.RooRealVar(ws_var,ws_var, -1, 1.)
 
@@ -273,30 +273,36 @@ def drawFromDC():
 
         if opts.var == 'BDT':
 
-            #region_name = 'SR'
-            region_name = lep_channel+'HighPt'
+            region_name = 'SR'
+            #region_name = lep_channel+'HighPt'
             
             # binning
-            nBins = 40
-            xMin  = -1
+            nBins = 10
+            xMin  = 0.3
             xMax  = 1
             
             
             stat_name = 'BDT_'+lep_channel+'HighPt_'
             
         else:
-            # if 'tt' in region: region_name  = 'TTCR'
-            # if 'whf' in region: region_name = 'WHFCR'
-            # if 'wlf' in region: region_name = 'WLFCR'
-
-            if 'tt' in region: region_name  = 'tt'+lep_channel
+            if 'tt' in region: region_name  = 'TTCR'
             
             if 'whf' in region: 
                 if 'High' in opts.bin:
-                    region_name = 'whf'+lep_channel+'High'
-                else: region_name = 'whf'+lep_channel+'Low'
+                    region_name = 'WHFCRhigh'
+                else:
+                    region_name = 'WHFCRlow'
 
-            if 'wlf' in region: region_name = 'wlf'+lep_channel
+            if 'wlf' in region: region_name = 'WLFCR'
+
+            # if 'tt' in region: region_name  = 'tt'+lep_channel
+            
+            # if 'whf' in region: 
+            #     if 'High' in opts.bin:
+            #         region_name = 'whf'+lep_channel+'High'
+            #     else: region_name = 'whf'+lep_channel+'Low'
+
+            # if 'wlf' in region: region_name = 'wlf'+lep_channel
 
             stat_name = 'BDT_'+opts.bin+'_'
             
@@ -317,8 +323,8 @@ def drawFromDC():
         if opts.var == 'BDT': 
             region_name = 'Signal'
             # binning
-            nBins = 25
-            xMin  = -1
+            nBins = 12
+            xMin  = 0.4
             xMax  = 1
 
             stat_name = 'Znn_13TeV_Signal'
@@ -436,7 +442,7 @@ def drawFromDC():
         if 'W' in opts.bin:
             print 'channel, lepton channel, region_name:', channel, lep_channel, region_name
             #if not (dirinfo[0] == channel and dirinfo[1] == lep_channel and dirinfo[2] == region_name):
-            if not (dirinfo[0] == channel and dirinfo[1] == region_name): 
+            if not (dirinfo[0] == channel and dirinfo[1] == lep_channel and dirinfo[2] == region_name): 
                 continue
             else: print '!!! Match !!!'
 
@@ -625,15 +631,15 @@ def drawFromDC():
         print '!!!! Blinding !!!!'
         
         if 'Zee' in dataname or 'Zuu' in dataname:
-            for bin in range(11,datas[0].GetNbinsX()+1):
+            for bin in range(4,datas[0].GetNbinsX()+1):
                 datas[0].SetBinContent(bin,0)
+
         if 'Znn' in dataname:
-            for bin in range(18,datas[0].GetNbinsX()+1):
+            for bin in range(5,datas[0].GetNbinsX()+1):
                 datas[0].SetBinContent(bin,0)
 
         if 'W' in dataname:
-            print 'Wlv blinding'
-            for bin in range(30,datas[0].GetNbinsX()+1):
+            for bin in range(4,datas[0].GetNbinsX()+1):
                 #print datas[0].GetBinContent(bin,0)
                 datas[0].SetBinContent(bin,0)
 

@@ -4,7 +4,7 @@
 tag: 13TeV
 
 [General]
-BDTbins = 8
+BDTbins = 10
 BDTxMin = 0.2
 BDTxMax = 1.
 

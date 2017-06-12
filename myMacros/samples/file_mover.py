@@ -1231,9 +1231,11 @@ for index, file in enumerate(file_list):
 
 eos_path = '/store/user/dcurry/heppy/files/btag_MVA_out/'
 
-uftrig_path = '/exports/uftrig01a/dcurry/heppy/files/btag_MVA_out/'
+#uftrig_path = '/exports/uftrig01a/dcurry/heppy/files/btag_MVA_out/'
+uftrig_path = '/exports/uftrig01a/dcurry/heppy/files/tmp/'
 
-prefix = 'v25_'
+#prefix = 'v25_'
+prefix = ''
 
 data_list = ['Zuu', 'Zee']
 

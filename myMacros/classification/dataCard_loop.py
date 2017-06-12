@@ -83,9 +83,9 @@ vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 't
 
 # ====================================
 
-temp_list = ['BDT_Zee_high_Zpt']
+#temp_list = ['BDT_Zee_high_Zpt']
 #temp_list = ['ttbar_high_Zee']
-#temp_list = zlf_list + bdt_list
+temp_list = ttbar_list
 
 # ==============================================
 
@@ -100,14 +100,9 @@ temp_list = ['BDT_Zee_high_Zpt']
 datacard_list = temp_list
 
 ##### Directory to save datacards ####
-#title = 'Datacards_CrossCheckZll_5_24'
-#title = 'Datacards_minCMVAMed_BjetStitchFix_5_23'
-#title = 'Datacards_minCMVAMed_BjetStitchFix_NoTTJec_5_24'
-#title = 'Datacards_minCMVAMed_NoJECinHighPtSR_5_24'
-#title = 'Datacards_minCMVAMed_HptCutInCR_5_24'
-#title = 'Datacards_OldZlfCR_Hpt100_5_25'
-title = 'Datacards_minCMVAMed_SR02to1_5_30'
-#title = 'Datacards_minCMVAMed_SRMinus1to1_8bins_5_28'
+#title = 'Datacards_02to1_RemoveLowStatSYS_6_9'
+#title = 'Datacards_02to1_RemoveSTop_6_9'
+title = 'Datacards_02to1_RemoveSTopVVHF_6_9'
 
 
 sig_dir = 'ZllHbb_SR_'+title
@@ -250,7 +245,7 @@ if batch:
         sig_dir = 'ZllZbb_SR_'+title
         cr_dir  = 'ZllZbb_CR_'+title
         
-        # define the multiprocessing object
+        #define the multiprocessing object
         p = multiprocessing.Pool()
         results = p.imap(osSystem, datacard_list)
         p.close()
@@ -390,27 +385,35 @@ if isSplit:
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
         os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
 
-        p1 = multiprocessing.Pool()
-        results = p1.imap(osSystem, vv_ttbar_list)
-        p1.close()
-        p1.join()
-        
-        p1 = multiprocessing.Pool()
-        results = p1.imap(osSystem, vv_zhf_list)
-        p1.close()
-        p1.join()
-        
-        p1 = multiprocessing.Pool()
-        results = p1.imap(osSystem, vv_zlf_list)
-        p1.close()
-        p1.join()
-
         if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
             os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
 
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+
+
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, vv_ttbar_list)
+        p1.close()
+        p1.join()
+        
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, vv_zhf_list)
+        p1.close()
+        p1.join()
+
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, vv_zlf_list)
+        p1.close()
+        p1.join()
+
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+
              
         print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
 
@@ -872,7 +875,7 @@ if splitRegionFOM:
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
     
-    t3 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm -v 3 --saveShapes vhbb_Zll.txt'
+    t3 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_Zll.txt'
 
     #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -t -1 --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
     

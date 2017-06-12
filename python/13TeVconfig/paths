@@ -86,8 +86,8 @@ SYSout: <!Directories|uftrig_storage!>/files/sys_out/
 MVAin : <!Directories|SYSout!>
 #MVAout: <!Directories|uftrig_storage!>/files/MVA_out/
 #MVAout: <!Directories|uftrig_storage!>/files/MVA_out_VV/
-MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
-#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
+#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
+MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
 
 # On which samples to evaluate the MVAon and where to write the resulting trees:
 SPLITin : <!Directories|samplepath!>/env/sys/

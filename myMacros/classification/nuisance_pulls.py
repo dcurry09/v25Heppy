@@ -12,11 +12,11 @@ import multiprocessing
 import logging
 from matplotlib import interactive
 
-datacard_dir = 'ZllHbb_Datacards_minCMVAMed_SRMinus1to1_8bins_5_28'
+datacard_dir = 'ZllHbb_Datacards_02to1_RemoveSTopVVHF_6_9'
 
 inpath = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+datacard_dir+'/'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/NuisancePulls_'+datacard_dir+'/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/NuisancePulls_'+datacard_dir+'_v2/'
 
 # Make the dir and copy the website ini files
 try:

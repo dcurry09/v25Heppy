@@ -21,19 +21,19 @@ isVV = False
 #isVV = True
 
 isFromDC = False
-isFromDC = True
+#isFromDC = True
 
-path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VH_combo240517/'
+path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/6_9/VH_combo090617/'
 #VV_path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VZ_combo05052017/'
 
 # Wlv: WH
-#in_dir = path+'WlnHbb_Datacards_April6_v2_BTFullDecorr_WHFSplit'
+#in_dir = path+'WlvHbb'
 
 # Wlv: VV
 #in_dir = VV_path+'WlnZbb_Datacards_April6_v2_PDFInlfated_BTDecorr'
 
 # Zvv: ZH
-#in_dir = path+'ZnnHbb_Datacards_May11'
+in_dir = path+'ZvvHbb'
 
 #Zvv: VV
 #in_dir = VV_path+'ZnnZbb_Datacards_May3'
@@ -42,35 +42,35 @@ path = '/afs/cern.ch/user/d/dcurry/public/shared/datacards/VH_combo240517/'
 #in_dir = VV_path+'ZllZbb_Datacards_ChannelDecorrelatedBtag_5_1'
 
 # VH
-#in_dir = path+'ZllHbb_Datacards_ZlfMjjCut_evt10_5_18'
-in_dir = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_minCMVAMed_SR0to1_5_28/'
+#in_dir = path+'ZllHbb_Datacards_02to1_6_2'
+#in_dir = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_minCMVAMed_SR0to1_5_28/'
 
-#out_dir = '~/www/v25_VH_AllChannels_5_24_postFit_v1/'
-out_dir = '~/www/Test_Datacards_minCMVAMed_SR0to1_5_28/'
+out_dir = '~/www/VH_AllChannels_6_9_postFit/'
+#out_dir = '~/www/Test_Datacards_minCMVAMed_SR0to1_5_28/'
 
 
 cr_list = {
     
     ##### Zll #####
-    'Zlf_low_Zuu': 'Zlf_low_Zuu',
-    'Zlf_low_Zee': 'Zlf_low_Zee',
-    'Zlf_high_Zuu': 'Zlf_high_Zuu',
-    'Zlf_high_Zee': 'Zlf_high_Zee',
+    # 'Zlf_low_Zuu': 'Zlf_low_Zuu',
+    # 'Zlf_low_Zee': 'Zlf_low_Zee',
+    # 'Zlf_high_Zuu': 'Zlf_high_Zuu',
+    # 'Zlf_high_Zee': 'Zlf_high_Zee',
         
-    'Zhf_low_Zee': 'Zhf_low_Zee',
-    'Zhf_high_Zee': 'Zhf_high_Zee',
-    'Zhf_low_Zuu': 'Zhf_low_Zuu',
-    'Zhf_high_Zuu': 'Zhf_high_Zuu',
+    # 'Zhf_low_Zee': 'Zhf_low_Zee',
+    # 'Zhf_high_Zee': 'Zhf_high_Zee',
+    # 'Zhf_low_Zuu': 'Zhf_low_Zuu',
+    # 'Zhf_high_Zuu': 'Zhf_high_Zuu',
     
-    'ttbar_low_Zee': 'ttbar_low_Zee',
-    'ttbar_high_Zee': 'ttbar_high_Zee',
-    'ttbar_low_Zuu': 'ttbar_low_Zuu',
-    'ttbar_high_Zuu': 'ttbar_high_Zuu',
+    # 'ttbar_low_Zee': 'ttbar_low_Zee',
+    # 'ttbar_high_Zee': 'ttbar_high_Zee',
+    # 'ttbar_low_Zuu': 'ttbar_low_Zuu',
+    # 'ttbar_high_Zuu': 'ttbar_high_Zuu',
     
-    'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
-    'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
-    'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
-    'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
+    # 'BDT_Zee_LowPt': 'ZeeLowPt_13TeV',
+    # 'BDT_Zee_HighPt':'ZeeHighPt_13TeV',
+    # 'BDT_Zuu_LowPt': 'ZuuLowPt_13TeV',
+    # 'BDT_Zuu_HighPt':'ZuuHighPt_13TeV'
     
     #### Wlv ####
     # 'vhbb_ttWen_13TeV': 'ttWen',
@@ -81,14 +81,14 @@ cr_list = {
     # 'vhbb_whfWmnLow_13TeV' : 'whfWmnLow',
     # 'vhbb_wlfWen_13TeV': 'wlfWen',
     # 'vhbb_wlfWmn_13TeV': 'wlfWmn',
-    # 'vhbb_WenHighPt_13TeV':'WenHighPt',
-    # 'vhbb_WmnHighPt_13TeV':'WmnHighPt'
+    #'vhbb_WenHighPt_13TeV':'WenHighPt',
+    #'vhbb_WmnHighPt_13TeV':'WmnHighPt'
 
     #### Zvv ####
-    # 'vhbb_DC_TH_Znn_13TeV_TT':'Znn_13TeV_TT',
-    # 'vhbb_DC_TH_Znn_13TeV_Zbb':'Znn_13TeV_Zbb',
-    # 'vhbb_DC_TH_Znn_13TeV_Zlight':'Znn_13TeV_Zlight',
-    # 'vhbb_DC_TH_Znn_13TeV_Signal':'Znn_13TeV_Signal'
+    'vhbb_DC_TH_Znn_13TeV_TT':'Znn_13TeV_TT',
+    'vhbb_DC_TH_Znn_13TeV_Zbb':'Znn_13TeV_Zbb',
+    'vhbb_DC_TH_Znn_13TeV_Zlight':'Znn_13TeV_Zlight',
+    'vhbb_DC_TH_Znn_13TeV_Signal':'Znn_13TeV_Signal'
     }
 
 

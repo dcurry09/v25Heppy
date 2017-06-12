@@ -95,6 +95,8 @@ setup       = eval(config.get('LimitGeneral','setup'))
 doSYS       = config.get('dc:%s'%var,'doSYS')
 doBin       = config.get('dc:%s'%var,'doBin')
 
+# for Variable BDT bins
+Custom_BDT_bins = eval(config.get('LimitGeneral','Custom_BDT_bins'))
 
 # CHange setup for VV analysis
 if 'VV' in anType:
@@ -142,12 +144,13 @@ if config.has_option('LimitGeneral','sys_cut_include'):
 
 
 #systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming'))
-
-if 'high' in ROOToutname or 'HighPt' in ROOToutname:
+#if any(word in ROOToutname for word in ['high','High']):
+#    systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming_high'))
+if 'high' in ROOToutname or 'High' in ROOToutname:
     systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming_high'))
-elif 'med' in ROOToutname or 'MedPt' in ROOToutname:
+elif 'med' in ROOToutname or 'Med' in ROOToutname:
     systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming_med'))
-elif 'low' in ROOToutname or 'LowPt' in ROOToutname:
+elif 'low' in ROOToutname or 'Low' in ROOToutname:
     systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming_low'))
 else:
     systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming'))
@@ -157,7 +160,7 @@ else:
 sys_factor_dict = eval(config.get('LimitGeneral','sys_factor'))
 sys_affecting = eval(config.get('LimitGeneral','sys_affecting'))
 
-# Add the bTag sys variations by hand
+#Add the bTag sys variations by hand
 for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
     for ipt in range(0,5):
         for ieta in range(1,4):
@@ -166,13 +169,12 @@ for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", 
                 
             sys_factor_dict["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 1.0 
 
-            sys_affecting["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = ['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF']
+            sys_affecting["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = ['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF']
             
             systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_bTagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
 
-# For test removing JEC on certain process
-print '\n\tROOToutname:', ROOToutname
-print 'BDT Flag:', bdt
+
+# # For test removing JEC on certain process
 #if 'tt' in ROOToutname or 'TT' in ROOToutname:
 #   for sys in systematics:
 #       if 'btagWeight' in sys:
@@ -284,11 +286,11 @@ if not add_signal_as_bkg == 'None':
 #Assign Pt region for sys factors
 if 'HighPtLooseBTag' in ROOToutname:
     pt_region = 'HighPtLooseBTag'
-elif 'high' in ROOToutname or 'HighPt' in ROOToutname:
+elif 'high' in ROOToutname or 'High' in ROOToutname:
     pt_region = 'HighPt'
-elif 'med' in ROOToutname or 'MedPt' in ROOToutname:
+elif 'med' in ROOToutname or 'Med' in ROOToutname:
     pt_region = 'MedPt'
-elif 'low' in ROOToutname or 'LowPt' in ROOToutname:
+elif 'low' in ROOToutname or 'Low' in ROOToutname:
     pt_region = 'LowPt'
 elif 'ATLAS' in ROOToutname:
     pt_region = 'HighPt'
@@ -297,8 +299,9 @@ elif 'MJJ' in ROOToutname:
 else:
     print "Unknown Pt region"
     pt_region = 'AllPt'
-    #sys.exit()
-    
+    sys.exit()
+
+print '\n\tPt region:', pt_region     
 
 # Set rescale factor of 2 in case of TrainFlag
 if TrainFlag:
@@ -670,16 +673,13 @@ if nData > 1:
 mc_hMaker.lumi = lumi
 data_hMaker.lumi = lumi
 
-#if addBlindingCut:
-#    for i in range(len(mc_hMaker.optionsList)):
-#        mc_hMaker.optionsList[i]['cut'] += ' & %s' %addBlindingCut
-#    for i in range(len(data_hMaker.optionsList)):
-#        data_hMaker.optionsList[i]['cut'] += ' & %s' %addBlindingCut
 
-#print 'BKG Samples:', background_samples
 if rebin_active:
+
+    if Custom_BDT_bins:
+        mc_hMaker.Custom_BDT_bins = Custom_BDT_bins
+
     mc_hMaker.calc_rebin(background_samples)
-    #transfer rebinning info to data maker
     data_hMaker.norebin_nBins = copy(mc_hMaker.norebin_nBins)
     data_hMaker.rebin_nBins = copy(mc_hMaker.rebin_nBins)
     data_hMaker.nBins = copy(mc_hMaker.nBins)
@@ -1039,10 +1039,10 @@ for DCtype in ['TH']:
     f.write('\n')
     
     # get list of systematics in use
-    if 'All' in pt_region:
-        InUse = eval(config.get('Datacard','InUse'))
-    else:
-       InUse = eval(config.get('Datacard','InUse_%s'%pt_region))
+    #if 'All' in pt_region:
+    #    InUse = eval(config.get('Datacard','InUse'))
+    #else:
+    InUse = eval(config.get('Datacard','InUse_%s'%pt_region))
     
         
     # Turn of SYS if selected

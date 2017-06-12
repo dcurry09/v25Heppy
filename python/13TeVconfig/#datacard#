@@ -13,17 +13,15 @@ addOverFlow: True
 # --------------------------------------
 # Binning:
 # --------------------------------------
-
-# for equal spaced bins
 #BDTrange: 15,-1,1
-BDTrange: 10,0.2,1.
-Custom_BDT_bins: False
+BDTrange: 10,0.,1.
+BDToutname: v1
 
 # for variable BDT binning
-#BDTrange: 20,-1,1
-#Custom_BDT_bins: True
+Custom_BDT_bins =  [-1,0,0.1,0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-BDToutname: v1
+Custom_BDT_bins = None
+
 
 ## CSV ##
 #CRrange: 20,0.,1.
@@ -269,13 +267,10 @@ sys_factor: {'CMS_vhbb_eff_e_13TeV':0.25,
 	     'btagWeightCSV_cferr2_LowForward':1.0}
 	     
 
-sys_affecting: {'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		
-		#'weight_pileUp':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'weight_pileUp':['ZH','ggZH','DY2b','DY1b','TT','VVLF'],
-		
+sys_affecting: {'weight_pileUp':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+
 		'CMS_vhbb_EWK_Zll':['ZH'],
-		
+
 		'CMS_vhbb_LHE_weights_scaleMuR_ZH':['ZH'],
 		'CMS_vhbb_LHE_weights_scaleMuF_ZH':['ZH'],
 		'CMS_vhbb_LHE_weights_scaleMuR_ggZH':['ggZH'],
@@ -289,59 +284,55 @@ sys_affecting: {'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
 		'CMS_vhbb_LHE_weights_scaleMuR_TT':['TT'],
 		'CMS_vhbb_LHE_weights_scaleMuF_TT':['TT'],
 		
-		'CMS_vhbb_eff_e_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'CMS_vhbb_eff_m_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		'CMS_vhbb_eff_e_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_m_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
 		
-		'CMS_vhbb_eff_e_trigger_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		'CMS_vhbb_eff_e_trigger_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_e_MVAID_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_e_tracker_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_m_trigger_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_m_MVAID_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_m_tracker_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
+		'CMS_vhbb_eff_m_ISO_13TeV':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','VVHF'],
 
-		#'CMS_vhbb_eff_e_MVAID_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'CMS_vhbb_eff_e_MVAID_13TeV':['ZH','ggZH','DY2b','DY1b','TT','VVLF'],
 
-		'CMS_vhbb_eff_e_tracker_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'CMS_vhbb_eff_m_trigger_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'CMS_vhbb_eff_m_MVAID_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'CMS_vhbb_eff_m_tracker_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'CMS_vhbb_eff_m_ISO_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		'JER':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JEC':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		
-		'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'JEC':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		
-		"JEC_PileUp":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_Relative":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_AbsoluteMisc":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		"JEC_PileUp":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_Relative":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_AbsoluteMisc":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 
-		"JEC_PileUpDataMC":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtRef":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtBB":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtEC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtEC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		"JEC_PileUpDataMC":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_PileUpPtRef":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_PileUpPtBB":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_PileUpPtEC1":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_PileUpPtEC2":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_PileUpPtHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		
-		"JEC_RelativeJEREC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeJEREC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeJERHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeFSR":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeStatFSR":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeStatEC":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeStatHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtBB":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtEC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtEC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		"JEC_RelativeJEREC1":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativeJEREC2":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativeJERHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativeFSR":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativeStatFSR":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativeStatEC":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativeStatHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativePtBB":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativePtEC1":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativePtEC2":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_RelativePtHF":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 		
-		"JEC_AbsoluteScale":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_AbsoluteMPFBias":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_AbsoluteStat":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_SinglePionECAL":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_SinglePionHCAL":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_Fragmentation":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_TimePtEta":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_FlavorQCD":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF']}
+		"JEC_AbsoluteScale":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_AbsoluteMPFBias":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_AbsoluteStat":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_SinglePionECAL":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_SinglePionHCAL":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_Fragmentation":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_TimePtEta":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		"JEC_FlavorQCD":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
 
-		
-		
 		# no TT
-                # 'JER':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+		# 'JER':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
 		# 'JEC':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
 		
 		# "JEC_PileUp":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
@@ -375,62 +366,63 @@ sys_affecting: {'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
 		# "JEC_Fragmentation":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
 		# "JEC_TimePtEta":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
 		# "JEC_FlavorQCD":['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','ST','ZH125','VVHF'],
+
 		
-		# 'JER_low':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-                # 'JEC_low':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-		# 'JER_high':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-		# 'JEC_high':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-		# 'JER_central':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-		# 'JEC_central':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-		# 'JER_forward':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
-		# 'JEC_forward':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','TT'],
 		
-		# 'btagWeightCSV_JES_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_JES_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_JES_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_JES_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_JES':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-                # 'btagWeightCSV_hfstats2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hf':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lf':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lf_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lf_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lf_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lf_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hf_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hf_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hf_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hf_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats1_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats1_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats1_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats1_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats2_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats2_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats2_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_lfstats2_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats1_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats1_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats1_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats1_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats2_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats2_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats2_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_hfstats2_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr1_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr1_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr1_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr1_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr2_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr2_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr2_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
-		# 'btagWeightCSV_cferr2_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF']
-  
+		'JER_low':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+                'JEC_low':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JER_high':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JEC_high':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JER_central':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JEC_central':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JER_forward':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'JEC_forward':['ZH', 'ggZH', 'DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		
+		'btagWeightCSV_JES_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_JES':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+                'btagWeightCSV_hfstats2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hf':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lf':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr1':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr2':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lf_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lf_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lf_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lf_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hf_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hf_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hf_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hf_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats1_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats1_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats1_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats1_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats2_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats2_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats2_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_lfstats2_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats1_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats1_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats1_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats1_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats2_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats2_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats2_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_hfstats2_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr1_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr1_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr1_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr1_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr2_HighCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr2_LowCentral':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr2_LowForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF'],
+		'btagWeightCSV_cferr2_HighForward':['ZH', 'ggZH','DYlight','DY2b','DY1b','VVLF','TT','ST','ZH125','VVHF']}
 
 
 
@@ -707,7 +699,7 @@ InUse: ['lumi_13TeV', 'pdf_qqbar', 'pdf_gg', 'QCDscale_VH', 'QCDscale_ttbar','QC
 	'CMS_vhbb_LHE_weights_pdf_Zj1b', 'CMS_vhbb_LHE_weights_pdf_Zj2b', 
 	'CMS_vhbb_LHE_weights_pdf_VVHF', 'CMS_vhbb_LHE_weights_pdf_VVLF']
 
-InUse_HighPt: <!Datacard|InUse!> + ['QCDscale_VH_ggZHacceptance_highPt']
+InUse_HighPt: <!Datacard|InUse!> + ['QCDscale_VH_ggZHacceptance_HighPt']
 InUse_LowPt : <!Datacard|InUse!> + ['QCDscale_VH_ggZHacceptance_lowPt']
 InUse_cr    : <!Datacard|InUse!>
 

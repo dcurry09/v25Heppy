@@ -8,6 +8,8 @@ from TreeCache import TreeCache
 from math import sqrt
 from copy import copy
 import numpy as np
+from math import floor
+import pdb
 #from array import *
 import array as ar
 #from builtins import any as b_any
@@ -38,6 +40,9 @@ class HistoMaker:
         self.mybinning = None
         self.GroupDict=GroupDict
         self.calc_rebin_flag = False
+
+        self.Custom_BDT_bins = False
+        
         VHbbNameSpace=config.get('VHbbNameSpace','library')
         ROOT.gSystem.Load(VHbbNameSpace)
         
@@ -478,13 +483,104 @@ class HistoMaker:
         binlist[-1]+=modulo
         binlist.append(binR)
         binlist.append(self.rebin_nBins+1)
-        # print 'binning set to %s'%binlist
+        print 'binning set to %s'%binlist
         print 'bin low edge array:', array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist])
         #print array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist])
+        
         #self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
-        self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
+        #self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
+        self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist]),True,self.Custom_BDT_bins)
+
         self._rebin = True
         print '\t > rebinning is set <\n'
+
+    # def calc_rebin(self, bg_list, nBins_start=1000, tolerance=0.35):
+    #     #print "START calc_rebin"
+    #     self.calc_rebin_flag = True
+    #     self.norebin_nBins = copy(self.nBins)
+    #     self.rebin_nBins = nBins_start
+    #     self.nBins = nBins_start
+    #     i=0
+    #     #add all together:
+    #     print '\n\t...calculating rebinning...'
+    #     for job in bg_list:
+    #         #print "job",job
+    #         htree = self.get_histos_from_tree(job)[0].values()[0]
+    #         #print "Integral",job,htree.Integral()
+    #         if not i:
+    #             totalBG = copy(htree)
+    #         else:
+    #             totalBG.Add(htree,1)
+    #         del htree
+    #         i+=1
+    #     ErrorR=0
+    #     ErrorL=0
+    #     TotR=0
+    #     TotL=0
+    #     binR=self.rebin_nBins
+    #     binL=1
+    #     rel=1.0
+    #     #print "START loop from right"
+    #     #print "totalBG.Draw("","")",totalBG.Integral()
+    #     #---- from right
+    #     while rel > tolerance :
+    #         TotR+=totalBG.GetBinContent(binR)
+    #         ErrorR=sqrt(ErrorR**2+totalBG.GetBinError(binR)**2)
+    #         binR-=1
+    #         if binR < 0: break
+    #         if TotR < 1.: continue
+    #         #print 'binR is', binR
+    #         #print 'TotR is', TotR
+    #         #print 'ErrorR is', ErrorR
+    #         if not TotR <= 0 and not ErrorR == 0:
+    #             rel=ErrorR/TotR
+    #             #print 'rel is',  rel
+    #     #print 'upper bin is %s'%binR
+    #     #print "END loop from right"
+
+    #     #Custom bins will be applied if this is true. Rebinning from left is not needed (big lower bin should have enough stats).
+    #     if self.Custom_BDT_bins:
+    #         if self.Custom_BDT_bins[-2] > totalBG.GetBinLowEdge(binR):
+    #             print '@ERROR: highest BDT bins doesn\'t satifie rebinning condition when using variable size bins, please change the bin size accordinly.Aborting'
+    #             print 'binR x-range should be', totalBG.GetBinLowEdge(binR)
+    #             sys.exit()
+    #         self.mybinning = Rebinner(len(self.Custom_BDT_bins)-1,array('d',self.Custom_BDT_bins),True, True)
+    #     else:
+    #         #---- from left
+    #         rel=1.0
+    #         print "START loop from left"
+    #         while rel > tolerance:
+    #             TotL+=totalBG.GetBinContent(binL)
+    #             ErrorL=sqrt(ErrorL**2+totalBG.GetBinError(binL)**2)
+    #             binL+=1
+    #             if binL > nBins_start: break
+    #             if TotL < 1.: continue
+    #             if not TotL <= 0 and not ErrorL == 0:
+    #                 rel=ErrorL/TotL
+    #                 print rel
+    #         #it's the lower edge
+    #         print "STOP loop from left"
+    #         binL+=1
+    #         print 'lower bin is %s'%binL
+
+    #         inbetween=binR-binL
+    #         stepsize=int(inbetween)/(int(self.norebin_nBins)-2)
+    #         modulo = int(inbetween)%(int(self.norebin_nBins)-2)
+
+    #         print 'stepsize %s'% stepsize
+    #         print 'modulo %s'%modulo
+    #         binlist=[binL]
+    #         for i in range(0,int(self.norebin_nBins)-3):
+    #             binlist.append(binlist[-1]+stepsize)
+    #         binlist[-1]+=modulo
+    #         binlist.append(binR)
+    #         binlist.append(self.rebin_nBins+1)
+    #         print 'binning set to %s'%binlist
+    #         #print "START REBINNER"
+    #         #self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
+    #         self.mybinning = Rebinner(int(self.norebin_nBins),array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist]),True)
+    #     self._rebin = True
+    #     print '\t > rebinning is set <\n'
 
     @staticmethod
     def orderandadd(histo_dicts,setup):
@@ -508,10 +604,12 @@ class HistoMaker:
 
 class Rebinner:
 
-    def __init__(self,nBins,lowedgearray,active=True):
+    #def __init__(self,nBins,lowedgearray,active=True):
+    def __init__(self,nBins,lowedgearray,active=True,var_bins=False):
         self.lowedgearray=lowedgearray
         self.nBins=nBins
         self.active=active
+        self.var_bins=var_bins
 
     def rebin(self, histo):
         if not self.active: return histo
@@ -522,15 +620,44 @@ class Rebinner:
         ROOT.gDirectory.Delete('hnew')
         histo.Rebin(self.nBins,'hnew',self.lowedgearray)
         binhisto=ROOT.gDirectory.Get('hnew')
-        #print binhisto.Integral()
+        
         newhisto=ROOT.TH1F('new','new',self.nBins,self.lowedgearray[0],self.lowedgearray[-1])
         newhisto.Sumw2()
         for bin in range(1,self.nBins+1):
+            #print 'Bin # ',bin, 'low edge:', binhisto.GetBinLowEdge(bin), binhisto.GetBinContent(bin)
             newhisto.SetBinContent(bin,binhisto.GetBinContent(bin))
             newhisto.SetBinError(bin,binhisto.GetBinError(bin))
         newhisto.SetName(binhisto.GetName())
         newhisto.SetTitle(binhisto.GetTitle())
-        print newhisto.Integral()
-        del histo
-        del binhisto
-        return copy(newhisto)
+        
+        if self.var_bins:
+            print '\n\t Making variable bin histogram...'
+            print 'LowEdgeArray:', self.lowedgearray
+            print 'Merging from -1 to 0'
+            merge_low, merge_high = -1.0, 0.0
+            var_lowedgearray = array('d',[x for x in self.lowedgearray if not(merge_low < x < merge_high)])
+            print '\tVar_lowedgearray:', var_lowedgearray
+            
+            ROOT.gDirectory.Delete('hnew2')
+            histo.Rebin(len(var_lowedgearray)-1, "hnew2", var_lowedgearray)
+            Varbinhisto=ROOT.gDirectory.Get('hnew2')
+            newhisto2=ROOT.TH1F('new2','new2', len(var_lowedgearray)-1, var_lowedgearray)
+            newhisto2.Sumw2()
+            for bin in range(1,len(var_lowedgearray)):
+                print 'bin #',bin,'Low edge:', Varbinhisto.GetBinLowEdge(bin), Varbinhisto.GetBinContent(bin)
+                newhisto2.SetBinContent(bin, Varbinhisto.GetBinContent(bin))
+                newhisto2.SetBinError(bin, Varbinhisto.GetBinError(bin))
+            newhisto2.SetName(binhisto.GetName())
+            newhisto2.SetTitle(binhisto.GetTitle())
+            
+            del histo
+            del binhisto
+            del newhisto
+            del Varbinhisto
+            return copy(newhisto2)
+
+        else:
+            del histo
+            del binhisto
+            return copy(newhisto)
+

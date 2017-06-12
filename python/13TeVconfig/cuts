@@ -43,13 +43,13 @@ Zhf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_
 # for regression validation
 Zhf_Btag_reg: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
-#Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < <!ZHbb|CSVL!>
-Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
+Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVL!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] < <!ZHbb|CSVL!>
+#Zlf_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] < <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
 ttbar_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVT!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
 
-#bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVL!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
-bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!> 
+bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVL!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!>
+#bdt_Btag: <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[0]] > <!ZHbb|CSVM!> & <!ZHbb|jet_btag!>[<!ZHbb|jet_index!>[1]] > <!ZHbb|CSVL!> 
 
 
 noAddJet: Sum$(Jet_pt > 20 & abs(Jet_eta) < 2.4 & Jet_puId == 7) == 2
@@ -143,11 +143,11 @@ run_range: (EVENT.run < 207883 || EVENT.run > 208307)
 
 zlf_stat_cut: evt%10==0 & H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
 
-zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. 
-zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
+#zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. 
+#zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000.
 
-#zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
-#zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
+zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
+zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 150. & <!ZHbb|H_sel!>_reg_mass > 90.
 
 #vv_zlf_low_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 160. & <!ZHbb|H_sel!>_reg_mass > 60.
 #vv_zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZHbb|V_pt!>_pt < 2000. & <!ZHbb|H_sel!>_reg_mass < 160. & <!ZHbb|H_sel!>_reg_mass > 60.
@@ -155,7 +155,7 @@ zlf_high_stat_cut: H_pt < 999. & H_pt > 0. & H_mass < 9999. & H_mass > 0. & <!ZH
 vv_zlf_low_stat_cut: <!ZHbb|zlf_low_stat_cut!>
 vv_zlf_high_stat_cut: <!ZHbb|zlf_high_stat_cut!>
 
-vv_bdt_cut: H_pt < 999. & H_pt > 0.0 & H_mass < 9999. & H_mass > 0.0
+vv_bdt_cut: H_pt < 999. & H_pt > 0.0 & H_mass < 9999.0 & H_mass > 0.0
 
 # -------------------------------------------
 # Preselections (combination of single cuts)
