@@ -6,8 +6,9 @@ from BetterConfigParser import BetterConfigParser
 import TdrStyles
 from Ratio import getRatio
 from HistoMaker import HistoMaker
-import numpy
+import numpy as np
 from array import *
+from ROOT import TH1
 
 isVV = False
 #isVV = True
@@ -113,8 +114,8 @@ class StackMaker:
             self.options['weight'] = None
 
         self.plotDir = config.get('Directories','plotpath')
-        #self.maxRatioUncert = 1000.5
-        self.maxRatioUncert = 0.5
+        self.maxRatioUncert = 1000.5
+        #self.maxRatioUncert = 0.75
 
         if self.SignalRegion:
             self.maxRatioUncert = 1000.
@@ -133,16 +134,22 @@ class StackMaker:
         self.addFlag2 = ''
         self.filename = None
         
-
+        
         # for preFit overlay
         self.prefit_overlay = None
         
         print '!!!Region!!!: ', self.region
         print self.options
         if 'Low' in self.region or 'low' in self.region:
-            self.addFlag2 = 'Low p_{T}(V)'
-        else: self.addFlag2 = 'High p_{T}(V)'
-        
+            if 'Wen' not in self.region and 'Wmn' not in self.region:
+                self.addFlag2 = 'Low p_{T}(V)'
+            else:
+                self.addFlag2 = 'Low M(jj)'
+        if 'High' in self.region or 'high' in self.region:
+            if 'Wen' not in self.region and 'Wmn' not in self.region:
+                self.addFlag2 = 'High p_{T}(V)'
+            elif 'WenHighPt' not in self.region and 'WmnHighPt' not in self.region:
+                self.addFlag2 = 'High M(jj)'
         
 
 
@@ -226,12 +233,13 @@ class StackMaker:
         c.SetFrameFillStyle(1000)
         c.SetFrameFillColor(0)
         
-        oben = ROOT.TPad('oben','oben',0,0.3 ,1.0,1.0)
-        oben.SetBottomMargin(0)
+        #                               xlow  ylow  xup yup
+        oben = ROOT.TPad('oben','oben', 0.0, 0.3, 1.0, 1.0)
+        oben.SetBottomMargin(0.0)
         oben.SetFillStyle(4000)
         oben.SetFrameFillStyle(1000)
         oben.SetFrameFillColor(0)
-        unten = ROOT.TPad('unten','unten',0,0.0,1.0,0.3)
+        unten = ROOT.TPad('unten','unten', 0.0, 0.0, 1.0, 0.29)
         unten.SetTopMargin(0.)
         unten.SetBottomMargin(0.35)
         unten.SetFillStyle(4000)
@@ -262,9 +270,9 @@ class StackMaker:
 
         for histo in self.histos:
             MC_integral+=histo.Integral()
-            print histo
-            print 'MC RMS:', histo.GetRMS()
-            print 'MC Mean:', histo.GetMean()
+            #print histo
+            #print 'MC RMS:', histo.GetRMS()
+            #print 'MC Mean:', histo.GetMean()
 
         print "\033[1;32m\n\tMC integral = %s\033[1;m"%MC_integral
 
@@ -278,15 +286,20 @@ class StackMaker:
         k=len(self.histos)
         for j in range(0,k):
             i=k-j-1
-            print 'Color:', self.histos[i], int(self.colorDict[self.typs[i]]), self.histos[i].Integral()
+            data4bin=0
+            print '\nColor:', self.histos[i], int(self.colorDict[self.typs[i]]), self.histos[i].Integral()
             self.histos[i].SetFillColor(int(self.colorDict[self.typs[i]]))
             self.histos[i].SetLineColor(1)
             allStack.Add(self.histos[i])
             print '# of MC bins:', self.histos[i].GetNbinsX()+1
             for bin in range(0,self.histos[i].GetNbinsX()+1):
                 print 'MC in bin ', bin, ':', self.histos[i].GetBinContent(bin)
+                if bin > 11: data4bin += self.histos[i].GetBinContent(bin)
+            
+            print 'Region:',  self.histos[i]
+            print '==== MC in 4 most sensitive BDT bins:', data4bin
 
-
+            
 
         print 'StackMaker Data Bins:', self.nBins,self.xMin,self.xMax
         d1 = ROOT.TH1F('noData','noData',self.nBins,self.xMin,self.xMax)
@@ -294,68 +307,109 @@ class StackMaker:
         print 'self.datanames:', self.datanames
         print 'Self.var:', self.var
         
-        # if 'gg_plus' in self.var:
-        
-        #         binBoundaries = [-1., 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.]
-        #         self.nBins = 8
-        #         bins = array('f', binBoundaries)  
-        #         d1 = ROOT.TH1F('noData','noData',self.nBins,bins)
+        # if 'Wmn' in self.datanames and not 'CMVA' in self.var or 'Wen' in self.datanames and not 'CMVA' in self.var:
+        #     if not isVV:
+        #         binBoundaries = [0.3, 0.4, 0.5, 0.6, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 1.0]
+                
+        #     if isVV:
+        #         binBoundaries = [0.3, 0.4, 0.5, 0.6, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 1.0]
+                 
+        #     bins = array('f', binBoundaries)  
+        #     d1 = ROOT.TH1F('noData','noData',self.nBins,bins)
             
-
+            
+        # if 'Znn' in self.datanames and 'CMVA' not in self.var:
+        #     print 'Rebin Znn'
+        #     d1 = ROOT.TH1F('noData','noData',35, -0.8, 1)
+        #     Znn_temp_data = ROOT.TH1F('noData','noData',35, -0.8, 1)
+            
+        Znn_temp_data = d1
 
         datatitle='Data'
         addFlag = ''
-        if 'Zee' in self.datanames and 'Zuu' in self.datanames or 'Zll' in self.datanames:
-            if isVV: 
-	        addFlag = 'Z(l^{-}l^{+})Z(b#bar{b})'
-            else: addFlag = 'Z(l^{-}l^{+})H(b#bar{b})'
-        elif 'Zee' in self.datanames:
-            if isVV: addFlag = 'Z(e^{-}e^{+})Z(b#bar{b})'
-            else: addFlag = 'Z(e^{-}e^{+})H(b#bar{b})'
+
+        # if 'Zee' in self.datanames and 'Zuu' in self.datanames or 'Zll' in self.datanames:
+        #     if isVV: 
+	#         addFlag = '2-lep: Z(l^{-}l^{+})Z(b#bar{b})'
+        #     else: addFlag = '2-lep: Z(l^{-}l^{+})H(b#bar{b})'
+        # elif 'Zee' in self.datanames:
+        #     if isVV: addFlag = '2-lep: Z(e^{-}e^{+})Z(b#bar{b})'
+        #     else: addFlag = '2-lep: Z(e^{-}e^{+})H(b#bar{b})'
+        # elif 'Zuu' in self.datanames:
+        #     if isVV: addFlag = '2-lep: Z(#mu^{-}#mu^{+})Z(b#bar{b})'
+        #     else: addFlag = '2-lep: Z(#mu^{-}#mu^{+})H(b#bar{b})'
+        # elif 'Znn' in self.datanames:
+        #     if isVV: addFlag = '0-lep: Z(#nu#nu)Z(b#bar{b})'
+        #     else: addFlag = '0-lep: Z(#nu#nu)H(b#bar{b})'
+        # elif 'Wmn' in self.datanames:
+        #     if isVV:
+        #         addFlag = '1-lep: W(#mu#nu)Z(b#bar{b})'
+        #     else: addFlag = '1-lep: W(#mu#nu)H(b#bar{b})'
+        # elif 'Wen' in self.datanames:
+        #     if isVV: addFlag = '1-lep: W(e#nu)Z(b#bar{b})'
+        #     else: addFlag = '1-lep: W(e#nu)H(b#bar{b})'
+        # elif 'Wtn' in self.datanames:
+	#         addFlag = 'W(#tau#nu)H(b#bar{b})'
+
+        if 'Zee' in self.datanames:
+            addFlag = '2-lep (e)'
         elif 'Zuu' in self.datanames:
-            if isVV: addFlag = 'Z(#mu^{-}#mu^{+})Z(b#bar{b})'
-            else: addFlag = 'Z(#mu^{-}#mu^{+})H(b#bar{b})'
+            addFlag = '2-lep (#mu)'
         elif 'Znn' in self.datanames:
-            if isVV: addFlag = 'Z(#nu#nu)Z(b#bar{b})'
-            else: addFlag = 'Z(#nu#nu)H(b#bar{b})'
+            addFlag = '0-lep'
         elif 'Wmn' in self.datanames:
-            if isVV:
-                addFlag = 'W(#mu#nu)Z(b#bar{b})'
-            else: addFlag = 'W(#mu#nu)H(b#bar{b})'
+            addFlag = '1-lep (#mu)'
         elif 'Wen' in self.datanames:
-            if isVV: addFlag = 'W(e#nu)Z(b#bar{b})'
-            else: addFlag = 'W(e#nu)H(b#bar{b})'
-        elif 'Wtn' in self.datanames:
-	        addFlag = 'W(#tau#nu)H(b#bar{b})'
-
+            addFlag = '1-lep (e)'
+            
         
-        print 'D1 bins:', d1.GetNbinsX()
-        print 'D1 Bin Max:', d1.GetXaxis().GetXmax()
+        addFlag3 = ''
 
-        print 'Data bins:', self.datas[i].GetNbinsX()
-        print 'Data Bin Max:', self.datas[i].GetXaxis().GetXmax()
-                
+        if 'Zlf' in self.options['pdfName'] or 'Zlight' in self.options['pdfName']:
+            addFlag3 = 'Z+udscg enriched'
+        if 'Zhf' in self.options['pdfName'] or 'Zbb' in self.options['pdfName']:
+            addFlag3 = 'Z+b#bar{b} enriched'
+        if 'TT' in self.options['pdfName'] or 'tt' in self.options['pdfName']:
+            addFlag3 = 't#bar{t} enriched'
+        if 'whf' in self.options['pdfName']:
+            addFlag3 = 'W+b#bar{b} enriched'
+        if 'wlf' in self.options['pdfName']:
+            addFlag3 = 'W+udscg enriched'
+        
+        data4bin = 0
+
+        print 'Datafile:', self.datas
+        print self.datas[i].GetNbinsX()
+
         for i in range(0,len(self.datas)):
             print 'Datas:', self.datas
-            for bin in range(0,self.datas[i].GetNbinsX()+1):
+            for bin in range(1,self.datas[i].GetNbinsX()+1):
                 print 'Data in bin ', bin, ':', self.datas[i].GetBinContent(bin)
-
-            d1.Add(self.datas[i],1)
-            for bin in range(0,self.datas[i].GetNbinsX()+1):
-                print 'Data in bin ', bin, ':', d1.GetBinContent(bin)
+                if bin > 11: data4bin += self.datas[i].GetBinContent(bin)
+                
+                #if 'Znn' in self.datanames and 'gg_plus' in self.var and bin < 36:
+                #   print 'Rebin Znn Data'
+                #   Znn_temp_data.SetBinContent(bin, self.datas[i].GetBinContent(bin))
             
+            #if 'Znn' in self.datanames and 'gg_plus' in self.var: 
+            #    d1.Add(Znn_temp_data,1)
+            #else: 
+            d1.Add(self.datas[i],1)
+            
+        print 'Data Region:',  self.options['pdfName']
+        print '\n\t ==== Data in 4 most sensitive BDT bins:', data4bin 
 
-        print "\033[1;32m\n\tDATA integral = %s\033[1;m"%d1.Integral()
+        #print "\033[1;32m\n\tDATA integral = %s\033[1;m"%d1.Integral()
         flow = d1.GetEntries()-d1.Integral()
 
-        print 'Data Mean:', d1.GetRMS()
-        print 'Data RMS:', d1.GetMean()
+        #print 'Data Mean:', d1.GetRMS()
+        #print 'Data RMS:', d1.GetMean()
 
         if flow > 0:
             print "\033[1;31m\tU/O flow: %s\033[1;m"%flow
         
-        print 'self.xMax:', self.xMin
-        print 'self.xMax:', self.xMax
+        #print 'self.xMax:', self.xMin
+        #print 'self.xMax:', self.xMax
 
         if not isOverlay:
             self.overlay = False
@@ -372,11 +426,11 @@ class StackMaker:
                     _overlay.SetFillColor(0)
                     _overlay.SetFillStyle(4000)
                 #if _overlay.GetName() == 'ggZH125':
-                if 'ggZH' in _overlay.GetName():
-                    _overlay.SetLineColor(int(self.colorDict['ggZH']))
-                _overlay.SetLineWidth(2)
-                _overlay.SetFillColor(0)
-                _overlay.SetFillStyle(4000)
+                #if 'ggZH' in _overlay.GetName():
+                #    _overlay.SetLineColor(int(self.colorDict['ggZH']))
+                #    _overlay.SetLineWidth(2)
+                #    _overlay.SetFillColor(0)
+                #    _overlay.SetFillStyle(4000)
                 
                 if isVV:
                     _overlay.SetLineColor(int(self.colorDict['VVHF']))
@@ -401,8 +455,8 @@ class StackMaker:
             if j < numLegend/2.-1:
                 l.AddEntry(self.histos[j],self.typLegendDict[self.typs[j]],'F')
             else:
-                l_2.AddEntry(self.histos[j],self.typLegendDict[self.typs[j]],'F')
-
+                 l_2.AddEntry(self.histos[j],self.typLegendDict[self.typs[j]],'F')
+        
         if self.overlay:
             overScale = 100000
             for _overlay in self.overlay: #find minimum scale to use for all overlays
@@ -431,12 +485,14 @@ class StackMaker:
                 elif overScale >= 2: overScale=2
                 else: overScale=1
             for _overlay in self.overlay:
-                _overlay.Scale(overScale)
+                #_overlay.Scale(overScale)
                 print '\n\tOverScale:', overScale
                 
                 #if 'ZH' in _overlay.GetName() or 'log' in _overlay.GetName() and not isVV:
                 if not isVV:
-                    l_2.AddEntry(_overlay,self.typLegendDict['VH']+" x"+str(overScale),'L')
+                    #l_2.AddEntry(_overlay,self.typLegendDict['VH']+" x"+str(overScale),'L')
+                    l_2.AddEntry(_overlay,self.typLegendDict['VH'], 'L')
+
                     #if 'ZH'in _overlay.GetName():
                     #l_2.AddEntry(_overlay,self.typLegendDict['ZH'],'L')
                     #if 'ggZH' in _overlay.GetName():
@@ -445,9 +501,9 @@ class StackMaker:
                 #if 'VV' in _overlay.GetName():
                 if isVV:
                     l_2.AddEntry(_overlay,"VV x"+str(overScale),'L')
-
-                if 'WH' in _overlay.GetName():
-                    l_2.AddEntry(_overlay,self.typLegendDict['VH']+" x"+str(overScale),'L')
+                    
+                #if 'WH' in _overlay.GetName():
+                #    l_2.AddEntry(_overlay,self.typLegendDict['VH']+" x"+str(overScale),'L')
 
     
         #if self.normalize:
@@ -458,9 +514,9 @@ class StackMaker:
 
         stackscale = 1
         
-        if self.overlay:
-            for _overlay in self.overlay:
-                _overlay.Scale(stackscale)
+        #if self.overlay:
+        #    for _overlay in self.overlay:
+        #        _overlay.Scale(stackscale)
 
         #if self.prefit_overlay:
         #    for _prefit_overlay in self.prefit_overlay:
@@ -472,9 +528,9 @@ class StackMaker:
        
         allMC = allStack.GetStack().Last().Clone()
 
-        print 'allStack:', allStack
-        print 'allMC:', allMC
-        print '# of Hists in stack:', allStack.ls()
+        #print 'allStack:', allStack
+        #print 'allMC:', allMC
+        #print '# of Hists in stack:', allStack.ls()
 
         allStack.SetTitle()
         allStack.Draw("hist")
@@ -503,14 +559,26 @@ class StackMaker:
             if 'GeV' in self.xAxis:
                 yTitle += ' GeV'
         allStack.GetYaxis().SetTitle(yTitle)
-        allStack.GetXaxis().SetRangeUser(self.xMin,self.xMax)
         allStack.GetYaxis().SetRangeUser(0,20000)
+
+        allStack.GetXaxis().SetRangeUser(self.xMin,self.xMax)
+        #allStack.GetHistogram().GetXaxis().SetTickLength(0)
+        allStack.GetHistogram().GetXaxis().SetLabelOffset(999)
+
+        #allStack.GetHistogram().GetYaxis().SetLabelSize(0.01)
+
         theErrorGraph = ROOT.TGraphErrors(allMC)
         theErrorGraph.SetFillColor(ROOT.kGray+3)
         theErrorGraph.SetFillStyle(3013)
         theErrorGraph.Draw('SAME2')
+
         l_2.AddEntry(theErrorGraph,"MC uncert. (stat.)","fl")
+
+        # Add mu signal strength
+        #l_2.AddEntry(0, '#mu = 1.19', '') 
+        
         Ymax = max(allStack.GetMaximum(),d1.GetMaximum())*1.7
+
         if self.log:
             allStack.SetMinimum(0.1)
             Ymax = Ymax*ROOT.TMath.Power(10,1.2*(ROOT.TMath.Log(1.2*(Ymax/0.1))/ROOT.TMath.Log(10)))*(0.2*0.1)
@@ -526,8 +594,15 @@ class StackMaker:
         
         if self.overlay:
             for _overlay in self.overlay:
-                _overlay.Draw('same')
+                _overlay.Draw('hist same')
+
+        d1.SetBinErrorOption(TH1.kPoisson)
+
         d1.Draw("E,same")
+        
+        # this shows poisson errors for empty data points
+        # d1.Draw("E0,same")
+
         l.Draw()
         l_2.Draw()
 
@@ -538,7 +613,7 @@ class StackMaker:
         #l.Draw()
         #l_2.Draw()
 
-        tPrel = self.myText("CMS Preliminary",0.17,0.88,1.04)
+        tPrel = self.myText("CMS Preliminary",0.17,0.88,0.8)
         if not d1.GetSumOfWeights() % 1 == 0.0:
             tLumi = self.myText("#sqrt{s} =  %s, L = %.1f fb^{-1}"%(self.anaTag,(float(self.lumi)/1000.)),0.17,0.83)
             #tLumi = self.myText("#sqrt{s} =  %s, L = %.1f pb^{-1}"%(self.anaTag,(float(self.lumi))),0.17,0.78)
@@ -547,9 +622,14 @@ class StackMaker:
             #tLumi = self.myText("#sqrt{s} =  %s, L = %.1f pb^{-1}"%(self.anaTag,(float(self.lumi))),0.17,0.83)
 
         tAddFlag = self.myText(addFlag,0.17,0.78)
-        print 'Add Flag %s' %self.addFlag2
+        #print 'Add Flag %s' %self.addFlag2
         if self.addFlag2:
             tAddFlag2 = self.myText(self.addFlag2,0.17,0.73)
+            if addFlag3:
+                tAddFlag3 = self.myText(addFlag3,0.17,0.68)
+        else:
+            if addFlag3:
+                tAddFlag3 = self.myText(addFlag3,0.17,0.73)
 
         unten.cd()
         ROOT.gPad.SetTicks(1,1)
@@ -562,14 +642,39 @@ class StackMaker:
         l2.SetTextSize(0.075)
         l2.SetNColumns(2)
 
-        #Temp remopval of the ratio maker
+        # Ratio Maker
         ratio, error = getRatio(d1, allMC, self.xMin, self.xMax, "", self.maxRatioUncert)
         ksScore = d1.KolmogorovTest( allMC )
         chiScore = d1.Chi2Test( allMC , "UWCHI2/NDF")
-        #print ksScore
-        #print chiScore
+
+        #For BDT handle the empty data points
+        # if 'BDT' in self.xAxis and 'Znn' not in self.options['pdfName'] and 'CR' not in self.options['pdfName']:
+            
+        #     for bin in range(1,ratio.GetNbinsX()+1):
+        #         #print 'Ratio in bin ', bin, ':', ratio.GetBinContent(bin)
+        #         #print 'Error in bin ', bin, ':', ratio.GetBinError(bin) 
+        #         if ratio.GetBinContent(bin) == 0:
+        #             ratio.SetBinContent(bin,0.0001)
+                    #print '\t\tRatio in bin ', bin, ':', ratio.GetBinContent(bin)
+
+                    # Set the ratio error for zero data bins.
+                    # Formula is ratio^2 * sqrt( (dx/x)^2 + (dy/y)^2) -> delta data/ # MC in that bin
+                    #print '\t\tdata error, MC count:', np.sqrt(allStack.GetStack().Last().GetBinContent(bin)), allStack.GetStack().Last().GetBinContent(bin)
+                    #temp_error = 1.8 / allStack.GetStack().Last().GetBinContent(bin)
+                    #ratio.SetBinError(bin,temp_error)
+                    #print '\t\tError in bin ', bin, ':', ratio.GetBinError(bin)
+
+        
         ratio.SetStats(0)
         ratio.GetXaxis().SetTitle(self.xAxis)
+        ratio.GetXaxis().SetLabelSize(0.09)
+        ratio.GetXaxis().SetLabelOffset(0.03)
+        ratio.GetYaxis().SetLabelSize(0.07)
+        ratio.GetYaxis().SetLabelFont(22)
+        ratio.GetYaxis().SetTitleFont(22)
+        print 'Label size:', ratio.GetXaxis().GetLabelSize(), ratio.GetXaxis().GetLabelOffset()
+
+        # Make the Ratio error bars
         ratioError = ROOT.TGraphErrors(error)
         ratioError.SetFillColor(ROOT.kGray+3)
         ratioError.SetFillStyle(3013)
@@ -591,7 +696,8 @@ class StackMaker:
 
         if not self.AddErrors_Postfit == None:
             self.AddErrors_Postfit.SetLineColor(1)
-            self.AddErrors_Postfit.SetFillColorAlpha(2, 0.60)
+            #self.AddErrors_Postfit.SetFillColorAlpha(2, 0.60)
+            self.AddErrors_Postfit.SetFillColor(5)
             self.AddErrors_Postfit.SetFillStyle(3001)
             self.AddErrors_Postfit.Draw('SAME2')
             l2.AddEntry(self.AddErrors_Postfit,"MC(stat.+Postfit syst.)","f")
@@ -603,9 +709,7 @@ class StackMaker:
         ratioError.Draw('SAME2')
         ratio.Draw("E1SAME")
         ratio.SetTitle("")
-        
-        
-        
+                
         l2.Draw()
         
         m_one_line = ROOT.TLine(self.xMin,1,self.xMax,1)
@@ -618,11 +722,11 @@ class StackMaker:
             tKsChi = self.myText("#chi^{2}_{ }#lower[0.1]{/^{}#it{dof} = %.2f}"%(chiScore),0.17,0.895,1.55)
             temp = 0
 
-        t0 = ROOT.TText()
-        t0.SetTextSize(ROOT.gStyle.GetLabelSize()*2.4)
-        t0.SetTextFont(ROOT.gStyle.GetLabelFont())
-        if not self.log:
-    	    t0.DrawTextNDC(0.1059,0.96, "0")
+        #t0 = ROOT.TText()
+        #t0.SetTextSize(ROOT.gStyle.GetLabelSize()*2.4)
+        #t0.SetTextFont(ROOT.gStyle.GetLabelFont())
+        #if not self.log:
+    	#    t0.DrawTextNDC(0.1059,0.96, "0")
 
         PlotDir = self.plotDir+self.region
         if not os.path.exists(PlotDir):
@@ -811,7 +915,7 @@ class StackMaker:
         if self.overlay:
             for _overlay in self.overlay:
                 l_2.AddEntry(_overlay,self.typLegendDict['Overlay'+_overlay.GetName()],'L')
-    
+     
         if self.normalize:
             if MC_integral != 0: stackscale=d1.Integral()/MC_integral
             if self.overlay:
@@ -896,7 +1000,7 @@ class StackMaker:
         l.Draw()
 
 
-        tPrel = self.myText("CMS Preliminary",0.17,0.9,1.04)
+        tPrel = self.myText("CMS Preliminary",0.17,0.9,0.8)
         #tLumi = self.myText("#sqrt{s} =  7TeV, L = 5.0 fb^{-1}",0.17,0.85)
         tLumi = self.myText("#sqrt{s} =  %s, L = %.1f fb^{-1}"%(self.anaTag,(float(self.lumi)/1000.)),0.17,0.80)
         tAddFlag = self.myText(addFlag,0.17,0.75)

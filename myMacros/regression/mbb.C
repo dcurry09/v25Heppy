@@ -59,7 +59,8 @@ int mbb(){
 //int JECR_unc_mbb(int type_int, int type_jec){
 	gROOT->ProcessLine(".x ./setTDRStyle.C");
 
-
+	gROOT->SetBatch(true);
+	
 	int type_int = 0; //double  =0; single=1
 	
 	TString type;
@@ -127,15 +128,15 @@ RooWorkspace w("w","workspace");
 	//TFile *file_down =  new TFile("/afs/cern.ch/work/n/nchernya/Hbb/SysUnc/JECR/Mbb/VBFHToBB_M-125_analysis"+type+"_trignom_v21_v21_123jets1_2csv_bdt_trigWt.root");
         //TFile *file_down = new TFile("/uscms_data/d3/sbc01/HbbAnalysis13TeV/CMSSW_7_6_3_patch2/src/PrincetonAnalysisTools/VHbbAnalysis/V21_Wlnu_June27_SR/output_mc.root");
         //TFile *file_down = new TFile("/uscms_data/d3/sbc01/HbbAnalysis13TeV/CMSSW_7_6_3_patch2/src/PrincetonAnalysisTools/VHbbAnalysis/V21_Wlnu_June28_CR-v2/output_allmc.root");
-        TFile *file_down = new TFile("/exports/uftrig01a/dcurry/heppy/files/prep_out/v24_9_15_ZH125.root");
+        TFile *file_down = new TFile("/exports/uftrig01a/dcurry/heppy/files/prep_out/v25_ZH125.root");
         TTree *tree = (TTree*) file_down->Get("tree");
         TH1F *hist_mbb_reg = new TH1F("hist_mbb_reg","hist_mbb_reg",100,0,250);
         TH1F *hist_mbb = new TH1F("hist_mbb","hist_mbb",100,0,250);
 	
-	TString *cut = "Vtype > -1 & Vtype < 2 & Jet_pt[hJCidx[0]] > 20. & Jet_pt[hJCidx[1]] > 20. & abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & Jet_btagCSV[hJCidx[0]] > 0.46 & Jet_btagCSV[hJCidx[1]] > 0.46 & (HCSV_reg_mass > 90 || HCSV_mass > 90)"
+	//TString *cut = "Vtype > -1 & Vtype < 2 & Jet_pt[hJCidx[0]] > 20. & Jet_pt[hJCidx[1]] > 20. & abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & Jet_btagCSV[hJCidx[0]] > 0.46 & Jet_btagCSV[hJCidx[1]] > 0.46 & (HCSV_reg_mass > 90 || HCSV_mass > 90)";
 
-        tree->Draw("HCSV_reg_mass >> hist_mbb_reg", cut); 
-        tree->Draw("HCSV_mass >> hist_mbb", cut);    
+        tree->Draw("HCMVAV2_reg_mass >> hist_mbb_reg", "Vtype > -1 & Vtype < 2 & Jet_pt[hJCMVAV2idx[0]] > 20. & Jet_pt[hJCMVAV2idx[1]] > 20. & abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4 & Jet_btagCMVAV2[hJCMVAV2idx[0]] > 0.94 & Jet_btagCMVAV2[hJCMVAV2idx[1]] > 0.94");
+	tree->Draw("HCMVAV2_mass >> hist_mbb", "Vtype > -1 & Vtype < 2 & Jet_pt[hJCMVAV2idx[0]] > 20. & Jet_pt[hJCMVAV2idx[1]] > 20. & abs(Jet_eta[hJCMVAV2idx[0]]) < 2.4 & abs(Jet_eta[hJCMVAV2idx[1]]) < 2.4 & Jet_btagCMVAV2[hJCMVAV2idx[0]] > 0.94 & Jet_btagCMVAV2[hJCMVAV2idx[1]] > 0.94");
         
         //TH1F *hist_mbb_reg = new TH1F("hist_mbb_reg","hist_mbb_reg",100,0,250);
         //TH1F *hist_mbb = new TH1F("hist_mbb","hist_mbb",100,0,250);
@@ -209,7 +210,7 @@ char nVar2[50], xVar2[50];
 	sprintf(xVar2,"roofit_hist_mbb");
 	RooDataHist rh2(xVar2,xVar2,RooArgList(x2),hist_mbb);
 	sprintf(xVar2,"yield_signal_VBF");
-	RooRealVar m2("mean","mean",125,115,135);
+	RooRealVar m2("mean","mean",110,90,130);
 	RooRealVar s2("sigma","sigma",12,7,20);
 	RooRealVar width2("fwhm","fwhm",25,0,50);
 	RooRealVar a2("alpha","alpha",1,-10,10);
@@ -253,11 +254,13 @@ char nVar2[50], xVar2[50];
 	hScale.plotOn(frame_roo,DrawOption("Psame"),LineWidth(2),LineColor(kBlue+1),FillColor(kBlue-9),MarkerColor(kBlue+1), FillStyle(1001)) ;
 	model.plotOn(frame_roo);
 	frame_roo->GetXaxis()->SetNdivisions(505);
-	//frame_roo->GetXaxis()->SetTitle("M_{bb} (GeV)");
-	frame_roo->GetXaxis()->SetTitle("Top Mass (GeV)");
-	//frame_roo->GetYaxis()->SetTitle("1/N #times dN/dM_{bb}");
+	frame_roo->GetXaxis()->SetTitle("M_{bb} [GeV]");
+	frame_roo->GetXaxis()->SetLabelSize(0.04);
+
 	frame_roo->GetYaxis()->SetTitle("Events / 2.5 GeV");
-  	frame_roo->Draw() ;
+  	frame_roo->GetYaxis()->SetTitleOffset(1.4);
+	frame_roo->GetYaxis()->SetLabelSize(0.04);
+	frame_roo->Draw() ;
 
 	hist_mbb_reg->SetFillColor(kBlue-10);
 	hist_mbb_reg->SetLineColor(kBlue+1);
@@ -316,7 +319,7 @@ char nVar2[50], xVar2[50];
 	pave.SetFillStyle(-1);
 	pave.SetBorderSize(0);
 	pave.SetTextFont(42);
-	pave.SetTextSize(top*0.5);
+	pave.SetTextSize(top*0.7);
 	pave.SetTextColor(kBlack);
 	pave.AddText("M_{H} = 125 GeV");
 
@@ -324,8 +327,8 @@ char nVar2[50], xVar2[50];
 	//pave.AddText(cmd);
 
 	TLegend *leg = new TLegend(0.6,0.65,1.-right-top*0.3333,0.8);
-	leg->AddEntry(hist_mbb_reg,"Regressed","PL");
-	leg->AddEntry(hist_mbb,"Raw","PL");
+	leg->AddEntry(hist_mbb_reg,"After Regression","PL");
+	leg->AddEntry(hist_mbb,"Before Regression","PL");
 	leg->SetFillStyle(-1);
 	leg->SetBorderSize(0);
 	leg->SetTextFont(42);
@@ -338,7 +341,7 @@ char nVar2[50], xVar2[50];
 	pave2.SetFillStyle(-1);
 	pave2.SetBorderSize(0);
 	pave2.SetTextFont(42);
-	pave2.SetTextSize(top*0.5);
+	pave2.SetTextSize(top*0.6);
 	pave2.SetTextColor(kBlue+1);
 	sprintf(cmd,"PEAK = \%.1f",m.getVal())	;
 	pave2.AddText(cmd);
@@ -350,7 +353,7 @@ char nVar2[50], xVar2[50];
 	pave3.SetFillStyle(-1);
 	pave3.SetBorderSize(0);
 	pave3.SetTextFont(42);
-	pave3.SetTextSize(top*0.5);
+	pave3.SetTextSize(top*0.6);
 	pave3.SetTextColor(kRed);
 	sprintf(cmd,"PEAK = \%.1f",m2.getVal())	;
 	pave3.AddText(cmd);
@@ -388,7 +391,7 @@ char nVar2[50], xVar2[50];
 	pCMS2.SetTextAlign(32);
 	pCMS2.SetFillStyle(-1);
 	pCMS2.SetBorderSize(0);
-	pCMS2.AddText("13 TeV");
+	pCMS2.AddText("#sqrt{s}=13 TeV");
 	gPad->Update();
 	pCMS1.Draw("same");
 	pCMS2.Draw("same");
@@ -398,10 +401,12 @@ char nVar2[50], xVar2[50];
 	pCMS12.Draw("same");
 	pCMS2.Draw("same");
 
-	c_roo->Print("mbb_reg_v21.pdf");
-
-
-
+	//c_roo->Print("mbb_reg_v21.pdf");
+	
+	c_roo->Print("/afs/cern.ch/user/d/dcurry/www/PAS_Regression/mbb_reg_zll_v25.pdf");
+	c_roo->Print("/afs/cern.ch/user/d/dcurry/www/PAS_Regression/mbb_reg_zll_v25.png");
+	c_roo->Print("/afs/cern.ch/user/d/dcurry/www/PAS_Regression/mbb_reg_zll_v25.C");
+	
 /*	
 	TCanvas *c11 = new TCanvas();
 	c11->SetBottomMargin(.15);

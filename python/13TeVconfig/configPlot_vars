@@ -4,11 +4,15 @@
 tag: 13TeV
 
 [General]
-BDTbins = 10
-BDTxMin = 0.2
+BDTbins = 15
+BDTxMin = -1
 BDTxMax = 1.
 
 CSVbins = 20
+
+Mjjbins = 11
+MjjxMin = 60.
+MjjxMax = 160.
 
 #################################
 #Vtype <!General|V_pt!>
@@ -96,30 +100,44 @@ max    : 3.2
 [plotDef:HCSV_mass]
 relPath: HCSV_mass
 xAxis  : m(jj) [GeV]
-nBins  : 20
-min    : 0
-max    : 400
+nBins  : 11
+min    : 60
+max    : 160
 
 [plotDef:HCSV_reg_mass]
 relPath: HCSV_reg_mass
 xAxis  : Regressed m(jj) [GeV]
-nBins  : 20
-min    : 0
-max    : 400
+nBins  : 11
+min    : 60
+max    : 160
 
 [plotDef:HCMVAV2_mass]
 relPath: HCMVAV2_mass
 xAxis  : m(jj) [GeV]
-nBins  : 20
-min    : 0
-max    : 400
+nBins  : 11
+min    : 60
+max    : 160
 
 [plotDef:HCMVAV2_reg_mass]
 relPath: HCMVAV2_reg_mass
 xAxis  : Regressed m(jj) [GeV]
-nBins  : 20
+nBins  : 11
+min    : 60
+max    : 160
+
+[plotDef:Mjj]
+relPath: HCMVAV2_reg_mass
+xAxis  : Regressed m(jj) [GeV]
+nBins  : <!General|Mjjbins!>
+min    : <!General|MjjxMin!>
+max    : <!General|MjjxMax!>
+
+[plotDef:nAddJet]
+relPath: nAddJet
+xAxis  : nAddJet
+nBins  : 5
 min    : 0
-max    : 400
+max    : 5
 
 [plotDef:Hmass]
 relPath: H_mass
@@ -221,21 +239,21 @@ max    : 1
 
 [plotDef:minCMVA]
 relPath: Jet_btagCMVAV2[hJCMVAV2idx[1]]
-xAxis  : min CMVAv2
+xAxis  : min CMVA
 nBins  : 20
 min    : -1
 max    : 1
 
 [plotDef:minCMVA_Zlf]
 relPath: log(Jet_btagCMVAV2[hJCMVAV2idx[1]])
-xAxis  : min CMVAv2
+xAxis  : min CMVA
 nBins  : 20
 min    : 0.0
 max    : 0.2
 
 [plotDef:maxCMVA]
 relPath: Jet_btagCMVAV2[hJCMVAV2idx[0]]
-xAxis  : max CMVAv2
+xAxis  : max CMVA
 nBins  : 20
 min    : -1
 max    : 1
@@ -325,13 +343,6 @@ nBins  : <!General|BDTbins!>
 min    : <!General|BDTxMin!>
 max    : <!General|BDTxMax!>
 
-[plotDef:gg_plus_ZH125_tightHmass]
-relPath: gg_plus_ZH125_tightHmass.nominal
-xAxis  : BDT Output
-nBins  : <!General|BDTbins!>
-min    : -1
-max    : 1
-
 [plotDef:gg_plus_ZH125_low_Zpt]
 relPath: gg_plus_ZH125_lowZpt.nominal
 xAxis  : BDT Output
@@ -345,6 +356,21 @@ xAxis  : BDT Output
 nBins  : <!General|BDTbins!>
 min    : -1
 max    : 1
+
+[plotDef:gg_plus_ZH125_high_Zpt_CR]
+relPath: gg_plus_ZH125_highZpt.nominal
+xAxis  : BDT Output
+nBins  : <!General|BDTbins!>
+min    : -1
+max    : <!General|BDTxMax!>
+
+[plotDef:gg_plus_ZH125_low_Zpt_CR]
+relPath: gg_plus_ZH125_lowZpt.nominal
+xAxis  : BDT Output
+nBins  : <!General|BDTbins!>
+min    : -1
+max    : <!General|BDTxMax!>
+
 
 [plotDef:gg_plus_ZH125_high_Zpt]
 relPath: gg_plus_ZH125_highZpt.nominal
@@ -460,8 +486,8 @@ max    : 4
 relPath: abs(Jet_eta[<!General|jet_index!>[0]]-Jet_eta[<!General|jet_index!>[1]])
 xAxis  : Jet #delta #eta
 nBins  : 25
-min    : -1
-max    : 1
+min    : 0
+max    : 4
 
 [plotDef:rho]
 relPath : rho
@@ -625,23 +651,44 @@ nBins  : 25
 min    : 0.5
 max    : 1.5
 
-[plotDef:Jet_vtx3dL]
-relPath: Jet_vtx3DVal
-xAxis  : Jet_vtx3DVal
+[plotDef:Jet0_vtx3dL]
+relPath: Jet_vtx3DVal[<!General|jet_index!>[0]]
+xAxis  : Leading Jet vtx 3DVal
 nBins  : 25
 min    : 0
 max    : 1
 
-[plotDef:Jet_vtx3deL]
-relPath: Jet_vtx3DSig
-xAxis  : Jet_vtx3DSig
+[plotDef:Jet1_vtx3dL]
+relPath: Jet_vtx3DVal[<!General|jet_index!>[1]]
+xAxis  : Second Jet vtx 3DVal
 nBins  : 25
 min    : 0
 max    : 1
 
-[plotDef:Jet_vtxNtrk]
-relPath: Jet_vtxNtracks
-xAxis  : Jet_vtxNtracks
+[plotDef:Jet0_vtx3deL]
+relPath: Jet_vtx3DSig[<!General|jet_index!>[0]]
+xAxis  : Leading Jet_vtx 3DSig
+nBins  : 25
+min    : 0
+max    : 50
+
+[plotDef:Jet1_vtx3deL]
+relPath: Jet_vtx3DSig[<!General|jet_index!>[1]]
+xAxis  : Second Jet_vtx 3DSig
+nBins  : 25
+min    : 0
+max    : 50
+
+[plotDef:Jet0_vtxNtrk]
+relPath: Jet_vtxNtracks[<!General|jet_index!>[0]]
+xAxis  : Leading Jet vtxNtracks
+nBins  : 25
+min    : 0
+max    : 10
+
+[plotDef:Jet1_vtxNtrk]
+relPath: Jet_vtxNtracks[<!General|jet_index!>[1]]
+xAxis  : Second Jet vtxNtracks
 nBins  : 25
 min    : 0
 max    : 10

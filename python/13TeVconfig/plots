@@ -5,7 +5,7 @@
 lumi: 35900
 
 doSF: False
-#doSF: True
+doSF: True
 
 H_sel: HCMVAV2
 #H_sel: HCSV
@@ -38,7 +38,7 @@ colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVligh
 
 typLegendDict: {'DYlight':'Z+udcsg','DYc':'Z + c#bar{c}','DYlc':'Z+udscg','DY2b':'Z + b#bar{b}','DY1b':'Z + b','Wj0b':'W+udscg','Wj1b':'W + b',\
 		    'Wj2b':'W + b#bar{b}','TT':'t#bar{t}','ST':'Single top','VVb':'VVHF', 'VVHF':'VVHF','VVlight':'VVLF','VVLF':'VVLF','ZZ':'ZZ','ZH':'ZH(b#bar{b}) 125',\
-		    'WH':'WH(b#bar{b}) 125','VH':'VH','qcd':'QCD', 'gJets':'g + jets', 'ggZH':'ggZH(b#bar{b}) 125',\
+		    'WH':'WH(b#bar{b}) 125','VH':'VH(b#bar{b}) 125','qcd':'QCD', 'gJets':'g + jets', 'ggZH':'ggZH(b#bar{b}) 125',\
 		    'BKG':'Background','log_s_over_b_s':'VH (125 GeV)', 'VVHF':'VVHF', 'VVLF':'VVLF'}
 
 #addOverFlow: True
@@ -88,11 +88,10 @@ semiLepton_var: Jet0_leptonPtRel,Jet1_leptonPtRel,Jet0_leptonPt,Jet1_leptonPt,Je
 additional_vars: rHVpt,vxMult,Sum,fatHfileteredMass,dR_hJet0_V,dR_hJet1_V,FatH_H_massDiff,hJet0_V_etaDiff,hJet1_V_etaDiff,dR_leptons,dPhi_leptons,fatHfilteredPt,dEta_leptons,minCSVnom,maxCSVnom,minCSVold,maxCSVold,MET,METnoPU
 
 
-
 BDTs: gg_plus_ZH125_low_Zpt,gg_plus_ZH125_high_Zpt
 #,VV_bdt_lowZpt,VV_bdt_highZpt
 
-REG_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,Jet0_rawPt,Jet0_leadTrackPt,Jet0_leptonPtRel,Jet0_leptonPt,Jet0_leptonDeltaR,Jet0_chEmEF,Jet0_chHEF,Jet0_neHEF,Jet0_neEmEF,Jet1_rawPt,Jet1_leadTrackPt,Jet1_leptonPtRel,Jet1_leptonPt,Jet1_leptonDeltaR,Jet1_chEmEF,Jet1_chHEF,Jet1_neHEF,Jet1_neEmEF,Jet0_vtxPt,Jet1_vtxPt,Jet0_vtxMass,Jet1_vtxMass,Jet_vtx3dL,Jet_vtx3deL,Jet_vtxNtrk
+REG_vars: Jet0_eta,hJet0pt,Jet0_rawPt,Jet0_leadTrackPt,Jet0_leptonPtRel,Jet0_leptonPt,Jet0_leptonDeltaR,Jet0_neHEF,Jet0_neEmEF,Jet0_vtxPt,Jet0_vtxMass,Jet0_vtx3dL,Jet0_vtx3deL,Jet0_vtxNtrk,Jet1_eta,hJet1pt,Jet1_rawPt,Jet1_leadTrackPt,Jet1_leptonPtRel,Jet1_leptonPt,Jet1_leptonDeltaR,Jet1_neHEF,Jet1_neEmEF,Jet1_vtxPt,Jet1_vtxMass,Jet1_vtx3dL,Jet1_vtx3deL,Jet1_vtxNtrk,nPVs 
 
 REG_validation: HCSV_mass,HCSV_reg_mass,HCSV_pt,HCSV_reg_pt,ptBalance,ptBalance_noReg
 
@@ -102,25 +101,29 @@ REG_soft: jSoftLeptPtRel,jSoftLeptPt,jSoftLeptdR
 
 BDT_plot_blind: True
 
-#BDT_plot_log  : False
-BDT_plot_log  : True
+BDT_plot_log  : False
+#BDT_plot_log  : True
 
 plot_mass: ZH125,ggZH125
 
 Normalize: False
 #Normalize: True
 
-standard_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,ptBalance,ptBalance_noReg,<!Plot_general|BDTs!>
+#standard_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,ptBalance,ptBalance_noReg
+#,<!Plot_general|BDTs!>
 
-#standard_vars: Vpt,hJet1pt_reg,hJet0pt_reg,HT,HCMVAV2_reg_pt,HCMVAV2_reg_mass,minCMVA,vLeptons0_pt,vLeptons1_pt
+#standard_vars: <!Plot_general|BDTs!>
 
-#standard_vars: ptBalance,ptBalance_noReg
+standard_vars: HCMVAV2_reg_mass,jet_dEta
 
 #standard_vars: <!Plot_general|REG_vars!>
 
-#BDT_vars: HCSV_reg_mass,HCSV_reg_pt,minCSV,maxCSV,hJet1pt,hJet0pt,Vmass,Sum,Vpt,ptBalance,jet_dEta,softActJets,met_pt,hJet1pt_reg,hJet0pt_reg
-BDT_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,ptBalance,ptBalance_noReg
+#standard_vars: Vpt,ptBalance,HCMVAV2_reg_mass 
 
+#BDT_vars: HCSV_reg_mass,HCSV_reg_pt,minCSV,maxCSV,hJet1pt,hJet0pt,Vmass,Sum,Vpt,ptBalance,jet_dEta,softActJets,met_pt,hJet1pt_reg,hJet0pt_reg
+#BDT_vars: Jet0_eta,Jet1_eta,hJet1pt,hJet0pt,hJet1pt_reg,hJet0pt_reg,Vmass,Vpt,Sum,met_pt,<!Plot_general|leptons_var!>,nPVs,jet_dEta,nPVs,vLeptons0_RelIso04,vLeptons1_RelIso04,vLeptons0_RelIso03,vLeptons1_RelIso03,softActJets,minCMVA,maxCMVA,HCMVAV2_mass,HCMVAV2_reg_mass,HCMVAV2_reg_pt,HT,LHE_Vpt,ptBalance,ptBalance_noReg
+
+BDT_vars: HCMVAV2_reg_mass
 
 
 
@@ -930,6 +933,25 @@ SignalRegion : True
 # ====================================================
 
 
+[Plot:bdt_Zuu]
+Datas        : Zuu
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDT_vars!>,<!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:bdt_Zee]
+Datas        : Zee
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDT_vars!>,<!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+
 [Plot:bdt_low_Zpt]
 Datas        : Zuu Zee
 Normalize    : <!Plot_general|Normalize!>
@@ -951,7 +973,7 @@ SignalRegion : True
 [Plot:bdt_Zuu_low_Zpt]
 Datas        : Zuu
 Normalize    : <!Plot_general|Normalize!>
-vars         : <!Plot_general|BDT_vars!>,<!Plot_general|BDTs!>
+vars         : <!Plot_general|BDT_vars!>
 Signal       : <!Plot_general|plot_mass!>
 log          : <!Plot_general|BDT_plot_log!>
 blind        : <!Plot_general|BDT_plot_blind!>
@@ -960,6 +982,24 @@ SignalRegion : True
 [Plot:bdt_Zee_low_Zpt]
 Datas        : Zee
 Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDT_vars!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:bdt_Zuu_high_Zpt_TightBDTcut]
+Datas        : Zuu
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDT_vars!>,<!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:bdt_Zee_high_Zpt_TightBDTcut]
+Datas        : Zee
+Normalize    : <!Plot_general|Normalize!>
 vars         : <!Plot_general|BDT_vars!>,<!Plot_general|BDTs!>
 Signal       : <!Plot_general|plot_mass!>
 log          : <!Plot_general|BDT_plot_log!>
@@ -967,10 +1007,64 @@ blind        : <!Plot_general|BDT_plot_blind!>
 SignalRegion : True
 
 
+[Plot:mjj_Zee_low_Zpt]
+Datas        : Zee
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:mjj_Zee_med_Zpt]
+Datas        : Zee
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:mjj_Zee_high_Zpt]
+Datas        : Zee
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:mjj_Zuu_low_Zpt]
+Datas        : Zuu
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:mjj_Zuu_med_Zpt]
+Datas        : Zuu
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
+[Plot:mjj_Zuu_high_Zpt]
+Datas        : Zuu
+Normalize    : <!Plot_general|Normalize!>
+vars         : <!Plot_general|BDTs!>
+Signal       : <!Plot_general|plot_mass!>
+log          : <!Plot_general|BDT_plot_log!>
+blind        : <!Plot_general|BDT_plot_blind!>
+SignalRegion : True
+
 [Plot:bdt_Zuu_high_Zpt]
 Datas        : Zuu
 Normalize    : <!Plot_general|Normalize!>
-vars         : <!Plot_general|BDTs!>,<!Plot_general|BDT_vars!>
+vars         : <!Plot_general|BDT_vars!>
 Signal       : <!Plot_general|plot_mass!>
 log          : <!Plot_general|BDT_plot_log!>
 blind        : <!Plot_general|BDT_plot_blind!>
@@ -979,7 +1073,7 @@ SignalRegion : True
 [Plot:bdt_Zee_high_Zpt]
 Datas        : Zee
 Normalize    : <!Plot_general|Normalize!>
-vars         : <!Plot_general|BDT_vars!>,<!Plot_general|BDTs!>
+vars         : <!Plot_general|BDT_vars!>
 Signal       : <!Plot_general|plot_mass!>
 log          : <!Plot_general|BDT_plot_log!>
 blind        : <!Plot_general|BDT_plot_blind!>

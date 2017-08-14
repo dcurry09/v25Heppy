@@ -32,7 +32,8 @@ def getRatio(hist, reference, min, max, yTitle="", maxUncertainty = 1000.000, re
     theHist, theReference = renewHist(hist, reference, min, max)
     #ROOT.gSystem.Load('./myutils/Ratio_C.so') 
     ROOT.gSystem.Load('/afs/cern.ch/work/d/dcurry/public/bbar_heppy/CMSSW_7_4_7/src/VHbb/python/myutils/Ratio_C.so')
-
+    #ROOT.gSystem.Load('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/python/myutils/Ratio_C.so')
+    
     from ROOT import coolRatio
 
     thePlotter = coolRatio()
@@ -40,10 +41,10 @@ def getRatio(hist, reference, min, max, yTitle="", maxUncertainty = 1000.000, re
     refError = thePlotter.make_rebinned_ratios(theHist,theReference,maxUncertainty,False,1)
     theRatio.GetXaxis().SetRangeUser(min,max)
     if restrict:
-        #theRatio.SetMinimum(0.01)
-        #theRatio.SetMaximum(2.49)
-        theRatio.SetMinimum(0.5)
-        theRatio.SetMaximum(1.75)
+        theRatio.SetMinimum(0.0)
+        theRatio.SetMaximum(1.99)
+        #theRatio.SetMinimum(0.5)
+        #theRatio.SetMaximum(1.74)
     else:
         theRatio.SetMinimum(int(theRatio.GetMinimum()))
         theRatio.SetMaximum(int(theRatio.GetMaximum()*1.5))

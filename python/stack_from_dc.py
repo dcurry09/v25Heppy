@@ -234,7 +234,6 @@ def drawFromDC():
     print "var:", opts.var
     print "bin:", opts.bin
     
-    
     dataname = 'Zll'
     
     if 'Zuu' in opts.bin: dataname = 'Zuu'
@@ -243,7 +242,6 @@ def drawFromDC():
     elif 'Wen' in opts.bin: dataname = 'Wen'
     elif 'Znn' in opts.bin: dataname = 'Znn'
     elif 'Wtn' in opts.bin: dataname = 'Wtn'
-    
     
     if (opts.var == ''):
         var = 'BDT'
@@ -284,6 +282,10 @@ def drawFromDC():
 
     if opts.var == 'minCMVA':
         ws_var = ROOT.RooRealVar(ws_var,ws_var, -1, 1.)
+
+    if opts.var == 'Mjj':
+        ws_var = ROOT.RooRealVar(ws_var,ws_var, 0.,255.)
+
 
     blind = eval(config.get('Plot:%s'%region,'blind'))
     #blind = True
@@ -337,6 +339,9 @@ def drawFromDC():
         setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST']
         signalList = ['ZH']
 
+        if isVV:
+            signalList = ['VVHF']
+
     if 'Wmn' in opts.bin or 'Wen' in opts.bin:
         setup = ['WH', 'ZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST','Wj0b', 'Wj1b', 'Wj2b']
         signalList = ['ZH','WH']
@@ -387,9 +392,9 @@ def drawFromDC():
     ##if 'CMVA' in opts.var and 'Zlf' in opts.bin:
     #     Stack.xMax = 0.0
     
-    #Stack.nBins = 7
-    #Stack.xMin = 0.
-    #Stack.xMax = 1.
+    Stack.nBins = 11
+    Stack.xMin = 60
+    Stack.xMax = 160
 
      
     theBinning = ROOT.RooFit.Binning(Stack.nBins,Stack.xMin,Stack.xMax)
@@ -480,30 +485,30 @@ def drawFromDC():
        
             #for p in DC.exp[b].keys(): # so that we get only self.DC.processes contributing to this bin
             for p in procs:
-                #print '\n\t-----> Looping over process in this bin: ', p
+                print '\n\t-----> Looping over process in this bin: ', p
                 
-                if errline[b][p] == 0: continue
+                #if errline[b][p] == 0: continue
 
-                if p == 'QCD' and not 'QCD' in setup: continue
+                # if p == 'QCD' and not 'QCD' in setup: continue
 
-                if pdf == 'gmN':
-                    exps[p][1].append(1/sqrt(pdfargs[0]+1));
-                elif pdf == 'gmM':
-                    exps[p][1].append(errline[b][p]);
-                elif type(errline[b][p]) == list: 
-                    kmax = max(errline[b][p][0], errline[b][p][1], 1.0/errline[b][p][0], 1.0/errline[b][p][1]);
-                    exps[p][1].append(kmax-1.);
-                elif pdf == 'lnN':
-                     lnNVar = max(errline[b][p], 1.0/errline[b][p])-1.
-                     #print 'lnNVar', lnNVar
-                     if not nuiVar.has_key('%s_%s'%(opts.fit,lsyst)):
-                         nui = 0.
-                     else:
-                        nui= nuiVar['%s_%s'%(opts.fit,lsyst)][0]
-                        lnNVar = lnNVar*nuiVar['%s_%s'%(opts.fit,lsyst)][1]
-                        #print 'nui, lnNVar', nui,lnNVar
-                     exps[p][1].append(lnNVar)
-                     expNui[p][1].append(abs(1-errline[b][p])*nui);
+                # if pdf == 'gmN':
+                #     exps[p][1].append(1/sqrt(pdfargs[0]+1));
+                # elif pdf == 'gmM':
+                #     exps[p][1].append(errline[b][p]);
+                # elif type(errline[b][p]) == list: 
+                #     kmax = max(errline[b][p][0], errline[b][p][1], 1.0/errline[b][p][0], 1.0/errline[b][p][1]);
+                #     exps[p][1].append(kmax-1.);
+                # elif pdf == 'lnN':
+                #      lnNVar = max(errline[b][p], 1.0/errline[b][p])-1.
+                #      #print 'lnNVar', lnNVar
+                #      if not nuiVar.has_key('%s_%s'%(opts.fit,lsyst)):
+                #          nui = 0.
+                #      else:
+                #         nui= nuiVar['%s_%s'%(opts.fit,lsyst)][0]
+                #         lnNVar = lnNVar*nuiVar['%s_%s'%(opts.fit,lsyst)][1]
+                #         #print 'nui, lnNVar', nui,lnNVar
+                #      exps[p][1].append(lnNVar)
+                #      expNui[p][1].append(abs(1-errline[b][p])*nui);
 
 
 
@@ -514,57 +519,57 @@ def drawFromDC():
                     #print 'shape %s %s: %s'%(pdf,p,lsyst)
 
                     s0 = MB.getShape(b,p)
-                    sUp   = MB.getShape(b,p,lsyst+"Up")
-                    sDown = MB.getShape(b,p,lsyst+"Down")
+                    #sUp   = MB.getShape(b,p,lsyst+"Up")
+                    #sDown = MB.getShape(b,p,lsyst+"Down")
                
                     if (s0.InheritsFrom("RooDataHist")):
                         s0 = ROOT.RooAbsData.createHistogram(s0,p,ws_var,theBinning)
                         s0.SetName(p)
-                        sUp = ROOT.RooAbsData.createHistogram(sUp,p+lsyst+'Up',ws_var,theBinning)
-                        sUp.SetName(p+lsyst+'Up')
-                        sDown = ROOT.RooAbsData.createHistogram(sDown,p+lsyst+'Down',ws_var,theBinning)
-                        sDown.SetName(p+lsyst+'Down')
+                        #sUp = ROOT.RooAbsData.createHistogram(sUp,p+lsyst+'Up',ws_var,theBinning)
+                        #sUp.SetName(p+lsyst+'Up')
+                        #sDown = ROOT.RooAbsData.createHistogram(sDown,p+lsyst+'Down',ws_var,theBinning)
+                        #sDown.SetName(p+lsyst+'Down')
                     
                     theShapes[p] = s0.Clone()
-                    theShapes[p+lsyst+'Up'] = sUp.Clone()
-                    theShapes[p+lsyst+'Down'] = sDown.Clone()
+                    #theShapes[p+lsyst+'Up'] = sUp.Clone()
+                    #theShapes[p+lsyst+'Down'] = sDown.Clone()
                     if not nuiVar.has_key('%s_%s'%(opts.fit,lsyst)):
                         nui = 0.
                         reducedNui = 1.
                     else:
                         nui= nuiVar['%s_%s'%(opts.fit,lsyst)][0]
                         reducedNui= nuiVar['%s_%s'%(opts.fit,lsyst)][1]
-                    shapeNui[p+lsyst] = nui
-                    reducedShapeNui[lsyst] = reducedNui
-                    if not 'CMS_vhbb_stat' in lsyst:
-                        if counter == 0:
-                            theSyst[lsyst] = s0.Clone() 
-                            theSyst[lsyst+'Up'] = sUp.Clone() 
-                            theSyst[lsyst+'Down'] = sDown.Clone() 
-                        else:
-                            theSyst[lsyst].Add(s0)
-                            theSyst[lsyst+'Up'].Add(sUp.Clone())
-                            theSyst[lsyst+'Down'].Add(sDown.Clone()) 
-                        counter += 1
+                    # shapeNui[p+lsyst] = nui
+                    # reducedShapeNui[lsyst] = reducedNui
+                    # if not 'CMS_vhbb_stat' in lsyst:
+                    #     if counter == 0:
+                    #         theSyst[lsyst] = s0.Clone() 
+                    #         theSyst[lsyst+'Up'] = sUp.Clone() 
+                    #         theSyst[lsyst+'Down'] = sDown.Clone() 
+                    #     else:
+                    #         theSyst[lsyst].Add(s0)
+                    #         theSyst[lsyst+'Up'].Add(sUp.Clone())
+                    #         theSyst[lsyst+'Down'].Add(sDown.Clone()) 
+                    #     counter += 1
 
             #### Adding Rate Parameter Uncertainty ####
             # Make sure the SF acts on this bin 
                 #print '\n Adding Rate Param Uncertainties for bin(process):', b,p
-                for sys in nuiVar:
-                    if 'SF' not in sys: continue
-                    if p not in sys: continue
-                    if 'Zuu' in b or 'Zee' in b or 'Zmm' in b:
-                        if 'Zll' not in sys: continue
-                        if 'high' in b and 'high' not in sys: continue
-                        if 'low' in b and 'low' not in sys: continue
-                        #print '\nRate Param:', sys
-                        nui= nuiVar[sys][0]      
-                        lnNVar = nuiVar[sys][1]
-                        #exps[p][1].append(lnNVar)
-                        print nui, lnNVar
+                # for sys in nuiVar:
+                #     if 'SF' not in sys: continue
+                #     if p not in sys: continue
+                #     if 'Zuu' in b or 'Zee' in b or 'Zmm' in b:
+                #         if 'Zll' not in sys: continue
+                #         if 'high' in b and 'high' not in sys: continue
+                #         if 'low' in b and 'low' not in sys: continue
+                #         #print '\nRate Param:', sys
+                #         nui= nuiVar[sys][0]      
+                #         lnNVar = nuiVar[sys][1]
+                #         #exps[p][1].append(lnNVar)
+                #         print nui, lnNVar
                         
-                    if 'Wln' in b:
-                        print '!!!Error!!!'
+                #     if 'Wln' in b:
+                #         print '!!!Error!!!'
                         
 
 
@@ -634,12 +639,12 @@ def drawFromDC():
             else:
                 histos.append(theShapes[Dict[s]])
                 typs.append(s)
-            for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
-                if errline[b][p] == 0: continue
-                if ("shape" in pdf) and not 'CMS_vhbb_stat' in lsyst:
+            #for (lsyst,nofloat,pdf,pdfargs,errline) in DC.systs:
+            #    if errline[b][p] == 0: continue
+            #    if ("shape" in pdf) and not 'CMS_vhbb_stat' in lsyst:
                     #print 'syst %s'%lsyst
-                    shapesUp[setup2.index(s)].append(theShapes[Dict[s]+lsyst+'Up'])
-                    shapesDown[setup2.index(s)].append(theShapes[Dict[s]+lsyst+'Down'])
+                    #shapesUp[setup2.index(s)].append(theShapes[Dict[s]+lsyst+'Up'])
+                    #shapesDown[setup2.index(s)].append(theShapes[Dict[s]+lsyst+'Down'])
     
     #-------------
     #Compute absolute uncertainty from shapes
@@ -653,22 +658,22 @@ def drawFromDC():
             
         #print '---> Systematic Uncertainty for:', lsyst,nofloat,pdf,pdfargs,errline
         
-        if ("shape" in pdf) and not 'CMS_vhbb_stat' in lsyst and not sumErr == 0:
-            theSystUp = theSyst[lsyst+'Up'].Clone()
-            theSystUp.Add(theSyst[lsyst].Clone(),-1.)
-            theSystUp.Multiply(theSystUp)
-            theSystDown = theSyst[lsyst+'Down'].Clone()
-            theSystDown.Add(theSyst[lsyst].Clone(),-1.)
-            theSystDown.Multiply(theSystDown)
-            theSystUp.Scale(reducedShapeNui[lsyst])
-            theSystDown.Scale(reducedShapeNui[lsyst])
-            if counter == 0:
-                theAbsSystUp = theSystUp.Clone()
-                theAbsSystDown = theSystDown.Clone()
-            else:
-                theAbsSystUp.Add(theSystUp.Clone())
-                theAbsSystDown.Add(theSystDown.Clone())
-            counter +=1
+        #if ("shape" in pdf) and not 'CMS_vhbb_stat' in lsyst and not sumErr == 0:
+            #theSystUp = theSyst[lsyst+'Up'].Clone()
+            #theSystUp.Add(theSyst[lsyst].Clone(),-1.)
+            #theSystUp.Multiply(theSystUp)
+            #theSystDown = theSyst[lsyst+'Down'].Clone()
+            #theSystDown.Add(theSyst[lsyst].Clone(),-1.)
+            #theSystDown.Multiply(theSystDown)
+            #theSystUp.Scale(reducedShapeNui[lsyst])
+            #theSystDown.Scale(reducedShapeNui[lsyst])
+            #if counter == 0:
+            #    theAbsSystUp = theSystUp.Clone()
+            #    theAbsSystDown = theSystDown.Clone()
+            #else:
+            #    theAbsSystUp.Add(theSystUp.Clone())
+            #    theAbsSystDown.Add(theSystDown.Clone())
+            #counter +=1
     
     #-------------
     #Best fit for shapes
@@ -766,25 +771,25 @@ def drawFromDC():
             
     
     #Shape uncertainty of the MC
-    for bin in range(1,nBins+1):
+    #for bin in range(1,nBins+1):
         #print 'Shape uncertainty of the MC', sqrt(theSystUp.GetBinContent(bin))
-        errUp[bin-1].append(sqrt(theAbsSystUp.GetBinContent(bin)))
-        errDown[bin-1].append(sqrt(theAbsSystDown.GetBinContent(bin)))
+    #    errUp[bin-1].append(sqrt(theAbsSystUp.GetBinContent(bin)))
+    #    errDown[bin-1].append(sqrt(theAbsSystDown.GetBinContent(bin)))
     
 
     #Add all in quadrature
-    totErrUp=[sqrt(sum([x**2 for x in bin])) for bin in errUp]
-    totErrDown=[sqrt(sum([x**2 for x in bin])) for bin in errDown]
+    #totErrUp=[sqrt(sum([x**2 for x in bin])) for bin in errUp]
+    #totErrDown=[sqrt(sum([x**2 for x in bin])) for bin in errDown]
     
     #Make TGraph with errors
-    for bin in range(1,nBins+1):
-        if not total[bin-1] == 0:
-            point=histos[0].GetXaxis().GetBinCenter(bin)
-            Error.SetPoint(bin-1,point,1)
-            Error.SetPointEYlow(bin-1,totErrDown[bin-1]/total[bin-1])
-            #print 'down %s'%(totErrDown[bin-1]/total[bin-1])
-            Error.SetPointEYhigh(bin-1,totErrUp[bin-1]/total[bin-1])
-            #print 'up   %s'%(totErrUp[bin-1]/total[bin-1])
+    # for bin in range(1,nBins+1):
+    #     if not total[bin-1] == 0:
+    #         point=histos[0].GetXaxis().GetBinCenter(bin)
+    #         Error.SetPoint(bin-1,point,1)
+    #         Error.SetPointEYlow(bin-1,totErrDown[bin-1]/total[bin-1])
+    #         #print 'down %s'%(totErrDown[bin-1]/total[bin-1])
+    #         Error.SetPointEYhigh(bin-1,totErrUp[bin-1]/total[bin-1])
+    #         #print 'up   %s'%(totErrUp[bin-1]/total[bin-1])
 
     #-----------------------
     #Read data
@@ -800,9 +805,9 @@ def drawFromDC():
     print 'Data name:', dataname
     
     
-    if opts.var == 'BDT':
-        for bin in range(4,datas[0].GetNbinsX()+1):
-            datas[0].SetBinContent(bin,0)
+    #if opts.var == 'BDT':
+    #    for bin in range(4,datas[0].GetNbinsX()+1):
+    #        datas[0].SetBinContent(bin,0)
     
     for bin in range(0,datas[0].GetNbinsX()+1):
         print 'Data in bin ', bin, ':', datas[0].GetBinContent(bin)

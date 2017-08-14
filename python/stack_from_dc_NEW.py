@@ -9,6 +9,7 @@ from HiggsAnalysis.CombinedLimit.DatacardParser import *
 from HiggsAnalysis.CombinedLimit.ShapeTools     import *
 #from ROOT import *
 from collections import Counter
+import array as ar
 
 isVV = False
 #isVV = True
@@ -51,7 +52,7 @@ parser.add_option("-R", "--region", dest="region", default="",
 print opts
 
 
-def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, postfit_error_histos, stat_hists):
+def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, postfit_error_histos, stat_hists, bin):
 
     '''The postfit plots stored in the mlfit.root don't have the proper bin size. A rebinning is therefor necessary.
        PostFit Shapes will be given preFit errors in order to seperate out MC and SYS errors.
@@ -59,17 +60,38 @@ def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, post
 
     h_new = ROOT.TH1F(hist.GetName(), hist.GetName(), nbin, xmin, xmax)
     h_new_postfit = ROOT.TH1F(subdir.GetName()+'_postfit', subdir.GetName()+'_postfit', nbin, xmin, xmax)
+    h_new_prefit = ROOT.TH1F(subdir.GetName()+'_prefit', subdir.GetName()+'_prefit', nbin, xmin, xmax)
 
+    # if Wlv make variable histogram
+    # if 'WmnHighPt' in bin or 'WenHighPt' in bin:
+        
+    #     bin_array = ar.array('d',[0.3, 0.4, 0.5, 0.6, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 1.0])
+
+    #     h_new = ROOT.TH1F(hist.GetName(), hist.GetName(), len(bin_array)-1, bin_array)
+    #     h_new_postfit = ROOT.TH1F(subdir.GetName()+'_postfit', subdir.GetName()+'_postfit', len(bin_array)-1, bin_array)
+    #     h_new_prefit = ROOT.TH1F(subdir.GetName()+'_prefit', subdir.GetName()+'_prefit', len(bin_array)-1, bin_array)
+
+        
     print '\n Making PostFit Rebinned Hist for ', hist.GetName(), h_new
     
 
     for b in range(1,nbin+1):
         
+        # if 'ZH' not in hist.GetName() or 'WH' not in hist.GetName():
+        #   h_new.SetBinContent(b, hist.GetBinContent(b))
+        # else:
+        #    print '\nSetting Signal PreFit Error(dirname,subdir)', dirname, subdir
+        #    ROOT.gDirectory.cd('/shapes_prefit/'+dirname)
+        #    pre_hist = ROOT.gDirectory.Get(subdir.GetName()).Clone()
+        #    h_new.SetBinContent(b, pre_hist.GetBinContent(b))
+        #     # change back
+        #    ROOT.gDirectory.cd('/shapes_fit_s/'+dirname)
+        
         h_new.SetBinContent(b, hist.GetBinContent(b))
         h_new.SetBinError(b, hist.GetBinError(b))
         h_new.SetBinError(b, stat_hists[hist.GetName()].GetBinError(b))
         h_new_postfit.SetBinContent(b, hist.GetBinContent(b))
-        h_new_postfit.SetBinError(b, hist.GetBinError(b)+stat_hists[hist.GetName()].GetBinError(b))
+        h_new_postfit.SetBinError(b, sqrt(hist.GetBinError(b)*hist.GetBinError(b)+stat_hists[hist.GetName()].GetBinError(b)*stat_hists[hist.GetName()].GetBinError(b)))
         print '\nBin content:', hist.GetBinContent(b)
         print 'Stat Bin ',b, 'error:', stat_hists[hist.GetName()].GetBinError(b)
         print 'Post Fit Bin ',b, 'error:', hist.GetBinError(b)
@@ -83,7 +105,7 @@ def rebinHist(hist, nbin, xmin, xmax, dirname, subdir, prefit_error_histos, post
     #ROOT.gDirectory.cd('/tree_prefit/'+dirname)
 
     pre_hist = ROOT.gDirectory.Get(subdir.GetName()).Clone()
-    h_new_prefit = ROOT.TH1F(subdir.GetName()+'_prefit', subdir.GetName()+'_prefit', nbin, xmin, xmax)
+    #h_new_prefit = ROOT.TH1F(subdir.GetName()+'_prefit', subdir.GetName()+'_prefit', nbin, xmin, xmax)
     for b in range(1,nbin+1):
         h_new_prefit.SetBinContent(b, pre_hist.GetBinContent(b))
         h_new_prefit.SetBinError(b, pre_hist.GetBinError(b)+stat_hists[hist.GetName()].GetBinError(b))
@@ -139,7 +161,13 @@ def drawFromDC():
         elif 'VV' in opts.bin: var = 'VV_bdt'
         else: var = 'gg_plus_ZH125_high_Zpt'
 
-        
+    if opts.var == 'CRBDT':
+        if 'LowPt' in opts.bin: var = 'gg_plus_ZH125_low_Zpt_CR'
+        elif 'MedPt' in opts.bin: var = 'gg_plus_ZH125_med_Zpt_CR'
+        elif 'HighPt' in opts.bin: var = 'gg_plus_ZH125_high_Zpt_CR'
+        else: var = 'gg_plus_ZH125_high_Zpt_CR'
+
+
     #if 'BDT' in var:
     #    region = 'BDT'    
     #else:
@@ -151,7 +179,7 @@ def drawFromDC():
     print 'ws_var:', ws_var
     
     if opts.var == 'BDT':
-        ws_var = ROOT.RooRealVar(ws_var,ws_var,0.2,1.)
+        ws_var = ROOT.RooRealVar(ws_var,ws_var,-1, 1.)
     else:
         ws_var = ROOT.RooRealVar(ws_var,ws_var, -1, 1.)
 
@@ -262,7 +290,7 @@ def drawFromDC():
 
 
     if 'Wmn' in opts.bin or 'Wen' in opts.bin:
-        setup = ['WH', 'ZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST','Wj0b', 'Wj1b', 'Wj2b']
+        setup = ['WH', 'ZH', 'Wj2b', 'Wj1b', 'Wj0b','DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'VVLF', 'ST']
         signalList = ['ZH','WH']
 
         channel = 'WlnHbb'
@@ -277,11 +305,21 @@ def drawFromDC():
             #region_name = lep_channel+'HighPt'
             
             # binning
-            nBins = 10
-            xMin  = 0.3
+            nBins = 23
+            xMin  = -1
             xMax  = 1
             
-            
+            #nBins = 10
+            #xMin  = 0.3
+            #xMax  = 1
+
+            #if 'Zbb' in opts.dc:
+            #    print '--> Zbb Cards!!!'
+            #    nBins = 11
+            #    xMin  = 0.2
+            #    xMax  = 1
+
+                    
             stat_name = 'BDT_'+lep_channel+'HighPt_'
             
         else:
@@ -313,8 +351,8 @@ def drawFromDC():
             xMax  = 1
 
     if 'Znn' in opts.bin:
-        setup = ['ZH', 'ggZH', 'DY2b', 'DY1b', 'DYlight', 'TT', 'VVHF', 'ST', 'WH', 'Wj0b', 'Wj1b', 'Wj2b']
-        signalList = ['ZH']
+        setup = ['ZH', 'ggZH', 'WH', 'DY2b', 'DY1b', 'DYlight', 'Wj2b', 'Wj1b', 'Wj0b','TT', 'VVHF', 'VVLF', 'ST']
+        signalList = ['ZH', 'WH']
         
         channel = 'ZnnHbb'
         lep_channel = 'ZnnHbb'
@@ -323,8 +361,8 @@ def drawFromDC():
         if opts.var == 'BDT': 
             region_name = 'Signal'
             # binning
-            nBins = 12
-            xMin  = 0.4
+            nBins = 35
+            xMin  = -0.8
             xMax  = 1
 
             stat_name = 'Znn_13TeV_Signal'
@@ -336,7 +374,7 @@ def drawFromDC():
             if 'TT' in opts.dc: 
                 region_name = 'TT'
                 stat_name = 'Znn_13TeV_TT'
-            if 'Zbb' in opts.dc: 
+            if 'Zbb' in opts.dc and 'TT' not in opts.dc: 
                 region_name = 'Zbb'
                 stat_name = 'Znn_13TeV_Zbb'
             if 'Zlight' in opts.dc: 
@@ -509,6 +547,7 @@ def drawFromDC():
 
         ROOT.gDirectory.cd(dirname)
         subdir_list = [x for x in ROOT.gDirectory.GetListOfKeys()]
+        i = 0
         for s in setup:
             print '\ns:', s
             found = False
@@ -521,15 +560,20 @@ def drawFromDC():
                     found = True
                     
                     # Set Histos postFit shapes and preFit errors
-                    hist = rebinHist(ROOT.gDirectory.Get(subdir.GetName()).Clone(), nBins, xMin, xMax, dirname, subdir, prefit_error_histos, postfit_error_histos, stat_hists)
+                    hist = rebinHist(ROOT.gDirectory.Get(subdir.GetName()).Clone(), nBins, xMin, xMax, dirname, subdir, prefit_error_histos, postfit_error_histos, stat_hists, opts.bin)
 
                     histos.append(hist)
                     typs.append(s)
                     
+                    
                     if s in signalList:
                         hist.SetTitle(s)
-                        Overlay.append(hist)
-                        #print 'the Histogram title is', hist.GetTitle()
+                        if i==0:
+                            Overlay.append(hist)
+                            i+=1
+                        else:
+                            Overlay[0].Add(hist)
+
 
                     break
 
@@ -627,26 +671,25 @@ def drawFromDC():
     print '\nDATA HIST:', data0
     print 'Data name:', dataname
     
-    if opts.var == 'BDT':
-        print '!!!! Blinding !!!!'
+    # if opts.var == 'BDT':
+    #     print '!!!! Blinding !!!!'
         
-        if 'Zee' in dataname or 'Zuu' in dataname:
-            for bin in range(4,datas[0].GetNbinsX()+1):
-                datas[0].SetBinContent(bin,0)
+    #     if 'Zee' in dataname or 'Zuu' in dataname:
+    #         for bin in range(4,datas[0].GetNbinsX()+1):
+    #             datas[0].SetBinContent(bin,0)
 
-        if 'Znn' in dataname:
-            for bin in range(5,datas[0].GetNbinsX()+1):
-                datas[0].SetBinContent(bin,0)
+    #     if 'Znn' in dataname:
+    #         for bin in range(20,datas[0].GetNbinsX()+1):
+    #             datas[0].SetBinContent(bin,0)
 
-        if 'W' in dataname:
-            for bin in range(4,datas[0].GetNbinsX()+1):
-                #print datas[0].GetBinContent(bin,0)
-                datas[0].SetBinContent(bin,0)
+    #     if 'W' in dataname:
+    #         for bin in range(4,datas[0].GetNbinsX()+1):
+    #             #print datas[0].GetBinContent(bin,0)
+    #             datas[0].SetBinContent(bin,0)
 
 
-    else:   
-        for bin in range(0,datas[0].GetNbinsX()+1):
-            print datas[0].GetBinContent(bin,0)
+    for bin in range(1,datas[0].GetNbinsX()):
+        print 'Data in Bin', bin, ':', datas[0].GetBinContent(bin,0)
             
     # =======================================================
     
@@ -673,7 +716,7 @@ def drawFromDC():
     #    typs.append('ZH')
 
     if 'VVb' in signalList or 'VVHF' in signalList:
-        #typs.append('WH')
+        typs.append('WH')
         typs.append('ZH')
         typs.append('VVHF')
 
@@ -693,7 +736,7 @@ def drawFromDC():
             Stack.setup.remove('ggZH')
             Stack.setup.insert(-1,'ggZH')
 
-        
+            
 
     Stack.nBins = nBins
     Stack.xMin  = xMin
@@ -703,6 +746,8 @@ def drawFromDC():
     print 'Post Histos:', histos
     print 'Datas:', datas
     print 'typs:', typs
+    print 'setup:', Stack.setup
+
         
     Stack.histos = histos
     Stack.typs = typs
@@ -715,12 +760,12 @@ def drawFromDC():
     #Stack.prefit_overlay = [prefit_overlay]
 
     #if '13TeV' in region:
-    #Stack.overlay = [Overlay]
+    Stack.overlay = Overlay
     print '\n\n\t\t Overlay: ',Stack.overlay
     
     
     # Add custom postFit errors
-    Stack.AddErrors = final_prefit_error
+    #Stack.AddErrors = final_prefit_error
     Stack.AddErrors_Postfit = final_postfit_error
     
     if dataname == 'Wtn': 

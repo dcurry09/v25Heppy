@@ -1,4 +1,4 @@
-0;95;0c#!/usr/bin/env python
+#!/usr/bin/env python
 import ROOT 
 ROOT.gROOT.SetBatch(True)
 from ROOT import TFile
@@ -22,31 +22,41 @@ print config
 #---------- yes, this is not in the config yet---------
  
 # mode = 'BDT'
-# xMin=-1
+# xMin=-0.8
 # xMax=1
 # masses = ['125']
 # Abins = ['LowPt']#,'HighPt']
-# channels = ['Zee', 'Zuu']
+# channels = ['Zee']
+
+# For Mjj
+mode = 'Mjj'
+xMin=60
+xMax=180
+masses = ['125']
+Abins = ['HighPt']#,'HighPt']
+channels = ['Zee']
+
 
 #------------------------------------------------------
 
 #---------- Control Regions ---------------------------------------
+# mode = 'CR'
+# xMin=-1
+# xMax=1
+# masses = ['125']
+# Abins = ['Zlf']#, 'Zhf']
+# channels= ['Zll']
 
-mode = 'CR'
-xMin=-1
-xMax=1
-masses = ['125']
-Abins = ['Zlf']#, 'Zhf']
-channels= ['Zll']
 
 #------------------------------------------------------
 
 #path = config.get('Directories','limits')
 #outpath = config.get('Directories','plotpath')
 
-path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_SplitLeptonShapes_NewBinZlf_5_14'
+path = '~/public/shared/datacards/MjjZll_Datacards_Mjj_12bin60to180_8_1/'
+#path = '/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/ZllHbb_Datacards_Minus08to1_JECfix_7_3'
 
-outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_5_5/'
+outpath = '/afs/cern.ch/user/d/dcurry/www/v25_Systematics_Mjj_8_5_v1/'
 
 # Make the dir and copy the website ini files
 try:
@@ -67,11 +77,11 @@ MCs = [Dict[s] for s in setup]
 sys_BDT= eval(config.get('LimitGeneral','sys_BDT'))
 systematicsnaming = eval(config.get('LimitGeneral','systematicsnaming'))
 
-for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
-    for ipt in range(1,5):
-        for ieta in range(1,4):
-            sys_BDT.append("btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta))
-            systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_btagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
+#for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", "cErr1", "cErr2"]:
+#    for ipt in range(0,5):
+#        for ieta in range(1,4):
+#            sys_BDT.append("btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta))
+#            systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_btagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
 
 print '\nSystematics:', sys_BDT
 print '\nSystematicsnaming:', systematicsnaming
@@ -103,6 +113,9 @@ for mass in masses:
 
             if mode == 'CR':
                 input = TFile.Open(path+'/vhbb_TH_'+Abin+'.root','read')
+                
+            if mode == 'Mjj':
+                input = TFile.Open(path+'/vhbb_TH_Mjj_'+channel+'_'+Abin+'.root','read')
 
 
             print '\n-----> Input: ', input     
@@ -149,6 +162,9 @@ for mass in masses:
                         input.cd(channel+Abin+'_13TeV')
                     if mode == 'CR':
                         input.cd(Abin)
+                    if mode == 'Mjj':
+                        input.cd(channel+Abin+'_13TeV')
+                
 
                     Ntotal=ROOT.gDirectory.Get(MC)
 

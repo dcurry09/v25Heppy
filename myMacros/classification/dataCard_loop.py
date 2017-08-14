@@ -81,11 +81,35 @@ vv_zlf_list = ['Zlf_low_Zee_VV', 'Zlf_high_Zuu_VV', 'Zlf_low_Zuu_VV', 'Zlf_high_
 
 vv_ttbar_list = ['ttbar_low_Zee_VV', 'ttbar_high_Zuu_VV', 'ttbar_low_Zuu_VV', 'ttbar_high_Zee_VV']
 
+
+# ========= Mjj ================
+
+mjj_list = ['Mjj_Zee_lowZpt', 'Mjj_Zee_medZpt', 'Mjj_Zee_highZpt',
+            'Mjj_Zuu_lowZpt', 'Mjj_Zuu_medZpt', 'Mjj_Zuu_highZpt']
+
+mjj_list1 = ['Mjj_Zee_lowZpt', 'Mjj_Zuu_lowZpt']
+
+mjj_list2 = ['Mjj_Zee_medZpt', 'Mjj_Zee_highZpt', 'Mjj_Zuu_medZpt', 'Mjj_Zuu_highZpt']
+
+mjj_Zhf_list = ['Zhf_high_Zuu_Mjj', 'Zhf_high_Zee_Mjj', 'Zhf_low_Zuu_Mjj', 'Zhf_low_Zee_Mjj']
+
+# ========= BDT CR ============
+
+zhf_list_BDT = ['Zhf_low_Zee_BDT', 'Zhf_high_Zuu_BDT', 'Zhf_low_Zuu_BDT', 'Zhf_high_Zee_BDT']
+
+zlf_list_BDT = ['Zlf_low_Zee_BDT', 'Zlf_high_Zuu_BDT', 'Zlf_low_Zuu_BDT', 'Zlf_high_Zee_BDT']
+
+ttbar_list_BDT = ['ttbar_low_Zee_BDT', 'ttbar_high_Zuu_BDT', 'ttbar_low_Zuu_BDT', 'ttbar_high_Zee_BDT']
+
+# =============================
+
+
 # ====================================
 
 #temp_list = ['BDT_Zee_high_Zpt']
-#temp_list = ['ttbar_high_Zee']
-temp_list = ttbar_list
+#temp_list = ['Mjj_Zee_highZpt']
+temp_list = mjj_list
+#temp_list = mjj_Zhf_list
 
 # ==============================================
 
@@ -100,9 +124,10 @@ temp_list = ttbar_list
 datacard_list = temp_list
 
 ##### Directory to save datacards ####
-#title = 'Datacards_02to1_RemoveLowStatSYS_6_9'
-#title = 'Datacards_02to1_RemoveSTop_6_9'
-title = 'Datacards_02to1_RemoveSTopVVHF_6_9'
+title = 'Datacards_Mjj_12bin60to180_8_5'
+#title = 'Datacards_BDT_MjjVar_BDTcut_8_2'
+#title = 'Datacards_Minus08to1_JECfix_7_3'
+#title = 'TEST_8_1'
 
 
 sig_dir = 'ZllHbb_SR_'+title
@@ -115,26 +140,35 @@ dir = 'ZllHbb_'+title
 # Final VV combined Dir
 #dir = 'ZllZbb_'+title
 
+# For Mjj
+dir = 'MjjZll_'+title
+
 print '\n\t ###### Making DC in', dir, cr_dir, sig_dir
 
 #Choose batch mode or sequential
 batch = False
-#batch = True
+batch = True
 
 # choose bdt, CR split
 isSplit = False
-isSplit = True
+#isSplit = True
 
 isVV = False
 #isVV = True
+
+isMjj = False
+#isMjj = True
  
+isCRBDT = False
+#isCRBDT = True
+
 # For Control Region Scale Factors
 isCombine = False
 #isCombine = True
 
 # BDT final fit(split Pt Categories)
 splitRegionFOM = False
-splitRegionFOM = True
+#splitRegionFOM = True
 
 # Old Test
 isFinalFit = False
@@ -198,7 +232,7 @@ if batch:
     #if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
     #    os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
     
-    if not isVV:
+    if not isVV and not isMjj:
 
         # define the multiprocessing object
         p = multiprocessing.Pool() 
@@ -294,6 +328,46 @@ if batch:
         os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
         os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
 
+    if isMjj:
+        
+        print '\n###### Making Mjj Cards ######'
+        
+        os.system('rm ../limits/*.txt ../limits/*.root')
+        
+        dir     = 'MjjZll_'+title
+        sig_dir = 'MjjZll_SR_'+title
+        cr_dir  = 'MjjZll_CR_'+title
+        
+        #define the multiprocessing object
+        p = multiprocessing.Pool()
+        results = p.imap(osSystem, datacard_list)
+        p.close()
+        p.join()
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+        os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
+
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+             
+        print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+
+
+        # background
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+
+        # move both to one dir
+        os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+        os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+
+
         
 
 if isSplit:
@@ -309,7 +383,7 @@ if isSplit:
         os.system('./runAll.sh '+datacard+' 13TeV dc')           
 
 
-    if not isVV:
+    if not isVV and not isMjj and not isCRBDT:
         
         p = multiprocessing.Pool() 
         results = p.imap(osSystem, bdt_list)
@@ -380,15 +454,15 @@ if isSplit:
         results = p.imap(osSystem, vv_bdt_list2)
         p.close()
         p.join()
-
+        
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
         os.system('cp ../limits/*BDT* ../limits/'+sig_dir+'/')
-
+        
         if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
             os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
         os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
-
+        
         if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
             os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
 
@@ -427,6 +501,108 @@ if isSplit:
         os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
         os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
         
+
+    if isMjj:
+        
+        print '\n\t###### Making Mjj Cards ######'
+
+        os.system('rm ../limits/*.txt ../limits/*.root')
+        
+        dir     = 'MjjZll_'+title
+        sig_dir = 'MjjZll_SR_'+title
+        cr_dir  = 'MjjZll_CR_'+title
+        
+        p = multiprocessing.Pool()
+        results = p.imap(osSystem, mjj_list1)
+        p.close()
+        p.join()
+        
+        p = multiprocessing.Pool()
+        results = p.imap(osSystem, mjj_list2)
+        p.close()
+        p.join()
+
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+sig_dir)
+        os.system('cp ../limits/*Mjj* ../limits/'+sig_dir+'/')
+        
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        
+        if not os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir):
+            os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+cr_dir)
+
+
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, ttbar_list)
+        p1.close()
+        p1.join()
+        
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, mjj_Zhf_list)
+        p1.close()
+        p1.join()
+
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, zlf_list)
+        p1.close()
+        p1.join()
+
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+
+        
+        #print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+
+
+        # background
+        os.system('cp ../limits/*Zhf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+cr_dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+cr_dir+'/')
+
+        # move both to one dir
+        os.system('cp ../limits/'+cr_dir+'/* ../limits/'+dir+'/')
+        os.system('cp ../limits/'+sig_dir+'/* ../limits/'+dir+'/')
+        
+        # copy to public space
+        os.system('cp ../limits/'+dir+'/ /afs/cern.ch/user/d/dcurry/public/shared/datacards/')
+        
+
+    if isCRBDT:
+        
+        print '\n\t###### Making CR BDT Cards ######'
+
+        os.system('rm ../limits/*.txt ../limits/*.root')
+        
+        if os.path.exists('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir):
+            os.system('rm -rf /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        os.makedirs('/afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir)
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, ttbar_list_BDT)
+        p1.close()
+        p1.join()
+        
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, zhf_list_BDT)
+        p1.close()
+        p1.join()
+
+        p1 = multiprocessing.Pool()
+        results = p1.imap(osSystem, zlf_list_BDT)
+        p1.close()
+        p1.join()
+
+        print '\n-----> All jobs finished.  Moving all datacards to /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/limits/'+dir
+
+        # background
+        os.system('cp ../limits/*Zhf* ../limits/'+dir+'/')
+        os.system('cp ../limits/*Zlf* ../limits/'+dir+'/')
+        os.system('cp ../limits/*ttbar* ../limits/'+dir+'/')
 
 
 
@@ -715,10 +891,10 @@ if splitRegionFOM:
     # ==================================================================================================
     # ==================================================================================================
 
-    #print '\t\n\n ================ Combined E+M and Control Region Datacard =================='
-    #print '==================================================================================='
+    print '\t\n\n ================ Combined E+M and Control Region Datacard =================='
+    print '==================================================================================='
     
-    #  print '\n=============== Low V pT Region ==============='
+    print '\n=============== Low V pT Region ==============='
     
     t_low = 'combineCards.py vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt'
 
@@ -742,7 +918,7 @@ if splitRegionFOM:
 
     #print '\t\n\n========= Significance ========='
     # P-value
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
     
     #print '\n==== NO SYS ===='
@@ -764,11 +940,11 @@ if splitRegionFOM:
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep 'Best fit r' | awk '{print $5}'"
     #t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt"
 
-    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt"
+    t3 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --minimizerAlgo=Minuit vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt'
     #os.system(t3)
 
-
-    #print '\n=============== High V pT Region ==============='
+    
+    print '\n=============== High V pT Region ==============='
     
     t_high = 'combineCards.py vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt'
     os.system(t_high)
@@ -791,9 +967,9 @@ if splitRegionFOM:
     #os.system(t1)
 
     #print '\t\n\n========= Significance ========='
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
-
+    
     #print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
     #os.system(t2)
@@ -807,9 +983,7 @@ if splitRegionFOM:
     
     #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Best fit r' | awk '{print $5}'"
 
-    #t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt"
-
-    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt"
+    t3 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --minimizerAlgo=Minuit vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt'
     #os.system(t3)
     
 
@@ -852,12 +1026,12 @@ if splitRegionFOM:
 
     print '\t\n\n========= Significance ========='
     
-    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
     os.system(t2)
     
     print '\n==== NO SYS ===='
     t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
-    os.system(t2)
+    #os.system(t2)
     
     #print '\n==== Post Fit ===='
     #t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --toysFreq --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
@@ -886,6 +1060,230 @@ if splitRegionFOM:
     #t3 = 'combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --saveShapes --saveWithUncertainties -v 3 --expectSignal=0'
     
     #os.system(t3)
+    
+
+
+
+#############################################################################################################
+#############################################################################################################
+
+
+
+if isMjj:
+
+    os.chdir('../limits/'+dir)
+
+
+    print '\t\n\n ================ Combined E+M and Control Region Datacard =================='
+    
+    print '\n=============== Low V pT Region ==============='
+    
+    #t_low = 'combineCards.py Zee_TT_low=vhbb_DC_TH_ttbar_low_Zee.txt Zee_Zhf_low=vhbb_DC_TH_Zhf_low_Zee.txt Zee_Zlf_low=vhbb_DC_TH_Zlf_low_Zee.txt Zee_SIG_low=vhbb_DC_TH_Mjj_Zee_LowPt.txt Zmm_TT_low=vhbb_DC_TH_ttbar_low_Zuu.txt Zmm_Zhf_low=vhbb_DC_TH_Zhf_low_Zuu.txt Zmm_Zlf_low=vhbb_DC_TH_Zlf_low_Zuu.txt Zmm_SIG_low=vhbb_DC_TH_Mjj_Zuu_LowPt.txt> vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt'
+    
+    #os.system(t_low)
+    
+    t_ele_low = 'combineCards.py Zee_TT_low=vhbb_DC_TH_ttbar_low_Zee.txt Zee_Zhf_low=vhbb_DC_TH_Zhf_low_Zee.txt Zee_Zlf_low=vhbb_DC_TH_Zlf_low_Zee.txt Zee_SIG_low=vhbb_DC_TH_Mjj_Zee_LowPt.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt'
+
+    t_ele_high = 'combineCards.py Zee_TT_high=vhbb_DC_TH_ttbar_high_Zee.txt Zee_Zhf_high=vhbb_DC_TH_Zhf_high_Zee.txt Zee_Zlf_high=vhbb_DC_TH_Zlf_high_Zee.txt Zee_SIG_high=vhbb_DC_TH_Mjj_Zee_HighPt.txt > vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt'
+    
+    t_mu_low = 'combineCards.py Zmm_TT_low=vhbb_DC_TH_ttbar_low_Zuu.txt Zmm_Zhf_low=vhbb_DC_TH_Zhf_low_Zuu.txt Zmm_Zlf_low=vhbb_DC_TH_Zlf_low_Zuu.txt Zmm_SIG_low=vhbb_DC_TH_Mjj_Zuu_LowPt.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt'
+
+    t_mu_high = 'combineCards.py Zmm_TT_high=vhbb_DC_TH_ttbar_high_Zuu.txt Zmm_Zhf_high=vhbb_DC_TH_Zhf_high_Zuu.txt Zmm_Zlf_high=vhbb_DC_TH_Zlf_high_Zuu.txt Zmm_SIG_high=vhbb_DC_TH_Mjj_Zuu_HighPt.txt > vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt'
+
+    os.system(t_mu_high)
+    
+    os.system(t_mu_low)
+
+    os.system(t_ele_low)
+
+    os.system(t_ele_high)
+
+    t_low = 'combineCards.py vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt'
+
+    t_high = 'combineCards.py vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt'
+    
+    os.system(t_high)
+    os.system(t_low)
+    
+    temp_string = 'combineCards.py'
+    temp_string = temp_string + ' vhbb_DC_TH_Muon_ControlRegion_Combined_LowPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_LowPt.txt vhbb_DC_TH_Muon_ControlRegion_Combined_HighPt.txt vhbb_DC_TH_Electron_ControlRegion_Combined_HighPt.txt'
+    temp_string = temp_string + ' ' + ' > vhbb_Zll.txt'
+    
+    os.system(temp_string)
+
+    print '\t\n\n========= PreFit Significance ========='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt| grep Significance | awk '{print $3}'"
+    #os.system(t2)
+    
+    print '\n==== NO SYS ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+    
+    print '\n==== Observed ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    print '\n==== Observed NO SYS ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif -S 0 --pvalue --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
+
+    #Uncertainty on Mu
+
+    #t3 = "combine -M MaxLikelihoodFit -m 125 -t -1 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt | grep 'Best fit r' | awk '{print $5}'"
+    #t3 = "combine -M MaxLikelihoodFit --expectSignal=1 -t -1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt"
+
+    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt"
+    #os.system(t3)
+
+
+    ###################################################################
+    print '\n=============== Med V pT Region ==============='
+
+    #t_med = 'combineCards.py Zee_SIG_med=vhbb_DC_TH_Mjj_Zee_MedPt.txt Zuu_SIG_med=vhbb_DC_TH_Mjj_Zuu_MedPt.txt > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt'
+    
+    t_med = 'combineCards.py Zee_TT_med=vhbb_DC_TH_ttbar_low_Zee.txt Zee_Zhf_med=vhbb_DC_TH_Zhf_low_Zee.txt Zee_Zlf_med=vhbb_DC_TH_Zlf_low_Zee.txt Zee_SIG_med=vhbb_DC_TH_Mjj_Zee_MedPt.txt Zmm_TT_med=vhbb_DC_TH_ttbar_low_Zuu.txt Zmm_Zhf_med=vhbb_DC_TH_Zhf_low_Zuu.txt Zmm_Zlf_med=vhbb_DC_TH_Zlf_low_Zuu.txt Zmm_SIG_med=vhbb_DC_TH_Mjj_Zuu_MedPt.txt> vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt'
+
+    os.system(t_med)
+    
+    print '\t\n\n========= PreFit Significance ========='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt | grep Significance | awk '{print $3\
+}'"
+    #os.system(t2)
+    
+    print '\n==== NO SYS ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt"
+    #os.system(t2)
+    
+    print '\n==== Observed  ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    print '\n==== Observed NO SYS===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
+
+    #Uncertainty on Mu
+
+    #t3 = "combine -M MaxLikelihoodFit -m 125  --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt | grep 'Best fit r' | awk '{print $5}'"
+    #t3 = "combine -M MaxLikelihoodFit --expectSignal=1  vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt"
+
+    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_MedPt.txt"
+    #os.system(t3)
+
+
+    print '\n=============== High V pT Region ==============='
+
+    
+    t_high = 'combineCards.py Zee_TT_high=vhbb_DC_TH_ttbar_high_Zee.txt Zee_Zhf_high=vhbb_DC_TH_Zhf_high_Zee.txt Zee_Zlf_high=vhbb_DC_TH_Zlf_high_Zee.txt Zee_SIG_high=vhbb_DC_TH_Mjj_Zee_HighPt.txt Zmm_TT_high=vhbb_DC_TH_ttbar_high_Zuu.txt Zmm_Zhf_high=vhbb_DC_TH_Zhf_high_Zuu.txt Zmm_Zlf_high=vhbb_DC_TH_Zlf_high_Zuu.txt Zmm_SIG_high=vhbb_DC_TH_Mjj_Zuu_HighPt.txt> vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt'
+
+    os.system(t_high)
+    
+    print '\t\n\n========= PreFit Significance ========='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+    
+    print '\n==== NO SYS ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -S 0 -t -1 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+    
+    print '\n==== Observed ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    print '\n==== Observed NO SYS===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -S 0 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    #print '\t\n\n========= Signal Strength Uncertainty ========='
+
+    #Uncertainty on Mu
+
+    #t3 = "combine -M MaxLikelihoodFit -m 125  --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --saveNorm --saveShapes --plots vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt | grep 'Best fit r' | awk '{print $5}'"
+    #t3 = "combine -M MaxLikelihoodFit --expectSignal=1  vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt"
+
+    t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt"
+    #os.system(t3)
+
+
+    
+
+    #print '\t\n\n========= All Pt regions Combined  ========='
+    
+    # Now combine the signal and control regions together for a better fit
+    temp_string = 'combineCards.py'
+
+    temp_string = temp_string + ' vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_LowPt.txt vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_HighPt.txt Zee_SIG_med=vhbb_DC_TH_Mjj_Zee_MedPt.txt Zuu_SIG_med=vhbb_DC_TH_Mjj_Zuu_MedPt.txt'
+
+    #temp_string = temp_string + ' ' + ' > vhbb_DC_TH_Electron_Muon_ControlRegion_Combined_pTregions.txt'
+    temp_string = temp_string + ' ' + ' > vhbb_Zll.txt'
+    
+    # TEST datacard where CRs are added once and at the end
+    #temp_string = 'combineCards.py Zee_TT_low=vhbb_DC_TH_ttbar_low_Zee.txt Zee_Zhf_low=vhbb_DC_TH_Zhf_low_Zee.txt Zee_Zlf_low=vhbb_DC_TH_Zlf_low_Zee.txt Zee_SIG_low=vhbb_DC_TH_BDT_Zee_LowPt.txt Zmm_TT_low=vhbb_DC_TH_ttbar_low_Zuu.txt Zmm_Zhf_low=vhbb_DC_TH_Zhf_low_Zuu.txt Zmm_Zlf_low=vhbb_DC_TH_Zlf_low_Zuu.txt Zmm_SIG_low=vhbb_DC_TH_BDT_Zuu_LowPt.txt Zee_TT_high=vhbb_DC_TH_ttbar_high_Zee.txt Zee_Zhf_high=vhbb_DC_TH_Zhf_high_Zee.txt Zee_Zlf_high=vhbb_DC_TH_Zlf_high_Zee.txt Zee_SIG_high=vhbb_DC_TH_BDT_Zee_HighPt.txt Zmm_TT_high=vhbb_DC_TH_ttbar_high_Zuu.txt Zmm_Zhf_high=vhbb_DC_TH_Zhf_high_Zuu.txt Zmm_Zlf_high=vhbb_DC_TH_Zlf_high_Zuu.txt Zmm_SIG_high=vhbb_DC_TH_BDT_Zuu_HighPt.txt > vhbb_Zll.txt'
+    
+    #temp_string = 'combineCards.py Zee_SIG_low=vhbb_DC_TH_BDT_Zee_LowPt.txt Zmm_SIG_low=vhbb_DC_TH_BDT_Zuu_LowPt.txt Zmm_SIG_high=vhbb_DC_TH_BDT_Zuu_HighPt.txt Zee_SIG_high=vhbb_DC_TH_BDT_Zee_HighPt.txt > vhbb_Zll.txt'
+    
+    os.system(temp_string)
+    
+
+
+    #print '\t\n\n========= CLS Limit ========='
+    # CLs Limit
+    t1 = "combine -M Asymptotic -m 125  vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
+    #os.system(t1)
+    
+    #print '\n==== NO SYS ===='
+    t1 = "combine -M Asymptotic -m 125  -S 0 vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
+    #os.system(t1)
+
+    #print '\n==== Post Fit ===='
+    t1 = "combine -M Asymptotic -m 125  --toysFreq vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
+    #os.system(t1)
+    
+    #print '\n==== Post Fit NO SYS ===='
+    t1 = "combine -M Asymptotic -m 125  -S 0 --toysFreq vhbb_Zll.txt | grep 'Expected 50.0%' | awk '{print $5 }'"
+    #os.system(t1)
+
+
+    print '\t\n\n========= Prefit ignificance ========='
+    
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    os.system(t2)
+    
+    print '\n==== NO SYS ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -S 0 -t -1 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    os.system(t2)
+    
+    print '\n==== Observed ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+    
+    print '\n==== Observed NO SYS ===='
+    t2 = "combine -M ProfileLikelihood -m 125 --signif --pvalue -S 0 --expectSignal=1 vhbb_Zll.txt | grep Significance | awk '{print $3}'"
+    #os.system(t2)
+
+    print '\t\n\n========= Signal Strength Uncertainty ========='
+
+    #Uncertainty on Mu
+    
+    #t3 = "combine -M MaxLikelihoodFit -m 125  --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
+    
+    #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1 --robustFit=1 --stepSize=0.05 --rMin=-5 --rMax=5 --minimizerAlgo=Minuit --minimizerTolerance=100.0 --saveNorm --saveShapes vhbb_Zll.txt | grep 'Best fit r' | awk '{print $5}'"
+    
+    t3 = 'combine -M MaxLikelihoodFit -m 125 --expectSignal=1 -v 3 --minimizerAlgo=Minuit vhbb_Zll.txt'
+
+    #t3 = "combine -M MaxLikelihoodFit -m 125 --expectSignal=1  --saveNorm --saveShapes --saveWithUncertainties --plots vhbb_Zll.txt"
+    
+    #t3 = "combine -M MaxLikelihoodFit -m 125  --expectSignal=0 vhbb_Zll.txt"
+
+    #t3 = "combine -M MaxLikelihoodFit -m 125  --expectSignal=1 vhbb_Zll.txt"
+    
+    #t3 = 'combine -M MaxLikelihoodFit -m 125 vhbb_Zll.txt --saveShapes --saveWithUncertainties -v 3 --expectSignal=0'
+    
+    os.system(t3)
     
 
 

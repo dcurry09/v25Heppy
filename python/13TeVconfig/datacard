@@ -16,12 +16,11 @@ addOverFlow: True
 
 # for equal spaced bins
 #BDTrange: 15,-1,1
-BDTrange: 10,0.2,1.
+#BDTrange: 15,-0.8,1.
 Custom_BDT_bins: False
 
-# for variable BDT binning
-#BDTrange: 20,-1,1
-#Custom_BDT_bins: True
+# for Mjj in signal region
+BDTrange: 12, 60, 180
 
 BDToutname: v1
 
@@ -42,6 +41,9 @@ Zlf_CRVar: Jet_btagCMVAV2[hJCMVAV2idx[1]]
 # control region variables examples
 METrange: MET.et,10,0,100
 btagrange: csv,20,0,1
+
+Mjjrange: 12,60.,180.
+#Mjjrange: 15,-1,1.
 
 # Rebinning procedure for the BDT. Only suitable for BDT
 # For Mjj or for control region put False.
@@ -144,6 +146,8 @@ sys_BDT: [
     ]
     
 
+sys_Mjj: <!LimitGeneral|sys_BDT!>
+#sys_Mjj: []
 
 # configuration of systematics effects and behaviour
 sys_factor: {'CMS_vhbb_eff_e_13TeV':0.25,
@@ -303,40 +307,40 @@ sys_affecting: {'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
 		'CMS_vhbb_eff_m_tracker_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
 		'CMS_vhbb_eff_m_ISO_13TeV':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
 		
-		'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		'JEC':['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		'JER':['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		'JEC':['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
 		
-		"JEC_PileUp":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_Relative":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_AbsoluteMisc":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		"JEC_PileUp":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_Relative":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_AbsoluteMisc":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
 
-		"JEC_PileUpDataMC":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtRef":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtBB":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtEC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtEC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_PileUpPtHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		"JEC_PileUpDataMC":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_PileUpPtRef":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_PileUpPtBB":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_PileUpPtEC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_PileUpPtEC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_PileUpPtHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
 		
-		"JEC_RelativeJEREC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeJEREC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeJERHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeFSR":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeStatFSR":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeStatEC":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativeStatHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtBB":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtEC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtEC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_RelativePtHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
+		"JEC_RelativeJEREC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativeJEREC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativeJERHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativeFSR":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativeStatFSR":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativeStatEC":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativeStatHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativePtBB":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativePtEC1":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativePtEC2":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_RelativePtHF":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
 		
-		"JEC_AbsoluteScale":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_AbsoluteMPFBias":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_AbsoluteStat":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_SinglePionECAL":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_SinglePionHCAL":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_Fragmentation":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_TimePtEta":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF'],
-		"JEC_FlavorQCD":['ZH','ggZH','DYlight','DY2b','DY1b','TT','VVLF']}
+		"JEC_AbsoluteScale":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_AbsoluteMPFBias":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_AbsoluteStat":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_SinglePionECAL":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_SinglePionHCAL":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_Fragmentation":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_TimePtEta":['ZH','ggZH','DYlight','DY2b','DY1b','TT'],
+		"JEC_FlavorQCD":['ZH','ggZH','DYlight','DY2b','DY1b','TT']}
 
 		
 		
@@ -563,6 +567,8 @@ systematicsnaming: {
 systematicsnaming_low:  <!LimitGeneral|systematicsnaming!>
 #systematicsnaming_low:  <!LimitGeneral|systematicsnamingLow!>
 
+systematicsnaming_med:  <!LimitGeneral|systematicsnaming!>
+
 systematicsnaming_high:  <!LimitGeneral|systematicsnaming!>
 #systematicsnaming_high:  <!LimitGeneral|systematicsnamingHigh!>
 
@@ -678,8 +684,9 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
         'Z2bHT600to800_ext1':'DY2b','Z2bHT600to800_ext2':'DY2b','Z2bHT600to800_ext3':'DY2b','Z2bHT600to800_ext4':'DY2b','Z2bHT600to800_ext5':'DY2b','Z2bHT600to800_ext6':'DY2b',
 	'Z2b_Bjets_Vpt100to200':'DY2b','Z2b_Bjets_Vpt200toInf':'DY2b','Z2b_Bjets_Vpt100to200_ext2':'DY2b','Z2b_Bjets_Vpt200toInf_ext2':'DY2b',
         'Z2b_DY1J_10to50':'DY2b', 'Z2b_DY2J_10to50':'DY2b', 'Z2b_DY3J_10to50':'DY2b',
+	'WZb':'DYC',
 	'ZZlight':'VVLF', 'WZlight':'VVLF','ZZlight_2L2Q':'VVLF','ZZlight_2L2Q_ext1':'VVLF', 'ZZlight_2L2Q_ext2':'VVLF', 'ZZlight_2L2Q_ext3':'VVLF',
-        'ZZb':'VVHF', 'WZb':'VVHF','ZZb_2L2Q':'VVHF','ZZb_2L2Q_ext1':'VVHF', 'ZZb_2L2Q_ext2':'VVHF', 'ZZb_2L2Q_ext3':'VVHF',
+        'ZZb_2L2Q_ext1':'VVHF', 'ZZb_2L2Q_ext2':'VVHF', 'ZZb_2L2Q_ext3':'VVHF',
         'ttbar':'TT','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT',\
         'ST_s':'ST','ST_t':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST', 'ST_t_antitop':'ST',
         'Zee':'Data','Zuu':'Data'}
@@ -710,6 +717,7 @@ InUse: ['lumi_13TeV', 'pdf_qqbar', 'pdf_gg', 'QCDscale_VH', 'QCDscale_ttbar','QC
 InUse_HighPt: <!Datacard|InUse!> + ['QCDscale_VH_ggZHacceptance_highPt']
 InUse_LowPt : <!Datacard|InUse!> + ['QCDscale_VH_ggZHacceptance_lowPt']
 InUse_cr    : <!Datacard|InUse!>
+InUse_MedPt : <!Datacard|InUse!>
 
 #InUse_cr: []
 
@@ -750,6 +758,8 @@ CMS_trigger_m = {'type':'lnN', 'ZH':1.01,'ZH125':1.01,'DYlight':1.04,'DY1b':1.04
 rateParams: ['SF_TT_norm_Zll','SF_Zj1b_norm_Zll','SF_Zj2b_norm_Zll','SF_Zj0b_norm_Zll']
 
 rateParams_low: ['SF_TT_norm_low_Zll','SF_Zj1b_norm_low_Zll','SF_Zj2b_norm_low_Zll','SF_Zj0b_norm_low_Zll']
+
+rateParams_med: ['SF_TT_norm_low_Zll','SF_Zj1b_norm_low_Zll','SF_Zj2b_norm_low_Zll','SF_Zj0b_norm_low_Zll']
 
 rateParams_high:['SF_TT_norm_high_Zll','SF_Zj1b_norm_high_Zll','SF_Zj2b_norm_high_Zll','SF_Zj0b_norm_high_Zll']
 
@@ -792,8 +802,17 @@ bdt: gg_plus_ZH125_highZpt.nominal
 vv_bdt_low : VV_bdt_lowZpt.nominal
 vv_bdt_high: VV_bdt_highZpt.nominal
 
-#vv_bdt_low : VV_bdt.nominal
-#vv_bdt_high: VV_bdt.nominal
+crVarLow : gg_plus_ZH125_lowZpt.nominal
+crVarHigh: gg_plus_ZH125_highZpt.nominal
+
+bdtVarLow : HCMVAV2_reg_mass 
+bdtVarHigh: HCMVAV2_reg_mass
+
+#crVarLow : gg_plus_ZH125_lowZpt.nominal
+#crVarHigh: gg_plus_ZH125_highZpt.nominal
+
+mjjVar: HCMVAV2_reg_mass
+
 
 
 [dc:BDT_Zee]
@@ -857,7 +876,38 @@ doBin     : True
 
 
 [dc:BDT_Zee_high_Zpt]
-var       : gg_plus_ZH125_highZpt.nominal
+#var       : gg_plus_ZH125_highZpt.nominal
+var       : <!Datacard|bdtVarHigh!>
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : <!LimitGeneral|BDTrange!>
+dcName    : BDT_Zee_HighPt
+cut       : bdt_Zee_high_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZeeHighPt_13TeV
+data      : Zee
+type      : BDT
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:BDT_Zuu_high_Zpt_TightBDTcut]
+#var       : gg_plus_ZH125_highZpt.nominal
+var       : <!Datacard|bdtVarHigh!>
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : <!LimitGeneral|BDTrange!>
+dcName    : BDT_Zuu_HighPt
+cut       : bdt_Zuu_high_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZuuHighPt_13TeV
+data      : Zuu
+type      : BDT
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:BDT_Zee_high_Zpt]
+#var       : gg_plus_ZH125_highZpt.nominal
+var       : <!Datacard|bdtVarHigh!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_HighPt
@@ -871,7 +921,8 @@ doSYS     : True
 doBin     : True
 
 [dc:BDT_Zuu_high_Zpt]
-var       : gg_plus_ZH125_highZpt.nominal
+#var       : gg_plus_ZH125_highZpt.nominal
+var       : <!Datacard|bdtVarHigh!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_HighPt
@@ -886,7 +937,8 @@ doBin     : True
 
 
 [dc:BDT_Zee_low_Zpt]
-var       : gg_plus_ZH125_lowZpt.nominal
+#var       : gg_plus_ZH125_lowZpt.nominal
+var       : <!Datacard|bdtVarLow!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zee_LowPt
@@ -900,7 +952,8 @@ doSYS     : True
 doBin     : True
 
 [dc:BDT_Zuu_low_Zpt]
-var       : gg_plus_ZH125_lowZpt.nominal
+#var       : gg_plus_ZH125_lowZpt.nominal
+var       : <!Datacard|bdtVarLow!>
 wsVarName : <!LimitGeneral|BDToutname!>
 range     : <!LimitGeneral|BDTrange!>
 dcName    : BDT_Zuu_LowPt
@@ -1016,6 +1069,128 @@ bdt_split : 0.6
 doSYS     : True
 doBin     : True
 
+
+
+### Mjj ###
+[dc:Mjj_Zee_lowZpt]
+var       : HCMVAV2_reg_mass
+#var: gg_plus_ZH125_lowZpt.nominal
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zee_LowPt
+cut       : mjj_Zee_low_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZeeLowPt_13TeV
+data      : Zee
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+
+[dc:Mjj_Zee_medZpt]
+var       : HCMVAV2_reg_mass
+#var: gg_plus_ZH125_lowZpt.nominal
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zee_MedPt
+cut       : mjj_Zee_med_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZeeMedPt_13TeV
+data      : Zee
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:Mjj_Zee_highZpt]
+var       : HCMVAV2_reg_mass
+#var: gg_plus_ZH125_highZpt.nominal
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zee_HighPt
+cut       : mjj_Zee_high_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZeeHighPt_13TeV
+data      : Zee
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:Mjj_Zuu_lowZpt]
+var       : HCMVAV2_reg_mass
+#var: gg_plus_ZH125_lowZpt.nominal
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zuu_LowPt
+cut       : mjj_Zuu_low_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZuuLowPt_13TeV
+data      : Zuu
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+
+[dc:Mjj_Zuu_medZpt]
+var       : HCMVAV2_reg_mass
+#var: gg_plus_ZH125_lowZpt.nominal
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zuu_MedPt
+cut       : mjj_Zuu_med_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZuuMedPt_13TeV
+data      : Zuu
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:Mjj_Zuu_highZpt]
+var       : HCMVAV2_reg_mass
+#var: gg_plus_ZH125_highZpt.nominal
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zuu_HighPt
+cut       : mjj_Zuu_high_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZuuHighPt_13TeV
+data      : Zuu
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:Mjj_Zuu_high200Zpt]
+var       : HCMVAV2_reg_mass
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zuu_High200Pt
+cut       : mjj_Zuu_high200_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZuuHigh200Pt_13TeV
+data      : Zuu
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
+
+[dc:Mjj_Zee_high200Zpt]
+var       : HCMVAV2_reg_mass
+wsVarName : Mjj
+range     : <!LimitGeneral|Mjjrange!>
+dcName    : Mjj_Zee_High200Pt
+cut       : mjj_Zee_high200_Zpt
+signal    : ZH125 ggZH125
+dcBin     : ZeeHigh200Pt_13TeV
+data      : Zee
+type      : mjj
+bdt_split : 0.6
+doSYS     : True
+doBin     : True
 
 # ====== Control Regions =======
 
@@ -1386,6 +1561,19 @@ type      : VV_cr
 doSYS     : True
 doBin     : True
 
+[dc:Zhf_low_Zuu_Mjj]
+var       : <!LimitGeneral|CRVar!>
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : <!LimitGeneral|CRrange!>
+dcName    : Zhf_low_Zuu
+cut       : Zhf_low_Zuu_VV
+signal    : ZH125 ggZH125
+dcBin     : Zhf_low_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
 [dc:ttbar_low_Zuu_VV]
 var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
@@ -1423,6 +1611,19 @@ signal    : ZZb_2L2Q_ext1 ZZb_2L2Q_ext2 ZZb_2L2Q_ext3
 dcBin     : Zhf_low_Zee
 data      : Zee
 type      : VV_cr
+doSYS     : True
+doBin     : True
+
+[dc:Zhf_low_Zee_Mjj]
+var       : <!LimitGeneral|CRVar!>
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : <!LimitGeneral|CRrange!>
+dcName    : Zhf_low_Zee
+cut       : Zhf_low_Zee_VV
+signal    : ZH125 ggZH125
+dcBin     : Zhf_low_Zee
+data      : Zee
+type      : cr
 doSYS     : True
 doBin     : True
 
@@ -1466,6 +1667,19 @@ type      : VV_cr
 doSYS     : True
 doBin     : True
 
+[dc:Zhf_high_Zuu_Mjj]
+var       : <!LimitGeneral|CRVar!>
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : <!LimitGeneral|CRrange!>
+dcName    : Zhf_high_Zuu
+cut       : Zhf_high_Zuu_VV
+signal    : ZH125 ggZH125
+dcBin     : Zhf_high_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
 [dc:ttbar_high_Zuu_VV]
 var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
@@ -1506,6 +1720,19 @@ type      : VV_cr
 doSYS     : True
 doBin     : True
 
+[dc:Zhf_high_Zee_Mjj]
+var       : <!LimitGeneral|CRVar!>
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : <!LimitGeneral|CRrange!>
+dcName    : Zhf_high_Zee
+cut       : Zhf_high_Zee_VV
+signal    : ZH125 ggZH125
+dcBin     : Zhf_high_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+
 [dc:ttbar_high_Zee_VV]
 var       : <!LimitGeneral|CRVar!>
 wsVarName : <!LimitGeneral|BDToutname!>
@@ -1519,6 +1746,169 @@ type      : VV_cr
 doSYS     : True
 doBin     : True
 
+
+#############################################################3
+# For BDT CR postFit plots
+crVarLow:
+[dc:Zlf_low_Zuu_BDT]
+var       : gg_plus_ZH125_lowZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zlf_low_Zuu
+cut       : Zlf_low_Zuu
+signal    : ZH125 ggZH125
+dcBin     : Zlf_low_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:Zhf_low_Zuu_BDT]
+var       : gg_plus_ZH125_lowZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zhf_low_Zuu
+cut       : Zhf_low_Zuu
+signal    : ZH125 ggZH125
+dcBin     : Zhf_low_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:ttbar_low_Zuu_BDT]
+var       : gg_plus_ZH125_lowZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : ttbar_low_Zuu
+cut       : ttbar_low_Zuu
+signal    : ZH125 ggZH125
+dcBin     : ttbar_low_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
+
+[dc:Zlf_low_Zee_BDT]
+var       : gg_plus_ZH125_lowZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zlf_low_Zee
+cut       : Zlf_low_Zee
+signal    : ZH125 ggZH125
+dcBin     : Zlf_low_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:Zhf_low_Zee_BDT]
+var       : gg_plus_ZH125_lowZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zhf_low_Zee
+cut       : Zhf_low_Zee
+signal    : ZH125 ggZH125
+dcBin     : Zhf_low_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:ttbar_low_Zee_BDT]
+var       : gg_plus_ZH125_lowZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : ttbar_low_Zee
+cut       : ttbar_low_Zee
+signal    : ZH125 ggZH125
+dcBin     : ttbar_low_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+
+
+[dc:Zlf_high_Zuu_BDT]
+var       : gg_plus_ZH125_highZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zlf_high_Zuu
+cut       : Zlf_high_Zuu
+signal    : ZH125 ggZH125
+dcBin     : Zlf_high_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:Zhf_high_Zuu_BDT]
+var       : gg_plus_ZH125_highZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zhf_high_Zuu
+cut       : Zhf_high_Zuu
+signal    : ZH125 ggZH125
+dcBin     : Zhf_high_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:ttbar_high_Zuu_BDT]
+var       : gg_plus_ZH125_highZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : ttbar_high_Zuu
+cut       : ttbar_high_Zuu
+signal    : ZH125 ggZH125
+dcBin     : ttbar_high_Zuu
+data      : Zuu
+type      : cr
+doSYS     : True
+doBin     : True
+
+
+[dc:Zlf_high_Zee_BDT]
+var       : gg_plus_ZH125_highZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zlf_high_Zee
+cut       : Zlf_high_Zee
+signal    : ZH125 ggZH125
+dcBin     : Zlf_high_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:Zhf_high_Zee_BDT]
+var       : gg_plus_ZH125_highZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : Zhf_high_Zee
+cut       : Zhf_high_Zee
+signal    : ZH125 ggZH125
+dcBin     : Zhf_high_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+
+[dc:ttbar_high_Zee_BDT]
+var       : gg_plus_ZH125_highZpt.nominal
+wsVarName : <!LimitGeneral|BDToutname!>
+range     : 15,-1,1
+dcName    : ttbar_high_Zee
+cut       : ttbar_high_Zee
+signal    : ZH125 ggZH125
+dcBin     : ttbar_high_Zee
+data      : Zee
+type      : cr
+doSYS     : True
+doBin     : True
+########################################################3
 
 [dc:Zlf]
 var       : <!LimitGeneral|CRVar!>

@@ -58,8 +58,10 @@ TH1* make_rebinned_ratios(TH1* theHist, TH1* theReference, double maxUncertainty
   std::vector<double>                   sumDen    (1, 0);
   std::vector<double>                   sumDenErr2(1, 0);
 
-  ////std::cout << std::endl << rebinAxis->GetXmin() << " ( " << rebinAxis->GetBinLowEdge(firstBin) << " , ";
-  ////std::cout << rebinAxis->GetBinUpEdge(lastBin) << " ) " << rebinAxis->GetXmax() << std::endl;
+  std::cout << "Ratio Debug\n" << endl;
+  std::cout << std::endl << rebinAxis->GetXmin() << " ( " << rebinAxis->GetBinLowEdge(firstBin) << " , ";
+  std::cout << rebinAxis->GetBinUpEdge(lastBin) << " ) " << rebinAxis->GetXmax() << std::endl;
+
   for (int bin = firstBin; bin <= lastBin; ++bin) {
     // Find a filled block
     sumDen    .back()  += denominator->GetBinContent(bin);
@@ -73,14 +75,18 @@ TH1* make_rebinned_ratios(TH1* theHist, TH1* theReference, double maxUncertainty
       double            numErr2         = pow(hist[iHist]->GetBinError(bin), 2);
       sumNum    .back()[iHist]         += num;
       sumNumErr2.back()[iHist]         += numErr2;
-
+      std::cout << " + Data[" << previousEdge << " , " << rebinAxis->GetBinUpEdge(bin) << "] = " << sumNum.back()[iHist] << std::endl;
       const double      error2          = ratioError2(sumNum.back()[iHist],sumNumErr2.back()[iHist],sumDen.back(),sumDenErr2.back(),useReferenceError);
       aboveThreshold   &= (sqrt(error2) * sumDen.back() < maxUncertainty * sumNum.back()[iHist]);
       if (maxUncertainty > 100.) aboveThreshold = true;
     } // end loop over histograms
 
+    // TEST
+    aboveThreshold = true;
+
+
     if (aboveThreshold && bin < lastBin) {
-      //std::cout << " + [" << previousEdge << " , " << rebinAxis->GetBinUpEdge(bin) << "] = " << sumDen.back() << std::endl;
+      std::cout << " + [" << previousEdge << " , " << rebinAxis->GetBinUpEdge(bin) << "] = " << sumDen.back() << std::endl;
       binEdges.push_back(previousEdge);
       sumNum  .push_back(zeros);        sumNumErr2.push_back(zeros);
       sumDen  .push_back(0);            sumDenErr2.push_back(0);
@@ -92,8 +98,8 @@ TH1* make_rebinned_ratios(TH1* theHist, TH1* theReference, double maxUncertainty
                                                           binEdges.push_back(rebinAxis->GetBinUpEdge (lastBin ));
   if (lastBin < binBound - 1)                             binEdges.push_back(rebinAxis->GetBinLowEdge(binBound));
 
-  ////for (unsigned i=0; i<binEdges.size(); ++i)  std::cout << " " << binEdges[i];  std::cout << std::endl;
-  ////for (unsigned i=0; i<sumDen.size(); ++i)    std::cout << " " << sumDen[i];    std::cout << std::endl;
+  for (unsigned i=0; i<binEdges.size(); ++i)  std::cout << " " << binEdges[i];  std::cout << std::endl;
+  for (unsigned i=0; i<sumDen.size(); ++i)    std::cout << " " << sumDen[i];    std::cout << std::endl;
 
 
   // Make ratios according to new bin edges
@@ -118,6 +124,9 @@ TH1* make_rebinned_ratios(TH1* theHist, TH1* theReference, double maxUncertainty
     TArrayD*            refError2          = refError->GetSumw2();
     for (unsigned index = 0, bin = 1 + (firstBin > 1); index < numContent; ++index, ++bin) {
       if (sumDen[index] == 0)           continue;
+
+      std::cout << "Bin #" << index << ", Denom: "<< sumDen[index] << " Num: " << sumNum[index][iHist] << endl;
+            
       ratio ->SetBinContent(bin, sumNum[index][iHist] / sumDen[index]);
       error2->SetAt(ratioError2(sumNum[index][iHist],sumNumErr2[index][iHist],sumDen[index],sumDenErr2[index],useReferenceError), bin);
       if (sumNum[index][iHist] == 0 && sumDen[index] == 0){

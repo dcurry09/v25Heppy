@@ -1,3 +1,4 @@
+
 import sys,os
 import pickle
 import ROOT 
@@ -127,12 +128,12 @@ class HistoMaker:
                 treeCut='%s'%(options['cut'])
                 
             # Add the JEC/JER sys cuts by hand
-            if 'gg_plus_' in treeVar or 'VV' in treeVar:
-                if '_up' in treeVar or '_down' in treeVar:
-                    if options['sys_cut']:
-                        treeCut='%s'%(options['sys_cut'])
-                        print treeVar
-                        print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
+            #if 'gg_plus_' in treeVar or 'VV' in treeVar:
+            if 'Up' in treeVar or 'Down' in treeVar:
+                if options['sys_cut']:
+                    treeCut='%s'%(options['sys_cut'])
+                    print treeVar
+                    print '\n\t!!!! JER/JEC Tree SYS Cut:', treeCut
 
             if 'minCMVA' in treeVar:
                 if options['sys_cut']:
@@ -146,7 +147,7 @@ class HistoMaker:
             ##############################
             #Add any special weights here
             if 'Zudsg' in job.name or 'Zcc' in job.name or 'Z1b' in job.name or 'Z2b' in job.name:
-                weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
+                #weightF = weightF+'*VHbb::LOtoNLOWeightBjetSplitEtabb(abs(Jet_eta[hJCidx[0]]-Jet_eta[hJCidx[1]]),Sum$(GenJet_pt>20 && abs(GenJet_eta)<2.4 && GenJet_numBHadrons))'
                 weightF = weightF+'*VHbb::ptWeightEWK_Zll(nGenVbosons[0], GenVbosons_pt[0], VtypeSim, nGenTop, nGenHiggsBoson)'
                 weightF = weightF+'*('+job.specialweight+')'
             if '2L2Q' in job.name:
@@ -164,20 +165,37 @@ class HistoMaker:
                 
             # For high/low SF
             if str(self.config.get('Plot_general', 'doSF')) == 'True':
-                                              
-                if 'V_new_pt >= 50' in treeCut:
-                    print '\n\t !!! Adding RateParam !!!'
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.01)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.89)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.10)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.0065)'
+                
+                # PAS SFs
+                # if 'V_new_pt >= 50' in treeCut or 'V_new_pt > 50' in treeCut:
+                #     print '\n\t !!! Adding RateParam !!!'
+                #     if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.01)'
+                #     if 'Z1b' in job.name: weightF = weightF+'*(0.98)'
+                #     if 'Z2b' in job.name: weightF = weightF+'*(1.09)'
+                #     if 'ttbar' in job.name: weightF = weightF+'*(1.00)'
                     
-                if 'V_new_pt >= 150' in treeCut:
+                # if 'V_new_pt >= 150' in treeCut or 'V_new_pt > 150' in treeCut:
+                #     print '\n\t !!! Adding RateParam !!!'
+                #     if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.02)'
+                #     if 'Z1b' in job.name: weightF = weightF+'*(1.02)'
+                #     if 'Z2b' in job.name: weightF = weightF+'*(1.28)'
+                #     if 'ttbar' in job.name: weightF = weightF+'*(1.04)'
+                
+                # Zll only SFs
+                if 'V_new_pt >= 50' in treeCut or 'V_new_pt > 50' in treeCut:
                     print '\n\t !!! Adding RateParam !!!'
-                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(1.04)'
-                    if 'Z1b' in job.name: weightF = weightF+'*(0.59)'
-                    if 'Z2b' in job.name: weightF = weightF+'*(1.437)'
-                    if 'ttbar' in job.name: weightF = weightF+'*(1.0309)'
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(0.97226)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.98195)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.158)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.0435)'
+                    
+                if 'V_new_pt >= 150' in treeCut or 'V_new_pt > 150' in treeCut:
+                    print '\n\t !!! Adding RateParam !!!'
+                    if 'Zudsg' in job.name or 'Zcc' in job.name: weightF = weightF+'*(0.99019)'
+                    if 'Z1b' in job.name: weightF = weightF+'*(0.94770)'
+                    if 'Z2b' in job.name: weightF = weightF+'*(1.3366)'
+                    if 'ttbar' in job.name: weightF = weightF+'*(1.1055)'
+
 
 
 
@@ -234,7 +252,7 @@ class HistoMaker:
                     #TD = ROOT.treedraw()
                     #hTree = TD.TreeDraw(CuttedTree, hTree, '%s>>%s' %(treeVar,job.name), drawoption)
                     CuttedTree.Draw('%s>>%s' %(treeVar,job.name), drawoption, "goff,e")
-
+                    
                     full = True
 
                 else:
@@ -454,8 +472,9 @@ class HistoMaker:
             if not TotR <= 0 and not ErrorR == 0:
                 rel=ErrorR/TotR
                 #print rel
-        #print 'upper bin is %s'%binR
-
+        print 'upper bin is %s'%binR
+        print 'BDT value at bin is ', totalBG.GetBinCenter(binR)
+        
         #---- from left
         rel=1.0
         while rel > tolerance:
@@ -469,21 +488,25 @@ class HistoMaker:
                 #print rel
         #it's the lower edge
         binL+=1
-        #print 'lower bin is %s'%binL
+        print 'lower bin is %s'%binL
+        print 'BDT value at bin is ', totalBG.GetBinCenter(binL)
         
         inbetween=binR-binL
         stepsize=int(inbetween)/(int(self.norebin_nBins)-2)
         modulo = int(inbetween)%(int(self.norebin_nBins)-2)
 
-        #print 'stepsize %s'% stepsize
-        #print 'modulo %s'%modulo
+        print 'stepsize %s'% stepsize
+        print 'modulo %s'%modulo
         binlist=[binL]
         for i in range(0,int(self.norebin_nBins)-3):
             binlist.append(binlist[-1]+stepsize)
         binlist[-1]+=modulo
         binlist.append(binR)
         binlist.append(self.rebin_nBins+1)
+        
         print 'binning set to %s'%binlist
+        print 'binlist BDT values:', array('d',[-1.0]+[totalBG.GetBinCenter(i) for i in binlist])
+                
         print 'bin low edge array:', array('d',[self.xMin]+[totalBG.GetBinLowEdge(i) for i in binlist])
         #print array('d',[-1.0]+[totalBG.GetBinLowEdge(i) for i in binlist])
         

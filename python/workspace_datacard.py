@@ -98,9 +98,6 @@ doBin       = config.get('dc:%s'%var,'doBin')
 # for Variable BDT bins
 Custom_BDT_bins = eval(config.get('LimitGeneral','Custom_BDT_bins'))
 
-# CHange setup for VV analysis
-if 'VV' in anType:
-    setup = ['VVHF','VVLF','ZH','ggZH','DYlight','DY1b','DY2b','TT','ST']
 
 #Systematics:
 if config.has_option('LimitGeneral','addSample_sys'):
@@ -113,13 +110,14 @@ else:
 #find out if BDT or MJJ:
 bdt = False
 mjj = False
-cr = False
+cr  = False
 
 if 'BDT' in str(anType):
     bdt = True
     systematics = eval(config.get('LimitGeneral','sys_BDT'))
-elif str(anType) == 'Mjj':
+elif str(anType) == 'mjj':
     mjj = True
+    bdt = False
     systematics = eval(config.get('LimitGeneral','sys_Mjj'))
 elif 'cr' in str(anType):
     cr = True
@@ -128,6 +126,20 @@ else:
     bdt = True
     systematics = eval(config.get('LimitGeneral','sys_BDT'))
 
+
+if 'gg_plus' in treevar:
+    bdt = True
+    cr  = False
+
+if 'mass' in treevar:
+    bdt = True
+    cr  = False
+    mjj = True
+
+
+# CHange setup for VV analysis
+if 'VV' in anType:
+    setup = ['VVHF','VVLF','ZH','ggZH','DYlight','DY1b','DY2b','TT','ST']
 
 
 # Turn off Systematics if selected
@@ -174,7 +186,7 @@ for syst in ["JES", "LF", "HF", "LFStats1", "LFStats2", "HFStats1", "HFStats2", 
             systematicsnaming["btagWeightCSV_"+syst+"_pt"+str(ipt)+"_eta"+str(ieta)] = 'CMS_vhbb_bTagWeight'+syst+'_pt'+str(ipt)+'_eta'+str(ieta)
 
 
-# # For test removing JEC on certain process
+# # for test removing JEC on certain process
 #if 'tt' in ROOToutname or 'TT' in ROOToutname:
 #   for sys in systematics:
 #       if 'btagWeight' in sys:
@@ -270,6 +282,16 @@ if 'Jet' in treevar:
         print '@WARNING: Changing rebin_active to false since you are running for control region.'
    rebin_active = False
 
+if mjj:
+    if rebin_active:
+        print '@WARNING: Changing rebin_active to false since you are running for Mjj'
+    rebin_active = False
+
+if cr:
+    if rebin_active:
+        print '@WARNING: Changing rebin_active to false since you are running for Mjj'
+    rebin_active = False
+
 # ignore stat shapes
 ignore_stats = eval(config.get('LimitGeneral','ignore_stats'))
 
@@ -294,8 +316,8 @@ elif 'low' in ROOToutname or 'Low' in ROOToutname:
     pt_region = 'LowPt'
 elif 'ATLAS' in ROOToutname:
     pt_region = 'HighPt'
-elif 'MJJ' in ROOToutname:
-    pt_region = 'HighPt' 
+#elif 'MJJ' in ROOToutname:
+#    pt_region = 'HighPt' 
 else:
     print "Unknown Pt region"
     pt_region = 'AllPt'
@@ -519,7 +541,7 @@ for syst in systematics:
             #         _weight   = _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2HighForward%s'%(Q))
             #     else: _weight.replace('*bTagWeightCMVAv2_Moriond', '*bTagWeightCMVAV2_Moriond_cErr2%s'%(Q))
                 
-
+ 
         if 'JER' in syst or 'JEC' in syst:
             JECsys = {"JER",
                       "PileUpDataMC",
@@ -545,8 +567,13 @@ for syst in systematics:
             else: syst_temp = syst
             print 'New JEC SYST:', syst_temp
             if bdt == True:
-                _treevar = treevar.replace('.nominal','.%s_%s'%(syst_temp,Q.lower()))
-
+                
+                if not mjj:
+                    _treevar = treevar.replace('.nominal','.%s_%s'%(syst_temp,Q))
+                if mjj:
+                    print sys,Q
+                    _treevar = 'HCMVAV2_reg_mass_corr'+syst_temp+Q
+                    
                 new_Hcut90  = 'HCMVAV2_reg_mass>90.'
                 new_Hcut150 = 'HCMVAV2_reg_mass<150.'
                 new_Jcut    = 'Jet_pt_reg[hJCMVAV2idx[0]]>15&Jet_pt_reg[hJCMVAV2idx[1]]>15'
@@ -569,7 +596,7 @@ for syst in systematics:
                     _cut = _cut.replace('HCMVAV2_reg_mass > 90.', '('+new_Hcut90+')')
                     _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.',new_Jcut)
                     
-                elif 'VV' in anType:
+                elif ('VV' in anType or mjj) and not bdt:
                     _cut = _cut.replace('HCMVAV2_reg_mass < 160.', '('+new_Hcut160+')')
                     _cut = _cut.replace('HCMVAV2_reg_mass > 60.', '('+new_Hcut60+')')
                     _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.',new_Jcut)
@@ -583,12 +610,18 @@ for syst in systematics:
 
             # Now for CR
             else:
+                
+                #if mjj: continue
+                
+                if mjj:
+                    _treevar = 'HCMVAV2_reg_mass_corr'+syst_temp+Q
+                    
                 new_Hcut90  = 'HCMVAV2_reg_mass<90.'
                 new_Hcut150 = 'HCMVAV2_reg_mass>150.'
                 new_Hcut60  = 'HCMVAV2_reg_mass>60.'
                 new_Hcut160 = 'HCMVAV2_reg_mass<160.'
                 new_Jcut    = 'Jet_pt_reg[hJCMVAV2idx[0]]>15&Jet_pt_reg[hJCMVAV2idx[1]]>15'
-
+                
                 # New Hpt cut
                 new_low_Hpt_cut  = '(HCMVAV2_reg_pt>=50&HCMVAV2_reg_pt<150)'
                 new_high_Hpt_cut = 'HCMVAV2_reg_pt>=50'
@@ -602,14 +635,14 @@ for syst in systematics:
                         new_low_Hpt_cut = new_low_Hpt_cut+'||(HCMVAV2_reg_pt_corr'+sys+q+'>=50&HCMVAV2_reg_pt_corr'+sys+q+'<150)'
                         new_high_Hpt_cut= new_low_Hpt_cut+'||HCMVAV2_reg_pt_corr'+sys+q+'>=50'
 
-                if 'VV' not in anType:
+                if 'VV' not in anType and not mjj:
                     if 'Zhf' in name: ## (<!ZHbb|H_sel!>_reg_mass < 90. || <!ZHbb|H_sel!>_reg_mass > 150.)
                         _cut = _cut.replace('HCMVAV2_reg_mass > 150.', '('+new_Hcut150+')')
                         _cut = _cut.replace('HCMVAV2_reg_mass < 90.', '('+new_Hcut90+')')
                         _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
                     else:
                         _cut = _cut.replace('Jet_pt_reg[hJCMVAV2idx[0]] > 20. & Jet_pt_reg[hJCMVAV2idx[1]] > 20.', new_Jcut)
-
+                
                 elif 'VV' in anType:
                     if 'Zhf' in name: ## (<!ZHbb|H_sel!>_reg_mass < 60. || <!ZHbb|H_sel!>_reg_mass > 160.)
                         _cut = _cut.replace('HCMVAV2_reg_mass > 160.', '('+new_Hcut160+')')
@@ -893,10 +926,11 @@ if not ignore_stats:
                 print '\n\t-----> Making shapes for:',job
                 #if 'ST' in job: continue
                 
-                if not bdt:
+                if cr:
                     print '\n----> No Bin-by-Bin for CR...'
                     continue
-                
+                            
+
                 if hist.GetBinContent(bin) > 0.:
                     #print '\n\t\t-----> Bin content for job is > 0'
                     if hist.GetBinError(bin)/sqrt(hist.GetBinContent(bin)) > threshold and hist.GetBinContent(bin) >= 1.:
@@ -1167,7 +1201,7 @@ for DCtype in ['TH']:
     elif 'High' in pt_region:
         rateParams = eval(config.get('Datacard','rateParams_high'))
     else:
-        rateParams = eval(config.get('Datacard','rateParams'))
+        rateParams = eval(config.get('Datacard','rateParams_low'))
 
     #if treevar == 'VV_bdt.nominal':
     #    rateParams = eval(config.get('Datacard','rateParams'))

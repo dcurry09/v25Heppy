@@ -59,21 +59,29 @@ pt_log_control_list = ['Zlf_Zuu_log_lowPt', 'Zlf_Zuu_log_medPt', 'Zlf_Zuu_log_hi
 
 # BDT Regions
 # signal regions for Z_pt cuts  
-signal_list = ['bdt_Zuu_low_Zpt', 'bdt_Zuu_high_Zpt',
-               'bdt_Zee_low_Zpt', 'bdt_Zee_high_Zpt'
-               #'VV_bdt_Zee_low', 'VV_bdt_Zee_high',
-               #'VV_bdt_Zuu_low', 'VV_bdt_Zuu_high'
-               ]
+signal_list = [
+     #'bdt_Zuu_low_Zpt', 'bdt_Zee_low_Zpt',
+     'bdt_Zuu_high_Zpt', 'bdt_Zee_high_Zpt'
+     
+     #'bdt_Zee_high_Zpt_TightBDTcut', 'bdt_Zuu_high_Zpt_TightBDTcut'
+               
+     #'VV_bdt_Zee_low', 'VV_bdt_Zee_high',
+     #'VV_bdt_Zuu_low', 'VV_bdt_Zuu_high'
+     ]
 
 vv_signal_list = ['VV_bdt_Zee_low', 'VV_bdt_Zee_high',
                   'VV_bdt_Zuu_low', 'VV_bdt_Zuu_high']
 
+
+mjj_list = ['mjj_Zee_low_Zpt', 'mjj_Zee_med_Zpt', 'mjj_Zee_high_Zpt',
+            'mjj_Zuu_low_Zpt', 'mjj_Zuu_med_Zpt', 'mjj_Zuu_high_Zpt']
+
 # Jet Regression Regions
 #reg_list = ['jet_regression_Zhf']
 
-temp_list = ['bdt_Zuu_high_Zpt']
-
-#temp_list = ['Zhf']
+#temp_list = ['bdt_Zee', 'bdt_Zuu']
+#temp_list = mjj_list
+temp_list = ['Zhf_high_Zuu']
 
 
 ##### choose which lists to loop over ####

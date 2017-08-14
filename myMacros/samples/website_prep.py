@@ -9,11 +9,10 @@ from matplotlib import interactive
 #from ROOT import *
 import multiprocessing
 
-
 # Which main directory:
 # https://dcurry.web.cern.ch/dcurry/xxxx
-#main_dir  = '4_15_TEST11'
-main_dir = 'SR_Zuu_HighPt_5_18'
+main_dir = '8_3_withoutNLO_withSF_v1'
+#main_dir = '8_3_SR_ZllSFs_v1'
 
 
 
@@ -43,6 +42,9 @@ control_list = ['Zlf_high_Zuu', 'Zhf_high_Zuu', 'ttbar_high_Zuu',
                 'Zhf',
                 'bdt_Zuu_low_Zpt','bdt_Zuu_high_Zpt',
                 'bdt_Zee_low_Zpt','bdt_Zee_high_Zpt',
+                'mjj_Zee_low_Zpt', 'mjj_Zee_med_Zpt', 'mjj_Zee_high_Zpt',
+                'mjj_Zuu_low_Zpt', 'mjj_Zuu_med_Zpt', 'mjj_Zuu_high_Zpt',
+                'bdt_Zee_high_Zpt_TightBDTcut','bdt_Zuu_high_Zpt_TightBDTcut'
                 ]
 
 regr_list = ['jet_regression_Zhf']
@@ -322,7 +324,14 @@ for dir in region_list:
         temp_string5 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
 
 
-
+    if 'mjj' in dir:
+         t1 = 'rm -r /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir+'/'
+         temp_string2 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string3 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string4 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/.htaccess /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         temp_string5 = 'cp /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/index.php /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'+dir
+         
     #os.system(t1)
     
     #temp_string = 'cp -r /afs/cern.ch/work/d/dcurry/public/v25Heppy/CMSSW_7_4_7/src/VHbb/plots/basic_out/'+dir+' /afs/cern.ch/user/d/dcurry/www/'+main_dir+'/'

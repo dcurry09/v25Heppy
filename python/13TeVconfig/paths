@@ -23,11 +23,13 @@ version: v25/
 #file_source: root://t3dcachedb03.psi.ch:1094//pnfs/psi.ch/cms/trivcat/store/user/perrozzi/VHBBHeppyV21bis/
 
 # ===== Sample Paths ======    
-#samplepath: root://eoscms//eos/cms/
 
-# on UFtrig.  Needs to be updated whenever new samples are downloaded
-#samplepath: root://eoscms//eos/cms/store/user/dcurry/heppy/
-samplepath: /exports/uftrig01a/dcurry/heppy/
+# on Uftrig
+#samplepath: /exports/uftrig01a/dcurry/heppy/
+
+# on Lxplus
+samplepath: root://eoscms//eos/cms/store/user/dcurry/heppy/
+
 
 # tmp2.2.3 post-higgsreview
 t3Private: <!Directories|samplepath!>/files/tmp/
@@ -86,8 +88,8 @@ SYSout: <!Directories|uftrig_storage!>/files/sys_out/
 MVAin : <!Directories|SYSout!>
 #MVAout: <!Directories|uftrig_storage!>/files/MVA_out/
 #MVAout: <!Directories|uftrig_storage!>/files/MVA_out_VV/
-#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
-MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
+MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out/
+#MVAout: <!Directories|uftrig_storage!>/files/btag_MVA_out_VV/
 
 # On which samples to evaluate the MVAon and where to write the resulting trees:
 SPLITin : <!Directories|samplepath!>/env/sys/

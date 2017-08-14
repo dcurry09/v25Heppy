@@ -85,8 +85,8 @@ path = config.get('Directories','plottingSamples')
 
 
 #if os.path.exists("../interface/VHbbNameSpace_h.so"):
-print 'ROOT.gROOT.LoadMacro("../interface/VHbbNameSpace_h.so")'
-ROOT.gROOT.LoadMacro("../interface/VHbbNameSpace_h.so")
+#print 'ROOT.gROOT.LoadMacro("../interface/VHbbNameSpace_h.so")'
+#ROOT.gROOT.LoadMacro("../interface/VHbbNameSpace_h.so")
 
 section='Plot:%s'%region
 
