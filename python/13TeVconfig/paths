@@ -25,10 +25,10 @@ version: v25/
 # ===== Sample Paths ======    
 
 # on Uftrig
-#samplepath: /exports/uftrig01a/dcurry/heppy/
+samplepath: /exports/uftrig01a/dcurry/heppy/
 
 # on Lxplus
-samplepath: root://eoscms//eos/cms/store/user/dcurry/heppy/
+#samplepath: root://eoscms//eos/cms/store/user/dcurry/heppy/
 
 
 # tmp2.2.3 post-higgsreview

@@ -106,9 +106,9 @@ ttbar_list_BDT = ['ttbar_low_Zee_BDT', 'ttbar_high_Zuu_BDT', 'ttbar_low_Zuu_BDT'
 
 # ====================================
 
-#temp_list = ['BDT_Zee_high_Zpt']
+temp_list = bdt_list
 #temp_list = ['Mjj_Zee_highZpt']
-temp_list = mjj_list
+#temp_list = mjj_list
 #temp_list = mjj_Zhf_list
 
 # ==============================================
@@ -124,10 +124,10 @@ temp_list = mjj_list
 datacard_list = temp_list
 
 ##### Directory to save datacards ####
-title = 'Datacards_Mjj_12bin60to180_8_5'
+#title = 'Datacards_Mjj_12bin60to180_8_5'
 #title = 'Datacards_BDT_MjjVar_BDTcut_8_2'
 #title = 'Datacards_Minus08to1_JECfix_7_3'
-#title = 'TEST_8_1'
+title = 'TEST_8_15'
 
 
 sig_dir = 'ZllHbb_SR_'+title
